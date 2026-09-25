@@ -104,6 +104,31 @@
 
 ---
 
+## [2026-09-25] 생활/건강 카테고리 — 단어 연습장 + 도시별 한달살기 비용 카테고리 등록
+
+### 변경 내용
+
+- `categoryToolsMap["life-health"]`에 `word-practice` 카드 추가
+  - CEFR 기준 단계별 단어장 + 퀴즈 (이미 페이지 파일 존재)
+- `categoryToolsMap["life-health"]`에 `monthly-cost` 카드 추가
+  - 세계 주요 도시 월별 생활비 비교 USD 기준 (이미 페이지 파일 존재)
+
+---
+
+## [2026-09-25] saju-pool / daily-fortune / tojung-fortune — 다국어 처리 메시지 로컬라이제이션
+
+### 변경 내용
+
+- `saju-pool/page.tsx`, `daily-fortune/page.tsx`, `tojung-fortune/page.tsx`에서 하드코딩된 한국어 처리 메시지를 4개 언어(ko/en/ja/es)로 분기 처리
+- 각 파일 locale 데이터에 `processingMsg` 필드 추가:
+  - ko: `"사주팔자/운세/토정비결 계산은 브라우저에서 처리됩니다."`
+  - en: `"Saju/fortune/Tojung fortune calculation is processed in your browser."`
+  - ja: `"四柱推命/運勢/토정비결運勢の計算はブラウザで処理されます。"`
+  - es: `"El cálculo de Saju/fortuna/Tojung fortune se procesa en tu navegador."`
+- JSX에서 `{d.processingMsg}`로 교체하여 ja/es 로직에서도 한국어가 하드코딩되지 않도록 수정
+
+---
+
 ## [2026-09-24] 생활/건강 카테고리 — 도시별 한달살기 비용 비교 (`city-living-cost`)
 
 ### 신규 파일
