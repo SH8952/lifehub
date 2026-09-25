@@ -238,6 +238,28 @@ const categoryToolsMap: Record<string, ToolInfo[]> = {
       descriptionJa: "主要都市17か所の月額生活費をカテゴリ別に比較",
       descriptionEs: "Costos de vida mensuales de 17 ciudades por categoría",
     },
+    {
+      id: "word-practice",
+      name: "단어 연습장",
+      nameEn: "Vocabulary Practice",
+      nameJa: "単語練習帳",
+      nameEs: "Practica de Vocabulario",
+      description: "CEFR 기준 단계별 단어장 + 퀴즈",
+      descriptionEn: "CEFR-based flashcards and vocabulary quizzes",
+      descriptionJa: "CEFR基準のフラッシュカードと単語クイズ",
+      descriptionEs: "Flashcards y quizzes de vocabulario basados en CEFR",
+    },
+    {
+      id: "monthly-cost",
+      name: "도시별 한달살기 비용",
+      nameEn: "Monthly Cost by City",
+      nameJa: "都市別ホームステイコスト",
+      nameEs: "Costo Mensual por Ciudad",
+      description: "세계 주요 도시 월별 생활비 비교 (USD 기준)",
+      descriptionEn: "Monthly living costs for global cities (USD)",
+      descriptionJa: "世界の主要都市の月額生活費比較 (USD基準)",
+      descriptionEs: "Costos de vida mensuales de ciudades globales (USD)",
+    },
   ],
   "finance": [
     {
