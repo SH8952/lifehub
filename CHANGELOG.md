@@ -104,6 +104,25 @@
 
 ---
 
+## [2026-09-25] 운세/엔터테인먼트 카테고리 (`fun-entertainment`) — `categoryToolsMap` 신규 등록
+
+### 변경 내용
+
+- `src/app/[locale]/category/[id]/page.tsx`에 `"fun-entertainment"` 키로 `categoryToolsMap` 신규 추가
+- 다음 4개 운세 도구를 카드로 등록:
+  - `saju-pool` — 정통 사주풀이 (사주팔자 계산)
+  - `daily-fortune` — 오늘의 운세 (별자리별 일일 운세)
+  - `tojung-fortune` — 토정비결 신년운세
+  - `zodiac-finder` — 별자리 찾기 (생일 → 별자리 매핑)
+- `/ko/category/fun-entertainment` 페이지에서 4개 운세 도구 카드 표시 가능해짐
+
+### 배경
+
+- 랜딩페이지(`page.tsx`)에 7개 카테고리 중 `fun-entertainment`가 정의되어 있었으나, 실제 카테고리 페이지에 매핑된 도구가 없음
+- 4개 운세 도구 페이지는 이미 `src/app/[locale]/tool/`에 존재했으나 아무 카테고리에도 속하지 않음
+
+---
+
 ## [2026-09-25] 생활/건강 카테고리 — 단어 연습장 + 도시별 한달살기 비용 카테고리 등록
 
 ### 변경 내용
