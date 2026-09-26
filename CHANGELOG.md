@@ -4,6 +4,27 @@
 
 ---
 
+## [2026-09-26] fun-entertainment — compatibility + fortune-cookie 카드 등록 + compatibility ja 번역 수정
+
+### 변경 내용
+
+- `categoryToolsMap["fun-entertainment"]`에 다음 2개 도구 카드 추가:
+  - `compatibility` — 궁합 풀이 (이름·생년월일 기반 오행 궁합)
+  - `fortune-cookie` — 포춘 쿠키 오늘 운세 (매일 새로운 행운 메시지)
+- `/ko/category/fun-entertainment` 페이지에서 운세 도구 6개 모두 표시 가능해짐
+
+### 버그 수정: `compatibility/page.tsx`
+
+- **ja 번역 깨짐 수정**: ja locale에 한글이 섞여 있던 제목·설명·FAQ 전체를 일본어로 정정
+  - `궁合` → `相性` (한글+중국어 혼재 → 일본어)
+  - `궁합 풀이` → `궁합 풀이` (제목은 원형 유지, subtitle/FAQ 등을 ja로 번역)
+- **processingMsg 누락 수정**: ja/es locale에 `processingMsg` 필드 신규 추가 (ko/en에만 있었음)
+- **하드코딩 한국어 수정**: JSX의 `"궁합 계산은 서버에서 처리됩니다."` → `{d.processingMsg}`로 교체
+  - 기존: 서버 처리라고 표기 (잘못됨 — 실제로는 브라우저에서 계산)
+  - 수정: locale별 브라우저 처리 메시지로 분기
+
+---
+
 ## [2026-09-24] 생활/건강 카테고리 — 티어1 도구 전체 카테고리 등록 완료
 
 ### 변경 내용

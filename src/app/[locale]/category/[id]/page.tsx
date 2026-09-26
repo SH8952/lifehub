@@ -319,6 +319,28 @@ const categoryToolsMap: Record<string, ToolInfo[]> = {
       descriptionJa: "生年月日から星座を特定（元素・性格説明付き）",
       descriptionEs: "Encuentra tu signo zodiacal por fecha de nacimiento (con elemento y personalidad)",
     },
+    {
+      id: "compatibility",
+      name: "궁합 풀이",
+      nameEn: "Compatibility Reading",
+      nameJa: "궁합 풀이",
+      nameEs: "Lectura de Compatibilidad",
+      description: "이름과 생년월일로 두 사람의 궁합 (오행 기반)",
+      descriptionEn: "Check compatibility between two people by name and birth date (Five Elements)",
+      descriptionJa: "名前と生年月日から二人の相性をチェック（五行ベース）",
+      descriptionEs: "Verifica compatibilidad entre dos personas por nombre y fecha de nacimiento (Cinco Elementos)",
+    },
+    {
+      id: "fortune-cookie",
+      name: "포춘 쿠키 오늘 운세",
+      nameEn: "Fortune Cookie Daily",
+      nameJa: "フォークッキー 今日の運勢",
+      nameEs: "Galleta de la Fortuna Diaria",
+      description: "매일 새로운 행운 메시지 (포춘 쿠키)",
+      descriptionEn: "Daily lucky message from a fortune cookie",
+      descriptionJa: "毎日新しいラッキメッセー（フォークッキー）",
+      descriptionEs: "Mensaje afortunado diario de una galleta de la fortuna",
+    },
   ],
 };
 
