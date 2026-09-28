@@ -1,6 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Card, CardContent } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
+import { SITE_URL, languageAlternates } from "@/lib/seo";
 
 type Locale = "ko" | "en" | "ja" | "es";
 
@@ -101,37 +102,37 @@ const data: Record<Locale, {
     ],
   },
   ja: {
-    title: "2026 토정비결 신년운세",
-    subtitle: "생년월일로 풀어보는 2026년 새해 운세",
+    title: "2026年 トジョンビギョル新年運勢",
+    subtitle: "生年月日で占う2026年の新年運勢",
     inputs: "生情報入力",
     year: "出生年",
     month: "出生月",
     day: "出生日",
-    calculate: "2026 운세 풀이",
-    result: "2026년 토정비결 운세",
+    calculate: "2026年 運勢を占う",
+    result: "2026年 トジョンビギョル運勢",
     fortune: "運勢",
     luckyColor: "行運のカラー",
     luckyItem: "行運のアイテム",
     caution: "注意事項",
-    whyTojung: "토정비결이 무엇인가요?",
+    whyTojung: "トジョンビギョルとは何ですか？",
     tojungExplanation:
-      "토정비결은 조선 시대 암송 이암(李巖)이 지었다 전해지는 점성서로, 생년월일(음력)으로 운명을 풀이하는 전통 명리학의 한 분야입니다.\n\n2026년은 불원(丙午)년으로, 불(火)의 기운이 강한 해입니다. 토정비결은 생간(生干)의 오행 관계로 해운을 보며, 참고용 성향 분석과 운세 안내에 활용합니다.\n\n이 도구는 전통 알고리즘으로 간단한 간지 계산을 수행하며, 과학적으로 입증된 진단이 아닙니다.",
-    limitations: "토정비결 운세는 참고용이며, 과학적으로 입증된 진단이 아닙니다.",
-    disclaimer: "이 토정비결 풀이는 전통 명리학 알고리즘을 기반으로 한 참고용이며, 의학적·금융적·의학적 진단이 아닙니다. 참고용 목적으로만 사용하세요.",
+      "トジョンビギョルは、朝鮮時代の李巖（イ・アム）が著したと伝わる占い書で、生年月日（旧暦）から運命を占う伝統命理学の一分野です。\n\n2026年は丙午（へいご）年で、火の気運が強い年です。トジョンビギョルは生まれた干（かん）の五行関係で運勢を見て、参考用の傾向分析や運勢案内に活用します。\n\nこのツールは伝統的なアルゴリズムで簡単な干支計算を行うもので、科学的に立証された診断ではありません。",
+    limitations: "トジョンビギョルの運勢は参考用であり、科学的に立証された診断ではありません。",
+    disclaimer: "このトジョンビギョル占いは伝統命理学アルゴリズムに基づく参考用であり、医学的・金融的な診断ではありません。参考用としてのみご利用ください。",
     footer: "ブラウザで100％処理されます。サーバーに送信されるデータはありません。",
-    processingMsg: "토정비결運勢の計算はブラウザで処理されます。",
+    processingMsg: "トジョンビギョル運勢の計算はブラウザで処理されます。",
     faq: [
       {
-        q: "토정비결이 정확하다고 믿어야 하나요?",
-        a: "토정비결은 재미와 자기 성찰의 참고용 도구입니다. 과학적으로 입증된 진단이 아니며, 한 해의 시작을 응원하는 마음으로 즐기세요.",
+        q: "トジョンビギョルは信じるべきですか？",
+        a: "トジョンビギョルは楽しみと自己省察のための参考用ツールです。科学的に立証された診断ではなく、一年の始まりを応援する気持ちで楽しんでください。",
       },
       {
-        q: "음력과 양력 중 무엇을 사용하나요?",
-        a: "전통 토정비결은 음력(음력)을 사용합니다. 이 도구에서는 생년월일을 간지 계산에 적용합니다.",
+        q: "旧暦と新暦のどちらを使いますか？",
+        a: "伝統的なトジョンビギョルは旧暦を使用します。このツールでは生年月日を干支計算に適用します。",
       },
       {
-        q: "2026년 불원(丙午)년의 특징은?",
-        a: "불원(丙午)년은 불(火)의 기운이 강한 해로, 열정과 활동력이 강조되는 해입니다. 다만 개인별 생간(生干)에 따라 운세가 달라집니다.",
+        q: "2026年 丙午年の特徴は？",
+        a: "丙午年は火の気運が強い年で、情熱と活動力が強調される年です。ただし個人の生まれた干によって運勢は異なります。",
       },
     ],
   },
@@ -171,6 +172,29 @@ const data: Record<Locale, {
     ],
   },
 };
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const lang = locale as Locale;
+  const d = data[lang];
+  const title = `${d.title} | LifeHub`;
+  return {
+    title,
+    description: d.subtitle,
+    alternates: {
+      languages: languageAlternates("/tool/tojung-fortune"),
+    },
+    openGraph: {
+      title,
+      description: d.subtitle,
+      url: `${SITE_URL}/${locale}/tool/tojung-fortune`,
+    },
+  };
+}
 
 export default async function TojungFortunePage({
   params,

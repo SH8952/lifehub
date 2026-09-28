@@ -1,6 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Card, CardContent } from "@/components/ui/card";
 import SecondLoanCalculator from "@/components/second-loan-calculator";
+import { SITE_URL, languageAlternates } from "@/lib/seo";
 
 type Locale = "ko" | "en" | "ja" | "es";
 
@@ -133,7 +134,7 @@ const data: Record<Locale, {
     preset: "プリセット",
     whyCalculator: "なぜ第2ローン返済額計算機が必要ですか？",
     explanation:
-      "第2ローン（二次担保ローン）は、すでに第1住宅担保ローン（ 주택담보대출 ）を保有している状態で追加資金が必要になった場合に利用します。教育費、事業資金、リフォームなどの用途がありますが、毎月どれだけの返済額になるかを事前に把握しておくと、資金計画に役立ちます。\n\nこの計算機は、借金額、年利、ローン期間、返済方法（元金均等返済または元利金均等返済）に基づいて、月々返済額と総支払利息を計算します。2つの返済方法を比較することで、自分の資金状況にどちらが適しているかを素早く把握できます。\n\n実際の適用金利は金融機関、信用格付け、担保評価額などによって異なりますので、正確な金額は加入時に金融機関で再確認してください。",
+      "第2ローン（二次担保ローン）は、すでに第1住宅担保ローン（住宅担保ローン）を保有している状態で追加資金が必要になった場合に利用します。教育費、事業資金、リフォームなどの用途がありますが、毎月どれだけの返済額になるかを事前に把握しておくと、資金計画に役立ちます。\n\nこの計算機は、借金額、年利、ローン期間、返済方法（元金均等返済または元利金均等返済）に基づいて、月々返済額と総支払利息を計算します。2つの返済方法を比較することで、自分の資金状況にどちらが適しているかを素早く把握できます。\n\n実際の適用金利は金融機関、信用格付け、担保評価額などによって異なりますので、正確な金額は加入時に金融機関で再確認してください。",
     limitations: "この計算機は参考用であり、実際の返済額を保証するものではありません。",
     footer: "ブラウザで100％処理されます。サーバーに送信されるデータはありません。",
     faq: [
@@ -191,6 +192,29 @@ const data: Record<Locale, {
     ],
   },
 };
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const lang = locale as Locale;
+  const d = data[lang];
+  const title = `${d.title} | LifeHub`;
+  return {
+    title,
+    description: d.subtitle,
+    alternates: {
+      languages: languageAlternates("/tool/2nd-loan"),
+    },
+    openGraph: {
+      title,
+      description: d.subtitle,
+      url: `${SITE_URL}/${locale}/tool/2nd-loan`,
+    },
+  };
+}
 
 export default async function SecondLoanPage({
   params,

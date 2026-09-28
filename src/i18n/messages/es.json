@@ -1,0 +1,20 @@
+{
+  "Home": {
+    "title": "Todas las Utilidades que Usas a Diario, en un Solo Lugar",
+    "subtitle": "Calculadoras, listas de verificación, herramientas de conversión: ejecútalo todo directamente en tu navegador.",
+    "categories": "Categorías",
+    "heroBadge": "Todas las herramientas gratis · 100% procesado en tu navegador",
+    "ctaPrimary": "Ver Categorías",
+    "trustNote": "🔒 Todos los cálculos se procesan en tu navegador. No se envía nada a un servidor."
+  },
+  "Category": {
+    "categories": "Categorías",
+    "title": "Categorías",
+    "back": "Volver"
+  },
+  "Tools": {
+    "title": "Lista de Herramientas",
+    "back": "Volver",
+    "faq": "Preguntas Frecuentes"
+  }
+}

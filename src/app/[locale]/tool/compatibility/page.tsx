@@ -1,6 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Card, CardContent } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
+import { SITE_URL, languageAlternates } from "@/lib/seo";
 
 type Locale = "ko" | "en" | "ja" | "es";
 
@@ -110,7 +111,7 @@ const data: Record<Locale, {
     ],
   },
   ja: {
-    title: "궁합 풀이",
+    title: "相性占い",
     subtitle: "名前と生年月日から二人の相性をチェック",
     person1: "最初の人物",
     person2: "2番目の人物",
@@ -186,6 +187,29 @@ const data: Record<Locale, {
     ],
   },
 };
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const lang = locale as Locale;
+  const d = data[lang];
+  const title = `${d.title} | LifeHub`;
+  return {
+    title,
+    description: d.subtitle,
+    alternates: {
+      languages: languageAlternates("/tool/compatibility"),
+    },
+    openGraph: {
+      title,
+      description: d.subtitle,
+      url: `${SITE_URL}/${locale}/tool/compatibility`,
+    },
+  };
+}
 
 export default async function CompatibilityPage({
   params,

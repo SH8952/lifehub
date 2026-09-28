@@ -1,6 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { categories } from "../../page";
+import { SITE_URL, languageAlternates } from "@/lib/seo";
 import { Card, CardContent } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
 
@@ -228,17 +229,6 @@ const categoryToolsMap: Record<string, ToolInfo[]> = {
       descriptionEs: "Recomendaciones personalizadas de suplementos según problemas de salud y estilo de vida",
     },
     {
-      id: "city-living-cost",
-      name: "도시별 한달살기 비용 비교",
-      nameEn: "Monthly Cost by City Comparison",
-      nameJa: "都市別1ヶ月生活コスト比較",
-      nameEs: "Comparación de Costos Mensuales por Ciudad",
-      description: "주요 도시 17곳 월별 생활비 카테고리별 비교",
-      descriptionEn: "Monthly living costs for 17 cities by category",
-      descriptionJa: "主要都市17か所の月額生活費をカテゴリ別に比較",
-      descriptionEs: "Costos de vida mensuales de 17 ciudades por categoría",
-    },
-    {
       id: "word-practice",
       name: "단어 연습장",
       nameEn: "Vocabulary Practice",
@@ -273,6 +263,17 @@ const categoryToolsMap: Record<string, ToolInfo[]> = {
       descriptionJa: "元金・金利・期間→満期利息・税後収益を計算",
       descriptionEs: "Capital/tasa/plazo → intereses de vencimiento y rendimiento después de impuestos",
     },
+    {
+      id: "2nd-loan",
+      name: "2번 대출 상환액 계산기",
+      nameEn: "Second Loan Repayment Calculator",
+      nameJa: "第2ローン返済額計算機",
+      nameEs: "Calculadora de Pago de Segundo Préstamo",
+      description: "대출 금액·금리·상환 방식으로 월 상환액과 총 이자 계산",
+      descriptionEn: "Calculate monthly payments and total interest by loan amount, rate, and repayment method",
+      descriptionJa: "借入額・金利・返済方法から月々返済額と総利息を計算",
+      descriptionEs: "Calcula el pago mensual y el interés total según el monto, tasa y método de pago",
+    },
   ],
   "fun-entertainment": [
     {
@@ -301,11 +302,11 @@ const categoryToolsMap: Record<string, ToolInfo[]> = {
       id: "tojung-fortune",
       name: "토정비결 신년운세",
       nameEn: "Tojung Fortune",
-      nameJa: "토정비결 신년운세",
+      nameJa: "トジョンビギョル新年運勢",
       nameEs: "Predicción Tojung",
       description: "생년월일로 풀어보는 토정비결 신년운세",
       descriptionEn: "Discover your New Year fortune by birth date using Tojung Bigyul",
-      descriptionJa: "生年月日で 풀어보는 토정비결 신년운세",
+      descriptionJa: "生年月日から占うトジョンビギョル新年運勢",
       descriptionEs: "Descubre tu fortuna del año nuevo por fecha de nacimiento con Tojung Bigyul",
     },
     {
@@ -323,7 +324,7 @@ const categoryToolsMap: Record<string, ToolInfo[]> = {
       id: "compatibility",
       name: "궁합 풀이",
       nameEn: "Compatibility Reading",
-      nameJa: "궁합 풀이",
+      nameJa: "相性占い",
       nameEs: "Lectura de Compatibilidad",
       description: "이름과 생년월일로 두 사람의 궁합 (오행 기반)",
       descriptionEn: "Check compatibility between two people by name and birth date (Five Elements)",
@@ -334,11 +335,11 @@ const categoryToolsMap: Record<string, ToolInfo[]> = {
       id: "fortune-cookie",
       name: "포춘 쿠키 오늘 운세",
       nameEn: "Fortune Cookie Daily",
-      nameJa: "フォークッキー 今日の運勢",
+      nameJa: "フォーチュンクッキー 今日の運勢",
       nameEs: "Galleta de la Fortuna Diaria",
       description: "매일 새로운 행운 메시지 (포춘 쿠키)",
       descriptionEn: "Daily lucky message from a fortune cookie",
-      descriptionJa: "毎日新しいラッキメッセー（フォークッキー）",
+      descriptionJa: "毎日新しいラッキーメッセージ（フォーチュンクッキー）",
       descriptionEs: "Mensaje afortunado diario de una galleta de la fortuna",
     },
   ],
@@ -346,6 +347,46 @@ const categoryToolsMap: Record<string, ToolInfo[]> = {
 
 export function generateStaticParams() {
   return Object.keys(categoryToolsMap).map((id) => ({ id }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; id: string }>;
+}) {
+  const { locale, id } = await params;
+  const category = categories.find((c: typeof categories[number]) => c.id === id);
+  if (!category) return {};
+
+  const nameKey = ({
+    ko: "name",
+    en: "nameEn",
+    ja: "nameJa",
+    es: "nameEs",
+  } as const)[locale as "en" | "ko" | "ja" | "es"];
+
+  const descKey = ({
+    ko: "description",
+    en: "descriptionEn",
+    ja: "descriptionJa",
+    es: "descriptionEs",
+  } as const)[locale as "en" | "ko" | "ja" | "es"];
+
+  const title = `${category[nameKey]} | LifeHub`;
+  const description = category[descKey];
+
+  return {
+    title,
+    description,
+    alternates: {
+      languages: languageAlternates(`/category/${id}`),
+    },
+    openGraph: {
+      title,
+      description,
+      url: `${SITE_URL}/${locale}/category/${id}`,
+    },
+  };
 }
 
 export default async function CategoryPage({

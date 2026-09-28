@@ -1,0 +1,20 @@
+{
+  "Home": {
+    "title": "All the Utilities You Use Daily, in One Place",
+    "subtitle": "Calculators, checklists, conversion tools — run everything directly in your browser.",
+    "categories": "Categories",
+    "heroBadge": "All tools free · 100% processed in your browser",
+    "ctaPrimary": "Browse Categories",
+    "trustNote": "🔒 All calculations run in your browser. Nothing is sent to a server."
+  },
+  "Category": {
+    "categories": "Categories",
+    "title": "Categories",
+    "back": "Back"
+  },
+  "Tools": {
+    "title": "Tool List",
+    "back": "Back",
+    "faq": "Frequently Asked Questions"
+  }
+}

@@ -1,0 +1,34 @@
+import { SITE_URL, languageAlternates } from "@/lib/seo";
+import ADHDChecklist, { i18nData, type Locale } from "./ADHDChecklistClient";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const lang = locale as Locale;
+  const d = i18nData[lang];
+  const title = `${d.title} | LifeHub`;
+  return {
+    title,
+    description: d.subtitle,
+    alternates: {
+      languages: languageAlternates("/tool/adhd-checklist"),
+    },
+    openGraph: {
+      title,
+      description: d.subtitle,
+      url: `${SITE_URL}/${locale}/tool/adhd-checklist`,
+    },
+  };
+}
+
+export default async function ADHDChecklistPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  return <ADHDChecklist initialLocale={locale as Locale} />;
+}

@@ -1,0 +1,34 @@
+import { SITE_URL, languageAlternates } from "@/lib/seo";
+import RatSound, { i18nData, type Locale } from "./RatSoundClient";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const lang = locale as Locale;
+  const d = i18nData[lang];
+  const title = `${d.title} | LifeHub`;
+  return {
+    title,
+    description: d.subtitle,
+    alternates: {
+      languages: languageAlternates("/tool/rat-sound"),
+    },
+    openGraph: {
+      title,
+      description: d.subtitle,
+      url: `${SITE_URL}/${locale}/tool/rat-sound`,
+    },
+  };
+}
+
+export default async function RatSoundPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  return <RatSound initialLocale={locale as Locale} />;
+}
