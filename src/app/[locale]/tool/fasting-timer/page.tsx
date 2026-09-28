@@ -1,5 +1,6 @@
 import { SITE_URL, languageAlternates } from "@/lib/seo";
-import FastingTimer, { i18nData, type Locale } from "./FastingTimerClient";
+import FastingTimer from "./FastingTimerClient";
+import { i18nData, type Locale } from "./data";
 
 export async function generateMetadata({
   params,

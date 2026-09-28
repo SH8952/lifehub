@@ -1,5 +1,6 @@
 import { SITE_URL, languageAlternates } from "@/lib/seo";
-import StudyMethod, { i18nData, type Locale } from "./StudyMethodClient";
+import StudyMethod from "./StudyMethodClient";
+import { i18nData, type Locale } from "./data";
 
 export async function generateMetadata({
   params,

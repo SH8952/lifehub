@@ -1,5 +1,6 @@
 import { SITE_URL, languageAlternates } from "@/lib/seo";
-import ADHDChecklist, { i18nData, type Locale } from "./ADHDChecklistClient";
+import ADHDChecklist from "./ADHDChecklistClient";
+import { i18nData, type Locale } from "./data";
 
 export async function generateMetadata({
   params,

@@ -1,5 +1,6 @@
 import { SITE_URL, languageAlternates } from "@/lib/seo";
-import FarCalculatorComponent, { i18nData, type Locale } from "./FarCalculatorComponentClient";
+import FarCalculatorComponent from "./FarCalculatorComponentClient";
+import { i18nData, type Locale } from "./data";
 
 export async function generateMetadata({
   params,

@@ -1,5 +1,6 @@
 import { SITE_URL, languageAlternates } from "@/lib/seo";
-import RatSound, { i18nData, type Locale } from "./RatSoundClient";
+import RatSound from "./RatSoundClient";
+import { i18nData, type Locale } from "./data";
 
 export async function generateMetadata({
   params,

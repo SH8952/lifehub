@@ -1,5 +1,6 @@
 import { SITE_URL, languageAlternates } from "@/lib/seo";
-import PetEntryRegulation, { i18nData, type Locale } from "./PetEntryRegulationClient";
+import PetEntryRegulation from "./PetEntryRegulationClient";
+import { i18nData, type Locale } from "./data";
 
 export async function generateMetadata({
   params,

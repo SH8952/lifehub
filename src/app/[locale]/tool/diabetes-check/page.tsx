@@ -1,5 +1,6 @@
 import { SITE_URL, languageAlternates } from "@/lib/seo";
-import DiabetesCheck, { i18nData, type Locale } from "./DiabetesCheckClient";
+import DiabetesCheck from "./DiabetesCheckClient";
+import { i18nData, type Locale } from "./data";
 
 export async function generateMetadata({
   params,

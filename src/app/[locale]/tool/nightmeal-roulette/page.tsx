@@ -1,5 +1,6 @@
 import { SITE_URL, languageAlternates } from "@/lib/seo";
-import NightmealRoulette, { i18nData, type Locale } from "./NightmealRouletteClient";
+import NightmealRoulette from "./NightmealRouletteClient";
+import { i18nData, type Locale } from "./data";
 
 export async function generateMetadata({
   params,

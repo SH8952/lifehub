@@ -1,5 +1,6 @@
 import { SITE_URL, languageAlternates } from "@/lib/seo";
-import OvulationCalculator, { i18nData, type Locale } from "./OvulationCalculatorClient";
+import OvulationCalculator from "./OvulationCalculatorClient";
+import { i18nData, type Locale } from "./data";
 
 export async function generateMetadata({
   params,

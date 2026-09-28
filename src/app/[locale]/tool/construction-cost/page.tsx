@@ -1,5 +1,6 @@
 import { SITE_URL, languageAlternates } from "@/lib/seo";
-import ConstructionCostComponent, { i18nData, type Locale } from "./ConstructionCostComponentClient";
+import ConstructionCostComponent from "./ConstructionCostComponentClient";
+import { i18nData, type Locale } from "./data";
 
 export async function generateMetadata({
   params,

@@ -1,5 +1,6 @@
 import { SITE_URL, languageAlternates } from "@/lib/seo";
-import TdeeCalculator, { i18nData, type Locale } from "./TdeeCalculatorClient";
+import TdeeCalculator from "./TdeeCalculatorClient";
+import { i18nData, type Locale } from "./data";
 
 export async function generateMetadata({
   params,

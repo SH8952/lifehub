@@ -1,5 +1,6 @@
 import { SITE_URL, languageAlternates } from "@/lib/seo";
-import BmrCalculator, { i18nData, type Locale } from "./BmrCalculatorClient";
+import BmrCalculator from "./BmrCalculatorClient";
+import { i18nData, type Locale } from "./data";
 
 export async function generateMetadata({
   params,

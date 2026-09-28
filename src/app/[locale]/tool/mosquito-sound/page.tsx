@@ -1,5 +1,6 @@
 import { SITE_URL, languageAlternates } from "@/lib/seo";
-import MosquitoSound, { i18nData, type Locale } from "./MosquitoSoundClient";
+import MosquitoSound from "./MosquitoSoundClient";
+import { i18nData, type Locale } from "./data";
 
 export async function generateMetadata({
   params,

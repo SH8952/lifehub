@@ -1,5 +1,6 @@
 import { SITE_URL, languageAlternates } from "@/lib/seo";
-import VisaComparison, { i18nData, type Locale } from "./VisaComparisonClient";
+import VisaComparison from "./VisaComparisonClient";
+import { i18nData, type Locale } from "./data";
 
 export async function generateMetadata({
   params,

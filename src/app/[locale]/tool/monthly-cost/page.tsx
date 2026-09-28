@@ -1,5 +1,6 @@
 import { SITE_URL, languageAlternates } from "@/lib/seo";
-import MonthlyCost, { i18nData, type Locale } from "./MonthlyCostClient";
+import MonthlyCost from "./MonthlyCostClient";
+import { i18nData, type Locale } from "./data";
 
 export async function generateMetadata({
   params,

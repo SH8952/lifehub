@@ -1,5 +1,6 @@
 import { SITE_URL, languageAlternates } from "@/lib/seo";
-import ABCJuice, { i18nData, type Locale } from "./ABCJuiceClient";
+import ABCJuice from "./ABCJuiceClient";
+import { i18nData, type Locale } from "./data";
 
 export async function generateMetadata({
   params,

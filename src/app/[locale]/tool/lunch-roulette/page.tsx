@@ -1,5 +1,6 @@
 import { SITE_URL, languageAlternates } from "@/lib/seo";
-import LunchRoulette, { i18nData, type Locale } from "./LunchRouletteClient";
+import LunchRoulette from "./LunchRouletteClient";
+import { i18nData, type Locale } from "./data";
 
 export async function generateMetadata({
   params,
