@@ -195,7 +195,7 @@ export async function generateMetadata({
 }) {
   const { locale } = await params;
   const lang = locale as Locale;
-  const d = data[lang];
+  const d = data[lang] ?? data.ko;
   const title = `${d.title} | LifeHub`;
   return {
     title,
@@ -221,7 +221,7 @@ export default async function CompatibilityPage({
 
   const t = await getTranslations("Tools");
   const lang = locale as Locale;
-  const d = data[lang];
+  const d = data[lang] ?? data.ko;
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">

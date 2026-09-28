@@ -363,14 +363,14 @@ export async function generateMetadata({
     en: "nameEn",
     ja: "nameJa",
     es: "nameEs",
-  } as const)[locale as "en" | "ko" | "ja" | "es"];
+  } as const)[locale as "en" | "ko" | "ja" | "es"] ?? "name";
 
   const descKey = ({
     ko: "description",
     en: "descriptionEn",
     ja: "descriptionJa",
     es: "descriptionEs",
-  } as const)[locale as "en" | "ko" | "ja" | "es"];
+  } as const)[locale as "en" | "ko" | "ja" | "es"] ?? "description";
 
   const title = `${category[nameKey]} | LifeHub`;
   const description = category[descKey];
@@ -407,14 +407,14 @@ export default async function CategoryPage({
     en: "nameEn",
     ja: "nameJa",
     es: "nameEs",
-  } as const)[locale as "en" | "ko" | "ja" | "es"];
+  } as const)[locale as "en" | "ko" | "ja" | "es"] ?? "name";
 
   const descKey = ({
     ko: "description",
     en: "descriptionEn",
     ja: "descriptionJa",
     es: "descriptionEs",
-  } as const)[locale as "en" | "ko" | "ja" | "es"];
+  } as const)[locale as "en" | "ko" | "ja" | "es"] ?? "description";
 
   const tools = categoryToolsMap[id] || [];
 

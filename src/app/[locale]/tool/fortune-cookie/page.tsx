@@ -19,7 +19,7 @@ export async function generateMetadata({
 }) {
   const { locale } = await params;
   const lang = locale as Locale;
-  const m = pageMeta[lang];
+  const m = pageMeta[lang] ?? pageMeta.ko;
   const title = `${m.title} | LifeHub`;
   return {
     title,
@@ -258,7 +258,7 @@ export default async function FortuneCookiePage({
     ],
   };
 
-  const d = { ko, en, ja, es }[lang];
+  const d = { ko, en, ja, es }[lang] ?? ko;
   const todayFortune = getRandomFortune(lang);
 
   return (

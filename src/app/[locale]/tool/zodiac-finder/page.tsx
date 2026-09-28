@@ -19,7 +19,7 @@ export async function generateMetadata({
 }) {
   const { locale } = await params;
   const lang = locale as Locale;
-  const m = pageMeta[lang];
+  const m = pageMeta[lang] ?? pageMeta.ko;
   const title = `${m.title} | LifeHub`;
   return {
     title,
@@ -252,7 +252,7 @@ export default async function ZodiacFinderPage({
     ],
   };
 
-  const d = { ko, en, ja, es }[lang];
+  const d = { ko, en, ja, es }[lang] ?? ko;
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">

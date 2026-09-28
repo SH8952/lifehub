@@ -8,7 +8,7 @@ export async function generateMetadata({
 }) {
   const { locale } = await params;
   const lang = locale as Locale;
-  const d = i18nData[lang];
+  const d = i18nData[lang] ?? i18nData.ko;
   const title = `${d.title} | LifeHub`;
   return {
     title,
