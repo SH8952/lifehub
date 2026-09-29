@@ -4,6 +4,147 @@
 
 ---
 
+## [2026-09-29] 애드센스 신청용 정책 페이지 추가 (Privacy/Terms/About/Contact, 4개 언어)
+
+### 변경 내용
+
+- `src/app/[locale]/{privacy,terms,about,contact}/page.tsx` 신규 작성 (ko/en/ja/es 4개 언어)
+  - Privacy: 자동 수집 정보, Google AdSense 쿠키·광고 옵트아웃 안내, 제3자 서비스, 아동 개인정보, 문의(이메일만 공개)
+  - Terms: 서비스 설명, "전문적인 조언이 아님" 면책 조항(건강/재무/여행 도구), 준거법(대한민국)
+  - About: 서비스 소개, 개인 개발자 독립 운영 안내
+  - Contact: 이메일 문의 안내 (skysmoga@gmail.com)
+- `layout.tsx` 푸터에 4개 페이지 링크 추가 (신규 `Footer` i18n 네임스페이스)
+- `sitemap.ts`에 4개 정적 페이지 × 4개 언어 = 16개 URL 추가
+
+### 검증
+
+- `npx tsc --noEmit` 0 errors, `npx next build` 153페이지 생성 성공
+- `npx next dev` 실전 기동 후 16개 라우트(4페이지×4언어) 전부 HTTP 200 확인
+
+### 커밋
+
+`17c209f`
+
+---
+
+## [2026-09-29] daily-fortune / fortune-cookie / zodiac-finder dev 모드 500 에러 수정
+
+### 문제
+
+- 서버 컴포넌트에 `<button onClick={...}>` 이벤트 핸들러가 남아있어 dev 모드(Turbopack)에서 "Event handlers cannot be passed to Client Component props" 크래시 발생 (프로덕션 빌드에서는 재현 안 됨)
+
+### 수정
+
+- `<button onClick={...}>` → `<a href="#앵커">`로 교체, `layout.tsx`의 `<html>`에 `scroll-smooth` 클래스 추가해 부드러운 스크롤 유지
+- 서버 컴포넌트 구조를 그대로 유지하면서 이벤트 핸들러 제거로 RSC 규칙 위반 원천 제거
+
+### 검증
+
+- `npx next dev` 실전 기동 후 3개 도구 × 4개 언어(12라우트) 전부 HTTP 200 확인 (이전 500)
+
+### 커밋
+
+`c67942b`
+
+---
+
+## [2026-09-29] 메인 화면을 3단 벤토 그리드 구조로 개편
+
+### 배경
+
+- 자매 사이트(ExifLens/FlyDroneMap)와 디자인이 비슷해 "한 사람이 운영하는 사이트" 느낌이 강함 → 시각적 차별화 + 체류시간/기능 발견 유도 목적
+
+### 변경 내용
+
+- 히어로를 옅은 톤으로 축소, 통계 배너는 우측 위젯으로 이동
+- 신규 `#hub` 3단 벤토 그리드 섹션 추가 (`grid-cols-1 lg:grid-cols-12`)
+  - 좌측: 오늘의 추천 도구(날짜 기반 자동 교체, `revalidate: 3600`) + 카테고리 스포트라이트
+  - 중앙: 인기 도구 8종 아이콘 타일(카테고리 안 거치고 바로 클릭)
+  - 우측: 신뢰 지표 + 카테고리별 도구 현황 막대
+- 모바일에서는 `order-*`로 "인기 도구 → 추천 → 현황" 순서로 재배치(즉시 여러 도구를 눌러보게 유도)
+
+### 검증
+
+- `npx next dev` 실전 기동 후 4개 언어 홈페이지 전부 HTTP 200, 신규 섹션 문구 정상 노출 확인
+
+### 커밋
+
+`86d0c82`
+
+---
+
+## [2026-09-29] 언어 선택 드롭다운 전환 + 메인 화면 대폭 보강 (검색/통계/인기도구/카테고리 미리보기)
+
+### 변경 내용
+
+- `src/components/LanguageDropdown.tsx` 신규: 4버튼 → 🌐 아이콘 드롭다운, 현재 보던 페이지를 유지한 채 언어만 전환(기존 버그: 언어 전환 시 항상 홈으로 이동하던 문제 수정)
+- `src/components/ToolSearch.tsx` 신규: 홈 히어로에 도구 이름 자동완성 검색창 추가
+- `src/lib/tools-data.ts` 신규: `categoryToolsMap`을 `"use client"` 없는 서버 모듈로 분리해 홈/카테고리 양쪽에서 공유(RSC 경계 안전 패턴)
+- 메인 화면에 신뢰 지표 배너, 인기 도구 8종 큐레이션, 카테고리 카드별 대표 도구 미리보기 추가
+- 부수 버그 수정: 카테고리 카드 설명문이 모든 언어에서 한국어로 고정 노출되던 문제 수정(언어별 `descKey` 분기 추가)
+
+### 신규 발견(미수정, 별도 처리): daily-fortune/fortune-cookie/zodiac-finder dev 모드 500 에러
+
+- 이번 작업 범위 밖의 기존 버그로 확인(이번 세션 미변경 파일) → 위 9/29 항목에서 별도로 수정 완료
+
+### 커밋
+
+`c3685c2`
+
+---
+
+## [2026-09-28] generateMetadata 크래시 근본 원인(RSC client/server 경계 위반) 수정
+
+### 문제
+
+- "use client" 파일이 export하는 plain 데이터(`i18nData` 등)를 서버 전용 `generateMetadata()`에서 import해서 쓰면, RSC 번들러가 해당 export를 client reference로 치환해 서버 측에서 undefined로 해석됨
+- 증상: 클라이언트/서버 구조 분리 대상이었던 19개 도구 전부 dev 모드에서 `Cannot read properties of undefined (reading '...')` 크래시. 구조 분리 대상이 아니었던 BMI·영양제 추천 서비스 2개만 정상 작동했던 것이 결정적 단서.
+
+### 수정
+
+- 19개 도구 각각에 `"use client"`가 없는 신규 `data.ts` 생성, `i18nData`/`Locale`/관련 interface를 이전
+- `Client.tsx`와 `page.tsx` 양쪽 모두 `data.ts`에서 import하도록 통일 → RSC 경계 위반 원천 제거
+
+### 검증
+
+- `npx tsc --noEmit`, `npx next build`(137페이지) 통과 + **`npx next dev -p 3040`로 실전 기동**해 21개 도구(크래시 났던 19개+정상이었던 2개) 전부 ko 로케일 HTTP 200, 그중 구조가 복잡한 6개는 en/ja/es까지 추가 검증 → 전부 통과
+
+### 교훈
+
+- "정밀 진단"은 반드시 사용자의 실제 실행 환경(dev 서버)과 동일한 조건에서 검증해야 하며, 프로덕션 빌드 통과만으로 "해결"을 단언하면 안 됨(이 버그는 프로덕션에서는 애초에 재현되지 않는 종류였음)
+
+### 커밋
+
+`40ef304` (이전의 불완전한 fallback 시도: `49c4119`)
+
+---
+
+## [2026-09-28] 사이트 기본기 정비: SEO 메타데이터 / 다국어 번역 오류 / 카테고리 정상화 / git 추적 정상화
+
+### 배경
+
+- 로컬 LLM 운용을 완전히 중단하고 Claude Cowork가 프로젝트 마무리를 전담하게 됨에 따라, 신규 기능 추가보다 사이트 기본기(SEO·애드센스 신청 조건·번역 품질·git 추적)부터 정비하기로 방향 조정
+
+### 변경 내용
+
+- `categoryToolsMap` 정상화: 일본어 미번역 5곳 수정, `2nd-loan` 카드 신규 등록, 중복 도구 `city-living-cost` 제거(`monthly-cost`로 통합)
+- **클라이언트 컴포넌트 19개가 URL 언어를 무시하던 버그 수정**: 서버 래퍼(`page.tsx`) + 클라이언트 컴포넌트(`*Client.tsx`) 구조로 분리, URL의 locale을 `initialLocale`로 전달해 `/en/`·`/ja/`·`/es/` 진입 시 처음부터 해당 언어로 렌더링되도록 수정
+- 도구 페이지 다국어 번역 오류 다수 수정(중국어 간체자 혼입, 미번역 잔존 등 — tojung-fortune/compatibility/2nd-loan/pet-entry-regulation/nightmeal-roulette/visa-comparison/word-practice/fortune-cookie)
+- `src/lib/seo.ts`의 ExifLens 프로젝트 잔재(SITE_URL, 서비스명 "ExifLens" 등) 제거 → lifehub 기준으로 수정
+- `sitemap.ts`, `robots.ts`, `icon.svg`(파비콘) 신규 생성
+- 도구 페이지 29개 전체에 `generateMetadata` 추가(이전엔 메타데이터 0건)
+- `.gitignore` 최초 생성 + git 추적 파일을 9개 → 87개로 정상화(`git add -A` 미사용, 경로 명시)
+
+### 검증
+
+- `npx tsc --noEmit` 0 errors, `npx next build` 137페이지 생성 성공, `next start` 런타임으로 언어별 라우팅 확인
+
+### 커밋
+
+`e064fa4`
+
+---
+
 ## [2026-09-26] fun-entertainment — compatibility + fortune-cookie 카드 등록 + compatibility ja 번역 수정
 
 ### 변경 내용
