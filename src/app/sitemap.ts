@@ -4,6 +4,8 @@ import { SITE_URL } from "@/lib/seo";
 
 const CATEGORY_IDS = ["life-health", "finance", "fun-entertainment"];
 
+const STATIC_PAGES = ["about", "contact", "privacy", "terms"];
+
 const TOOL_IDS = [
   "age-calculator",
   "bmi",
@@ -51,6 +53,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: `${SITE_URL}/${locale}/category/${categoryId}`,
         changeFrequency: "weekly",
         priority: 0.8,
+      });
+    }
+
+    for (const page of STATIC_PAGES) {
+      entries.push({
+        url: `${SITE_URL}/${locale}/${page}`,
+        changeFrequency: "monthly",
+        priority: 0.3,
       });
     }
 

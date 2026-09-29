@@ -30,5 +30,11 @@
     "title": "Lista de Herramientas",
     "back": "Volver",
     "faq": "Preguntas Frecuentes"
+  },
+  "Footer": {
+    "privacy": "Política de Privacidad",
+    "terms": "Términos de Servicio",
+    "about": "Acerca de",
+    "contact": "Contacto"
   }
 }

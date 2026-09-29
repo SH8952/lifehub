@@ -30,5 +30,11 @@
     "title": "Tool List",
     "back": "Back",
     "faq": "Frequently Asked Questions"
+  },
+  "Footer": {
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "about": "About",
+    "contact": "Contact"
   }
 }

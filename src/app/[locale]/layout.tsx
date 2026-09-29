@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing, type Locale } from "@/i18n/routing";
 import { SITE_URL, languageAlternates, ogLocale } from "@/lib/seo";
@@ -76,6 +76,7 @@ export default async function RootLayout({
   const { locale } = await params;
   if (!routing.locales.includes(locale as any)) notFound();
   const messages = await getMessages();
+  const tFooter = await getTranslations("Footer");
   return (
     <html lang={locale} className="scroll-smooth">
       <body className="antialiased">
@@ -95,6 +96,20 @@ export default async function RootLayout({
           </header>
           <main className="min-h-screen">{children}</main>
           <footer className="border-t py-6 text-center text-xs text-muted-foreground">
+            <nav className="mb-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+              <a href={`/${locale}/about`} className="hover:underline">
+                {tFooter("about")}
+              </a>
+              <a href={`/${locale}/contact`} className="hover:underline">
+                {tFooter("contact")}
+              </a>
+              <a href={`/${locale}/privacy`} className="hover:underline">
+                {tFooter("privacy")}
+              </a>
+              <a href={`/${locale}/terms`} className="hover:underline">
+                {tFooter("terms")}
+              </a>
+            </nav>
             © {new Date().getFullYear()} LifeHub — All rights reserved.
           </footer>
         </NextIntlClientProvider>
