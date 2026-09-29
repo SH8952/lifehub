@@ -2,6 +2,14 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { webApplicationJsonLd } from "@/lib/seo";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
+import ToolSearch, { type SearchableTool } from "@/components/ToolSearch";
+import {
+  categoryToolsMap,
+  allTools,
+  totalToolsCount,
+  nameKeyMap,
+  descKeyMap,
+} from "@/lib/tools-data";
 
 // 최종 확정 랜딩페이지 디자인 (Claude Cowork, 2026-09-21)
 // page-sample1/2/3.tsx 및 /sample2 라우트는 시안 비교용 아카이브입니다.
@@ -93,6 +101,18 @@ export const categories = [
   },
 ] as const;
 
+// 메인 화면 "인기 도구" 하이라이트에 노출할 도구 id (직접 큐레이션, 카테고리 균형 고려)
+const popularToolIds = [
+  "bmi",
+  "age-calculator",
+  "tdee",
+  "monthly-cost",
+  "fixed-deposit-interest",
+  "2nd-loan",
+  "saju-pool",
+  "tojung-fortune",
+] as const;
+
 export default async function Home({
   params,
 }: {
@@ -102,9 +122,32 @@ export default async function Home({
   setRequestLocale(locale);
   const t = await getTranslations("Home");
 
-  const nameKey = (
-    { ko: "name", en: "nameEn", ja: "nameJa", es: "nameEs" } as const
-  )[locale as "en" | "ko" | "ja" | "es"];
+  const localeKey = (locale as "en" | "ko" | "ja" | "es") in nameKeyMap
+    ? (locale as "en" | "ko" | "ja" | "es")
+    : "ko";
+  const nameKey = nameKeyMap[localeKey];
+  const descKey = descKeyMap[localeKey];
+
+  const categoryCount = categories.length;
+  const languageCount = 4;
+
+  const categoryIconById = new Map<string, string>(
+    categories.map((c) => [c.id, c.icon])
+  );
+  const categoryNameById = new Map<string, string>(
+    categories.map((c) => [c.id, c[nameKey]])
+  );
+
+  const searchableTools: SearchableTool[] = allTools.map((tool) => ({
+    id: tool.id,
+    label: tool[nameKey],
+    categoryLabel: categoryNameById.get(tool.categoryId) ?? "",
+    icon: categoryIconById.get(tool.categoryId) ?? "🔧",
+  }));
+
+  const popularTools = popularToolIds
+    .map((id) => allTools.find((tool) => tool.id === id))
+    .filter((tool): tool is NonNullable<typeof tool> => Boolean(tool));
 
   return (
     <div className="flex flex-col">
@@ -127,6 +170,31 @@ export default async function Home({
               {t("title")}
             </h1>
             <p className="max-w-2xl text-lg text-white/80">{t("subtitle")}</p>
+
+            <ToolSearch
+              locale={locale}
+              tools={searchableTools}
+              placeholder={t("searchPlaceholder")}
+              noResultsText={t("searchNoResults")}
+            />
+
+            <div className="flex flex-wrap items-center justify-center gap-6 pt-2 text-sm">
+              <span className="flex items-baseline gap-1.5">
+                <span className="text-2xl font-bold">{totalToolsCount}</span>
+                <span className="text-white/70">{t("statsToolsLabel")}</span>
+              </span>
+              <span className="h-4 w-px bg-white/30" />
+              <span className="flex items-baseline gap-1.5">
+                <span className="text-2xl font-bold">{languageCount}</span>
+                <span className="text-white/70">{t("statsLanguagesLabel")}</span>
+              </span>
+              <span className="h-4 w-px bg-white/30" />
+              <span className="flex items-baseline gap-1.5">
+                <span className="text-2xl font-bold">{categoryCount}</span>
+                <span className="text-white/70">{t("statsCategoriesLabel")}</span>
+              </span>
+            </div>
+
             <div className="pt-2">
               <a
                 href="#categories"
@@ -139,6 +207,38 @@ export default async function Home({
         </div>
       </section>
 
+      {/* Popular tools */}
+      {popularTools.length > 0 && (
+        <section className="mx-auto max-w-6xl px-4 py-12">
+          <p className="mb-6 text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+            {t("popularTitle")}
+          </p>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {popularTools.map((tool) => (
+              <a
+                key={tool.id}
+                href={`/${locale}/tool/${tool.id}`}
+                className="group block"
+              >
+                <Card className="h-full border-2 border-transparent hover:border-indigo-200 hover:bg-indigo-50/30 transition-all">
+                  <CardContent className="p-5">
+                    <span className="text-2xl">
+                      {categoryIconById.get(tool.categoryId) ?? "🔧"}
+                    </span>
+                    <p className="mt-2 font-semibold group-hover:text-indigo-600 transition-colors line-clamp-1">
+                      {tool[nameKey]}
+                    </p>
+                    <p className="mt-1 text-xs text-muted-foreground line-clamp-2">
+                      {tool[descKey]}
+                    </p>
+                  </CardContent>
+                </Card>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* Categories */}
       <section
         id="categories"
@@ -148,30 +248,40 @@ export default async function Home({
           {t("categories")}
         </p>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {categories.map((cat) => (
-            <a
-              key={cat.id}
-              href={`/${locale}/category/${cat.id}`}
-              className="group block"
-            >
-              <Card className="h-full border-2 border-transparent hover:border-indigo-200 hover:bg-indigo-50/30 transition-all">
-                <CardContent className="p-6 flex items-start gap-4">
-                  <span className="text-3xl">{cat.icon}</span>
-                  <div className="flex-1">
-                    <CardTitle className="text-lg group-hover:text-indigo-600 transition-colors">
-                      {cat[nameKey]}
-                    </CardTitle>
-                    <p className="text-sm text-muted-foreground mt-1">
-                      {cat.description}
-                    </p>
-                  </div>
-                  <span className="text-xl text-muted-foreground group-hover:text-indigo-600 transition-colors">
-                    →
-                  </span>
-                </CardContent>
-              </Card>
-            </a>
-          ))}
+          {categories.map((cat) => {
+            const previewNames = (categoryToolsMap[cat.id] ?? [])
+              .slice(0, 3)
+              .map((tool) => tool[nameKey]);
+            return (
+              <a
+                key={cat.id}
+                href={`/${locale}/category/${cat.id}`}
+                className="group block"
+              >
+                <Card className="h-full border-2 border-transparent hover:border-indigo-200 hover:bg-indigo-50/30 transition-all">
+                  <CardContent className="p-6 flex items-start gap-4">
+                    <span className="text-3xl">{cat.icon}</span>
+                    <div className="flex-1">
+                      <CardTitle className="text-lg group-hover:text-indigo-600 transition-colors">
+                        {cat[nameKey]}
+                      </CardTitle>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        {cat[descKey]}
+                      </p>
+                      <p className="text-xs text-muted-foreground/80 mt-2 line-clamp-1">
+                        {previewNames.length > 0
+                          ? previewNames.join(" · ")
+                          : t("comingSoon")}
+                      </p>
+                    </div>
+                    <span className="text-xl text-muted-foreground group-hover:text-indigo-600 transition-colors">
+                      →
+                    </span>
+                  </CardContent>
+                </Card>
+              </a>
+            );
+          })}
         </div>
         <p className="mt-10 text-center text-xs text-muted-foreground">
           {t("trustNote")}

@@ -5,7 +5,14 @@
     "categories": "카테고리",
     "heroBadge": "모든 도구 무료 · 브라우저에서 100% 처리",
     "ctaPrimary": "카테고리 보기",
-    "trustNote": "🔒 모든 계산은 브라우저에서 처리됩니다. 서버로 전송되지 않습니다."
+    "trustNote": "🔒 모든 계산은 브라우저에서 처리됩니다. 서버로 전송되지 않습니다.",
+    "searchPlaceholder": "도구 이름으로 검색... (예: BMI, 만 나이)",
+    "searchNoResults": "검색 결과가 없습니다",
+    "popularTitle": "인기 도구",
+    "statsToolsLabel": "무료 도구",
+    "statsLanguagesLabel": "지원 언어",
+    "statsCategoriesLabel": "카테고리",
+    "comingSoon": "도구 준비 중"
   },
   "Category": {
     "categories": "카테고리",

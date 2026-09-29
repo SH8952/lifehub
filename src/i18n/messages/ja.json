@@ -5,7 +5,14 @@
     "categories": "カテゴリ",
     "heroBadge": "全ツール無料・ブラウザで100%処理",
     "ctaPrimary": "カテゴリを見る",
-    "trustNote": "🔒 すべての計算はブラウザ内で処理され、サーバーには送信されません。"
+    "trustNote": "🔒 すべての計算はブラウザ内で処理され、サーバーには送信されません。",
+    "searchPlaceholder": "ツール名で検索...（例: BMI、満年齢）",
+    "searchNoResults": "該当するツールが見つかりません",
+    "popularTitle": "人気ツール",
+    "statsToolsLabel": "無料ツール",
+    "statsLanguagesLabel": "対応言語",
+    "statsCategoriesLabel": "カテゴリ",
+    "comingSoon": "準備中"
   },
   "Category": {
     "categories": "カテゴリ",

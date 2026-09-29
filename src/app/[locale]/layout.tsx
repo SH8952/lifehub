@@ -4,6 +4,7 @@ import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing, type Locale } from "@/i18n/routing";
 import { SITE_URL, languageAlternates, ogLocale } from "@/lib/seo";
+import LanguageDropdown from "@/components/LanguageDropdown";
 import "@/app/globals.css";
 
 export function generateStaticParams() {
@@ -88,15 +89,7 @@ export default async function RootLayout({
                 LifeHub
               </a>
               <nav className="flex items-center gap-4 text-sm">
-                {routing.locales.map((l) => (
-                  <a
-                    key={l}
-                    href={`/${l}`}
-                    className="rounded px-2 py-1 hover:bg-muted"
-                  >
-                    {l.toUpperCase()}
-                  </a>
-                ))}
+                <LanguageDropdown />
               </nav>
             </div>
           </header>

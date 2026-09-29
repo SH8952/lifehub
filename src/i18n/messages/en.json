@@ -5,7 +5,14 @@
     "categories": "Categories",
     "heroBadge": "All tools free · 100% processed in your browser",
     "ctaPrimary": "Browse Categories",
-    "trustNote": "🔒 All calculations run in your browser. Nothing is sent to a server."
+    "trustNote": "🔒 All calculations run in your browser. Nothing is sent to a server.",
+    "searchPlaceholder": "Search tools... (e.g. BMI, Age)",
+    "searchNoResults": "No matching tools found",
+    "popularTitle": "Popular Tools",
+    "statsToolsLabel": "Free Tools",
+    "statsLanguagesLabel": "Languages",
+    "statsCategoriesLabel": "Categories",
+    "comingSoon": "Coming soon"
   },
   "Category": {
     "categories": "Categories",

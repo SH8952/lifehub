@@ -5,7 +5,14 @@
     "categories": "Categorías",
     "heroBadge": "Todas las herramientas gratis · 100% procesado en tu navegador",
     "ctaPrimary": "Ver Categorías",
-    "trustNote": "🔒 Todos los cálculos se procesan en tu navegador. No se envía nada a un servidor."
+    "trustNote": "🔒 Todos los cálculos se procesan en tu navegador. No se envía nada a un servidor.",
+    "searchPlaceholder": "Buscar herramientas... (ej. IMC, Edad)",
+    "searchNoResults": "No se encontraron herramientas",
+    "popularTitle": "Herramientas Populares",
+    "statsToolsLabel": "Herramientas Gratis",
+    "statsLanguagesLabel": "Idiomas",
+    "statsCategoriesLabel": "Categorías",
+    "comingSoon": "Próximamente"
   },
   "Category": {
     "categories": "Categorías",
