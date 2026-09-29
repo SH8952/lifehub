@@ -306,15 +306,12 @@ export default async function ZodiacFinderPage({
       </div>
 
       <div className="mt-8 flex justify-center">
-        <button
-          onClick={() => {
-            const el = document.getElementById("zodiac-result");
-            el?.scrollIntoView({ behavior: "smooth" });
-          }}
+        <a
+          href="#zodiac-result"
           className={buttonVariants({ size: "lg" })}
         >
           {d.find}
-        </button>
+        </a>
       </div>
 
       <div id="zodiac-result" className="mt-12">

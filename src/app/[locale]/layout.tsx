@@ -77,7 +77,7 @@ export default async function RootLayout({
   if (!routing.locales.includes(locale as any)) notFound();
   const messages = await getMessages();
   return (
-    <html lang={locale}>
+    <html lang={locale} className="scroll-smooth">
       <body className="antialiased">
         <NextIntlClientProvider messages={messages}>
           <header className="border-b">

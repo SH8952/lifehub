@@ -264,15 +264,12 @@ export default async function DailyFortunePage({
       </div>
 
       <div className="mt-8 flex justify-center">
-        <button
-          onClick={() => {
-            const el = document.getElementById("fortune-result");
-            el?.scrollIntoView({ behavior: "smooth" });
-          }}
+        <a
+          href="#fortune-result"
           className={buttonVariants({ size: "lg" })}
         >
           {d.showFortune}
-        </button>
+        </a>
       </div>
 
       <div id="fortune-result" className="mt-12">

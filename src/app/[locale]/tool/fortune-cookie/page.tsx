@@ -282,15 +282,12 @@ export default async function FortuneCookiePage({
       />
 
       <div className="mt-8 flex justify-center">
-        <button
-          onClick={() => {
-            const el = document.getElementById("fortune-message");
-            el?.scrollIntoView({ behavior: "smooth" });
-          }}
+        <a
+          href="#fortune-message"
           className={buttonVariants({ size: "lg" })}
         >
           {d.openCookie}
-        </button>
+        </a>
       </div>
 
       <div id="fortune-message" className="mt-12 flex justify-center">
