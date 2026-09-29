@@ -12,7 +12,14 @@
     "statsToolsLabel": "Free Tools",
     "statsLanguagesLabel": "Languages",
     "statsCategoriesLabel": "Categories",
-    "comingSoon": "Coming soon"
+    "comingSoon": "Coming soon",
+    "hubQuickTitle": "Popular tools to try right now",
+    "todaysPickBadge": "Today's Pick",
+    "todaysPickCta": "Try it now",
+    "categorySpotlightBadge": "Category Spotlight",
+    "categorySpotlightCta": "View all tools",
+    "categoryStatusTitle": "Tools by Category",
+    "toolsUnit": "tools"
   },
   "Category": {
     "categories": "Categories",

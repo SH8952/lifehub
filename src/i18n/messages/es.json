@@ -12,7 +12,14 @@
     "statsToolsLabel": "Herramientas Gratis",
     "statsLanguagesLabel": "Idiomas",
     "statsCategoriesLabel": "Categorías",
-    "comingSoon": "Próximamente"
+    "comingSoon": "Próximamente",
+    "hubQuickTitle": "Herramientas populares para probar ahora",
+    "todaysPickBadge": "Recomendado de hoy",
+    "todaysPickCta": "Probar ahora",
+    "categorySpotlightBadge": "Categoría Destacada",
+    "categorySpotlightCta": "Ver todas las herramientas",
+    "categoryStatusTitle": "Herramientas por Categoría",
+    "toolsUnit": "herramientas"
   },
   "Category": {
     "categories": "Categorías",
