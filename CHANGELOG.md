@@ -4,6 +4,51 @@
 
 ---
 
+## [2026-09-29] image-media 카테고리 신규 도구 5종 추가 (배치 1/6 — 카테고리 균형 확장 계획)
+
+### 배경
+
+- 사용자 요청으로 카테고리 균형 확장 계획 문서(Claude Docs)를 작성해 승인받음:
+  life-health(21) 편중을 해소하기 위해 image-media/document-pdf/dev-it/utility/finance/
+  fun-entertainment 순으로 총 6개 배치에 걸쳐 도구를 추가하기로 함. 이번 커밋은 배치 1.
+
+### 변경 내용
+
+- `image-media` 카테고리에 Canvas API 기반 순수 브라우저 처리 도구 5종 신규 추가
+  (외부 라이브러리 불필요, 서버 전송 없음)
+  - `image-compressor`: 품질 슬라이더 + 출력 포맷 선택 기반 이미지 압축, 용량 감소율 표시
+  - `image-resizer`: 가로/세로 픽셀 직접 입력 + 비율 고정 옵션 + 25/50/75% 프리셋
+  - `image-rotate-filter`: 90도 회전, 좌우/상하 반전, 밝기·대비·흑백·세피아 필터(Canvas filter)
+  - `image-format-converter`: JPG/PNG/WebP 상호 변환, JPEG 변환 시 투명도 손실 경고
+  - `image-watermark`: 텍스트 또는 로고 이미지 워터마크, 9방향 위치·투명도·크기 조절
+- 각 도구는 `data.ts`(서버 안전 데이터) + `<Name>Client.tsx`("use client") + `page.tsx`
+  (generateMetadata) 3분리 패턴 적용 — 과거 RSC 경계 버그(9/30 수정 사례) 재발 방지
+- 4개 언어(ko/en/ja/es) 전체 번역 포함
+- `src/lib/tools-data.ts`의 `categoryToolsMap`에 `"image-media"` 키 등록 (5개 도구)
+- `src/app/sitemap.ts`: `CATEGORY_IDS`에 `image-media` 추가, `TOOL_IDS`에 신규 도구 5종 추가
+
+### 검증
+
+- `npx tsc --noEmit` 0 errors
+- `npx next build` 성공 (177 라우트 생성, 신규 5개 도구 라우트 포함)
+- `npx next dev` 실전 기동 후 홈/`image-media` 카테고리 페이지/신규 도구 5종 × 4개 언어
+  = 26개 라우트 전부 HTTP 200, 에러 로그 없음 확인
+- 렌더링 콘텐츠 확인: 각 언어별 `<title>`/`<h1>`이 올바르게 현지화되어 표시됨
+
+### 참고 (별도 확인 필요, 이번 작업 범위 아님)
+
+- 도구 페이지 `<title>`에 "| LifeHub"가 중복 표시되는 현상 발견 (예: "BMI(비만도) 계산기 |
+  LifeHub | LifeHub"). 확인 결과 기존 도구 페이지(bmi, word-practice 등) 전체에 이미 존재하던
+  사이트 전역 버그이며 이번 배치로 새로 생긴 문제는 아님. 루트 레이아웃의 title template과
+  각 도구 page.tsx의 title 문자열이 중복 결합되는 구조적 원인으로 추정 — 전체 도구 페이지에
+  영향을 미치므로 별도 확인/승인 후 일괄 수정 필요.
+
+### 커밋
+
+`45a386c`
+
+---
+
 ## [2026-09-29] 애드센스 신청용 정책 페이지 추가 (Privacy/Terms/About/Contact, 4개 언어)
 
 ### 변경 내용
