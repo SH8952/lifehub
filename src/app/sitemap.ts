@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
 import { SITE_URL } from "@/lib/seo";
 
-const CATEGORY_IDS = ["life-health", "finance", "fun-entertainment"];
+const CATEGORY_IDS = ["life-health", "finance", "fun-entertainment", "image-media"];
 
 const STATIC_PAGES = ["about", "contact", "privacy", "terms"];
 
@@ -36,6 +36,11 @@ const TOOL_IDS = [
   "zodiac-finder",
   "compatibility",
   "fortune-cookie",
+  "image-compressor",
+  "image-resizer",
+  "image-rotate-filter",
+  "image-format-converter",
+  "image-watermark",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
