@@ -20,7 +20,7 @@ export async function generateMetadata({
   const { locale } = await params;
   const lang = locale as Locale;
   const m = pageMeta[lang] ?? pageMeta.ko;
-  const title = `${m.title} | LifeHub`;
+  const title = m.title;
   return {
     title,
     description: m.description,
