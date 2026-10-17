@@ -3,46 +3,14 @@
 이 파일은 opencode(터미널 AI 코딩 에이전트)가 이 프로젝트 루트에서 작업할 때 자동으로 읽어들이는 규칙 파일입니다(`AGENTS.md`는 opencode가 프로젝트 로컬 파일로 자동 인식하는 표준 파일명).
 사용 모델: qwen3.6:35b-a3b-coding (Ollama, 코딩 전용 로컬 모델). 실행 도구: opencode CLI (터미널).
 
-## ⚠️ Claude Cowork 검증·수정 결과 (2026-09-22, 재개 전 반드시 먼저 읽을 것 — 아래가 최신 상태)
 
-opencode의 "Failed to send prompt" 오류로 세션이 끊겼던 시점 전후로 작업하던 내용을, 사용자 요청으로 Claude Cowork가 실제 파일/빌드 상태를 직접 검증했습니다. 아래 내용은 이미 전부 처리 완료된 것이니 **다시 손대거나 되돌리지 마세요.** 상세 진단 과정은 Claude 측 기록에만 있어 이 프로젝트 폴더에서는 볼 수 없으니, 아래 요약만으로 현재 파일 상태를 신뢰하고 진행하면 됩니다.
+## autocompact thrashing 방지 지침 (중요 — 매 턴 지킬 것)
 
-**이미 수정 완료된 항목 (전부 `npx tsc --noEmit` 에러 0건으로 검증됨)**
+컨텍스트가 매 턴 다시 채워져 반복 컴팩트가 발생하는 것을 막기 위한 규칙입니다.
 
-1. `category/[id]/page.tsx`: 카드 id 오류 2건 수정 (`"bmr"` → `"bmr-calculator"`, `"adhd-check"` → `"adhd-checklist"`), 화살표 아이콘이 `&rightarrow;`라는 잘못된 HTML 엔티티로 찍히던 것을 실제 화살표(`→`)로 수정, 상단 라벨이 "CATEGORY.CATEGORIES"로 표시되던 번역 키 누락(`Category.categories`)을 4개 언어 파일에 모두 추가해 수정.
-2. `tool/lunch-roulette/page.tsx`, `tool/nightmeal-roulette/page.tsx`: 배열 닫는 괄호 오타·삼항연산자 오류로 **빌드 자체가 깨지는 문법 오류**가 있었던 것 수정 완료. 두 파일의 음식 데이터(존재하지 않는 음식명, 잘못 분류된 항목)도 함께 재작성.
-3. `tool/construction-cost/page.tsx`, `tool/far-calculator/page.tsx`: "완료"로 보고됐던 두 도구에서 실제로는 **빌드를 깨는 타입 에러 3건**이 발견되어 수정 완료(`Data` 인터페이스에 없는 필드 참조, null 가능성 오판단). 두 파일 다국어 텍스트에 영어/한자/중국어 간체자가 잘못 섞여있던 부분도 함께 정리.
-4. `tool/bmr-calculator/page.tsx`, `tool/tdee/page.tsx`, `tool/fasting-timer/page.tsx`, `tool/abc-juice/page.tsx`: 다국어 텍스트에 "摂/摄"(올바른 일본어 한자 vs 중국어 간체자, 육안 구분 거의 불가), "诊/診" 같은 잘못된 한자가 섞여 들어간 오류 다수 수정 완료.
-
-**⚠️ 새로 발견된 문제 — 다음 작업 시 함께 처리 필요**
-
-`categoryToolsMap`(`category/[id]/page.tsx`, `"life-health"` 배열)을 실제 `tool/` 폴더 16개와 대조한 결과:
-
-- **등록 안 된 티어 1 도구 8개**: `construction-cost`, `far-calculator`, `lunch-roulette`, `nightmeal-roulette`, `study-method`, `abc-juice`, `mosquito-sound`, `rat-sound`. 페이지 파일은 이미 다 존재하지만 카테고리 화면 카드로 등록이 안 되어 있어 `/ko/category/life-health` 화면에서 보이지 않는 상태입니다.
-- **중복 카드 1건**: 현재 배열에 "기초대사량(BMR) 계산기" 카드(`id: "bmr-calculator"`)와 "기초대사량(BMR) & 활동대사량(TDEE) 통합 계산기" 카드가 **둘 다 `id: "bmr-calculator"`로 등록**되어 있어 같은 페이지로 중복 연결됩니다. `bmr-calculator/page.tsx`가 이미 BMR과 TDEE(체중 감량/증가 권장 섭취량)를 함께 계산해 보여주는 페이지이므로, "통합 계산기"라는 이름의 카드는 실질적으로 같은 기능의 중복입니다. **이 중복 카드는 삭제**하세요.
-
-**다음 단계 지시**
-
-1. 위 8개 도구를 `categoryToolsMap["life-health"]` 배열에 카드로 추가하고, 중복된 "통합 계산기" 카드는 제거하세요. (`ToolInfo` 인터페이스 형식: `id`, `name`/`nameEn`/`nameJa`/`nameEs`, `description`/`descriptionEn`/`descriptionJa`/`descriptionEs` — 기존 항목들의 형식을 그대로 따르면 됩니다.)
-2. 다국어 텍스트를 새로 작성할 때 "摂/摄", "诊/診"처럼 육안으로 구분이 잘 안 되는 한자를 잘못 입력하는 실수가 이번에 여러 건 반복 발견됐습니다. 새로 텍스트를 쓸 때 한국어에는 한글만, 일본어에는 정확한 일본어 상용한자만 쓰도록 한 번 더 신경 써주세요.
-3. 위 작업이 끝나면 티어 1(16개 도구)은 카테고리 등록까지 전부 완료된 것으로 볼 수 있습니다 → `PROJECT_PLAN.md` "6. 생활/건강 카테고리 도구 백로그"의 **티어 2**(반려동물 입국 규정/전세계 비자 비교/단어 연습장/도시별 한달살기 비용)로 넘어가세요.
-4. 참고: 이 프로젝트에 `CHANGELOG.md` 파일이 아직 한 번도 만들어지지 않은 것으로 확인됐습니다. 아래 "반드시 지킬 규칙" 3번(작업 완료 후 `CHANGELOG.md`에 한국어로 기록)을 이제부터라도 지켜서, 이번 카드 추가 작업부터 새로 파일을 만들어 기록을 시작하세요.
-
-## ⚠️ 랜딩페이지 디자인 최종 확정 (2026-09-21, Claude Cowork 작업 — 반드시 먼저 읽을 것)
-
-랜딩페이지 디자인 시안 3개(`page-sample1/2/3.tsx`)를 비교하는 작업이 너무 오래 걸려, Claude Cowork가 최종 디자인을 직접 확정했습니다.
-
-- **확정된 실제 홈페이지**: `src/app/[locale]/page.tsx` (1번 시안의 히어로 + 카테고리 그리드 구조를 기반으로 정리·수정함)
-- **`page-sample1.tsx`, `page-sample2.tsx`, `page-sample3.tsx`, `src/app/[locale]/sample2/` 라우트, 미사용 중복 번역 파일(`src/messages/`), `start-sample2.command`는 전부 시안 비교용 아카이브/leftover였습니다.** 2026-09-21에 프로젝트 루트의 **`_to_delete/`** 폴더로 격리(이동) 완료했습니다. 이 폴더는 사용자가 직접 영구 삭제할 예정이니 **`_to_delete/` 안의 내용은 절대 참고하거나 되살리지 마세요.**
-- **카테고리는 7개로 확정**: `life-health`(우선 진행), `image-media`, `document-pdf`, `finance`, `fun-entertainment`(신규 추가), `dev-it`, `utility`. `page.tsx`의 `categories` 배열이 기준입니다.
-- **`src/components/ui/button.tsx`에 `buttonVariants`를 export 추가했습니다.** 이 컴포넌트의 `asChild` prop은 실제로는 구현되어 있지 않은 죽은 코드입니다 — `<Button asChild><a>...</a></Button>` 형태로 쓰면 `<button>` 안에 `<a>`가 중첩되는 잘못된 마크업이 됩니다. **링크를 버튼처럼 보이게 하려면 반드시 아래처럼 `buttonVariants`를 직접 써서 `<a>` 태그에 적용하세요:**
-  ```tsx
-  import { buttonVariants } from "@/components/ui/button";
-  <a href="/x" className={buttonVariants({ variant: "secondary", size: "lg" })}>...</a>
-  ```
-- **`src/i18n/messages/{ko,en,ja,es}.json`이 실제로 로드되는 번역 파일입니다** (`src/i18n/request.ts` 참고). `Home`/`Category`/`Tools` 키를 정리해뒀으니 이 파일들을 사용하세요. **`src/messages/` (i18n 없는 경로)는 쓰이지 않는 leftover 중복 파일이니 참고하지 마세요.**
-- **이제부터 랜딩페이지 히어로/카테고리 그리드, `layout.tsx`의 헤더/푸터, `button.tsx`는 임의로 수정하지 마세요.** 수정이 꼭 필요하면 먼저 `HANDOFF_TO_CLAUDE.md`에 기록하고 에스컬레이션하세요.
-- **다음 작업**: 아래 "6. 생활/건강 카테고리 도구 백로그"(`PROJECT_PLAN.md`)의 티어 1부터, `/category/[id]` 카테고리 목록 페이지와 개별 `/tool/[id]` 도구 페이지 제작을 시작하세요.
+- AGENTS.md에 있던 완료된 Cowork 검증 결과·랜딩페이지 디자인 확정 내용은 `_archive/agents_cowork_verification.md`, `_archive/agents_landingpage_design.md`로 이미 옮겨졌습니다. **이 두 파일은 특별한 이유가 없으면 다시 읽지 마세요.**
+- `CHANGELOG.md`도 마찬가지입니다. 2026-09-24~09-29 기록은 `_archive/CHANGELOG_ARCHIVE_2026-09.md`로 옮겼습니다. **작업 완료 기록을 추가할 때 `CHANGELOG.md` 전체를 다시 읽지 말고, 파일 맨 위(최신 항목 바로 아래)에 새 항목만 추가하세요.** 과거 형식이 궁금할 때만 최근 1~2개 항목 정도만 확인하면 충분합니다.
+- 매 턴 같은 참고 파일을 반복해서 다시 읽는 것 자체가 컨텍스트 소진의 주원인입니다. 세션 안에서 이미 읽은 내용은 다시 읽지 말고 기억에 의존하세요.
 
 ## 이 프로젝트는 무엇인가
 
@@ -55,6 +23,47 @@ opencode의 "Failed to send prompt" 오류로 세션이 끊겼던 시점 전후�
 - **1차 담당자는 로컬 LLM(당신)입니다.** 전반적인 도구 페이지 제작, 반복적인 계산기/콘텐츠 구현을 전담합니다.
 - **Claude Cowork는 2차 전문가입니다.** 아래 "막혔을 때" 섹션에 해당하는 경우에만 투입됩니다. 그 외의 일반적인 도구 제작 작업은 스스로 끝까지 진행하세요.
 - 이 협업 구조는 이 프로젝트에서 처음 시도하는 방식입니다. 판단이 애매하면 무리하게 혼자 밀어붙이지 말고, 아래 에스컬레이션 기준에 따라 빨리 멈추고 기록을 남기는 쪽을 우선하세요.
+
+## 에이전트 분업 지침 (모든 작업 적용)
+
+프로젝트의 모든 작업은 가능한 한 에이전트 분업으로 진행합니다. 단일 에이전트가 전체를 처리하는 대신, 독립적인 작업을 병렬로 분할해서 처리합니다.
+
+### 분업 원칙
+
+1. **독립적인 도구 페이지는 반드시 병렬 생성합니다.** 같은 배치 내에서도 서로 다른 도구는 독립적인 하위 에이전트(`Agent`)로 분할합니다.
+   - 예: 배치 5(finance 6개 도구) → 6개의 하위 에이전트가 병렬로 각 도구 페이지 생성
+2. **번역 작업은 언어별·도구별로 분할합니다.** 4개 언어(ko/en/ja/es) 번역은 각각 독립적인 에이전트가 담당합니다.
+3. **검증 작업은 별도 에이전트로 분할합니다.** `npx tsc --noEmit`, `npx next build`, `npx next dev` 전수 스윕은 각각 별도 에이전트 또는 별도 태스크로 처리합니다.
+4. **파일 백업은 최우선 작업입니다.** 분업 전에 `_backups/` 폴더 생성과 파일 복제를 먼저 완료한 후 분할된 작업을 시작합니다.
+
+### 분업 시 고려사항
+
+- **의존성이 없는 작업만 분할합니다.** 예: `data.ts`가 완성되기 전에는 `*Client.tsx`를 병렬로 시작할 수 없습니다.
+- **git add는 반드시 통합 에이전트가 담당합니다.** 분할된 에이전트들이 각각 파일을 생성하지만, `git add <file1> <file2>` 커밋은 메인 에이전트가 한 번에 처리합니다. (`git add -A` 절대 금지)
+- **에이전트 간 상태 공유는 하지 않습니다.** 각 하위 에이전트는 독립적인 컨텍스트로 작동하므로, 번역 데이터나 디자인 시스템에 대한 공통 지식은 파일로 공유합니다.
+- **에스컬레이션은 각 에이전트가 개별적으로 판단합니다.** 하위 에이전트가 에스컬레이션 기준에 도달하면 `HANDOFF_TO_CLAUDE.md`에 기록하고 작업을 중단합니다.
+
+### 분업 예시 (배치 단위 작업)
+
+```
+메인 에이전트 (계획·통합·검증)
+├── Agent 1: tool-1 data.ts + *Client.tsx + page.tsx (ko)
+├── Agent 2: tool-2 data.ts + *Client.tsx + page.tsx (ko)
+├── Agent 3: tool-3 data.ts + *Client.tsx + page.tsx (ko)
+├── Agent 4: tool-4 data.ts + *Client.tsx + page.tsx (ko)
+├── Agent 5: tool-5 data.ts + *Client.tsx + page.tsx (ko)
+└── Agent 6: tool-6 data.ts + *Client.tsx + page.tsx (ko)
+    └── (병렬로 6개 도구 동시 생성)
+        └── 각 도구별로 4개 언어 번역 에이전트 추가 분할 가능
+```
+
+### 분업 해제 조건 (에스컬레이션)
+
+아래 상황에서는 분업을 중단하고 단일 에이전트가 전체를 처리합니다:
+- 하위 에이전트들이 같은 오류를 반복할 때
+- git 충돌이 발생하거나 파일이 손상됐을 때
+- 배포/빌드 실패 원인이 불명확할 때
+- Claude Cowork의 투입이 필요할 때
 
 ## 반드시 지킬 규칙 (기존 exiflens/flydronemap/firelic 프로젝트와 동일한 표준)
 
