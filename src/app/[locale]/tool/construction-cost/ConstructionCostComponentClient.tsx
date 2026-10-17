@@ -70,7 +70,7 @@ export default function ConstructionCostComponent({ initialLocale }: { initialLo
 
     let baseCost = costNum;
     if (buildingType === "renovation") {
-      baseCost = 400 * 0.6;
+      baseCost = costNum * 0.6;
     }
 
     setTotalCost(Math.round(pyeong * baseCost * multiplier));

@@ -4,6 +4,42 @@
 
 ---
 
+## [2026-10-17] visa-comparison en 블록 데이터 오염 수정 + far-calculator 근거 없는 최대 용적률 표시 삭제
+
+### 변경 내용
+
+- `src/app/[locale]/tool/visa-comparison/data.ts` (en 블록):
+  - 167행: Japan 카드에 United States 데이터가 잘못 들어있는 항목 삭제 (169행에 올바른 United States 엔트리 존재)
+  - 192행: UAE 카드에 Qatar(30일) 데이터가 잘못 들어있던 항목을 `{ country: "United Arab Emirates", countryEn: "UAE", category: "visa-free", visaFreeDays: 90, note: "90 days visa-free" }`로 수정
+  - 201행: Japan 중복 엔트리 삭제 (168행에 이미 존재)
+  - ko/ja/es 블록은 정상 — 변경 없음
+- `src/app/[locale]/tool/far-calculator/FarCalculatorComponentClient.tsx`:
+  - 55행: `maxAllowedFAR` 계산식 삭제 (대지면적 × 5 — 용도지역 미입력 근거 없는 수치)
+  - 182~186행: 최대 가능 용적률 표시 삭제
+  - 실제 FAR 계산식(`flo / land * 10000 / 100`)은 정상이므로 변경 없음
+
+### 검증
+
+- `tsc --noEmit` → 0 errors.
+
+---
+
+## [2026-10-17] tdee 자동계산 모드 도달 불가 + 활동량 라벨 공백 수정 + construction-cost 리모델링 입력 무시 수정
+
+### 변경 내용
+
+- `src/app/[locale]/tool/tdee/TdeeCalculatorClient.tsx`:
+  - 43행: `if (useBmrCalc || bmrInput)` → `if (bmrInput)` 수정. 기존 조건에서 `useBmrCalc`가 true이지만 `bmrInput`이 공백일 때(나이/키/체중 기반 BMR 계산 모드) 첫 번째 분기로 진입해 `parseFloat("")` → NaN → silent return 되는 버그 수정
+  - 218행: `{d[k as keyof Data]}` → `{d[activityMultipliers[k].key as keyof Data]}` 수정. `activityMultipliers`의 `key` 필드(`"sedentary"`, `"light"` 등)를 통해 올바른 번역 키로 매핑. 기존에는 `"1.2"`, `"1.375"` 같은 숫자 문자열을 번역 키로 사용해서 공백 표시됨
+- `src/app/[locale]/tool/construction-cost/ConstructionCostComponentClient.tsx`:
+  - 73행: `baseCost = 400 * 0.6` → `baseCost = costNum * 0.6` 수정. 리모델링 선택 시 사용자 입력 단가(costPerPyeong)에 0.6 배율 적용. 기존에는 하드코딩된 400만원에 0.6을 곱해서 항상 240만원이 되는 버그
+
+### 검증
+
+- `tsc --noEmit` → 0 errors.
+
+---
+
 ## [2026-10-02] utility 카테고리 신규 도구 6종 추가 (배치 4/6 — 카테고리 균형 확장 계획)
 
 ### 배경
