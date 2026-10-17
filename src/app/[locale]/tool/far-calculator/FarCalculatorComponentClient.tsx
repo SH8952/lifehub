@@ -52,7 +52,6 @@ export default function FarCalculatorComponent({ initialLocale }: { initialLocal
     setResult({ far: farVal, lotCoverage: lotVal });
   }
 
-  const maxAllowedFAR = result && landArea ? Math.round((parseFloat(landArea) * 5) * 100) / 100 : null;
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
@@ -179,11 +178,6 @@ export default function FarCalculatorComponent({ initialLocale }: { initialLocal
                       <>
                         <p className="mt-2 text-5xl font-bold text-indigo-700">{result.far}%</p>
                         <p className="mt-1 text-xs text-muted-foreground">{d.farDesc}</p>
-                        {maxAllowedFAR && (
-                          <p className="mt-2 text-xs text-muted-foreground">
-                            최대 가능 용적률: {maxAllowedFAR}% (대지면적 × 5)
-                          </p>
-                        )}
                       </>
                     ) : (
                       <p className="mt-2 text-5xl font-bold text-muted-foreground">—</p>

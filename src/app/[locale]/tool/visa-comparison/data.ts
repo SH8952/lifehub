@@ -164,7 +164,6 @@ export const i18nData: Record<Locale, Data> = {
     disclaimer: "⚠️ This information is for reference based on 2026 data. Actual visa and entry approval is determined by official authorities of each country.",
     footer: "100% processed in browser. No data sent to the server.",
     countries: [
-      { country: "Japan", countryEn: "United States", category: "visa-required", note: "ESTA required. Stay up to 90 days" },
       { country: "Japan", countryEn: "Japan", category: "visa-free", visaFreeDays: 90, note: "90 days visa-free — most popular destination" },
       { country: "United States", countryEn: "United States", category: "visa-required", note: "ESTA (eTravel Authorization) required. Stay up to 90 days" },
       { country: "Canada", countryEn: "Canada", category: "evisa", note: "eTA (electronic travel authorization) required. Stay up to 6 months" },
@@ -189,7 +188,7 @@ export const i18nData: Record<Locale, Data> = {
       { country: "Indonesia", countryEn: "Indonesia", category: "visa-free", visaFreeDays: 30, note: "30 days visa-free" },
       { country: "India", countryEn: "India", category: "visa-on-arrival", note: "Visa on arrival or eVisa required. Stay up to 60 days" },
       { country: "China", countryEn: "China", category: "visa-required", note: "Visa required. 15 days visa-free (some conditions)" },
-      { country: "United Arab Emirates", countryEn: "Qatar", category: "visa-free", visaFreeDays: 30, note: "30 days visa-free" },
+      { country: "United Arab Emirates", countryEn: "UAE", category: "visa-free", visaFreeDays: 90, note: "90 days visa-free" },
       { country: "Turkey", countryEn: "Turkey", category: "evisa", note: "eVisa required. Stay up to 90 days" },
       { country: "Egypt", countryEn: "Egypt", category: "visa-on-arrival", note: "Visa on arrival required. Stay up to 30 days" },
       { country: "South Africa", countryEn: "South Africa", category: "visa-free", visaFreeDays: 90, note: "90 days visa-free" },
@@ -198,7 +197,6 @@ export const i18nData: Record<Locale, Data> = {
       { country: "Qatar", countryEn: "Qatar", category: "visa-free", visaFreeDays: 30, note: "30 days visa-free" },
       { country: "Kuwait", countryEn: "Kuwait", category: "evisa", note: "eVisa required" },
       { country: "Saudi Arabia", countryEn: "Saudi Arabia", category: "evisa", note: "eVisa required" },
-      { country: "Japan", countryEn: "Japan", category: "visa-free", visaFreeDays: 90, note: "90 days visa-free" },
     ],
   },
   ja: {
