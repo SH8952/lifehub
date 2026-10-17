@@ -40,11 +40,11 @@ export default function TdeeCalculator({ initialLocale }: { initialLocale: Local
   function handleCalculate() {
     let bmrValue: number;
 
-    if (bmrInput) {
+    if (bmrInput && !useBmrCalc) {
       const bmrNum = parseFloat(bmrInput);
       if (isNaN(bmrNum) || bmrNum < 500 || bmrNum > 6000) return;
       bmrValue = bmrNum;
-    } else {
+    } else if (useBmrCalc) {
       const ageNum = parseInt(age);
       const heightNum = parseFloat(height);
       const weightNum = parseFloat(weight);
@@ -215,7 +215,7 @@ export default function TdeeCalculator({ initialLocale }: { initialLocale: Local
                       >
                         {Object.keys(activityMultipliers).map((k) => (
                           <option key={k} value={k}>
-                            {d[activityMultipliers[k].key as keyof Data] as string}
+                            {(d as Record<string, string>)[activityMultipliers[k].key] as string}
                           </option>
                         ))}
                       </select>
