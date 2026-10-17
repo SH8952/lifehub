@@ -149,7 +149,7 @@ export default function WordPractice({ initialLocale }: { initialLocale: Locale 
 
   const d = data[locale];
   const words = difficulty === "all" ? d.words : d.words.filter((w) => w.difficulty === difficulty);
-  const currentWord = currentIndex < words.length ? words[currentIndex] : words[0];
+  const currentWord = words.length > 0 ? words[Math.min(currentIndex, words.length - 1)] : null;
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12">
@@ -192,7 +192,7 @@ export default function WordPractice({ initialLocale }: { initialLocale: Locale 
       </div>
 
       <div className="mt-6 flex flex-wrap gap-2">
-        {(["all", "A1", "A2", "B1", "B2", "C1", "C2"] as Difficulty[]).map((level) => (
+        {(["all", "A1", "A2", "B1", "B2", "C1"] as Difficulty[]).map((level) => (
           <button
             key={level}
             onClick={() => setDifficulty(level)}
@@ -203,7 +203,11 @@ export default function WordPractice({ initialLocale }: { initialLocale: Locale 
         ))}
       </div>
 
-      {viewMode === "learn" && (
+      {currentWord === null ? (
+        <div className="mt-8 text-center text-muted-foreground">
+          <p className="text-lg">이 난이도에는 아직 단어가 없습니다.</p>
+        </div>
+      ) : viewMode === "learn" ? (
         <div className="mt-8">
           <Card className="border shadow-md">
             <CardContent className="pt-6">
@@ -227,9 +231,9 @@ export default function WordPractice({ initialLocale }: { initialLocale: Locale 
             </button>
           </div>
         </div>
+      ) : (
+        <div className="mt-8"><Quiz word={currentWord} locale={locale} d={d} /></div>
       )}
-
-      {viewMode === "quiz" && <div className="mt-8"><Quiz word={currentWord} locale={locale} d={d} /></div>}
 
       <section className="mt-12">
         <h2 className="mb-4 text-xl font-semibold">{d.whyLearn}</h2>
