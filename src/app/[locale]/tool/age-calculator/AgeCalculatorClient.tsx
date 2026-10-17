@@ -10,7 +10,7 @@ import { i18nData, type Locale, type Data } from "./data";
 
 
 
-const chineseZodiac: string[] = ["쥐", "소", "호랑이", "토끼", "용", "뱀", "말", "원숭이", "닭", "개", "돼지", "쥐"];
+const chineseZodiac: string[] = ["쥐", "소", "호랑이", "토끼", "용", "뱀", "말", "양", "원숭이", "닭", "개", "돼지"];
 
 export default function AgeCalculator({ initialLocale }: { initialLocale: Locale }) {
   const [locale, setLocale] = useState<Locale>(initialLocale);
