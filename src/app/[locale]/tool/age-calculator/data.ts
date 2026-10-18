@@ -12,7 +12,7 @@ export interface Data {
   months: string;
   days: string;
   zodiacYear: string;
-  chineseZodiac: string;
+  chineseZodiac: string[];
   nextBirthday: string;
   daysUntilNext: string;
   limitations: string;
@@ -35,7 +35,7 @@ export const i18nData: Record<Locale, Data> = {
     months: "개월",
     days: "일",
     zodiacYear: "띠",
-    chineseZodiac: "띠 이름",
+    chineseZodiac: ["쥐", "소", "호랑이", "토끼", "용", "뱀", "말", "양", "원숭이", "닭", "개", "돼지"],
     nextBirthday: "다음 생일",
     daysUntilNext: "D-하루 남음",
     limitations: "만 나이는 참고용이며, 실제 공식 나이는 관할 관청 규정에 따라 다를 수 있습니다.",
@@ -70,7 +70,7 @@ export const i18nData: Record<Locale, Data> = {
     months: "months",
     days: "days",
     zodiacYear: "Zodiac animal",
-    chineseZodiac: "Zodiac",
+    chineseZodiac: ["Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Goat", "Monkey", "Rooster", "Dog", "Pig"],
     nextBirthday: "Next birthday",
     daysUntilNext: "days remaining",
     limitations: "The age calculation is for reference. It may differ from the official age based on local regulations.",
@@ -105,7 +105,7 @@ export const i18nData: Record<Locale, Data> = {
     months: "ヶ月",
     days: "日",
     zodiacYear: "干支",
-    chineseZodiac: "干支の名前",
+    chineseZodiac: ["鼠", "牛", "虎", "兔", "龍", "蛇", "馬", "羊", "猿", "雞", "狗", "豬"],
     nextBirthday: "次回のお誕生日",
     daysUntilNext: "日後に迫っています",
     limitations: "年齢計算は参考用です。実際の年齢は管轄の規定により異なる場合があります。",
@@ -140,7 +140,7 @@ export const i18nData: Record<Locale, Data> = {
     months: "meses",
     days: "días",
     zodiacYear: "Animal del zodiaco",
-    chineseZodiac: "Signo zodiacal",
+    chineseZodiac: ["Rata", "Buey", "Tigre", "Gato", "Dragón", "Serpiente", "Caballo", "Cabra", "Mono", "Gallo", "Perro", "Cerdo"],
     nextBirthday: "Próximo cumpleaños",
     daysUntilNext: "días restantes",
     limitations: "El cálculo de edad es solo de referencia. La edad oficial puede variar según las regulaciones locales.",

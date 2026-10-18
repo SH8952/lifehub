@@ -2,6 +2,78 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## [2026-10-18] SessionStart(compact) 훅으로 compaction 직후 작업 방향 재주입 추가
+
+### 배경
+
+- PreCompact 체크포인트 커밋 훅을 추가한 이후에도 "Autocompact is thrashing"
+  경고가 재발함 (3번 연속 compact 직후 context가 바로 다시 가득 참). 원인은
+  compaction 직후 모델이 방향을 잃고 이미 읽은 대용량 클라이언트 파일
+  (AgeCalculatorClient.tsx, TdeeCalculatorClient.tsx 등 300줄 안팎)을 매번
+  처음부터 재조회하는 패턴으로 추정됨. 같은 "compaction 직후 방향 상실" 패턴이
+  이전의 자기소개서 할루시네이션 사건과도 근본 원인을 공유하는 것으로 판단.
+
+### 변경 내용
+
+- `.claude/hooks/session-start-reorient.sh` (신규): `SessionStart` 훅, matcher
+  `"compact"` 로 등록되어 자동/수동 compaction 직후마다 실행됨. 실행 시마다:
+  - 실제 `git log`/`git status` 결과를 다시 알려줌 (BUGFIX_TASKLIST 상단
+    진행 테이블의 ✅/⏳ 표시가 오래되어 있을 수 있으므로 이를 우선 신뢰하도록 지시)
+  - 이미 읽은 파일을 불필요하게 재조회하지 말 것을 명시
+  - 원래 버그 수정 작업 범위를 벗어난 글쓰기(예: 자기소개서)로 이탈하지 말 것을 명시
+  - 항목 완료 시 다음으로 넘어가기 전에 커밋부터 할 것을 명시 (git add -A 금지)
+- `.claude/settings.json`: `SessionStart` 훅(matcher: `compact`) 등록 추가
+  (기존 `PreCompact` 훅은 그대로 유지)
+
+### 목적 및 한계
+
+- PreCompact 체크포인트 커밋 훅(유실 방지) + 이번 SessionStart 재주입 훅(방향
+  재설정)을 조합해 오토모드를 끄지 않고도 재발 빈도를 구조적으로 낮추려는 조치.
+- 다만 로컬 35B급 모델이 장시간 무인 작업 중 드리프트/재이탈할 가능성을 100%
+  차단하는 것은 아님 (모델 자체의 한계). 재발 시에도 PreCompact 훅 덕분에
+  직전 체크포인트까지는 항상 커밋되어 있어 피해를 최소화할 수 있음.
+
+
+## [2026-10-18] Claude Code PreCompact 훅으로 자동 체크포인트 커밋 추가 (harness 재확인 결과 반영)
+
+### 배경
+
+- `ollama launch claude --model qwen3.6:35b-a3b-coding-96k` 로 실행 중인 로컬 LLM 에이전트는
+  오픈코드(opencode)가 아니라 **실제 Claude Code CLI**(터미널 배너 "Claude Code v2.1.302")였음을
+  재확인. Ollama의 "ollama launch" 기능이 Claude Code 를 그대로 실행하되 백엔드 모델만
+  로컬 Ollama 모델로 연결해주는 방식.
+- 따라서 바로 위 항목에서 `opencode.json` 에 추가했던 `compaction.keep.tokens` 설정은
+  Claude Code 가 읽는 설정 파일이 아니라서 실제로는 적용되지 않았을 가능성이 높음
+  (참고용으로 파일은 남겨두되, 더 이상 유효한 조치로 간주하지 않음).
+
+### 변경 내용
+
+- `.claude/settings.json` (신규): Claude Code 의 `PreCompact` 훅을 등록.
+- `.claude/hooks/pre-compact-checkpoint.sh` (신규): context compaction(자동/수동) 직전에
+  이미 추적 중인(tracked) 수정/삭제 파일만 `git add -u` 로 스테이징 후 체크포인트 커밋.
+  - `git add -A` 사용 안 함 (프로젝트 표준 규칙 준수).
+  - 새로 생긴 미추적 파일은 자동으로 포함하지 않음.
+  - 실패해도 compaction 을 막지 않도록 항상 exit 0.
+
+### 목적
+
+- 오토모드로 장시간 무인 작업 중 커밋 없이 여러 번 compaction 이 발생해 작업 내용을
+  되돌리기 어려워지는 문제(2026-10-18 12시간 무커밋 세션)의 재발 방지.
+- 모델이 하는 소프트한 "체크포인트 규칙"(AGENTS.md) 준수에만 의존하지 않고, 커밋 자체는
+  훅으로 결정적으로(deterministic) 보장하여 오토모드를 끄지 않고도 안전장치를 확보.
+
+
+## [2026-10-18] zodiac-finder page.tsx 중복 generateMetadata 제거 및 ZodiacFinderClient 위임
+
+### 변경 내용
+
+- `src/app/[locale]/tool/zodiac-finder/page.tsx`:
+  - 104-125 행에 있던 중복 generateMetadata 함수 제거 (14-35 행과 완전히 동일한 함수, 23 행 삭제)
+  - 모든 JSX 렌더링을 ZodiacFinderClient 클라이언트 컴포넌트로 위임
+  - Card, buttonVariants 등 불필요한 서버 측 import 제거
+- `src/app/[locale]/tool/zodiac-finder/ZodiacFinderClient.tsx`:
+  - 모든 로직/UI 를 클라이언트 컴포넌트로 분리 (312 행)
+
 ## [2026-10-18] opencode.json compaction.keep.tokens 설정 추가 (autocompact thrashing 대응)
 
 ### 변경 내용

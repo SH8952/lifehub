@@ -38,7 +38,7 @@ export default function TdeeCalculator({ initialLocale }: { initialLocale: Local
   const d = i18nData[locale];
 
   function handleCalculate() {
-    let bmrValue: number;
+    let bmrValue: number = 0;
 
     if (bmrInput && !useBmrCalc) {
       const bmrNum = parseFloat(bmrInput);
@@ -213,11 +213,14 @@ export default function TdeeCalculator({ initialLocale }: { initialLocale: Local
                         onChange={(e) => setActivityLevel(parseFloat(e.target.value))}
                         className="mt-1 w-full rounded-md border px-3 py-2"
                       >
-                        {Object.keys(activityMultipliers).map((k) => (
-                          <option key={k} value={k}>
-                            {(d as Record<string, string>)[activityMultipliers[k].key] as string}
-                          </option>
-                        ))}
+                        {Object.keys(activityMultipliers).map((k) => {
+                          const m = activityMultipliers[k];
+                          return (
+                            <option key={k} value={k}>
+                              {(d as Record<string, string>)[m.key] as string}
+                            </option>
+                          );
+                        })}
                       </select>
                     </div>
                   </div>

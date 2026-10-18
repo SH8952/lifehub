@@ -10,8 +10,6 @@ import { i18nData, type Locale, type Data } from "./data";
 
 
 
-const chineseZodiac: string[] = ["쥐", "소", "호랑이", "토끼", "용", "뱀", "말", "양", "원숭이", "닭", "개", "돼지"];
-
 export default function AgeCalculator({ initialLocale }: { initialLocale: Locale }) {
   const [locale, setLocale] = useState<Locale>(initialLocale);
   const t = useTranslations("Tools");
@@ -64,7 +62,7 @@ export default function AgeCalculator({ initialLocale }: { initialLocale: Locale
 
     // Calculate Chinese zodiac
     const zodiacIndex = ((year - 4) % 12 + 12) % 12;
-    setZodiac(chineseZodiac[zodiacIndex]);
+    setZodiac(d.chineseZodiac[zodiacIndex]);
 
     // Calculate days to next birthday
     const nextBirthday = new Date(today.getFullYear(), month - 1, day);
