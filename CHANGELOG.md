@@ -2,6 +2,20 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## [2026-10-18] zodiac-finder page.tsx 중복 generateMetadata 제거 (Claude Cowork 커밋)
+
+### 변경 내용
+
+- `src/app/[locale]/tool/zodiac-finder/page.tsx`:
+  - 104~126행에 중복 선언되어 있던 `generateMetadata` 함수 제거 (14행에 정상 함수 존재)
+  - 기본 export `ZodiacFinderPage`는 그대로 보존
+  - 로컬 LLM 세션이 12시간 넘게 연속 실행되며 커밋 없이 작업만 누적되고 있어, Claude Cowork가 완성되고 안전한 부분(이 파일)만 먼저 별도로 커밋함
+  - `ZodiacFinderClient.tsx`는 아직 타입 에러(212행, `disabled` variant 미정의)가 남아있어 이번 커밋에서 제외 — 로컬 LLM이 이어서 작업 예정
+
+### 검증
+
+- `tsc --noEmit` → 이 파일 관련 에러 없음 (0건)
+
 ---
 
 ## [2026-10-17] visa-comparison en 블록 데이터 오염 수정 + far-calculator 근거 없는 최대 용적률 표시 삭제
