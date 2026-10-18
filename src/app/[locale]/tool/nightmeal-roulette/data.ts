@@ -173,6 +173,7 @@ export const i18nData: Record<Locale, Data> = {
     explanation:
       "What to eat late at night? Late-night meals are always a dilemma.\n\nThe world of late-night food is wide! Over 20 late-night food options including chicken, tteokbokki, fried rice, and jjajangmen are ready.\n\nHow great would it be if someone else chose for you when you're hungry? The late-night food roulette plays that role.",
     footer: "100% processed in browser. No data is sent to the server.",
+    spinning: "Spinning...",
     faq: [
       { q: "What time counts as late night food?", a: "We consider meals after regular dinner (usually 6pm). Usually 9pm onwards is considered late night dining." },
       { q: "Does it include breakfast options?", a: "Yes, late night food includes options that extend into the early morning." },
@@ -194,6 +195,7 @@ export const i18nData: Record<Locale, Data> = {
     explanation:
       "夜に何を食べていいか？夜食はいつも悩みの種です。\n\n夜食の世界は意外にも広い！チキンから唐揚げ、チャーハン、ジャージャー麺まで20以上の夜食メニューが準備されています。\n\nお腹が空いたとき、誰かが選んでくれたらどれほど楽しいでしょう？夜食ルーレットがその役割を果たします。",
     footer: "ブラウザで100%処理。サーバーに送信されるデータはありません。",
+    spinning: "ルーレット中...",
     faq: [
       { q: "夜食は何時からですか？", a: "通常夕食(6時)の後に夜食として見なします。通常9時以降を夜食の時間と見なします。" },
       { q: "朝の食事の選択肢もおすすめされますか？", a: "はい、夜食メニューは深夜まで続く深夜食の選択です。" },
@@ -215,6 +217,7 @@ export const i18nData: Record<Locale, Data> = {
     explanation:
       "¿Qué comer de noche? La comida de medianoche siempre es un dilema.\n\n¡El mundo de la comida de noche es sorprendentemente amplio! Más de 20 opciones incluyen pollo, tteokbokki, arroz frito y jjajangmen.\n\n¿Qué grande sería si alguien más eligiera para ti cuando tienes hambre? La ruleta de comida de noche cumple ese papel.",
     footer: "Procesado 100% en tu navegador. No hay datos enviados al servidor.",
+    spinning: "Girando...",
     faq: [
       { q: "¿A qué hora se considera comida de medianoche?", a: "Consideramos comidas después de la cena regular (usualmente 6pm). Generalmente 9pm en adelante se considera cena de noche." },
       { q: "¿Incluye opciones de desayuno?", a: "Sí, las opciones de comida de noche incluyen opciones que se extienden en la madrugada." },
