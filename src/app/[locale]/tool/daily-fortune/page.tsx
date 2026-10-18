@@ -227,7 +227,7 @@ export default async function DailyFortunePage({
       </div>
 
       <div className="mt-8 grid grid-cols-4 gap-2 sm:grid-cols-6 lg:grid-cols-12">
-        {zodiacData.map((z, i) => (
+        {zodiacData[lang].map((z, i) => (
           <div
             key={i}
             className="flex flex-col items-center gap-1 rounded-lg border p-3 text-center"
@@ -252,24 +252,24 @@ export default async function DailyFortunePage({
         <Card>
           <CardContent className="p-6">
             <div className="flex items-center gap-4">
-              <span className="text-5xl">{zodiacData[todayIndex].emoji}</span>
+              <span className="text-5xl">{zodiacData[lang][todayIndex].emoji}</span>
               <div className="flex-1">
-                <p className="text-lg font-semibold">{zodiacData[todayIndex].sign}</p>
-                <p className="mt-1 text-base leading-relaxed">{zodiacData[todayIndex].fortune}</p>
+                <p className="text-lg font-semibold">{zodiacData[lang][todayIndex].sign}</p>
+                <p className="mt-1 text-base leading-relaxed">{zodiacData[lang][todayIndex].fortune}</p>
               </div>
             </div>
             <div className="mt-4 grid grid-cols-3 gap-4 text-center">
               <div>
                 <p className="text-xs text-muted-foreground">{d.luckyColor}</p>
-                <p className="font-semibold">{zodiacData[todayIndex].luckyColor}</p>
+                <p className="font-semibold">{zodiacData[lang][todayIndex].luckyColor}</p>
               </div>
               <div>
                 <p className="text-xs text-muted-foreground">{d.luckyItem}</p>
-                <p className="font-semibold">{zodiacData[todayIndex].luckyItem}</p>
+                <p className="font-semibold">{zodiacData[lang][todayIndex].luckyItem}</p>
               </div>
               <div>
                 <p className="text-xs text-muted-foreground">{d.caution}</p>
-                <p className="font-semibold text-amber-600">{zodiacData[todayIndex].caution}</p>
+                <p className="font-semibold text-amber-600">{zodiacData[lang][todayIndex].caution}</p>
               </div>
             </div>
           </CardContent>
