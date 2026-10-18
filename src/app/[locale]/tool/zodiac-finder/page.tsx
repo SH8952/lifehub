@@ -1,7 +1,6 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Card, CardContent } from "@/components/ui/card";
-import { buttonVariants } from "@/components/ui/button";
 import { SITE_URL, languageAlternates } from "@/lib/seo";
+import ZodiacFinderClient from "./ZodiacFinderClient";
 
 type Locale = "ko" | "en" | "ja" | "es";
 
@@ -100,16 +99,6 @@ const zodiacSigns: Record<Locale, ZodiacEntry[]> = {
     { sign: "Sagitario", emoji: "♐", dateRange: "22 nov - 21 dic", element: "Fuego", description: "Un aventurero optimista que ama la libertad y tiene espíritu explorador." },
     { sign: "Capricornio", emoji: "♑", dateRange: "22 dic - 19 ene", element: "Tierra", description: "Una persona paciente y responsable, con naturaleza ambiciosa." },
   ],
-};
-
-const getElementName = (locale: Locale, element: string): string => {
-  const map: Record<Locale, Record<string, string>> = {
-    ko: { 공기: "공기", 물: "물", 불: "불", 흙: "흙" },
-    en: { Air: "Air", Water: "Water", Fire: "Fire", Earth: "Earth" },
-    ja: { "空気": "空気", "水": "水", "火": "火", "土": "土" },
-    es: { Aire: "Aire", Agua: "Agua", Fuego: "Fuego", Tierra: "Tierra" },
-  };
-  return map[locale][element] || element;
 };
 
 export default async function ZodiacFinderPage({
@@ -254,11 +243,11 @@ export default async function ZodiacFinderPage({
 
   const d = { ko, en, ja, es }[lang] ?? ko;
 
-  return (
-    <div className="mx-auto max-w-3xl px-4 py-12">
-      <h1 className="text-3xl font-bold tracking-tight">{d.title}</h1>
-      <p className="mt-2 text-muted-foreground">{d.subtitle}</p>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const labels: any = d;
 
+  return (
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -273,102 +262,13 @@ export default async function ZodiacFinderPage({
           }),
         }}
       />
-
-      <div className="mt-8">
-        <Card>
-          <CardContent className="p-6">
-            <p className="text-sm text-muted-foreground">
-              {d.processingMsg}
-            </p>
-          </CardContent>
-        </Card>
-      </div>
-
-      <div className="mt-8 grid grid-cols-3 gap-2 sm:grid-cols-4 lg:grid-cols-6">
-        {Array.from({ length: 12 }, (_, i) => i + 1).map((month) => (
-          <div
-            key={month}
-            className="flex items-center justify-center rounded-lg border p-3 text-center text-sm font-medium"
-          >
-            {month}{d.monthLabel}
-          </div>
-        ))}
-      </div>
-      <div className="mt-4 grid grid-cols-6 gap-2 sm:grid-cols-10 lg:grid-cols-12">
-        {Array.from({ length: 31 }, (_, i) => i + 1).map((day) => (
-          <div
-            key={day}
-            className="flex items-center justify-center rounded-lg border p-2 text-center text-sm"
-          >
-            {day}{d.dayLabel}
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-8 flex justify-center">
-        <a
-          href="#zodiac-result"
-          className={buttonVariants({ size: "lg" })}
-        >
-          {d.find}
-        </a>
-      </div>
-
-      <div id="zodiac-result" className="mt-12">
-        <h2 className="mb-4 text-xl font-semibold">{d.result}</h2>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {signs.map((z, i) => (
-            <Card key={i} className="border shadow-sm">
-              <CardContent className="p-4">
-                <div className="flex items-center gap-3">
-                  <span className="text-4xl">{z.emoji}</span>
-                  <div>
-                    <p className="text-lg font-semibold">{z.sign}</p>
-                    <p className="text-sm text-muted-foreground">{z.dateRange}</p>
-                    <p className="text-sm font-medium text-primary">
-                      {d.element}: {getElementName(lang, z.element)}
-                    </p>
-                  </div>
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {z.description}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </div>
-
-      <section className="mt-12">
-        <h2 className="mb-4 text-xl font-semibold">{d.whyZodiac}</h2>
-        <p className="whitespace-pre-line leading-relaxed">{d.zodiacExplanation}</p>
-        <p className="mt-4 text-sm text-muted-foreground">{d.limitations}</p>
-      </section>
-
-      <section className="mt-12">
-        <h2 className="mb-4 text-xl font-semibold">{t("faq")}</h2>
-        <div className="space-y-4">
-          {d.faq.map((faq, i) => (
-            <Card key={i} className="border shadow-sm">
-              <CardContent className="py-4">
-                <p className="mb-2 font-semibold">
-                  {i + 1}. {faq.q}
-                </p>
-                <p className="text-base text-muted-foreground">{faq.a}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      <p className="mt-8 text-sm text-muted-foreground">{d.disclaimer}</p>
-      <p className="mt-4 text-sm text-muted-foreground">{d.footer}</p>
-
-      <div className="mt-8">
-        <a href={`/${locale}`} className={buttonVariants({ variant: "ghost", size: "sm" })}>
-          &larr; {t("back")}
-        </a>
-      </div>
-    </div>
+      <ZodiacFinderClient
+        signs={signs}
+        locale={lang}
+        labels={labels}
+        faq={d.faq}
+        backHref={`/${locale}`}
+      />
+    </>
   );
 }
