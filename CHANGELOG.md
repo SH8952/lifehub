@@ -2,6 +2,25 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## [2026-10-18] opencode.json compaction.keep.tokens 설정 추가 (autocompact thrashing 대응)
+
+### 변경 내용
+
+- `opencode.json`:
+  - `compaction.keep.tokens`를 기본값(15000)에서 40000으로 상향 조정
+  - 원인 진단: compact 직후 남는 최근 작업 맥락이 너무 적어, 모델이 이미 읽은 파일을 compact 직후
+    다시 읽으면서 컨텍스트가 즉시 재충전 → "3턴 내 3회 연속 thrashing" 증상으로 이어진 것으로 판단
+  - AGENTS.md의 소프트 지침(체크포인트 규칙)이 12시간 넘게 지켜지지 않은 걸 확인한 뒤,
+    모델의 자율 판단에 의존하지 않는 공식 지원 설정값으로 전환
+  - 적용 전 원본은 `_backups/backup_20261018_012011_opencode-json-compaction/`에 백업
+  - 주의: 현재 돌고 있는 opencode 세션에는 반영되지 않으며, 다음 세션 시작 시점부터 적용됨
+
+### 참고
+
+- https://opencode.ai/v2/docs/compaction/
+
+---
+
 ## [2026-10-18] zodiac-finder page.tsx 중복 generateMetadata 제거 (Claude Cowork 커밋)
 
 ### 변경 내용
