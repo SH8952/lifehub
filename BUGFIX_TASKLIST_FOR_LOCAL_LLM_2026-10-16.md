@@ -16,7 +16,7 @@
 | **3-3** | daily-fortune 운세 다국어화 | ✅ 완료 | 1664b23 커밋 |
 | **3-4** | 2nd-loan 프리셋 추가 + en/es 텍스트 교정 | ✅ 완료 | fd7f4d1 커밋 |
 | **3-5a** | supplement-recommender 결과 다국어화 | ✅ 완료 | 4a9db44 + 3d11965 커밋 |
-| **3-5b** | bmr-calculator 결과 다국어화 | ⏳ 대기 (3-5a 다음) | 아직 미착수 |
+| **3-5b** | bmr-calculator 결과 다국어화 | ✅ 완료 | 이미 완료됨 (data.ts 필드 + JSX 이미 d.kcalPerDay/d.weightLossLabel/d.weightGainLabel 사용) |
 | **3-5c** | bmi 결과 다국어화 | ⏳ 대기 (3-5b 다음) | 아직 미착수 |
 | **4단계** | 신뢰성 문제 (7개 항목) | ⏳ 대기 | |
 | **5단계** | 콘텐츠 품질 (오타 수정) | ⏳ 대기 | |
