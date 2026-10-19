@@ -2,6 +2,37 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## [2026-10-19] BUGFIX_TASKLIST 파일을 "현재 작업" 버전 + 아카이브로 분리
+
+### 배경
+
+- Ollama 레벨 튜닝(OLLAMA_KEEP_ALIVE 2h, OLLAMA_FLASH_ATTENTION true) 적용
+  후에도 "Autocompact is thrashing" 경고가 동일하게 재발함(10/19 06:40~08:08
+  사이 세 차례 연속 compact). 재검토 결과 해당 Ollama 설정은 응답 생성
+  속도에만 관여하고, thrashing은 Claude Code 자체의 컨텍스트 크기 임계값
+  판단이라 서로 다른 문제였음(이전에 두 증상을 같은 원인으로 설명한 부분은
+  정정이 필요함).
+- 실제 원인으로 `BUGFIX_TASKLIST_FOR_LOCAL_LLM_2026-10-16.md`가 550줄(약
+  40KB)까지 커져 있었고, 완료된 항목의 전체 코드 스니펫까지 포함된 상태로
+  매 작업 단위마다 반복 참고되고 있었던 것으로 파악.
+- 작업 중단 시점 확인: `src/app/[locale]/tool/2nd-loan/page.tsx`에 프리셋
+  타입 정의(PresetAmount/PresetRate/PresetTerm)는 커밋됐으나(`c36fab2`)
+  ko/en/ja/es 데이터 블록에 실제 값이 채워지지 않아 `npx tsc --noEmit` 기준
+  TS2740 에러 4건 발생 중 — 에디트 실패로 중단된 상태였음.
+
+### 변경 내용
+
+- `_archive/BUGFIX_TASKLIST_ARCHIVE_2026-10-16.md` (신규): 기존 550줄 전체
+  내용을 원본 그대로 보존.
+- `BUGFIX_TASKLIST_FOR_LOCAL_LLM_2026-10-16.md` (축소, 550줄→87줄, 약
+  40KB→7.4KB): 진행 상황 요약 표 + 현재 중단된 3-4 항목 상세(타입 에러
+  해결 방법 포함) + 다음 항목(3-5) 안내 + 공통 규칙(0/6/7단계)만 유지.
+  완료됐거나 아직 먼 항목은 아카이브 파일에서 해당 섹션만 찾아 읽도록 안내.
+- 파일명은 기존과 동일하게 유지(AGENTS.md/CHANGELOG.md 등에서 이름으로
+  참조되는 부분이 깨지지 않도록 함).
+- 백업: `_backups/backup_20261019_061758_bugfix-tasklist-restructure/`
+
+
 ## [2026-10-18] SessionStart(compact) 훅으로 compaction 직후 작업 방향 재주입 추가
 
 ### 배경
