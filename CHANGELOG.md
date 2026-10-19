@@ -2,6 +2,31 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## [2026-10-19] 3-5 항목을 3-5a/3-5b/3-5c로 분리 (bmi/bmr/supplement 각각 별도 체크포인트)
+
+### 배경
+
+- 3-5("bmi/bmr/supplement 결과 다국어화")가 3개 도구를 하나의 항목으로
+  묶고 있어서, 세션이 2시간 10분 동안 끊기지 않고 이어지다가 결국
+  autocompact thrashing으로 중단됨. 다만 그 사이 PreCompact 체크포인트
+  커밋이 5회 정상 작동해 작업 손실은 없었음 — 재발 원인이 파일 재독이
+  아니라 "항목 하나가 너무 크게 묶여 있던 것"으로 확인됨.
+- 중단 시점 확인: `src/components/supplement-recommender.tsx`에
+  `noneSelected` 필드가 24/31행에 중복 선언되어 `TS2300` 에러 발생 중.
+  `matchScoreLabel`/`intakeTimingLabel`/`foodSourcesLabel`/`warningsLabel`은
+  타입에만 추가되고 JSX(824/839/858행 등)에는 아직 미반영. `d.noneSelected`
+  dead code 문제도 아직 미해결.
+
+### 변경 내용
+
+- `BUGFIX_TASKLIST_FOR_LOCAL_LLM_2026-10-16.md`: 3-5를 3-5a(supplement-
+  recommender) / 3-5b(bmr-calculator) / 3-5c(bmi) 세 개 항목으로 분리.
+  각 항목마다 별도로 커밋 + `/clear`를 거치도록 명시.
+- 3-5a "지금 할 일"에 현재 확인된 정확한 상태(중복 필드 위치, 미반영
+  리터럴 위치, dead code 위치)를 반영.
+- 백업: `_backups/backup_20261019_160007_bugfix-tasklist-split-3-5/`
+
+
 ## 2026-10-19 — 버그 수정 3-4. 2nd-loan 프리셋 타입 에러 해결
 
 - `src/components/second-loan-calculator.tsx`: Data 인터페이스에 Preset, Currency, amountPresets, ratePresets, termPresets, monthlyPaymentFirst, monthlyPaymentLast, currency 필드 추가
