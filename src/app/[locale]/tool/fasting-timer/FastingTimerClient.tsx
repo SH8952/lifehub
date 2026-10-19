@@ -25,7 +25,21 @@ function formatTime(ms: number): string {
 export default function FastingTimer({ initialLocale }: { initialLocale: Locale }) {
   const [locale, setLocale] = useState<Locale>(initialLocale);
   const t = useTranslations("Tools");
-  const [fastState, setFastState] = useState<FastState | null>(null);
+  const [fastState, setFastState] = useState<FastState | null>(() => {
+    try {
+      const saved = localStorage.getItem("fasting-timer-state");
+      if (saved) {
+        const parsed = JSON.parse(saved) as FastState;
+        // Restore only if the fasting period hasn't expired
+        const fastingEnd = parsed.startTime + parsed.fastingHours * 3600000;
+        const eatingEnd = fastingEnd + (24 - parsed.fastingHours) * 3600000;
+        if (Date.now() < eatingEnd) return parsed;
+      }
+    } catch {
+      // Ignore corrupted data
+    }
+    return null;
+  });
   const [elapsed, setElapsed] = useState(0);
   const [phase, setPhase] = useState<"fasting" | "eating">("fasting");
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -44,6 +58,18 @@ export default function FastingTimer({ initialLocale }: { initialLocale: Locale 
       else setPhase("fasting");
     }, 1000);
     return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, [fastState]);
+
+  useEffect(() => {
+    try {
+      if (fastState) {
+        localStorage.setItem("fasting-timer-state", JSON.stringify(fastState));
+      } else {
+        localStorage.removeItem("fasting-timer-state");
+      }
+    } catch {
+      // Ignore quota errors
+    }
   }, [fastState]);
 
   function handleStart(now = new Date()) {
