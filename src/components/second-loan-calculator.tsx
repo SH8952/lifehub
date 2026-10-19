@@ -5,6 +5,16 @@ import { Card, CardContent } from "@/components/ui/card";
 
 type Locale = "ko" | "en" | "ja" | "es";
 
+interface Preset {
+  label: string;
+  value: number;
+}
+
+interface Currency {
+  symbol: string;
+  code: string;
+}
+
 interface Data {
   loanAmount: string;
   loanAmountHint: string;
@@ -22,11 +32,18 @@ interface Data {
   totalRepayment: string;
   monthlyPaymentNote: string;
   preset: string;
+  monthlyPaymentFirst: string;
+  monthlyPaymentLast: string;
+  currency: Currency;
+  amountPresets: Preset[];
+  ratePresets: Preset[];
+  termPresets: Preset[];
   footer: string;
 }
 
-function formatKRW(n: number): string {
-  return n.toLocaleString("ko-KR");
+function formatKRW(n: number, currency: Currency): string {
+  const formatted = n.toLocaleString("ko-KR");
+  return `${formatted}${currency.symbol}`;
 }
 
 function formatPercent(n: number): string {
@@ -101,31 +118,6 @@ export default function SecondLoanCalculator({
     }
   }
 
-  const amountPresets = [
-    { label: "1억 원", value: 100000000 },
-    { label: "3억 원", value: 300000000 },
-    { label: "5억 원", value: 500000000 },
-    { label: "7억 원", value: 700000000 },
-    { label: "10억 원", value: 1000000000 },
-  ];
-
-  const ratePresets = [
-    { label: "3.0%", value: 3.0 },
-    { label: "4.0%", value: 4.0 },
-    { label: "5.0%", value: 5.0 },
-    { label: "6.0%", value: 6.0 },
-    { label: "7.0%", value: 7.0 },
-  ];
-
-  const termPresets = [
-    { label: "5년", value: 5 },
-    { label: "10년", value: 10 },
-    { label: "15년", value: 15 },
-    { label: "20년", value: 20 },
-    { label: "25년", value: 25 },
-    { label: "30년", value: 30 },
-  ];
-
   return (
     <div className="mt-8">
       <Card className="border shadow-md">
@@ -133,7 +125,7 @@ export default function SecondLoanCalculator({
           <div className="rounded-lg bg-muted p-4">
             <p className="text-sm font-medium">{d.preset}</p>
             <div className="mt-2 flex flex-wrap gap-2">
-              {amountPresets.map((p) => (
+              {d.amountPresets.map((p) => (
                 <button
                   key={p.value}
                   type="button"
@@ -175,7 +167,7 @@ export default function SecondLoanCalculator({
               <p className="text-sm font-medium">{d.rate}</p>
               <p className="text-xs text-muted-foreground">{d.rateHint}</p>
               <div className="mt-2 flex flex-wrap gap-2">
-                {ratePresets.map((p) => (
+                {d.ratePresets.map((p) => (
                   <button
                     key={p.value}
                     type="button"
@@ -205,7 +197,7 @@ export default function SecondLoanCalculator({
               <p className="text-sm font-medium">{d.term}</p>
               <p className="text-xs text-muted-foreground">{d.termHint}</p>
               <div className="mt-2 flex flex-wrap gap-2">
-                {termPresets.map((p) => (
+                {d.termPresets.map((p) => (
                   <button
                     key={p.value}
                     type="button"
@@ -277,34 +269,30 @@ export default function SecondLoanCalculator({
               {result.monthlyFixed !== null ? (
                 <div className="flex items-center justify-between">
                   <span className="text-base text-muted-foreground">{d.monthlyPayment}</span>
-                  <span className="text-2xl font-bold text-indigo-600">{formatKRW(result.monthlyFixed)}원</span>
+                  <span className="text-2xl font-bold text-indigo-600">{formatKRW(result.monthlyFixed, d.currency)}</span>
                 </div>
               ) : (
                 <div className="space-y-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-base text-muted-foreground">
-                      {lang === "ko" ? "월 상환액 (첫달)" : lang === "ja" ? "月返済額（初月）" : "Pago mensual (1er mes)"}
-                    </span>
-                    <span className="text-2xl font-bold text-indigo-600">{formatKRW(result.monthlyFirst)}원</span>
+                    <span className="text-base text-muted-foreground">{d.monthlyPaymentFirst}</span>
+                    <span className="text-2xl font-bold text-indigo-600">{formatKRW(result.monthlyFirst, d.currency)}</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-base text-muted-foreground">
-                      {lang === "ko" ? "월 상환액 (마지막달)" : lang === "ja" ? "月返済額（最終月）" : "Pago mensual (último)"}
-                    </span>
-                    <span className="text-2xl font-bold text-indigo-600">{formatKRW(result.monthlyLast)}원</span>
+                    <span className="text-base text-muted-foreground">{d.monthlyPaymentLast}</span>
+                    <span className="text-2xl font-bold text-indigo-600">{formatKRW(result.monthlyLast, d.currency)}</span>
                   </div>
                 </div>
               )}
               <div className="border-t pt-4">
                 <div className="flex items-center justify-between">
                   <span className="text-base text-muted-foreground">{d.totalInterest}</span>
-                  <span className="text-2xl font-bold text-orange-600">{formatKRW(result.totalInterest)}원</span>
+                  <span className="text-2xl font-bold text-orange-600">{formatKRW(result.totalInterest, d.currency)}</span>
                 </div>
               </div>
               <div className="border-t pt-4">
                 <div className="flex items-center justify-between">
                   <span className="text-base text-muted-foreground">{d.totalRepayment}</span>
-                  <span className="text-2xl font-bold text-green-600">{formatKRW(result.totalRepayment)}원</span>
+                  <span className="text-2xl font-bold text-green-600">{formatKRW(result.totalRepayment, d.currency)}</span>
                 </div>
               </div>
               {method === "equal-principal" && (
