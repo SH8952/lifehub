@@ -17,6 +17,7 @@ export interface i18nData {
   addedLabel: string;
   removedLabel: string;
   noChangesMsg: string;
+  tooLargeMsg: string;
   emptyMsg: string;
   howTitle: string;
   howSteps: string[];
