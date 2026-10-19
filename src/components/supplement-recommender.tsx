@@ -28,7 +28,6 @@ interface Data {
   intakeTimingLabel: string;
   foodSourcesLabel: string;
   warningsLabel: string;
-  noneSelected: string;
 }
 
 interface Supplement {
@@ -534,6 +533,7 @@ export default function SupplementRecommender({
   const [diet, setDiet] = useState("");
   const [results, setResults] = useState<Result[]>([]);
   const [showResults, setShowResults] = useState(false);
+  const [showNoneSelected, setShowNoneSelected] = useState(false);
 
   function toggleConcern(c: string) {
     setConcerns((prev) =>
@@ -549,6 +549,7 @@ export default function SupplementRecommender({
 
   function handleRecommend() {
     if (concerns.length === 0) {
+      setShowNoneSelected(true);
       return;
     }
 
@@ -799,6 +800,11 @@ export default function SupplementRecommender({
           >
             {d.recommend}
           </button>
+          {showNoneSelected && (
+            <p className="mt-2 text-center text-sm text-red-600">
+              {d.noneSelected}
+            </p>
+          )}
         </CardContent>
       </Card>
 
@@ -821,7 +827,7 @@ export default function SupplementRecommender({
                       </p>
                     </div>
                     <span className="shrink-0 rounded-full bg-indigo-100 px-3 py-1 text-xs font-medium text-indigo-700">
-                      매칭 점수 {result.score}
+                      {d.matchScoreLabel} {result.score}
                     </span>
                   </div>
 
@@ -836,7 +842,7 @@ export default function SupplementRecommender({
                     </div>
                     <div className="rounded-md bg-blue-50 p-3">
                       <p className="text-xs font-medium text-blue-800">
-                        섭취 시기
+                        {d.intakeTimingLabel}
                       </p>
                       <p className="mt-1 text-sm text-blue-900">
                         {getBestTime(s)}
@@ -849,13 +855,13 @@ export default function SupplementRecommender({
                       🍽️ {d.note}
                     </p>
                     <p className="mt-1 text-sm text-gray-700">
-                      식품: {getFoodSources(s)}
+                      {d.foodSourcesLabel}: {getFoodSources(s)}
                     </p>
                   </div>
 
                   <div className="mt-3 rounded-md bg-red-50 p-3">
                     <p className="text-xs font-medium text-red-700">
-                      ⚠️ 주의사항
+                      {d.warningsLabel}
                     </p>
                     <p className="mt-1 text-sm text-red-800">
                       {getWarnings(s)}
