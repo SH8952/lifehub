@@ -42,12 +42,19 @@ export default function BMICalculator({
     setBmi(Math.round(b * 100) / 100);
   }
 
+  const bmiLabels: Record<Locale, Record<string, string>> = {
+    ko: { underweight: "저체중", normal: "정상 체중", overweight: "과체중", obese: "비만" },
+    en: { underweight: "Underweight", normal: "Normal", overweight: "Overweight", obese: "Obese" },
+    ja: { underweight: "低体重", normal: "正常", overweight: "過体重", obese: "肥満" },
+    es: { underweight: "Bajo peso", normal: "Normal", overweight: "Sobrepeso", obese: "Obesidad" },
+  };
+
   function getBMIResult() {
     if (bmi === null) return null;
-    if (bmi < 18.5) return { label: "저체중", ko: "underweight", color: "text-blue-600" };
-    if (bmi < 23) return { label: "정상 체중", ko: "normal", color: "text-green-600" };
-    if (bmi < 25) return { label: "과체중", ko: "overweight", color: "text-yellow-600" };
-    return { label: "비만", ko: "obese", color: "text-red-600" };
+    if (bmi < 18.5) return { label: "underweight", ko: "underweight", color: "text-blue-600" };
+    if (bmi < 23) return { label: "normal", ko: "normal", color: "text-green-600" };
+    if (bmi < 25) return { label: "overweight", ko: "overweight", color: "text-yellow-600" };
+    return { label: "obese", ko: "obese", color: "text-red-600" };
   }
 
   const result = getBMIResult();
