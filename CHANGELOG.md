@@ -2,6 +2,12 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## [2026-10-20] 4-4. fasting-timer — localStorage 지속성 구현
+
+- 페이지 새로고침 후에도 금식 상태 복원 (localStorage save/restore)
+- 만료된 데이터는 자동으로 무시 (eatingEnd 기준)
+- `FastingTimerClient.tsx` 초기화 로직에 restore 추가 + fastState 변경 시 save useEffect
+
 ## [2026-10-20] 버그 수정 3-5a. supplement-recommender 결과 다국어화
 
 - `supplement-recommender.tsx` Data 인터페이스 중복 `noneSelected` 필드 삭제 (31행)
