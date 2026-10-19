@@ -24,6 +24,11 @@ interface Data {
   noneSelected: string;
   dosage: string;
   note: string;
+  matchScoreLabel: string;
+  intakeTimingLabel: string;
+  foodSourcesLabel: string;
+  warningsLabel: string;
+  noneSelected: string;
 }
 
 interface Supplement {
