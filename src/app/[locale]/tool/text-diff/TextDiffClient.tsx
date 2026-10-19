@@ -9,11 +9,11 @@ type DiffRow = { type: "same" | "add" | "remove"; line: string };
 
 const MAX_LINES = 3000;
 
-function computeDiff(aLines: string[], bLines: string[]): DiffRow[] {
+function computeDiff(aLines: string[], bLines: string[]): DiffRow[] | null {
   const n = aLines.length;
   const m = bLines.length;
   if (n > MAX_LINES || m > MAX_LINES) {
-    return [];
+    return null;
   }
   const dp: number[][] = Array.from({ length: n + 1 }, () => new Array(m + 1).fill(0));
   for (let i = n - 1; i >= 0; i--) {
@@ -57,11 +57,11 @@ export default function TextDiff({ initialLocale }: { initialLocale: Locale }) {
   const [textB, setTextB] = useState("");
 
   const rows = useMemo(() => {
-    if (!textA && !textB) return [];
+    if (!textA && !textB) return null;
     return computeDiff(textA.split("\n"), textB.split("\n"));
   }, [textA, textB]);
 
-  const hasChanges = rows.some((r) => r.type !== "same");
+  const hasChanges = rows?.some((r) => r.type !== "same");
 
   const handleClear = () => {
     setTextA("");
@@ -144,6 +144,8 @@ export default function TextDiff({ initialLocale }: { initialLocale: Locale }) {
           </div>
           {!textA && !textB ? (
             <p className="py-12 text-center text-sm text-muted-foreground">{d.emptyMsg}</p>
+          ) : rows === null ? (
+            <p className="py-12 text-center text-sm text-muted-foreground">{d.tooLargeMsg}</p>
           ) : !hasChanges ? (
             <p className="py-12 text-center text-sm text-muted-foreground">{d.noChangesMsg}</p>
           ) : (

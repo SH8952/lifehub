@@ -39,6 +39,7 @@ export const data: Record<Locale, i18nData> = {
     addedLabel: "추가됨",
     removedLabel: "삭제됨",
     noChangesMsg: "두 텍스트가 동일합니다",
+    tooLargeMsg: "텍스트가 너무 길어서 비교할 수 없습니다",
     emptyMsg: "두 텍스트를 입력하면 비교 결과가 표시됩니다",
     howTitle: "사용 방법",
     howSteps: [
@@ -76,6 +77,7 @@ export const data: Record<Locale, i18nData> = {
     addedLabel: "Added",
     removedLabel: "Removed",
     noChangesMsg: "The two texts are identical",
+    tooLargeMsg: "Text is too long to compare",
     emptyMsg: "Enter both texts to see the comparison result",
     howTitle: "How to Use",
     howSteps: [
@@ -113,6 +115,7 @@ export const data: Record<Locale, i18nData> = {
     addedLabel: "追加",
     removedLabel: "削除",
     noChangesMsg: "2つのテキストは同一です",
+    tooLargeMsg: "テキストが長すぎて比較できません",
     emptyMsg: "両方のテキストを入力すると比較結果が表示されます",
     howTitle: "使い方",
     howSteps: [
@@ -150,6 +153,7 @@ export const data: Record<Locale, i18nData> = {
     addedLabel: "Agregado",
     removedLabel: "Eliminado",
     noChangesMsg: "Los dos textos son identicos",
+    tooLargeMsg: "El texto es demasiado largo para compararlo",
     emptyMsg: "Ingresa ambos textos para ver el resultado de la comparacion",
     howTitle: "Como Usar",
     howSteps: [
