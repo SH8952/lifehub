@@ -22,6 +22,16 @@
             "timeout": 30
           }
         ]
+      },
+      {
+        "matcher": "clear",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PROJECT_DIR}/.claude/hooks/session-start-clear.sh\"",
+            "timeout": 30
+          }
+        ]
       }
     ]
   }

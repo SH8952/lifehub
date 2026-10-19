@@ -2,6 +2,33 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## [2026-10-19] SessionStart(clear) 훅 추가 — 수동 /clear 후 작업 방향 자동 재주입
+
+### 배경
+
+- `/clear` 대신 "계속"으로 같은 세션에서 바로 다음 항목으로 넘어가는 바람에
+  autocompact thrashing이 다시 재발함(3-5 작업 중, CHANGELOG.md 402줄 전체를
+  다시 읽는 등 반복 참고가 원인). "항목 완료 후 /clear" 지시를 텍스트로만
+  적어두는 것만으로는 로컬 모델이 매번 지키지 못함을 확인.
+- 사용자가 매번 Claude Cowork에게 재개용 프롬프트를 요청해 복사-붙여넣기
+  해야 하는 번거로움도 함께 해결하기 위해, 수동 `/clear` 자체를 감지하는
+  훅을 추가.
+
+### 변경 내용
+
+- `.claude/hooks/session-start-clear.sh` (신규): `SessionStart` 훅,
+  matcher `"clear"`로 등록되어 터미널에서 `/clear`를 실행할 때마다 자동
+  실행됨. 실행 시마다:
+  - `BUGFIX_TASKLIST_FOR_LOCAL_LLM_2026-10-16.md`의 "🔧 지금 할 일" 섹션부터
+    이어서 작업하라고 안내
+  - 실제 `git log`/`git status` 결과를 다시 알려줌
+  - 항목 완료 시 커밋 → CHANGELOG 기록 → 반드시 `/clear` 재실행 순서를
+    재강조하고, "계속" 버튼으로 같은 세션에서 바로 넘어가지 말라고 명시
+- `.claude/settings.json`: `SessionStart` 훅 배열에 `matcher: "clear"` 항목
+  추가 (기존 `matcher: "compact"` 항목은 그대로 유지).
+- 백업: `_backups/backup_20261019_080027_sessionstart-clear-hook/`
+
+
 ## [2026-10-19] BUGFIX_TASKLIST 파일을 "현재 작업" 버전 + 아카이브로 분리
 
 ## [2026-10-19] 2nd-loan 프리셋 타입 에러 해결 (BUGFIX 항목 3-4 완료)
