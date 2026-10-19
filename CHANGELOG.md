@@ -2,6 +2,15 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-10-19 — 버그 수정 3-4. 2nd-loan 프리셋 타입 에러 해결
+
+- `src/components/second-loan-calculator.tsx`: Data 인터페이스에 Preset, Currency, amountPresets, ratePresets, termPresets, monthlyPaymentFirst, monthlyPaymentLast, currency 필드 추가
+- `formatKRW`에 currency 파라미터 추가, 로케일별 통화 기호 표시
+- 프리셋 배열을 로컬 하드코딩에서 page.tsx의 d 데이터로 읽도록 변경
+- 월 상환액 라벨(monthlyPaymentFirst/Last) 하드코딩 제거, locale별 데이터 사용
+- `src/app/[locale]/tool/2nd-loan/page.tsx`: ko/en/ja/es 4개 로케일 모두 amountPresets/ratePresets/termPresets/라벨/통화 필드 완료
+- 검증: `npx tsc --noEmit` 2nd-loan 에러 0건, `next build` 통과
+
 ## [2026-10-19] SessionStart(clear) 훅 추가 — 수동 /clear 후 작업 방향 자동 재주입
 
 ### 배경
