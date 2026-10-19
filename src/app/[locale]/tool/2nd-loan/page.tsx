@@ -25,6 +25,11 @@ interface PresetTerm {
   value: number;
 }
 
+interface PresetCurrency {
+  symbol: string;
+  code: string;
+}
+
 const data: Record<Locale, {
   title: string;
   subtitle: string;
@@ -54,7 +59,7 @@ const data: Record<Locale, {
   termPresets: PresetTerm[];
   monthlyPaymentFirst: string;
   monthlyPaymentLast: string;
-  currency: string;
+  currency: PresetCurrency;
 }> = {
   ko: {
     title: "2번 대출 상환액 계산기",
@@ -94,6 +99,31 @@ const data: Record<Locale, {
         a: "2번 대출 한도는 담보로 설정할 부동산의 평가액에서 1번 대출 잔액을 뺀 나머지(남은 담보력)를 기준으로 결정됩니다. 또한 금융기관별 LTV(Loan-to-Value) 규제를 받으며, 일반적으로 남은 담보력의 60~80% 범위에서 대출이 가능합니다. 정확한 한도는 금융사에서 부동산 감정평가 후 결정됩니다.",
       },
     ],
+    amountPresets: [
+      { label: "1억 원", value: 100000000 },
+      { label: "3억 원", value: 300000000 },
+      { label: "5억 원", value: 500000000 },
+      { label: "7억 원", value: 700000000 },
+      { label: "10억 원", value: 1000000000 },
+    ],
+    ratePresets: [
+      { label: "3.0%", value: 3.0 },
+      { label: "4.0%", value: 4.0 },
+      { label: "5.0%", value: 5.0 },
+      { label: "6.0%", value: 6.0 },
+      { label: "7.0%", value: 7.0 },
+    ],
+    termPresets: [
+      { label: "5년", value: 5 },
+      { label: "10년", value: 10 },
+      { label: "15년", value: 15 },
+      { label: "20년", value: 20 },
+      { label: "25년", value: 25 },
+      { label: "30년", value: 30 },
+    ],
+    monthlyPaymentFirst: "월 상환액 (첫달)",
+    monthlyPaymentLast: "월 상환액 (마지막달)",
+    currency: { symbol: "원", code: "KRW" },
   },
   en: {
     title: "Second Loan Repayment Calculator",
