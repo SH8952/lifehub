@@ -32,6 +32,7 @@ const data: Record<Locale, {
   footer: string;
   faq: FAQ[];
   noneSelected: string;
+  noResultsLabel: string;
   dosage: string;
   note: string;
   matchScoreLabel: string;
@@ -108,6 +109,7 @@ const data: Record<Locale, {
       },
     ],
     noneSelected: "건강 고민을 최소 1개 이상 선택해주세요.",
+    noResultsLabel: "선택하신 조건에 맞는 영양제를 찾지 못했습니다. 다른 건강 고민을 선택해보세요.",
     dosage: "권장 섭취량",
     note: "참고",
     matchScoreLabel: "매칭 점수",
@@ -184,6 +186,7 @@ const data: Record<Locale, {
       },
     ],
     noneSelected: "Please select at least one health concern.",
+    noResultsLabel: "No supplements found matching your selected conditions. Please try different health concerns.",
     dosage: "Recommended Dosage",
     note: "Note",
     matchScoreLabel: "Match Score",
@@ -260,6 +263,7 @@ const data: Record<Locale, {
       },
     ],
     noneSelected: "健康上の悩みを少なくとも1つ選択してください。",
+    noResultsLabel: "選択した条件に一致するサプリメントが見つかりませんでした。別の健康上の悩みを選択してください。",
     dosage: "推奨摂取量",
     note: "参考",
     matchScoreLabel: "マッチスコア",
@@ -336,6 +340,7 @@ const data: Record<Locale, {
       },
     ],
     noneSelected: "Por favor selecciona al menos una preocupación de salud.",
+    noResultsLabel: "No se encontraron suplementos que coincidan con tus condiciones seleccionadas. Por favor intenta con diferentes preocupaciones de salud.",
     dosage: "Dosis recomendada",
     note: "Nota",
     matchScoreLabel: "Puntuación de coincidencia",

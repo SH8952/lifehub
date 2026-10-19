@@ -22,6 +22,7 @@ interface Data {
   disclaimer: string;
   footer: string;
   noneSelected: string;
+  noResultsLabel: string;
   dosage: string;
   note: string;
   matchScoreLabel: string;
@@ -877,7 +878,7 @@ export default function SupplementRecommender({
       {showResults && results.length === 0 && (
         <Card className="mt-8 border shadow-sm">
           <CardContent className="py-6 text-center text-muted-foreground">
-            선택하신 조건에 맞는 영양제를 찾지 못했습니다. 다른 건강 고민을 선택해보세요.
+            {d.noResultsLabel}
           </CardContent>
         </Card>
       )}
