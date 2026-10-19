@@ -4,6 +4,24 @@
 
 ## [2026-10-19] BUGFIX_TASKLIST 파일을 "현재 작업" 버전 + 아카이브로 분리
 
+## [2026-10-19] 2nd-loan 프리셋 타입 에러 해결 (BUGFIX 항목 3-4 완료)
+
+### 변경 내용
+
+- `src/app/[locale]/tool/2nd-loan/page.tsx`:
+  - `PresetCurrency` 인터페이스 추가
+  - 타입 정의에 `amountPresets`, `ratePresets`, `termPresets`, `monthlyPaymentFirst`, `monthlyPaymentLast`, `currency` 필드 추가
+  - ko/en/ja/es 4개 로케일 블록에 모두 로케일별 프리셋 값 및 레이블 적용
+  - `npx tsc --noEmit` 확인: 2nd-loan 관련 TS2740 에러 0건
+
+Co-Authored-By: Claude Code <noreply@anthropic.com>
+
+All other changes from previous section are preserved.
+
+모든 변경 사항은 한국어로 기록합니다.
+
+## [2026-10-19] BUGFIX_TASKLIST 파일을 "현재 작업" 버전 + 아카이브로 분리
+
 ### 배경
 
 - Ollama 레벨 튜닝(OLLAMA_KEEP_ALIVE 2h, OLLAMA_FLASH_ATTENTION true) 적용
