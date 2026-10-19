@@ -104,7 +104,7 @@ const data: Record<Locale, {
     faq: [
       {
         q: "Which is more advantageous: simple or compound interest?",
-        a: "Compound interest is more advantageous. Simple interest applies only to the principal, while compound interest applies interest to both principal and accrued interest. For example, with a principal of 100 million KRW, 3% annual rate, and 10-year term, simple interest yields 30 million KRW in interest, while compound interest yields approximately 44 million KRW.",
+        a: "Compound interest is more advantageous. Simple interest applies only to the principal, while compound interest applies interest to both principal and accrued interest. For example, with a principal of 100 million KRW, 3% annual rate, and 10-year term, simple interest yields 30 million KRW in interest, while compound interest yields approximately 34.4 million KRW (total about 134.4 million KRW).",
       },
       {
         q: "How much tax is applied to deposit interest?",
@@ -145,7 +145,7 @@ const data: Record<Locale, {
     faq: [
       {
         q: "単利と複利、どちらが有利ですか？",
-        a: "複利の方が有利です。単利は元金にのみ利息が付きますが、複利は元金に累積した利息がさらに利息をつけるため、複利で増えていきます。例えば元金1億ウォン、年3%、10年の条件では、単利は総利息3,000万ウォンですが、複利は約4億4,000万ウォンの元利合計になります。長期預金ほど複利効果が大きくなります。",
+        a: "複利の方が有利です。単利は元金にのみ利息が付きますが、複利は元金に累積した利息がさらに利息をつけるため、複利で増えていきます。例えば元金1億ウォン、年3%、10年の条件では、単利は総利息3,000万ウォンですが、複利は約3,439万ウォンの利息（元利合計約1.344億ウォン）になります。長期預金ほど複利効果が大きくなります。",
       },
       {
         q: "預金利息にかかる税金はいくらですか？",
@@ -186,7 +186,7 @@ const data: Record<Locale, {
     faq: [
       {
         q: "¿Cuál es más ventajoso: interés simple o compuesto?",
-        a: "El interés compuesto es más ventajoso. El interés simple se aplica solo al capital, mientras que el interés compuesto aplica intereses tanto al capital como a los intereses acumulados. Por ejemplo, con un capital de 100 millones KRW, tasa anual 3% y plazo de 10 años, el interés simple genera 30 millones KRW de intereses, mientras que el compuesto genera aproximadamente 44 millones KRW.",
+        a: "El interés compuesto es más ventajoso. El interés simple se aplica solo al capital, mientras que el interés compuesto aplica intereses tanto al capital como a los intereses acumulados. Por ejemplo, con un capital de 100 millones KRW, tasa anual 3% y plazo de 10 años, el interés simple genera 30 millones KRW de intereses, mientras que el compuesto genera aproximadamente 34.4 millones KRW (total aproximadamente 134.4 millones KRW).",
       },
       {
         q: "¿Cuánto impuesto se aplica a los intereses de depósito?",
