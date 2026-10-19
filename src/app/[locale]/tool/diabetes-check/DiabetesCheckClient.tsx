@@ -145,7 +145,7 @@ export default function DiabetesCheck({ initialLocale }: { initialLocale: Locale
             <CardContent className="space-y-4 p-6">
               <div className="text-center">
                 <p className="text-sm text-muted-foreground">총점</p>
-                <p className={`text-5xl font-bold ${getScoreColor(result.score)}`}>{result.score} / 15</p>
+                <p className={`text-5xl font-bold ${getScoreColor(result.score)}`}>{result.score} / 19</p>
               </div>
               <div className="text-center">
                 <p className={`text-2xl font-bold text-${result.level.color}-600`}>{result.level.label}</p>

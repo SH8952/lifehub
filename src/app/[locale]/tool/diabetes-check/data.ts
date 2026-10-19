@@ -83,7 +83,7 @@ export const i18nData: Record<Locale, Data> = {
     levels: [
       { min: 0, max: 5, label: "저위험", desc: "당뇨 위험이 낮은 편입니다. 건강한 생활습관을 꾸준히 유지하세요.", color: "green" },
       { min: 6, max: 9, label: "중간위험", desc: "당뇨 위험이 중간 정도일 수 있습니다. 생활습관 교정이 필요합니다. 정기적인 혈당 검사를 권장합니다.", color: "yellow" },
-      { min: 10, max: 15, label: "고위험", desc: "당뇨 위험이 높습니다. 가능한 한 빨리 병원 내과 또는 내분비내과에서 혈당을 확인하세요.", color: "red" },
+      { min: 10, max: 19, label: "고위험", desc: "당뇨 위험이 높습니다. 가능한 한 빨리 병원 내과 또는 내분비내과에서 혈당을 확인하세요.", color: "red" },
     ],
     why: "왜 당뇨 자가진단이 필요한가요?",
     whyExplanation:
@@ -162,7 +162,7 @@ export const i18nData: Record<Locale, Data> = {
     levels: [
       { min: 0, max: 5, label: "Low Risk", desc: "Diabetes risk is on the lower side. Maintain healthy lifestyle habits.", color: "green" },
       { min: 6, max: 9, label: "Moderate Risk", desc: "Diabetes risk may be moderate. Lifestyle changes are needed. Regular blood sugar checks are recommended.", color: "yellow" },
-      { min: 10, max: 15, label: "High Risk", desc: "Diabetes risk is high. Please check your blood sugar at a hospital as soon as possible.", color: "red" },
+      { min: 10, max: 19, label: "High Risk", desc: "Diabetes risk is high. Please check your blood sugar at a hospital as soon as possible.", color: "red" },
     ],
     why: "Why take a diabetes self-assessment?",
     whyExplanation:
@@ -241,7 +241,7 @@ export const i18nData: Record<Locale, Data> = {
     levels: [
       { min: 0, max: 5, label: "低リスク", desc: "糖尿病のリスクは低い傾向です。健康的な生活習慣を継続してください。", color: "green" },
       { min: 6, max: 9, label: "中リスク", desc: "糖尿病のリスクが中程度かもしれません。生活習慣の改善が必要です。定期的な血糖検査を推奨します。", color: "yellow" },
-      { min: 10, max: 15, label: "高リスク", desc: "糖尿病のリスクが高いです。できるだけ早く病院の内科または内分泌科で血糖を確認しましょう。", color: "red" },
+      { min: 10, max: 19, label: "高リスク", desc: "糖尿病のリスクが高いです。できるだけ早く病院の内科または内分泌科で血糖を確認しましょう。", color: "red" },
     ],
     why: "なぜ糖尿病セルフチェックが必要ですか？",
     whyExplanation:
@@ -320,7 +320,7 @@ export const i18nData: Record<Locale, Data> = {
     levels: [
       { min: 0, max: 5, label: "Rajo Bajo", desc: "El riesgo de diabetes es bajo. Mantenga hábitos de vida saludables.", color: "green" },
       { min: 6, max: 9, label: "Rajo Moderado", desc: "El riesgo de diabetes puede ser moderado. Se necesitan cambios en el estilo de vida. Se recomiendan pruebas regulares de azúcar en sangre.", color: "yellow" },
-      { min: 10, max: 15, label: "Alto Riesgo", desc: "El riesgo de diabetes es alto. Vaya al hospital a revisar su azúcar en sangre lo antes posible.", color: "red" },
+      { min: 10, max: 19, label: "Alto Riesgo", desc: "El riesgo de diabetes es alto. Vaya al hospital a revisar su azúcar en sangre lo antes posible.", color: "red" },
     ],
     why: "¿Por qué hacer una autoevaluación de diabetes?",
     whyExplanation:
