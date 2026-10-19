@@ -36,6 +36,9 @@ export interface Data {
   footer: string;
   presets: string;
   faq: Array<{ q: string; a: string }>;
+  weightLossLabel: string;
+  weightGainLabel: string;
+  kcalPerDay: string;
 }
 
 export const i18nData: Record<Locale, Data> = {
@@ -75,6 +78,9 @@ export const i18nData: Record<Locale, Data> = {
       "기초대사량(BMR)은 하루에 최소한으로 필요한 칼로리를 의미합니다. 이 칼로리보다 적게 먹으면 체중이 줄지만, 장기적으로 대사 속도가 느려지고 근육이 손실될 수 있습니다.\n\n활동대사량(TDEE)은 일상 활동과 운동을 포함해 하루에 실제로 소비하는 총 칼로리입니다. 체중 감량을 위해선 TDEE보다 적게, 체중 증가를 위해선 TDEE보다 많이 먹는 것이 기본 원칙입니다.\n\n이 도구에서는 Mifflin-St Jeor 공식을 사용하며, 이는 기존 Harris-Benedict 공식보다 더 정확하다고 평가받는 현대적인 표준입니다.",
     footer: "브라우저에서 100% 처리. 서버로 전송되는 데이터가 없습니다.",
     presets: "프리셋",
+    weightLossLabel: "체중 감량:",
+    weightGainLabel: "체중 증가:",
+    kcalPerDay: "kcal/일",
     faq: [
       {
         q: "BMR과 TDEE의 차이는 무엇인가요?",
@@ -126,6 +132,9 @@ export const i18nData: Record<Locale, Data> = {
       "Your Basal Metabolic Rate (BMR) is the number of calories your body needs to maintain basic life functions at rest — breathing, circulation, cell production.\n\nYour Total Daily Energy Expenditure (TDEE) adds your daily activities and exercise to the BMR. To lose weight, eat fewer calories than your TDEE; to gain weight, eat more.\n\nThis calculator uses the Mifflin-St Jeor equation, which is considered more accurate than the older Harris-Benedict formula.",
     footer: "100% processed in your browser. No data is sent to the server.",
     presets: "Presets",
+    weightLossLabel: "Weight loss:",
+    weightGainLabel: "Weight gain:",
+    kcalPerDay: "kcal/day",
     faq: [
       {
         q: "What is the difference between BMR and TDEE?",
@@ -177,6 +186,9 @@ export const i18nData: Record<Locale, Data> = {
       "基礎代謝量(BMR)は、1日に少なくとも必要なカロリー数を意味します。このカロリーより少なく食べると体重は減りますが、長期的には代謝が遅くなり、筋肉が失われる可能性があります。\n\n活動代謝量(TDEE)は、日常活動と運動を含めて実際に消費する総カロリーです。体重減量のためにはTDEEより少なく、増量のためにTDEEより多く食べるのが基本原則です。\n\nこの計算機ではMifflin-St Jeor式を使用しています。これは従来のHarris-Benedict式より正確だと評価される現代的な標準です。",
     footer: "ブラウザで100％処理。サーバーに送信されるデータはありません。",
     presets: "プリセット",
+    weightLossLabel: "体重減量：",
+    weightGainLabel: "体重増加：",
+    kcalPerDay: "kcal/日",
     faq: [
       {
         q: "BMRとTDEEの違いは何ですか？",
@@ -228,6 +240,9 @@ export const i18nData: Record<Locale, Data> = {
       "Tu Tasa Metabólica Basal (BMR) es la cantidad de calorías que tu cuerpo necesita para mantener funciones básicas en reposo — respirar, circular sangre, producir células.\n\nTu Gasto Energético Diario Total (TDEE) suman tus actividades diarias y ejercicio al BMR. Para perder peso, come menos calorías que tu TDEE; para ganar peso, come más.\n\nEsta calculadora usa la ecuación de Mifflin-St Jeor, considerada más precisa que la antigua fórmula de Harris-Benedict.",
     footer: "Procesado 100% en tu navegador. No se envían datos al servidor.",
     presets: "Preajustes",
+    weightLossLabel: "Pérdida de peso:",
+    weightGainLabel: "Ganancia de peso:",
+    kcalPerDay: "kcal/día",
     faq: [
       {
         q: "¿Cuál es la diferencia entre BMR y TDEE?",

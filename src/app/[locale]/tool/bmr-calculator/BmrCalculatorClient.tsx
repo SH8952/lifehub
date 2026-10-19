@@ -262,19 +262,19 @@ export default function BmrCalculator({ initialLocale }: { initialLocale: Locale
                   <div className="text-center">
                     <p className="text-sm font-medium text-indigo-600">{d.bmr}</p>
                     <p className="mt-2 text-5xl font-bold text-indigo-700">{bmr.toLocaleString()}</p>
-                    <p className="mt-1 text-sm text-muted-foreground">kcal/일</p>
+                    <p className="mt-1 text-sm text-muted-foreground">{d.kcalPerDay}</p>
                     <p className="mt-2 text-xs text-muted-foreground">{d.bmrDescription}</p>
                   </div>
                   <div className="text-center">
                     <p className="text-sm font-medium text-indigo-600">{d.tdee}</p>
                     <p className="mt-2 text-5xl font-bold text-indigo-700">{tdee.toLocaleString()}</p>
-                    <p className="mt-1 text-sm text-muted-foreground">kcal/일</p>
+                    <p className="mt-1 text-sm text-muted-foreground">{d.kcalPerDay}</p>
                     <p className="mt-2 text-xs text-muted-foreground">{activityMap[String(activityLevel)].desc(d)}</p>
                   </div>
                 </div>
                 <div className="rounded-lg bg-white p-4 border">
                   <p className="text-sm text-muted-foreground">
-                    <span className="font-semibold text-indigo-700">체중 감량:</span> 하루{" "}
+                    <span className="font-semibold text-indigo-700">{d.weightLossLabel}</span> 하루{" "}
                     <strong>{(tdee - 500).toLocaleString()} kcal</strong> 섭취 권장
                   </p>
                   <p className="text-sm text-muted-foreground mt-1">
