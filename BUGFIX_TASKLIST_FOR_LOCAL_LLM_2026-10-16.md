@@ -18,7 +18,7 @@
 | **3-5a** | supplement-recommender 결과 다국어화 | ✅ 완료 | 4a9db44 + 3d11965 커밋 |
 | **3-5b** | bmr-calculator 결과 다국어화 | ✅ 완료 | 이미 완료됨 (data.ts 필드 + JSX 이미 d.kcalPerDay/d.weightLossLabel/d.weightGainLabel 사용) |
 | **3-5c** | bmi 결과 다국어화 | ✅ 완료 | bmiLabels 4개 언어 매핑 + JSX에서 bmiLabels[lang][result.label] 조회 |
-| **4단계** | 신뢰성 문제 (7개 항목) | ⏳ 4-1, 4-2 완료, 4-3~4-7 대기 | |
+| **4단계** | 신뢰성 문제 (7개 항목) | ⏳ 4-1, 4-2, 4-3 완료, 4-4~4-7 대기 | |
 | **5단계** | 콘텐츠 품질 (오타 수정) | ⏳ 대기 | |
 
 **다음 작업**: 4-2. diabetes-check 점수 분모 오류 (15 → 19)
