@@ -14,34 +14,29 @@
 | **3-1** | lunch-roulette 다국어 지원 | ✅ 완료 | 88fc130 커밋 |
 | **3-2** | nightmeal-roulette 다국어 지원 | ✅ 완료 | 365a70c 커밋 |
 | **3-3** | daily-fortune 운세 다국어화 | ✅ 완료 | 1664b23 커밋 |
-| **3-4** | 2nd-loan 프리셋 추가 + en/es 텍스트 교정 | 🔧 진행중 — 타입 에러로 중단됨 | 아래 "지금 할 일" 참고 |
+| **3-4** | 2nd-loan 프리셋 추가 + en/es 텍스트 교정 | ✅ 완료 | fd7f4d1 커밋 |
 | **3-5** | bmi/bmr/supplement 결과 다국어화 | ⏳ 대기 | |
 | **4단계** | 신뢰성 문제 (7개 항목) | ⏳ 대기 | |
 | **5단계** | 콘텐츠 품질 (오타 수정) | ⏳ 대기 | |
 
-**다음 작업**: 3-4 마무리 (아래) → 완료 후 `/clear` → 3-5
+**다음 작업**: 3-5 마무리 → 완료 후 `/clear` → 3-6
 
 ---
 
-## 🔧 지금 할 일 — 3-4. 2nd-loan 프리셋 타입 에러 해결 (최우선)
-
-**현재 상태**: `src/app/[locale]/tool/2nd-loan/page.tsx`에 `PresetAmount`/`PresetRate`/`PresetTerm` 인터페이스와 `amountPresets`/`ratePresets`/`termPresets`/`monthlyPaymentFirst`/`monthlyPaymentLast`/`currency` 필드가 타입 정의에는 이미 추가되어 커밋까지 됐지만(`c36fab2`), ko/en/ja/es 4개 데이터 블록(59/98/137/176행)에는 실제 값이 채워지지 않아서 `npx tsc --noEmit` 실행 시 4곳 모두 `TS2740: ... is missing the following properties ... amountPresets, ratePresets, termPresets, monthlyPaymentFirst, and 2 more` 에러가 발생 중입니다. **지금 빌드가 깨진 상태이니 이것부터 고치세요.**
+## 🔧 지금 할 일 — 3-5. bmi/bmr/supplement 결과 다국어화 (최우선)
 
 **할 일**:
-1. `npx tsc --noEmit`로 에러 위치 재확인 (지금 바로 다시 안 읽어도 위 내용과 동일함).
-2. `src/app/[locale]/tool/2nd-loan/page.tsx`의 ko/en/ja/es 각 데이터 블록에 아래 6개 필드를 채우세요:
-   - `amountPresets`: 대출 금액 프리셋 배열 (예: 1천만/3천만/5천만/1억원 등 — 각 로케일 통화·표기 관례에 맞게 라벨 작성, `value`는 원화 기준 숫자)
-   - `ratePresets`: 금리 프리셋 배열 (예: 3%/5%/7% 등)
-   - `termPresets`: 상환 기간 프리셋 배열 (예: 1년/3년/5년/10년)
-   - `monthlyPaymentFirst` / `monthlyPaymentLast`: "월 상환액 (첫달)" / "월 상환액 (마지막달)" 라벨의 로케일별 번역 — 이게 채워지면 `src/components/second-loan-calculator.tsx` 286/292행 부근의 "en일 때 es 텍스트가 노출되는" 원래 버그(en 분기 누락)도 함께 해결됩니다. en 라벨 예시: "Monthly payment (1st month)" / "Monthly payment (last month)".
-   - `currency`: 통화 단위 문자열 (ko: "원", en: "$"(또는 적절한 통화), ja: "円", es: "$"). 같은 파일의 `formatKRW`가 모든 로케일에 "원"을 고정으로 붙이는 문제도 있으니, 이 `currency` 필드를 이용해 로케일별로 통화 단위가 바뀌도록 `second-loan-calculator.tsx`에서 `formatKRW` 호출부를 함께 고치세요.
-3. `npx tsc --noEmit`로 에러 0건 확인.
-4. `npm run dev`로 2nd-loan 페이지를 4개 로케일 모두 직접 열어서 프리셋 버튼과 월 상환액 라벨이 정상 표시되는지 확인.
-5. 이 항목(3-4)에서 수정한 파일만 명시적으로 `git add <file1> <file2>` (절대 `git add -A` 금지) 후 커밋(메시지에 "3-4" 포함).
-6. `CHANGELOG.md` 맨 위에 짧게 기록.
-7. 터미널에서 `/clear` 실행 후 아래 "다음 작업"(3-5)으로 새 세션처럼 이어서 진행.
+1. `src/components/bmi-calculator.tsx`: `getBMIResult()`의 `label`이 한국어로 고정됨. `Record<Locale,string>` 형태로 변경하여 로케일별 라벨 표시.
+2. `src/app/[locale]/tool/bmr-calculator/BmrCalculatorClient.tsx`: "kcal/일", "체중 감량:", "체중 증가:" 등 하드코딩 리터럴을 `data.ts`의 `Data` 인터페이스 필드(`perDayUnit`, `weightLossLabel`, `weightGainLabel`, `recommendedIntakeSuffix`)로 교체.
+3. `src/components/supplement-recommender.tsx`: "매칭 점수", "섭취 시기", "식품:", "주의사항" 등 하드코딩을 `page.tsx`의 `Data`에 필드 추가 후 교체.
+4. supplement-recommender: `d.noneSelected` 번역이 dead code로 남아있음. 체크박스 영역 아래에 안내 문구로 노출.
+5. `npx tsc --noEmit`로 에러 0건 확인.
+6. `npm run dev`로 3개 페이지(bmi/bmr/supplement) 4개 로케일 확인.
+7. 수정한 파일만 `git add <file1> <file2>` 후 커밋("3-5" 포함).
+8. `CHANGELOG.md` 맨 위에 짧게 기록.
+9. 터미널에서 `/clear` 실행 후 다음 작업으로 진행.
 
-**참고**: 원래 3-4 항목은 "en→es 텍스트 교정"만이었는데, 작업 중 프리셋 라벨 하드코딩·통화 고정 문제까지 같이 고치는 방향으로 범위가 넓어졌습니다. 원래의 좁은 범위 설명이 궁금하면 아카이브 파일의 "3-4" 섹션만 찾아서 읽으세요(파일 전체를 읽지 말 것).
+**참고**: bmi는 `getBMIResult`의 label을 로케일별로 바꾸거나 `Record<Locale,string>` 형태로 변경해야 합니다. bmr/supplement는 `data.ts`의 Data 인터페이스에 새 필드를 추가하고 Client에서 읽도록 변경합니다.
 
 ---
 
