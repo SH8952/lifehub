@@ -278,7 +278,7 @@ export default function BmrCalculator({ initialLocale }: { initialLocale: Locale
                     <strong>{(tdee - 500).toLocaleString()} kcal</strong> 섭취 권장
                   </p>
                   <p className="text-sm text-muted-foreground mt-1">
-                    <span className="font-semibold text-indigo-700">체중 증가:</span> 하루{" "}
+                    <span className="font-semibold text-indigo-700">{d.weightGainLabel}</span> 하루{" "}
                     <strong>{(tdee + 500).toLocaleString()} kcal</strong> 섭취 권장
                   </p>
                 </div>

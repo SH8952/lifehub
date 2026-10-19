@@ -34,6 +34,10 @@ const data: Record<Locale, {
   noneSelected: string;
   dosage: string;
   note: string;
+  matchScoreLabel: string;
+  intakeTimingLabel: string;
+  foodSourcesLabel: string;
+  warningsLabel: string;
 }> = {
   ko: {
     title: "영양제 추천 서비스",
@@ -106,6 +110,10 @@ const data: Record<Locale, {
     noneSelected: "건강 고민을 최소 1개 이상 선택해주세요.",
     dosage: "권장 섭취량",
     note: "참고",
+    matchScoreLabel: "매칭 점수",
+    intakeTimingLabel: "섭취 시기",
+    foodSourcesLabel: "식품 출처",
+    warningsLabel: "주의사항",
   },
   en: {
     title: "Supplement Recommender",
@@ -178,6 +186,10 @@ const data: Record<Locale, {
     noneSelected: "Please select at least one health concern.",
     dosage: "Recommended Dosage",
     note: "Note",
+    matchScoreLabel: "Match Score",
+    intakeTimingLabel: "Timing",
+    foodSourcesLabel: "Food Sources",
+    warningsLabel: "Warnings",
   },
   ja: {
     title: "サプリメント推奨サービス",
@@ -250,6 +262,10 @@ const data: Record<Locale, {
     noneSelected: "健康上の悩みを少なくとも1つ選択してください。",
     dosage: "推奨摂取量",
     note: "参考",
+    matchScoreLabel: "マッチスコア",
+    intakeTimingLabel: "摂取時期",
+    foodSourcesLabel: "食品由来",
+    warningsLabel: "注意事項",
   },
   es: {
     title: "Recomendador de Suplementos",
@@ -322,6 +338,10 @@ const data: Record<Locale, {
     noneSelected: "Por favor selecciona al menos una preocupación de salud.",
     dosage: "Dosis recomendada",
     note: "Nota",
+    matchScoreLabel: "Puntuación de coincidencia",
+    intakeTimingLabel: "Momento de ingesta",
+    foodSourcesLabel: "Fuentes alimentarias",
+    warningsLabel: "Advertencias",
   },
 };
 
