@@ -134,7 +134,7 @@ export default function BMICalculator({
                <div className="mt-2 text-center">
                  <span className="text-4xl font-bold text-indigo-600">{bmi}</span>
                  <p className="mt-1 text-muted-foreground">kg/m²</p>
-                 <p className={`mt-2 font-medium ${result.color}`}>{result.label}</p>
+                 <p className={`mt-2 font-medium ${result.color}`}>{bmiLabels[lang]?.[result.label] || result.label}</p>
                </div>
              </div>
            )}
