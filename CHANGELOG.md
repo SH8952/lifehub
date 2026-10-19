@@ -2,6 +2,14 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## [2026-10-20] 버그 수정 3-5a. supplement-recommender 결과 다국어화
+
+- `supplement-recommender.tsx` Data 인터페이스 중복 `noneSelected` 필드 삭제 (31행)
+- `matchScoreLabel`, `intakeTimingLabel`, `foodSourcesLabel`, `warningsLabel` 인터페이스 → JSX 적용
+- `d.noneSelected` dead code 해결: handleRecommend + UI에 안내 문구 노출
+- 4개 로케일 전역 `noResultsLabel` 필드 추가 + JSX 하드코딩 리터럴 교체
+- tsc/build 검증 통과 (supplement-recommender 관련 에러 0건)
+
 ## [2026-10-19] 3-5 항목을 3-5a/3-5b/3-5c로 분리 (bmi/bmr/supplement 각각 별도 체크포인트)
 
 ### 배경
