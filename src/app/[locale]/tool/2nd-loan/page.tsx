@@ -10,6 +10,21 @@ interface FAQ {
   a: string;
 }
 
+interface PresetAmount {
+  label: string;
+  value: number;
+}
+
+interface PresetRate {
+  label: string;
+  value: number;
+}
+
+interface PresetTerm {
+  label: string;
+  value: number;
+}
+
 const data: Record<Locale, {
   title: string;
   subtitle: string;
@@ -34,6 +49,12 @@ const data: Record<Locale, {
   limitations: string;
   footer: string;
   faq: FAQ[];
+  amountPresets: PresetAmount[];
+  ratePresets: PresetRate[];
+  termPresets: PresetTerm[];
+  monthlyPaymentFirst: string;
+  monthlyPaymentLast: string;
+  currency: string;
 }> = {
   ko: {
     title: "2번 대출 상환액 계산기",
