@@ -105,7 +105,7 @@ export const i18nData: Record<Locale, Data> = {
   },
   en: {
     title: "Monthly Cost by City",
-    subtitle: "Compare monthly living costs across 30 global cities and find your ideal long-term stay destination",
+    subtitle: "Compare monthly living costs across 10 global cities and find your ideal long-term stay destination",
     city: "City",
     country: "Country",
     rent: "Rent",
@@ -164,7 +164,7 @@ export const i18nData: Record<Locale, Data> = {
   },
   ja: {
     title: "都市別ホームステイコスト",
-    subtitle: "世界の30都市の月間生活コストを比較して、最適なホムステイ行き先を見つけましょう",
+    subtitle: "世界の10都市の月間生活コストを比較して、最適なホムステイ行き先を見つけましょう",
     city: "都市",
     country: "国",
     rent: "家賃",
@@ -223,7 +223,7 @@ export const i18nData: Record<Locale, Data> = {
   },
   es: {
     title: "Costo Mensual por Ciudad",
-    subtitle: "Compara el costo de vida mensual de 30 ciudades globales y encuentra tu destino ideal",
+    subtitle: "Compara el costo de vida mensual de 10 ciudades globales y encuentra tu destino ideal",
     city: "Ciudad",
     country: "Pais",
     rent: "Alquiler",
