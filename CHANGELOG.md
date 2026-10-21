@@ -2,6 +2,12 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## [2026-10-21] 4-7. text-stats 이모지 글자수 과대 집계 수정
+
+- `TextStatsClient.tsx`에서 `input.length` → `Array.from(input).length`로 변경
+- UTF-16 코드유닛 계정이므로 이모지/비-BMP 문자가 과대집계되는 문제 해결
+- tsc/build 검증 통과 (text-stats 관련 에러 0건)
+
 ## [2026-10-20] 4-4. fasting-timer — localStorage 지속성 구현
 
 - 페이지 새로고침 후에도 금식 상태 복원 (localStorage save/restore)
