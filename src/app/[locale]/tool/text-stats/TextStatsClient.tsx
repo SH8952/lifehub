@@ -13,8 +13,8 @@ export default function TextStats({ initialLocale }: { initialLocale: Locale }) 
   const [input, setInput] = useState("");
 
   const stats = useMemo(() => {
-    const chars = input.length;
-    const charsNoSpace = input.replace(/\s/g, "").length;
+    const chars = Array.from(input).length;
+    const charsNoSpace = Array.from(input.replace(/\s/g, "")).length;
     const trimmed = input.trim();
     const words = trimmed ? trimmed.split(/\s+/).length : 0;
     const lines = input === "" ? 0 : input.split("\n").length;
