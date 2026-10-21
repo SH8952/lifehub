@@ -46,7 +46,7 @@ export interface Data {
 export const i18nData: Record<Locale, Data> = {
   ko: {
     title: "도시별 한달살기 비용",
-    subtitle: "세계 30개 도시의 월간 생활비를 비교하고 최적의 한달살기 목적지를 찾아보세요",
+    subtitle: "세계 10개 도시의 월간 생활비를 비교하고 최적의 한달살기 목적지를 찾아보세요",
     city: "도시",
     country: "국가",
     rent: "주거비",
