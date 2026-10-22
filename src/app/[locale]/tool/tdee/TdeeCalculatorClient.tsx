@@ -74,7 +74,7 @@ export default function TdeeCalculator({ initialLocale }: { initialLocale: Local
       <p className="mt-2 text-muted-foreground">{d.subtitle}</p>
 
       <script
-        type="application/ld-json"
+        type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
