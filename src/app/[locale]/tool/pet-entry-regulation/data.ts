@@ -199,7 +199,7 @@ export const i18nData: Record<Locale, Data> = {
         country: "필리핀",
         countryEn: "Philippines",
         quarantine: "없음",
-        vaccination: "광견병 1회 이상接种 후 30일 경과",
+        vaccination: "광견병 1회 이상 접종 후 30일 경과",
         days: 0,
         healthCert: "출국 전 10일 이내에 수의사 발급",
         note: "항체검사 불필요. 임플란트 칩 필수",
@@ -265,7 +265,7 @@ export const i18nData: Record<Locale, Data> = {
       },
       {
         q: "Can I bring pets in the cabin?",
-        a: "It depends on the airline. The US allows small animals (usually under 8kg) in the cabin. Korea原则上 allows cabin transport on international flights, but domestic policies vary by airline.",
+        a: "It depends on the airline. The US allows small animals (usually under 8kg) in the cabin. Korea generally allows cabin transport on international flights, but domestic policies vary by airline.",
       },
       {
         q: "How many documents do I need for entry?",

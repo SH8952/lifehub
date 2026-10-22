@@ -149,7 +149,7 @@ export const i18nData: Record<Locale, Data> = {
     subtitle: "무엇을 먹을지 고민일 때! 룰렛을 돌려 메뉴를 정해보세요.",
     lunch: "점심",
     generate: "메뉴 뽑기",
-    result: "今天 점심 메뉴는",
+    result: "오늘 점심 메뉴는",
     again: "다시 뽑기",
     categories: "카테고리",
     selectCategory: "전체 메뉴",
