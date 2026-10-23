@@ -140,7 +140,7 @@ export const data: Record<Locale, i18nData> = {
     originalFormat: "Formato original",
     transparencyWarning: "JPEG no admite transparencia, por lo que las áreas transparentes se rellenarán de blanco.",
     download: "Descargar Imagen Convertida",
-    howTitle: "Como Usar",
+    howTitle: "Cómo Usar",
     howSteps: [
       "Sube el archivo de imagen que deseas convertir.",
       "Selecciona el formato de salida deseado (JPEG, PNG, WebP).",
@@ -153,15 +153,15 @@ export const data: Record<Locale, i18nData> = {
         a: "La mayoría de navegadores modernos (Chrome, Edge, Firefox, Safari) admiten WebP. Si necesitas abrir el archivo en software antiguo, JPEG o PNG pueden ser más compatibles.",
       },
       {
-        q: "Que pasa con la transparencia al convertir PNG a JPEG?",
-        a: "Como JPEG no admite transparencia, las areas transparentes se rellenaran de blanco. Mantén PNG o WebP para preservar la transparencia.",
+        q: "¿Qué pasa con la transparencia al convertir PNG a JPEG?",
+        a: "Como JPEG no admite transparencia, las áreas transparentes se rellenarán de blanco. Mantén PNG o WebP para preservar la transparencia.",
       },
       {
-        q: "Se envia mi imagen subida a un servidor?",
-        a: "No. Toda la conversion ocurre localmente en tu navegador usando la API de Canvas; no se sube nada.",
+        q: "¿Se envía mi imagen subida a un servidor?",
+        a: "No. Toda la conversión ocurre localmente en tu navegador usando la API de Canvas; no se sube nada.",
       },
     ],
-    disclaimer: "Los resultados de conversion pueden variar segun la imagen original y el formato elegido.",
-    footer: "Procesado 100% en tu navegador. No se envian datos a ningun servidor.",
+    disclaimer: "Los resultados de conversión pueden variar según la imagen original y el formato elegido.",
+    footer: "Procesado 100% en tu navegador. No se envían datos a ningún servidor.",
   },
 };
