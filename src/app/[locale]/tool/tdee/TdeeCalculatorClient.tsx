@@ -217,7 +217,7 @@ export default function TdeeCalculator({ initialLocale }: { initialLocale: Local
                           const m = activityMultipliers[k];
                           return (
                             <option key={k} value={k}>
-                              (d as Record<keyof Data, string>)[m.key as keyof Data]
+                              (d as any)[m.key]
                             </option>
                           );
                         })}
