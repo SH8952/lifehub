@@ -209,7 +209,6 @@ export default function ZodiacFinderClient({
           disabled={selectedMonth == null || selectedDay == null}
           className={buttonVariants({
             size: "lg",
-            disabled: selectedMonth == null || selectedDay == null,
           })}
         >
           {labels.find}
