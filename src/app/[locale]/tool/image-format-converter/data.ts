@@ -131,14 +131,14 @@ export const data: Record<Locale, i18nData> = {
   },
   es: {
     title: "Convertidor de Formato de Imagen",
-    subtitle: "Convierte libremente imagenes entre JPG, PNG y WebP (100% procesado en tu navegador)",
+    subtitle: "Convierte libremente imágenes entre JPG, PNG y WebP (100% procesado en tu navegador)",
     uploadLabel: "Arrastra y suelta una imagen, o haz clic para subirla",
     uploadHint: "Compatible con JPG, PNG, WebP",
     changeImage: "Elegir otra imagen",
     targetFormatLabel: "Formato de Destino",
     qualityLabel: "Calidad",
     originalFormat: "Formato original",
-    transparencyWarning: "JPEG no admite transparencia, por lo que las areas transparentes se rellenaran de blanco.",
+    transparencyWarning: "JPEG no admite transparencia, por lo que las áreas transparentes se rellenarán de blanco.",
     download: "Descargar Imagen Convertida",
     howTitle: "Como Usar",
     howSteps: [
@@ -149,8 +149,8 @@ export const data: Record<Locale, i18nData> = {
     ],
     faq: [
       {
-        q: "Que navegadores admiten WebP?",
-        a: "La mayoria de navegadores modernos (Chrome, Edge, Firefox, Safari) admiten WebP. Si necesitas abrir el archivo en software antiguo, JPEG o PNG pueden ser mas compatibles.",
+        q: "¿Qué navegadores admiten WebP?",
+        a: "La mayoría de navegadores modernos (Chrome, Edge, Firefox, Safari) admiten WebP. Si necesitas abrir el archivo en software antiguo, JPEG o PNG pueden ser más compatibles.",
       },
       {
         q: "Que pasa con la transparencia al convertir PNG a JPEG?",
