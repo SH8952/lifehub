@@ -164,8 +164,7 @@ export const i18nData: Record<Locale, Data> = {
       { q: "룰렛은 몇 번이나 돌릴 수 있나요?", a: "무제한으로 돌릴 수 있습니다. 마음에 드는 메뉴가 나올 때까지 도전해보세요." },
       { q: "회식을 위한 메뉴 추천도 가능한가요?", a: "기본 메뉴 외에 '회식' category를 추가로 준비 중입니다." },
     ],
-  },
-  en: {
+    spinning: "룰렛 돌리는 중...",
     title: "Lunch Menu Roulette",
     subtitle: "Can't decide what to eat for lunch? Let the roulette decide for you!",
     lunch: "Lunch",
