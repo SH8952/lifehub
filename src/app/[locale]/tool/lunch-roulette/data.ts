@@ -184,6 +184,7 @@ export const i18nData: Record<Locale, Data> = {
       { q: "How many times can I spin the roulette?", a: "Unlimited spins! Keep trying until you find a menu you like." },
       { q: "Can this recommend menus for group dining?", a: "We're preparing a 'group dining' category in addition to basic menus." },
     ],
+    spinning: "Spinning the roulette...",
   },
   ja: {
     title: "ランチメニュールーレット",
@@ -205,6 +206,7 @@ export const i18nData: Record<Locale, Data> = {
       { q: "ルーレットは何回でも回せますか？", a: "はい、無制限に回せます。気に入るメニューが出るまでチャレンジしてください。" },
       { q: "会食のメニュー推薦もできますか？", a: "基本メニューに加えて「会食」カテゴリを準備中です。" },
     ],
+    spinning: "ルーレットを回しています...",
   },
   es: {
     title: "Ruleta de Menú de Almuerzo",
@@ -226,5 +228,6 @@ export const i18nData: Record<Locale, Data> = {
       { q: "¿Cuántas veces puedo girar la ruleta?", a: "¡Ilimitado! Sigue intentando hasta encontrar un menú que te guste." },
       { q: "¿Puede recomendar menús para comidas grupales?", a: "Estamos preparando una categoría de 'comidas grupales' además de los menús básicos." },
     ],
+    spinning: "Girando la ruleta...",
   },
 };
