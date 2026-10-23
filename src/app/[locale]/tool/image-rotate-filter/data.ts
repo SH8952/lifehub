@@ -165,28 +165,28 @@ export const data: Record<Locale, i18nData> = {
     sepiaLabel: "Sepia",
     reset: "Restablecer",
     download: "Descargar Resultado",
-    howTitle: "Como Usar",
+    howTitle: "Cómo Usar",
     howSteps: [
       "Sube la imagen que deseas rotar o filtrar.",
-      "Usa los botones de rotar/voltear para ajustar la orientacion.",
+      "Usa los botones de rotar/voltear para ajustar la orientación.",
       "Usa los controles de brillo/contraste y los interruptores de blanco y negro/sepia para ajustar el tono.",
       "Revisa la vista previa y descarga el resultado.",
     ],
     faq: [
       {
-        q: "Puedo combinar rotacion con volteo?",
-        a: "Si, puedes combinar libremente el angulo de rotacion con el volteo horizontal y vertical.",
+        q: "¿Puedo combinar rotación con volteo?",
+        a: "Sí, puedes combinar libremente el ángulo de rotación con el volteo horizontal y vertical.",
       },
       {
-        q: "Como se aplican los efectos de filtro?",
+        q: "¿Cómo se aplican los efectos de filtro?",
         a: "Se usan las funciones de filtro de Canvas del navegador (brillo, contraste, blanco y negro, sepia) renderizadas en tiempo real, sin procesamiento en servidor.",
       },
       {
-        q: "Se envia mi imagen subida a un servidor?",
+        q: "¿Se envía mi imagen subida a un servidor?",
         a: "No. Todo el procesamiento ocurre completamente dentro de tu navegador; la imagen nunca se sube.",
       },
     ],
-    disclaimer: "El renderizado de filtros puede verse ligeramente distinto segun tu navegador y dispositivo.",
-    footer: "Procesado 100% en tu navegador. No se envian datos a ningun servidor.",
+    disclaimer: "El renderizado de filtros puede verse ligeramente distinto según tu navegador y dispositivo.",
+    footer: "Procesado 100% en tu navegador. No se envían datos a ningún servidor.",
   },
 };
