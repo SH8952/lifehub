@@ -304,7 +304,7 @@ export const i18nData: Record<Locale, Data> = {
     tipsList: [
       "Verifica la embajada o el sitio oficial de inmigración del país de destino antes de salir",
       "Validez del pasaporte — muchos países requieren al menos 6 meses de validez desde tu fecha de salida",
-      "Aún países sin visa pueden requerir boleto de regreso o prova de alojamiento",
+      "Aun los países sin visa pueden requerir boleto de regreso o prueba de alojamiento",
       "Aplica para eVisa al menos 1–2 semanas antes",
       "Exceder tu período permitido puede resultar en multas o prohibiciones futuras de entrada",
       "Las políticas de visa cambian frecuentemente — verifica de nuevo justo antes de viajar",

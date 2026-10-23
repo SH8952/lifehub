@@ -320,7 +320,7 @@ export const i18nData: Record<Locale, Data> = {
         ingredients: ["Apple (Manzana) 1", "Blueberry (Arándano) 1/2 taza", "Cherry (Cereza) 10"],
         method: [
           "Quita el corazón de la manzana y córtala en trozos.",
-          "Lava los aráanos y cerezas.",
+          "Lava los arándanos y cerezas.",
           "Pon todos los ingredientes en una licuadora y mezcla.",
           "Añade un poco de agua si se desea.",
         ],
@@ -356,7 +356,7 @@ export const i18nData: Record<Locale, Data> = {
         ingredients: ["Apple (Manzana) 1", "Blueberry (Arándano) 1 taza", "Banana (Plátano) 1"],
         method: [
           "Quita el corazón de la manzana y córtala en trozos.",
-          "Lava los aráanos.",
+          "Lava los arándanos.",
           "Pela y corta el plátano.",
           "Licúa todo en una licuadora.",
         ],

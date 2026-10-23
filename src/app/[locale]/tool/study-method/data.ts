@@ -273,7 +273,7 @@ export const i18nData: Record<Locale, Data> = {
       {
         q: "試験勉強で効果的だった方式は？",
         options: [
-          { label: "まとめノードを作る", score: 1, type: "read" },
+          { label: "まとめノートを作る", score: 1, type: "read" },
           { label: "暗唱カードを活用する", score: 2, type: "audio" },
           { label: "問題演習を繰り返す", score: 3, type: "practical" },
           { label: "勉強会に参加する", score: 4, type: "social" },
@@ -307,7 +307,7 @@ export const i18nData: Record<Locale, Data> = {
         tips: [
           "教科書を読み合い、重要な部分をノートにまとめて書いてください。",
           "重要な部分をマーキングして、自分の言葉で書き直してください。",
-          "フラッシュ CARD を使って単語を見て意味を思い出す。",
+          "フラッシュカードを使って単語を見て意味を思い出す。",
           "要約した内容を他人に説明してみる (書く+話す併用)",
         ],
         color: "blue",
@@ -318,7 +318,7 @@ export const i18nData: Record<Locale, Data> = {
         tips: [
           "講座やポッドキャストを利用して内容を聞いてください。",
           "教科書の内容を直接声に出して暗誦してください。",
-          "自分の声で録音して繰り返し再生ながら勉強する。",
+          "自分の声で録音して繰り返し再生しながら勉強する。",
           "単語や概念を声に出して覚える.",
         ],
         color: "purple",

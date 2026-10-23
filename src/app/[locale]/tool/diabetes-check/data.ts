@@ -32,7 +32,7 @@ export const i18nData: Record<Locale, Data> = {
         { label: "가끔", score: 1 },
         { label: "자주", score: 2 },
       ]},
-      { q: "시력 감소 (시가 자주 mờ해지는가)", options: [
+      { q: "시력 감소 (시야가 자주 흐려지는가)", options: [
         { label: "아니오", score: 0 },
         { label: "가끔", score: 1 },
         { label: "자주", score: 2 },
