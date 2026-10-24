@@ -176,7 +176,7 @@ export const i18nData: Record<Locale, Data> = {
     bmrLabel: "または以下から直接計算",
     bmrHelp: "BMRがわからない方は、下の項目を入力すると自動計算できます。",
     activityLevel: "活動量",
-    sedentary: "거의 운동 안 함, 책상 생활",
+    sedentary: "ほとんど運動しない、デスクワーク",
     sedentaryDesc: "× 1.2 — ほとんどの時間座っている",
     light: "軽い活動",
     lightDesc: "× 1.375 — 週1〜3回軽い運動",
