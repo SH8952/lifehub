@@ -143,12 +143,12 @@ export const data: Record<Locale, i18nData> = {
   },
   es: {
     title: "Convertidor de Unidades",
-    subtitle: "Convierte unidades de longitud, peso, temperatura, area, volumen y velocidad en tiempo real (100% procesado en tu navegador)",
-    categoryLabel: "Tipo de Conversion",
+    subtitle: "Convierte unidades de longitud, peso, temperatura, área, volumen y velocidad en tiempo real (100% procesado en tu navegador)",
+    categoryLabel: "Tipo de Conversión",
     categoryLength: "Longitud",
     categoryWeight: "Peso",
     categoryTemperature: "Temperatura",
-    categoryArea: "Area",
+    categoryArea: "Área",
     categoryVolume: "Volumen",
     categorySpeed: "Velocidad",
     fromLabel: "Valor a Convertir",
@@ -157,26 +157,26 @@ export const data: Record<Locale, i18nData> = {
     swapBtn: "Intercambiar Unidades",
     howTitle: "Como Usar",
     howSteps: [
-      "Elige un tipo de conversion arriba (longitud, peso, temperatura, etc.).",
+      "Elige un tipo de conversión arriba (longitud, peso, temperatura, etc.).",
       "Ingresa el valor y selecciona las unidades de origen y destino.",
-      "El resultado se calcula automaticamente en tiempo real.",
+      "El resultado se calcula automáticamente en tiempo real.",
       "Usa el boton de intercambio para invertir las dos unidades al instante.",
     ],
     faq: [
       {
         q: "Se envia mi valor a un servidor?",
-        a: "No. Todos los calculos de conversion ocurren completamente dentro de tu navegador. Nada se sube jamas.",
+        a: "No. Todos los cálculos de conversión ocurren completamente dentro de tu navegador. Nada se sube jamás.",
       },
       {
         q: "La temperatura se convierte de la misma forma que otras unidades?",
-        a: "No. La temperatura no es una simple multiplicacion: usa formulas especificas entre Celsius, Fahrenheit y Kelvin para obtener resultados precisos.",
+        a: "No. La temperatura no es una simple multiplicación: usa fórmulas específicas entre Celsius, Fahrenheit y Kelvin para obtener resultados precisos.",
       },
       {
         q: "Soporta unidades imperiales (pulgadas, pies, libras, etc.)?",
         a: "Si. Se admiten tanto unidades metricas (m, kg, L) como imperiales (in, ft, lb, gal), y puedes convertir libremente entre ambos sistemas.",
       },
     ],
-    disclaimer: "Los factores de conversion usan valores estandar de uso comun; los calculos cientificos o de ingenieria muy precisos pueden requerir verificacion por separado.",
-    footer: "Procesado 100% en tu navegador. No se envian datos a ningun servidor.",
+    disclaimer: "Los factores de conversión usan valores estándar de uso común; los cálculos científicos o de ingeniería muy precisos pueden requerir verificación por separado.",
+    footer: "Procesado 100% en tu navegador. No se envian datos a ningún servidor.",
   },
 };

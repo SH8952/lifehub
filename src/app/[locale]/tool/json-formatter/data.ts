@@ -165,7 +165,7 @@ export const data: Record<Locale, i18nData> = {
     indentLabel: "Sangria",
     indent2: "2 espacios",
     indent4: "4 espacios",
-    indentTab: "Tabulacion",
+    indentTab: "Tabulación",
     formatBtn: "Formatear",
     minifyBtn: "Minificar",
     clearBtn: "Borrar",
@@ -179,24 +179,24 @@ export const data: Record<Locale, i18nData> = {
     howSteps: [
       "Pega tus datos JSON en el cuadro de entrada de la izquierda.",
       "Elige un estilo de sangria y luego haz clic en 'Formatear' o 'Minificar'.",
-      "Cualquier error de sintaxis se muestra al instante junto con su ubicacion aproximada.",
+      "Cualquier error de sintaxis se muestra al instante junto con su ubicación aproximada.",
       "Copia el resultado con el boton de copiar y usalo de inmediato.",
     ],
     faq: [
       {
         q: "Se envian mis datos JSON a un servidor?",
-        a: "No. Todo el analisis, formateo y minificacion ocurre completamente dentro de tu navegador. Nada se sube jamas.",
+        a: "No. Todo el análisis, formateo y minificación ocurre completamente dentro de tu navegador. Nada se sube jamás.",
       },
       {
         q: "Tengo un error pero no se cual es el problema.",
-        a: "El mensaje de error incluye la posicion aproximada (linea/caracter) del problema. Las comillas faltantes, comas finales y comillas simples son las causas mas comunes.",
+        a: "El mensaje de error incluye la posición aproximada (línea/caracter) del problema. Las comillas faltantes, comas finales y comillas simples son las causas más comunes.",
       },
       {
         q: "Para que necesitaria minificar JSON?",
-        a: "Minificar elimina todos los espacios y saltos de linea, reduciendo el tamano del archivo, util para almacenar o transmitir respuestas de API o archivos de configuracion.",
+        a: "Minificar elimina todos los espacios y saltos de línea, reduciendo el tamaño del archivo, útil para almacenar o transmitir respuestas de API o archivos de configuración.",
       },
     ],
-    disclaimer: "Los archivos JSON muy grandes (decenas de MB o mas) pueden procesarse lentamente segun el rendimiento de tu navegador.",
-    footer: "Procesado 100% en tu navegador. No se envian datos a ningun servidor.",
+    disclaimer: "Los archivos JSON muy grandes (decenas de MB o más) pueden procesarse lentamente según el rendimiento de tu navegador.",
+    footer: "Procesado 100% en tu navegador. No se envian datos a ningún servidor.",
   },
 };

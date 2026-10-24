@@ -667,7 +667,7 @@ export const i18nData: Record<Locale, Data> = {
       },
       {
         q: "¿Puedo llevar mascotas en cabina?",
-        a: "Depende de la aerolínea. EE.UU. permite animales pequeños (generalmente menos de 8kg) en cabina. Corea permite原则上 el transporte en cabina en vuelos internacionales, pero las políticas de vuelo doméstico varían.",
+        a: "Depende de la aerolínea. EE.UU. permite animales pequeños (generalmente menos de 8kg) en cabina. Corea permite, en principio, el transporte en cabina en vuelos internacionales, pero las políticas de vuelo doméstico varían.",
       },
       {
         q: "¿Cuántos documentos necesito para la entrada?",

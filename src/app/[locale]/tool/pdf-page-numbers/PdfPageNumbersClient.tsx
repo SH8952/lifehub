@@ -73,6 +73,9 @@ export default function PdfPageNumbers({ initialLocale }: { initialLocale: Local
       const url = URL.createObjectURL(blob);
       resultUrlRef.current = url;
       setResultUrl(url);
+    } catch (err) {
+      console.error(err);
+      setResultUrl("");
     } finally {
       setIsProcessing(false);
     }

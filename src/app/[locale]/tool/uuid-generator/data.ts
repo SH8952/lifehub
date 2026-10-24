@@ -133,7 +133,7 @@ export const data: Record<Locale, i18nData> = {
     title: "Generador de UUID",
     subtitle: "Genera al instante identificadores unicos sin colisiones (UUID v4) en la cantidad que necesites (100% procesado en tu navegador)",
     quantityLabel: "Cantidad",
-    uppercaseLabel: "Mayusculas",
+    uppercaseLabel: "MAYÚSCULAS",
     hyphensLabel: "Incluir guiones (-)",
     generateBtn: "Generar",
     copyAllBtn: "Copiar Todo",
@@ -143,25 +143,25 @@ export const data: Record<Locale, i18nData> = {
     howTitle: "Como Usar",
     howSteps: [
       "Ingresa cuantos UUIDs deseas (hasta 100).",
-      "Opcionalmente elige mostrar en mayusculas o si incluir guiones.",
+      "Opcionalmente elige mostrar en MAYÚSCULAS o si incluir guiones.",
       "Haz clic en 'Generar' para crear la lista al instante.",
       "Haz clic en un elemento individual o usa 'Copiar Todo' para copiar lo que necesites.",
     ],
     faq: [
       {
         q: "Se registran los UUIDs generados en un servidor?",
-        a: "No. Todos los UUIDs se crean usando la funcion integrada de tu navegador (crypto.randomUUID) y nunca se envian ni almacenan en un servidor.",
+        a: "No. Todos los UUIDs se crean usando la función integrada de tu navegador (crypto.randomUUID) y nunca se envian ni almacenan en un servidor.",
       },
       {
         q: "Podrian colisionar dos UUIDs?",
-        a: "Los valores UUID v4 generados aqui son esencialmente aleatorios, con una probabilidad de colision tan baja que es practicamente insignificante, incluso generando miles de millones el riesgo de duplicado seria minimo.",
+        a: "Los valores UUID v4 generados aquí son esencialmente aleatorios, con una probabilidad de colisión tan baja que es practicamente insignificante, incluso generando miles de millones el riesgo de duplicado seria mínimo.",
       },
       {
         q: "Puedo usarlos como claves primarias de base de datos?",
-        a: "Si, es una practica comun. Sin embargo, los UUID ocupan mas espacio de indice y pueden afectar el rendimiento de ordenamiento comparado con claves enteras secuenciales, asi que considera este compromiso para sistemas a gran escala.",
+        a: "Si, es una práctica común. Sin embargo, los UUID ocupan más espacio de índice y pueden afectar el rendimiento de ordenamiento comparado con claves enteras secuenciales, así que considera este compromiso para sistemas a gran escala.",
       },
     ],
     disclaimer: "Esto puede no funcionar en navegadores muy antiguos que carecen de la API crypto.",
-    footer: "Procesado 100% en tu navegador. No se envian datos a ningun servidor.",
+    footer: "Procesado 100% en tu navegador. No se envian datos a ningún servidor.",
   },
 };

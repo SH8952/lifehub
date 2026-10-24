@@ -165,7 +165,7 @@ export const data: Record<Locale, i18nData> = {
     faq: [
       {
         q: "Cual es la diferencia entre el Modo Componente y el Modo URL Completa?",
-        a: "El Modo Componente (encodeURIComponent) sirve para codificar una sola parte de una URL, como un valor de parametro de consulta, y tambien codifica caracteres como ?, &, /. El Modo URL Completa (encodeURI) sirve para codificar una URL entera y conserva esos caracteres estructurales.",
+        a: "El Modo Componente (encodeURIComponent) sirve para codificar una sola parte de una URL, como un valor de parametro de consulta, y también codifica caracteres como ?, &, /. El Modo URL Completa (encodeURI) sirve para codificar una URL entera y conserva esos caracteres estructurales.",
       },
       {
         q: "Por que se necesita codificar una URL?",
@@ -173,10 +173,10 @@ export const data: Record<Locale, i18nData> = {
       },
       {
         q: "Se envia mi URL a un servidor?",
-        a: "No. Toda la codificacion y decodificacion usa las funciones integradas de tu navegador (encodeURIComponent/decodeURIComponent, etc.), y no se realiza ninguna solicitud real a esa URL.",
+        a: "No. Toda la codificación y decodificación usa las funciones integradas de tu navegador (encodeURIComponent/decodeURIComponent, etc.), y no se realiza ninguna solicitud real a esa URL.",
       },
     ],
     disclaimer: "Esta herramienta solo convierte texto, nunca visita ninguna URL real.",
-    footer: "Procesado 100% en tu navegador. No se envian datos a ningun servidor.",
+    footer: "Procesado 100% en tu navegador. No se envian datos a ningún servidor.",
   },
 };

@@ -160,18 +160,18 @@ export const data: Record<Locale, i18nData> = {
     faq: [
       {
         q: "Se envia mi texto a un servidor?",
-        a: "No. Tanto la codificacion como la decodificacion usan las funciones integradas de tu navegador (btoa/atob), y no se envian datos a ningun servidor.",
+        a: "No. Tanto la codificación como la decodificación usan las funciones integradas de tu navegador (btoa/atob), y no se envian datos a ningún servidor.",
       },
       {
         q: "Maneja correctamente caracteres no ingleses y emojis?",
         a: "Si. Esta herramienta codifica mediante UTF-8, por lo que el coreano, japones, emojis y cualquier otro caracter Unicode se codifican y decodifican correctamente.",
       },
       {
-        q: "Es Base64 una forma de encriptacion?",
-        a: "No. Base64 es solo una forma de representar datos como texto, no es encriptacion. Cualquiera puede revertirlo facilmente, asi que nunca lo uses para ocultar contrasenas o informacion sensible.",
+        q: "Es Base64 una forma de encriptación?",
+        a: "No. Base64 es solo una forma de representar datos como texto, no es encriptación. Cualquiera puede revertirlo fácilmente, así que nunca lo uses para ocultar contrasenas o información sensible.",
       },
     ],
-    disclaimer: "Base64 no es encriptacion. No lo uses para proteger informacion sensible.",
-    footer: "Procesado 100% en tu navegador. No se envian datos a ningun servidor.",
+    disclaimer: "Base64 no es encriptación. No lo uses para proteger información sensible.",
+    footer: "Procesado 100% en tu navegador. No se envian datos a ningún servidor.",
   },
 };

@@ -50,6 +50,9 @@ export default function PdfToImage({ initialLocale }: { initialLocale: Locale })
         results.push({ pageNumber: i, dataUrl: canvas.toDataURL("image/png") });
       }
       setPages(results);
+    } catch (err) {
+      console.error(err);
+      setPages([]);
     } finally {
       setIsRendering(false);
     }

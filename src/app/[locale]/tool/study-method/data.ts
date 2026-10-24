@@ -27,7 +27,7 @@ export const i18nData: Record<Locale, Data> = {
   ko: {
     title: "학습 방법 진단",
     subtitle: "나에게 맞는 공부법을 찾아드립니다",
-    intro: "다음 문항에 답변하면あなたの 학습 스타일과 추천 공부법을 알려드립니다.",
+    intro: "다음 문항에 답변하면 학습 스타일과 추천 공부법을 알려드립니다.",
     questions: [
       {
         q: "새로운 내용을 배울 때 어떤 방식이 가장 효과적이나요?",

@@ -242,19 +242,19 @@ export const i18nData: Record<Locale, Data> = {
     compare: "Comparar Costos",
     why: "Por que saber el costo de vida por ciudad?",
     whyExplanation:
-      "Lo mas importante al planificar una estadio largo es el costo real de vida en esa ciudad.\n\nSolo porque el alquiler sea bajo no significa que la comida y el transporte seran baratos.\n\nUna comparacion comprehensiva de costos te ayuda a encontrar la ciudad optima para tu presupuesto.",
-    tips: "Consejos para reducir costos de estadio largo",
+      "Lo más importante al planificar una estancia larga es el costo real de vida en esa ciudad.\n\nSolo porque el alquiler sea bajo no significa que la comida y el transporte serán baratos.\n\nUna comparación comprehensiva de costos te ayuda a encontrar la ciudad óptima para tu presupuesto.",
+    tips: "Consejos para reducir costos de estancia larga",
     tipsList: [
       "Compra en mercados locales (ahorra 30-40% en comida)",
       "Compra pases de transporte mensual ($50-$100/mes)",
-      "Alquiler Airbnb mensual (50-70% mas barato que hoteles)",
+      "Alquiler Airbnb mensual (50-70% más barato que hoteles)",
       "Tours caminata gratis y espacios de trabajo compartido",
       "Conecta con locales para eventos gratis",
     ],
     faq: [
       {
         q: "Como se calculan los costos?",
-        a: "Basado en promedio para apartamento studio, habitos de comida (de comer vs. cocinar en casa), y transporte (transito publico vs. taxi). Los costos reales pueden variar por estilo de vida individual.",
+        a: "Basado en promedio para apartamento studio, habitos de comida (de comer vs. cocinar en casa), y transporte (transito público vs. taxi). Los costos reales pueden variar por estilo de vida individual.",
       },
       {
         q: "Que pasa con las tasas de cambio?",
@@ -269,10 +269,10 @@ export const i18nData: Record<Locale, Data> = {
     footer: "Procesado 100% en el navegador. Sin datos enviados al servidor.",
     cities: [
       { city: "Bangkok", cityEn: "Bangkok", country: "Tailandia", rent: 600, food: 300, transport: 60, utilities: 50, internet: 20, total: 1030, costLevel: "low", note: "Costo de vida muy bajo" },
-      { city: "Chiang Mai", cityEn: "Chiang Mai", country: "Tailandia", rent: 400, food: 250, transport: 40, utilities: 40, internet: 18, total: 748, costLevel: "low", note: "Aun mas barato que Bangkok" },
+      { city: "Chiang Mai", cityEn: "Chiang Mai", country: "Tailandia", rent: 400, food: 250, transport: 40, utilities: 40, internet: 18, total: 748, costLevel: "low", note: "Aun más barato que Bangkok" },
       { city: "Da Nang", cityEn: "Da Nang", country: "Vietnam", rent: 450, food: 240, transport: 35, utilities: 40, internet: 15, total: 780, costLevel: "low", note: "Cerca de la playa" },
       { city: "Ho Chi Minh", cityEn: "Ho Chi Minh City", country: "Vietnam", rent: 500, food: 260, transport: 40, utilities: 45, internet: 15, total: 860, costLevel: "low", note: "Ciudad vibrante" },
-      { city: "Clark", cityEn: "Clark", country: "Filipinas", rent: 350, food: 220, transport: 30, utilities: 35, internet: 20, total: 655, costLevel: "low", note: "Cerca de area de resort" },
+      { city: "Clark", cityEn: "Clark", country: "Filipinas", rent: 350, food: 220, transport: 30, utilities: 35, internet: 20, total: 655, costLevel: "low", note: "Cerca de área de resort" },
       { city: "Bali", cityEn: "Bali", country: "Indonesia", rent: 550, food: 280, transport: 45, utilities: 40, internet: 25, total: 940, costLevel: "low", note: "Punto de nomada digital" },
       { city: "Phuket", cityEn: "Phuket", country: "Tailandia", rent: 700, food: 320, transport: 50, utilities: 55, internet: 22, total: 1147, costLevel: "medium", note: "Destino turistico" },
       { city: "Delta Mekong", cityEn: "Mekong Delta", country: "Vietnam", rent: 350, food: 200, transport: 30, utilities: 35, internet: 12, total: 627, costLevel: "low", note: "Paisaje natural" },

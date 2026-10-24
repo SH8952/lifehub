@@ -84,6 +84,9 @@ export default function PdfMergeSplit({ initialLocale }: { initialLocale: Locale
       const url = URL.createObjectURL(blob);
       resultUrlRef.current = url;
       setResultUrl(url);
+    } catch (err) {
+      console.error(err);
+      setResultUrl("");
     } finally {
       setIsProcessing(false);
     }
@@ -119,6 +122,9 @@ export default function PdfMergeSplit({ initialLocale }: { initialLocale: Locale
       const url = URL.createObjectURL(blob);
       resultUrlRef.current = url;
       setResultUrl(url);
+    } catch (err) {
+      console.error(err);
+      setResultUrl("");
     } finally {
       setIsProcessing(false);
     }

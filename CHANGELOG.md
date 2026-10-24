@@ -2,6 +2,26 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## [2026-10-24] 2차 검증(Cowork) — 로컬 LLM 작업 전수 검증 및 전체 프로젝트 오타/언어 혼입 일괄 수정
+
+- **1. BUGFIX_TASKLIST 2차 검증(독립 QA)**: 로컬 LLM이 완료 표시한 1~4단계 전체를 샘플 검증. 대부분 정확히 수정되어 있음을 확인했으나 2건의 "완료 표시되었지만 실제로는 누락된" 문제를 발견 및 수정:
+  - 4-6 (PDF 3종 에러 처리): 원래 6곳 중 2곳만 catch가 추가되어 있었음. 나머지 4곳(pdf-page-numbers의 handleProcess, pdf-merge-split의 handleMerge/handleSplit, pdf-to-image의 handleFile)에 catch 블록 추가.
+  - 5-1 (중국어 간체자 혼입): pet-entry-regulation/data.ts es 블록에 남아있던 "Corea permite原则上" 1곳 수정 ("Corea permite, en principio,"로 교정).
+- **2. 전체 프로젝트 한자/일본어/중국어 혼입 전수 점검(신규 발견)**: 로케일 블록 구조를 분석하는 스크립트로 ko/en/es 텍스트에 섞여 들어간 한자·가나를 전수 조사하여 아래 5건을 추가로 발견 및 수정:
+  - adhd-checklist/data.ts (ko): "감정이起伏가" → "감정이 기복이", "정신障礙입니다" → "정신장애입니다", "성인기에도持續될" → "성인기에도 지속될"
+  - study-method/data.ts (ko): "답변하면あなたの 학습" → "답변하면 학습" (불필요한 일본어 단어 제거)
+  - supplement-recommender.tsx: descriptionJa의 "抗酸化제로心臓血管" → "抗酸化物質として心臓血管" (한국어 혼입), foodSources의 "닭软骨" → "닭 연골" (중국어 간체자 혼입)
+  - word-practice/data.ts (ko): "Korean: 大的"(중국어) → "크다"(한국어), exampleKo "큰公園이" → "큰 공원이"
+- **3. 스페인어(es) 악센트/오타 전체 프로젝트 일괄 점검 및 수정**: 로케일 블록 구조 분석 스크립트로 es 블록 전체를 스캔하여 악센트 누락·오타를 약 420여 건, 20여 개 파일에서 일괄 수정 (주요 패턴: información/configuración/posición 등 -ción/-sión 전체, también/aquí/así/según/fácil/rápido 등 상용 부사·형용사, día/línea/único/médico/análisis 등, "fertile"→"fértil", "estadio"→"estancia"(단어 자체 오류) 등 개별 오류 포함). 작업 중 발생한 1건의 실수(construction-cost/data.ts의 `area` 키를 `área`로 잘못 변경)는 즉시 발견하여 되돌림.
+- **검증**: `npx tsc --noEmit` 전체 0 에러, `next build` 전체 통과(257개 정적 페이지 생성, 경고 0건) 확인.
+- 백업: `_backups/backup_20261024_061035_cowork-2nd-verification-fixes/`
+
+
+## [2026-10-23] rat-sound data.ts 스페인어 악센트 수정
+
+- `data.ts` es 섹션의 악센트 누락/오타 수정 (ultrasónico, más común, más amplio, más baja, señal, varía, precaución, eliminará, Temporalmente, más sensibles)
+- tsc/build 검증 통과
+
 ## [2026-10-21] 4-7. text-stats 이모지 글자수 과대 집계 수정
 
 - `TextStatsClient.tsx`에서 `input.length` → `Array.from(input).length`로 변경
