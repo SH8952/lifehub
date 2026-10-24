@@ -2,8 +2,8 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Card, CardContent } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
 import { SITE_URL, languageAlternates } from "@/lib/seo";
-
-type Locale = "ko" | "en" | "ja" | "es";
+import SajuPoolClient from "./SajuPoolClient";
+import { type Locale } from "./data";
 
 interface FAQ {
   q: string;
@@ -188,20 +188,6 @@ const data: Record<Locale, {
   },
 };
 
-/* ---------- client: saju algorithm + interactive UI ---------- */
-function SajuCalculator({ processingMsg }: { processingMsg: string }) {
-  return (
-    <div className="mt-8">
-      <Card>
-        <CardContent className="p-6">
-          <p className="text-sm text-muted-foreground">
-            {processingMsg}
-          </p>
-        </CardContent>
-      </Card>
-    </div>
-  );
-}
 
 export async function generateMetadata({
   params,
@@ -258,7 +244,7 @@ export default async function SajuPoolPage({
         }}
       />
 
-      <SajuCalculator processingMsg={d.processingMsg} />
+      <SajuPoolClient initialLocale={lang} />
 
       <section className="mt-12">
         <h2 className="mb-4 text-xl font-semibold">{d.whySaju}</h2>
