@@ -582,6 +582,17 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
 
   "dev-it": [
     {
+      id: "cron-generator",
+      name: "Cron 표현식 생성·검증기",
+      nameEn: "Cron Expression Builder & Validator",
+      nameJa: "Cron式ビルダー・検証機",
+      nameEs: "Constructor y Validador de Expresiones Cron",
+      description: "분/시/일/월/요일로 cron 표현식 생성 및 검증, 다음 실행 시각 5회 미리보기",
+      descriptionEn: "Build and validate cron expressions, preview the next 5 scheduled runs",
+      descriptionJa: "分・時・日・月・曜日からcron式を生成・検証し、次回実行時刻5回を予測",
+      descriptionEs: "Construye y valida expresiones cron, previsualiza las próximas 5 ejecuciones",
+    },
+    {
       id: "hash-generator",
       name: "해시 생성기",
       nameEn: "Hash Generator",
