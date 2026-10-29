@@ -1,6 +1,5 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { i18n, stems, branches, elementNamesFull, elementColors } from "./data";
@@ -105,7 +104,6 @@ function countElements(result: SajuResult): number[] {
 
 export default function SajuPoolClient({ initialLocale }: { initialLocale: Locale }) {
   const [locale, setLocale] = useState<Locale>(initialLocale);
-  const t = useTranslations("Tools");
   const d = i18n(locale);
 
   const [year, setYear] = useState("");
@@ -139,25 +137,7 @@ export default function SajuPoolClient({ initialLocale }: { initialLocale: Local
   const total = elements.reduce((a, b) => a + b, 0);
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12">
-      <h1 className="text-3xl font-bold tracking-tight">{d.title}</h1>
-      <p className="mt-2 text-muted-foreground">{d.subtitle}</p>
-
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            name: d.title,
-            description: d.subtitle,
-            applicationCategory: "Application",
-            operatingSystem: "Any",
-            offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-          }),
-        }}
-      />
-
+    <div>
       <div className="my-6 flex gap-2">
         {(["ko", "en", "ja", "es"] as Locale[]).map((l) => (
           <button
@@ -321,31 +301,6 @@ export default function SajuPoolClient({ initialLocale }: { initialLocale: Local
         </Card>
         <p className="mt-4 text-xs text-muted-foreground">{d.limitations}</p>
       </div>
-
-      <section className="mt-12">
-        <h2 className="mb-4 text-xl font-semibold">{d.whySaju}</h2>
-        <p className="whitespace-pre-line leading-relaxed">{d.sajuExplanation}</p>
-        <p className="mt-4 text-sm text-muted-foreground">{d.limitations}</p>
-      </section>
-
-      <section className="mt-12">
-        <h2 className="mb-4 text-xl font-semibold">{t("faq")}</h2>
-        <div className="space-y-4">
-          {d.faq.map((faq, i) => (
-            <Card key={i} className="border shadow-sm">
-              <CardContent className="py-4">
-                <p className="mb-2 font-semibold">
-                  {i + 1}. {faq.q}
-                </p>
-                <p className="text-base text-muted-foreground">{faq.a}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      <p className="mt-8 text-sm text-muted-foreground">{d.disclaimer}</p>
-      <p className="mt-4 text-sm text-muted-foreground">{d.footer}</p>
     </div>
   );
 }
