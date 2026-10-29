@@ -3,6 +3,14 @@
 모든 변경 사항은 한국어로 기록합니다.
 
 
+## [2026-10-29] C-7. car-loan-calculator(자동차 할부금 계산기) 신규 도구 추가 (Claude Cowork 인수 작업)
+
+- 차량가격/선수금/연이율/할부기간으로 원리금균등상환 월 납입금, 총 납입액, 총 이자 계산.
+- 연이율 0% 무이자 할부 분기 처리 포함.
+- categoryToolsMap(finance)/sitemap.ts 등록 포함.
+- 검증: tsc --noEmit 0 에러, next build 정상 통과.
+
+
 ## [2026-10-29] C-6. compound-interest-calculator(복리 계산기) 신규 도구 추가 (Claude Cowork 인수 작업)
 
 - 원금/연이율/복리빈도(연1회·월1회·일1회)/투자기간으로 최종금액·총 이자 계산.
