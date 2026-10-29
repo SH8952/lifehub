@@ -510,6 +510,29 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
 
   "image-media": [
   {
+    id: "image-pixelate",
+    name: "이미지 픽셀화(모자이크 아트) 필터",
+    nameEn: "Image Pixelate Filter",
+    nameJa: "画像のピクセル化（モザイクアート）フィルター",
+    nameEs: "Filtro de Pixelado de Imagen",
+    description: "슬라이더로 픽셀 크기를 조절해 이미지를 모자이크 아트처럼 픽셀화하는 도구",
+    descriptionEn: "Adjust the pixel size to turn your image into mosaic-style pixel art",
+    descriptionJa: "スライダーでピクセルサイズを調整し、画像をモザイクアート風にピクセル化するツール",
+    descriptionEs: "Ajusta el tamaño de píxel para convertir tu imagen en arte de mosaico pixelado",
+  },
+  {
+    id: "image-duotone",
+    name: "이미지 듀오톤(2색) 필터",
+    nameEn: "Image Duotone Filter",
+    nameJa: "画像デュオトーン（2色）フィルター",
+    nameEs: "Filtro Duotono (2 Colores) de Imagen",
+    description: "밝은 영역과 어두운 영역에 각각 다른 색상을 매핑해 듀오톤 효과를 만드는 도구",
+    descriptionEn: "Map two colors onto the light and dark areas of your image for a duotone effect",
+    descriptionJa: "明るい部分と暗い部分にそれぞれ異なる色を割り当て、デュオトーン効果を作るツール",
+    descriptionEs: "Asigna dos colores a las áreas claras y oscuras de tu imagen para un efecto duotono",
+  },
+
+  {
     id: "image-border-frame",
     name: "이미지 테두리(프레임) 추가기",
     nameEn: "Image Border/Frame Adder",
