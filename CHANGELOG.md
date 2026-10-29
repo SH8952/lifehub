@@ -2,6 +2,12 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-10-29 — 카테고리 균형 확장 5/132 — image-media 도구 2종 추가
+
+- **image-pixelate**: 픽셀 크기 슬라이더(2~50px)로 모자이크 아트 효과 생성 (축소 후 확대, imageSmoothingEnabled=false)
+- **image-duotone**: 어두운/밝은 영역 색상 2개를 선택해 getImageData 기반 명암 보간으로 듀오톤 효과 생성
+- image-media 카테고리 진행: 10/24 완료
+
 ## 2026-10-29 — 카테고리 균형 확장 2~4/132 — image-media 도구 4종 추가
 
 - **image-mosaic-blur**: 블러 강도 슬라이더(0~40px)로 이미지 전체에 모자이크·블러 효과 적용
