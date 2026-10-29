@@ -510,6 +510,29 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
 
   "image-media": [
   {
+    id: "image-to-gif",
+    name: "여러 이미지 → GIF 생성기",
+    nameEn: "Multiple Images to GIF Generator",
+    nameJa: "複数画像 → GIF生成ツール",
+    nameEs: "Generador de GIF a partir de Varias Imágenes",
+    description: "여러 장의 이미지를 업로드해 움직이는 GIF 애니메이션을 만드는 도구",
+    descriptionEn: "Upload multiple images and turn them into an animated GIF",
+    descriptionJa: "複数の画像をアップロードして動くGIFアニメーションを作成するツール",
+    descriptionEs: "Sube varias imágenes y conviértelas en un GIF animado",
+  },
+  {
+    id: "image-zip-download",
+    name: "여러 변환 결과 ZIP 다운로드기",
+    nameEn: "Multiple Variants ZIP Downloader",
+    nameJa: "複数変換結果ZIPダウンロードツール",
+    nameEs: "Descargador ZIP de Múltiples Variantes",
+    description: "하나의 이미지에 여러 필터를 적용해 ZIP 파일로 한꺼번에 다운로드하는 도구",
+    descriptionEn: "Apply several filters to one image and download the results as a single ZIP",
+    descriptionJa: "1枚の画像に複数のフィルターを適用し、ZIPファイルでまとめてダウンロードするツール",
+    descriptionEs: "Aplica varios filtros a una imagen y descarga los resultados en un ZIP",
+  },
+
+  {
     id: "image-meme-maker",
     name: "캡션·밈 메이커",
     nameEn: "Caption & Meme Maker",
