@@ -510,6 +510,29 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
 
   "image-media": [
   {
+    id: "image-meme-maker",
+    name: "캡션·밈 메이커",
+    nameEn: "Caption & Meme Maker",
+    nameJa: "キャプション・ミーム作成ツール",
+    nameEs: "Creador de Captions y Memes",
+    description: "상단·하단에 굵은 캡션을 추가해 클래식 스타일 밈을 만드는 도구",
+    descriptionEn: "Add bold top and bottom captions to create a classic-style meme",
+    descriptionJa: "上下に太字のキャプションを追加してクラシックなミームを作成するツール",
+    descriptionEs: "Añade captions en negrita arriba y abajo para crear un meme clásico",
+  },
+  {
+    id: "image-collage-maker",
+    name: "이미지 콜라주 메이커(그리드)",
+    nameEn: "Image Collage Maker (Grid)",
+    nameJa: "画像コラージュメーカー（グリッド）",
+    nameEs: "Creador de Collages de Imágenes (Cuadrícula)",
+    description: "여러 이미지를 업로드해 그리드 레이아웃으로 콜라주를 만드는 도구",
+    descriptionEn: "Upload multiple images and combine them into a grid-layout collage",
+    descriptionJa: "複数の画像をアップロードしてグリッドレイアウトのコラージュを作成するツール",
+    descriptionEs: "Sube varias imágenes y combínalas en un collage con diseño de cuadrícula",
+  },
+
+  {
     id: "image-dpi-info",
     name: "이미지 해상도·DPI 정보 확인기",
     nameEn: "Image Resolution & DPI Info Checker",
