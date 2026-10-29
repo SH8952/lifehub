@@ -510,6 +510,29 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
 
   "image-media": [
   {
+    id: "image-vignette",
+    name: "이미지 비네트 효과 필터",
+    nameEn: "Image Vignette Effect Filter",
+    nameJa: "画像ビネット効果フィルター",
+    nameEs: "Filtro de Efecto Viñeta de Imagen",
+    description: "슬라이더로 강도를 조절해 이미지 가장자리를 어둡게 하는 비네트 효과 도구",
+    descriptionEn: "Adjust the slider to darken the edges with a classic vignette effect",
+    descriptionJa: "スライダーで強度を調整し、画像の端を暗くするビネット効果ツール",
+    descriptionEs: "Ajusta la intensidad para oscurecer los bordes con un efecto viñeta",
+  },
+  {
+    id: "image-square-thumbnail",
+    name: "정사각형 썸네일 생성기(SNS용)",
+    nameEn: "Square Thumbnail Generator (for Social Media)",
+    nameJa: "正方形サムネイル生成ツール（SNS用）",
+    nameEs: "Generador de Miniaturas Cuadradas (para Redes Sociales)",
+    description: "이미지를 중앙 기준으로 정사각형으로 잘라 SNS용 썸네일을 만드는 도구",
+    descriptionEn: "Center-crop your image into a perfect square for social media",
+    descriptionJa: "画像を中央基準で正方形に切り出し、SNS用サムネイルを作成するツール",
+    descriptionEs: "Recorta tu imagen al centro en un cuadrado perfecto para redes sociales",
+  },
+
+  {
     id: "image-noise-filter",
     name: "이미지 노이즈(그레인) 필터",
     nameEn: "Image Noise/Grain Filter",
