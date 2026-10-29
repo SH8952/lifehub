@@ -252,6 +252,17 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
   ],
   "finance": [
     {
+      id: "car-loan-calculator",
+      name: "자동차 할부금 계산기",
+      nameEn: "Car Loan Calculator",
+      nameJa: "自動車ローン計算機",
+      nameEs: "Calculadora de Préstamo Automotriz",
+      description: "차량가격/선수금/이율/할부기간으로 월 납입금, 총 납입액, 총 이자 계산",
+      descriptionEn: "Calculate monthly payment, total payment, and total interest for a car loan",
+      descriptionJa: "車両価格・頭金・利率・ローン期間から月々の支払額、総支払額、合計利息を計算",
+      descriptionEs: "Calcula el pago mensual, el pago total y el interés total de un préstamo automotriz",
+    },
+    {
       id: "compound-interest-calculator",
       name: "복리 계산기",
       nameEn: "Compound Interest Calculator",
