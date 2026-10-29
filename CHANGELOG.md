@@ -3,6 +3,16 @@
 모든 변경 사항은 한국어로 기록합니다.
 
 
+## [2026-10-29] D-5. jwt-decoder(JWT 디코더) 신규 도구 추가 — D단계(신규 dev-it 도구 5종) 전체 완료 (Claude Cowork 인수 작업)
+
+- 헤더/페이로드 base64url 디코딩, exp 클레임 유효/만료 배지 표시.
+- 서명 검증: HS256/384/512(HMAC)/RS256/ES256(PEM 공개키→SPKI 변환) 모두 Web Crypto API로 구현.
+- Node 환경에서 실제 HS256 토큰 생성·검증(정상/키불일치) 직접 테스트하여 로직 정확성 확인.
+- categoryToolsMap(dev-it)/sitemap.ts 등록 포함.
+- 검증: tsc --noEmit 0 에러, next build 정상 통과.
+- **D단계(D-1~D-5, 신규 dev-it 도구 5종) 전체 완료.**
+
+
 ## [2026-10-29] D-4. cron-generator(Cron 표현식 생성·검증기) 신규 도구 추가 (Claude Cowork 인수 작업)
 
 - cron-parser npm 패키지 신규 설치.

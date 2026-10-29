@@ -30,7 +30,8 @@
 | **D-2** | QR코드 생성기 | ✅ 완료 | 6356e72 커밋 (Claude Cowork, qrcode 패키지 설치) |
 | **D-3** | 해시 생성기 | ✅ 완료 | 93f62ca 커밋 (Claude Cowork) |
 | **D-4** | Cron 표현식 생성·검증기 | ✅ 완료 | b580fb9 커밋 (Claude Cowork, cron-parser 패키지 설치) |
-| **D-5** | JWT 디코더 | ⏳ **지금 할 일 (가장 복잡, 마지막 dev-it 항목)** | - |
+| **D-5** | JWT 디코더 | ✅ 완료 | 6e6aaa3 커밋 (Claude Cowork) — **D단계 전체 완료** |
+| **E-1~E-4** | 신규 fun-entertainment 도구 4종 | ⏳ **지금 할 일 (E-1부터)** | 랜덤추첨기/사다리타기/밸런스게임/타로카드 |
 | **D-1~D-5** | 신규 dev-it 도구 5종 | ⏳ 대기 | 비밀번호생성기/QR코드생성기/해시생성기/Cron생성기/JWT디코더 |
 | **E-1~E-4** | 신규 fun-entertainment 도구 4종 | ⏳ 대기 | 랜덤추첨기/사다리타기/밸런스게임/타로카드 |
 
