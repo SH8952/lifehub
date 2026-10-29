@@ -582,6 +582,17 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
 
   "dev-it": [
     {
+      id: "jwt-decoder",
+      name: "JWT 디코더",
+      nameEn: "JWT Decoder",
+      nameJa: "JWTデコーダー",
+      nameEs: "Decodificador de JWT",
+      description: "JWT 토큰의 헤더·페이로드 디코딩 및 서명 검증(HS256/384/512, RS256, ES256)",
+      descriptionEn: "Decode JWT header/payload and verify signatures (HS256/384/512, RS256, ES256)",
+      descriptionJa: "JWTトークンのヘッダー・ペイロードをデコードし署名を検証(HS256/384/512、RS256、ES256)",
+      descriptionEs: "Decodifica encabezado/carga útil de JWT y verifica firmas (HS256/384/512, RS256, ES256)",
+    },
+    {
       id: "cron-generator",
       name: "Cron 표현식 생성·검증기",
       nameEn: "Cron Expression Builder & Validator",
