@@ -252,6 +252,17 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
   ],
   "finance": [
     {
+      id: "vat-calculator",
+      name: "부가세 계산기",
+      nameEn: "VAT Calculator",
+      nameJa: "付加価値税計算機",
+      nameEs: "Calculadora de IVA",
+      description: "세전/세포함 금액 상호 변환 (세율 직접 입력 가능)",
+      descriptionEn: "Convert between pre-tax and tax-included amounts (custom rate)",
+      descriptionJa: "税抜・税込金額を相互変換（税率を直接入力可能）",
+      descriptionEs: "Convierte entre montos antes de impuestos y con impuestos (tasa personalizable)",
+    },
+    {
       id: "dti-calculator",
       name: "DTI(부채상환비율) 계산기",
       nameEn: "DTI (Debt-to-Income) Calculator",
