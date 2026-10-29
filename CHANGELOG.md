@@ -3,6 +3,13 @@
 모든 변경 사항은 한국어로 기록합니다.
 
 
+## [2026-10-29] C-8. card-installment-calculator(신용카드 할부 수수료 계산기) 신규 도구 추가 (Claude Cowork 인수 작업)
+
+- 결제금액/할부개월수(2~24개월)/월 수수료율로 할부 수수료, 월 납입금, 총 납입액 계산(단순 선형 근사치).
+- categoryToolsMap(finance)/sitemap.ts 등록 포함.
+- 검증: tsc --noEmit 0 에러, next build 정상 통과.
+
+
 ## [2026-10-29] C-7. car-loan-calculator(자동차 할부금 계산기) 신규 도구 추가 (Claude Cowork 인수 작업)
 
 - 차량가격/선수금/연이율/할부기간으로 원리금균등상환 월 납입금, 총 납입액, 총 이자 계산.
