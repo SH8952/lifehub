@@ -252,6 +252,17 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
   ],
   "finance": [
     {
+      id: "loan-amortization-schedule",
+      name: "대출 원리금 상환 스케줄표",
+      nameEn: "Loan Amortization Schedule",
+      nameJa: "ローン元利返済スケジュール表",
+      nameEs: "Tabla de Amortización de Préstamo",
+      description: "대출금액/이율/기간/상환방식으로 회차별 상환 스케줄표 생성 (최대 360개월)",
+      descriptionEn: "Generate a month-by-month loan repayment schedule (up to 360 months)",
+      descriptionJa: "ローン金額・利率・期間・返済方式から月々の返済スケジュール表を生成（最大360ヶ月）",
+      descriptionEs: "Genera una tabla de amortización mensual del préstamo (hasta 360 meses)",
+    },
+    {
       id: "card-installment-calculator",
       name: "신용카드 할부 수수료 계산기",
       nameEn: "Card Installment Fee Calculator",
