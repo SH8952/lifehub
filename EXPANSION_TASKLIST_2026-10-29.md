@@ -13,7 +13,7 @@
 
 | 카테고리 | 기존 | 목표 | 추가 필요 | 상태 |
 |---|---|---|---|---|
-| **image-media** | 5 | 29 | 24 | ⏳ 진행 중 (18/24 완료, 6/12/15/18~20번 계속) |
+| **image-media** | 5 | 29 | 24 | ⏳ 진행 중 (20/24 완료, 6/12/15/20번 계속) |
 | **document-pdf** | 5 | 29 | 24 | ⏳ 대기 |
 | **utility** | 6 | 29 | 23 | ⏳ 대기 |
 | **fun-entertainment** | 10 | 29 | 19 | ⏳ 대기 |
@@ -56,8 +56,8 @@
 | 15 | image-to-gif | 여러 이미지 → GIF 생성기 |
 | 16 | image-brightness-contrast | 이미지 밝기·대비 조정기 | ✅ 완료 (5601afe) |
 | 17 | image-sharpen | 이미지 선명도(샤픈) 필터 | ✅ 완료 (cd87143) |
-| 18 | image-dpi-info | 이미지 해상도·DPI 정보 확인기 |
-| 19 | image-size-compare | 압축 전후 파일 크기 비교기 |
+| 18 | image-dpi-info | 이미지 해상도·DPI 정보 확인기 | ✅ 완료 (c68f76b) |
+| 19 | image-size-compare | 압축 전후 파일 크기 비교기 | ✅ 완료 (c68f76b) |
 | 20 | image-zip-download | 여러 변환 결과 ZIP 다운로드기 |
 | 21 | image-noise-filter | 이미지 노이즈(그레인) 필터 | ✅ 완료 (cd87143) |
 | 22 | image-pixelate | 이미지 픽셀화(모자이크 아트) 필터 | ✅ 완료 (6f63157) |
