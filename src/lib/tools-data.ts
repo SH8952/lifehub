@@ -582,6 +582,17 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
 
   "dev-it": [
     {
+      id: "password-generator",
+      name: "비밀번호 생성기",
+      nameEn: "Password Generator",
+      nameJa: "パスワード生成機",
+      nameEs: "Generador de Contraseñas",
+      description: "암호학적으로 안전한 난수로 비밀번호 생성 (길이/문자종류/유사문자 제외 설정)",
+      descriptionEn: "Generate cryptographically secure random passwords with customizable options",
+      descriptionJa: "暗号学的に安全な乱数でパスワードを生成（長さ・文字種・類似文字除外設定）",
+      descriptionEs: "Genera contraseñas aleatorias criptográficamente seguras con opciones personalizables",
+    },
+    {
       id: "json-formatter",
       name: "JSON 포맷터 · 검증기",
       nameEn: "JSON Formatter & Validator",
