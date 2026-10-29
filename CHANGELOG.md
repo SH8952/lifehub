@@ -3,6 +3,13 @@
 모든 변경 사항은 한국어로 기록합니다.
 
 
+## [2026-10-29] C-9. loan-amortization-schedule(대출 원리금 상환 스케줄표) 신규 도구 추가 (Claude Cowork 인수 작업)
+
+- 원리금균등상환/원금균등상환 방식 선택, 최대 360개월 회차별 스케줄표(스크롤 테이블) 생성.
+- categoryToolsMap(finance)/sitemap.ts 등록 포함.
+- 검증: tsc --noEmit 0 에러, next build 정상 통과.
+
+
 ## [2026-10-29] C-8. card-installment-calculator(신용카드 할부 수수료 계산기) 신규 도구 추가 (Claude Cowork 인수 작업)
 
 - 결제금액/할부개월수(2~24개월)/월 수수료율로 할부 수수료, 월 납입금, 총 납입액 계산(단순 선형 근사치).
