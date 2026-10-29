@@ -252,6 +252,17 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
   ],
   "finance": [
     {
+      id: "dti-calculator",
+      name: "DTI(부채상환비율) 계산기",
+      nameEn: "DTI (Debt-to-Income) Calculator",
+      nameJa: "DTI（負債償還比率）計算機",
+      nameEs: "Calculadora de DTI (Deuda-Ingreso)",
+      description: "월소득과 월부채상환액으로 DTI(부채상환비율) 계산",
+      descriptionEn: "Calculate DTI from monthly income and monthly debt payments",
+      descriptionJa: "月収と月々の負債償還額からDTIを計算",
+      descriptionEs: "Calcula el DTI a partir del ingreso y los pagos de deuda mensuales",
+    },
+    {
       id: "tip-calculator",
       name: "팁 계산기",
       nameEn: "Tip Calculator",
