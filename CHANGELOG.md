@@ -2,6 +2,13 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## [2026-10-29] C-1. dti-calculator(DTI 계산기) 신규 도구 추가 (Claude Cowork 인수 작업)
+
+- 월소득+월부채상환총액 → DTI% + 등급(양호/주의/위험) 계산.
+- categoryToolsMap(finance)/sitemap.ts 등록 포함.
+- 검증: tsc --noEmit 0 에러, next build 정상 통과.
+
+
 ## [2026-10-29] C-4. tip-calculator(팁 계산기) 신규 도구 추가 (Claude Cowork 인수 작업)
 
 - 금액+팁비율(프리셋+직접입력)+인원수 입력으로 팁액/총액/1인당 금액 계산.
