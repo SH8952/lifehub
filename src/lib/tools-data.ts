@@ -510,6 +510,29 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
 
   "image-media": [
   {
+    id: "image-dpi-info",
+    name: "이미지 해상도·DPI 정보 확인기",
+    nameEn: "Image Resolution & DPI Info Checker",
+    nameJa: "画像解像度・DPI情報確認ツール",
+    nameEs: "Verificador de Resolución y DPI de Imagen",
+    description: "픽셀 해상도, 파일 크기, 비율, 예상 인쇄 크기를 확인하는 도구",
+    descriptionEn: "Check pixel resolution, file size, aspect ratio, and estimated print size",
+    descriptionJa: "ピクセル解像度、ファイルサイズ、比率、印刷予想サイズを確認するツール",
+    descriptionEs: "Consulta la resolución, tamaño de archivo, proporción y tamaño de impresión estimado",
+  },
+  {
+    id: "image-size-compare",
+    name: "압축 전후 파일 크기 비교기",
+    nameEn: "Before/After Compression Size Comparator",
+    nameJa: "圧縮前後ファイルサイズ比較ツール",
+    nameEs: "Comparador de Tamaño Antes/Después de Compresión",
+    description: "품질 슬라이더로 압축 전후 파일 크기와 절감률을 비교하는 도구",
+    descriptionEn: "Compare original vs. compressed file size and savings with a quality slider",
+    descriptionJa: "品質スライダーで圧縮前後のファイルサイズと削減率を比較するツール",
+    descriptionEs: "Compara el tamaño original frente al comprimido y el ahorro con un control de calidad",
+  },
+
+  {
     id: "image-color-palette",
     name: "이미지 색상 추출기(팔레트)",
     nameEn: "Image Color Palette Extractor",
