@@ -130,3 +130,12 @@ B-1 완료 후 순서대로. 각 항목 상세는 ARCHIVE_2026-10-24.md의 해�
 - **이 파일** (`BUGFIX_TASKLIST_FOR_LOCAL_LLM_2026-10-24.md`): 현재 상태 + 바로 다음 1개 항목만 담음. **매 턴 이 파일만 읽을 것.**
 - **`_archive/BUGFIX_TASKLIST_ARCHIVE_2026-10-24.md`**: A~E, 총 24개 신규 항목의 전체 상세 스펙(공식/입력필드/파일구조 포함). 새 항목을 시작할 차례가 "그때만" 해당 섹션 제목으로 찾아서 그 섹션만 읽으세요.
 - **`_archive/BUGFIX_TASKLIST_ARCHIVE_2026-10-16.md`**: 과거(2026-10-16~10-24) 완료된 작업의 기록. 열 필요 없음(참고용 과거 기록).
+
+---
+
+## ✅ 2026-10-29 최종 확인 (사용자)
+
+- 사용자가 오늘의 타로 카드, 밸런스 게임 등 신규 도구를 로컬에서 직접 테스트하여 정상 동작을 확인했습니다.
+- 현재 lifehub는 도메인 미구매, Vercel 미등록 상태로 전적으로 로컬 개발 단계입니다. 배포는 아직 진행하지 않았습니다.
+- 전체 프로젝트 로드맵(`PROJECT_PLAN.md`) 대비 구현 현황을 점검한 결과, 기획안의 7개 카테고리(life-health/finance/fun-entertainment/image-media/document-pdf/dev-it/utility) 전부 최소 목표 도구 수를 채워 총 71개 도구가 구현되어 있습니다.
+- 남은 미구현 항목: life-health 티어3(외부 API 필요 6종, 보류), GA4+Consent Mode v2 미이식, 애드센스 신청 전략(몇 개로 먼저 신청할지) 미확정. 상세는 Claude 프로젝트 문서 `claude/lifehub-bugfix-tasklist-24-items-complete-2026-10-29.md` 참고.
