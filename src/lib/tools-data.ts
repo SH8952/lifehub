@@ -397,6 +397,17 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
   ],
   "fun-entertainment": [
     {
+      id: "ladder-game",
+      name: "사다리타기",
+      nameEn: "Ladder Game",
+      nameJa: "あみだくじ",
+      nameEs: "Juego de la Escalera",
+      description: "참가자와 결과를 입력하고 사다리를 타며 랜덤으로 결과를 확인합니다",
+      descriptionEn: "Enter participants and results, then climb the ladder for a random outcome",
+      descriptionJa: "参加者と結果を入力して、あみだくじでランダムに結果を確認します",
+      descriptionEs: "Introduce participantes y resultados, luego sube la escalera para un resultado aleatorio",
+    },
+    {
       id: "random-picker",
       name: "랜덤 추첨기",
       nameEn: "Random Picker",
