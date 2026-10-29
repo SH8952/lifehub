@@ -252,6 +252,17 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
   ],
   "finance": [
     {
+      id: "tip-calculator",
+      name: "팁 계산기",
+      nameEn: "Tip Calculator",
+      nameJa: "チップ計算機",
+      nameEs: "Calculadora de Propinas",
+      description: "금액과 팁 비율로 팁액·총액·더치페이 금액 계산",
+      descriptionEn: "Calculate tip amount, total, and split-bill amount from bill and tip rate",
+      descriptionJa: "金額とチップ率からチップ額・合計額・割り勘額を計算",
+      descriptionEs: "Calcula propina, total y monto dividido según la cuenta y la tasa",
+    },
+    {
       id: "fixed-deposit-interest",
       name: "만기 예금 이자 계산기",
       nameEn: "Fixed Deposit Interest Calculator",
