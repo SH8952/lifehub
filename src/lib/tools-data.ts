@@ -510,6 +510,29 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
 
   "image-media": [
   {
+    id: "image-border-frame",
+    name: "이미지 테두리(프레임) 추가기",
+    nameEn: "Image Border/Frame Adder",
+    nameJa: "画像ボーダー（フレーム）追加ツール",
+    nameEs: "Añadidor de Borde/Marco a Imagen",
+    description: "원하는 색상과 두께의 테두리를 이미지에 추가하는 도구",
+    descriptionEn: "Add a border frame to your image in any color and thickness",
+    descriptionJa: "好みの色と太さのボーダーを画像に追加するツール",
+    descriptionEs: "Añade un marco a tu imagen con el color y grosor que quieras",
+  },
+  {
+    id: "image-rounded-corners",
+    name: "이미지 둥근 모서리 처리기",
+    nameEn: "Image Rounded Corners Tool",
+    nameJa: "画像の角丸処理ツール",
+    nameEs: "Herramienta de Esquinas Redondeadas de Imagen",
+    description: "슬라이더로 둥근 정도를 조절해 이미지의 네 모서리를 둥글게 만드는 도구",
+    descriptionEn: "Round the corners of your image with an adjustable slider",
+    descriptionJa: "スライダーで角丸の度合いを調整し、画像の4つの角を丸くするツール",
+    descriptionEs: "Redondea las esquinas de tu imagen con un control deslizante ajustable",
+  },
+
+  {
     id: "image-mosaic-blur",
     name: "이미지 모자이크·블러 처리기",
     nameEn: "Image Mosaic & Blur Tool",

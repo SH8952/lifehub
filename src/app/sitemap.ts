@@ -7,6 +7,8 @@ const CATEGORY_IDS = ["life-health", "finance", "fun-entertainment", "image-medi
 const STATIC_PAGES = ["about", "contact", "privacy", "terms"];
 
 const TOOL_IDS = [
+  "image-border-frame",
+  "image-rounded-corners",
   "image-mosaic-blur",
   "image-brightness-contrast",
   "image-grayscale",
