@@ -2,6 +2,13 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-10-30 — 카테고리 균형 확장 15/132 — document-pdf 카테고리 진행 (4/24)
+
+- `pdf-delete-pages`: PDF 업로드 후 페이지 범위(쉼표/하이픈 구문) 입력으로 선택한 페이지만 삭제. pdf-lib `removePage`를 내림차순 인덱스로 적용해 인덱스 시프트 버그 방지. 전체 페이지 삭제 시도 시 검증 메시지 표시.
+- `pdf-rotate-pages`: 90/180/270도 단위 회전. 전체 페이지 또는 특정 페이지(쉼표/하이픈 범위)를 선택해 회전 적용. pdf-lib `degrees`/`setRotation`으로 기존 회전값에 선택 각도를 더해 적용.
+- 두 도구 모두 `src/lib/tools-data.ts`(document-pdf 카테고리) 및 `src/app/sitemap.ts`(TOOL_IDS)에 등록 완료.
+- `npx tsc --noEmit`, `next build` 검증 통과. commit: 255813e
+
 ## 2026-10-29 — 카테고리 균형 확장 13/132 — document-pdf 카테고리 착수 (2/24)
 
 - **markdown-to-pdf**: marked로 마크다운 파싱 + 실시간 미리보기, exportElementToPdf로 PDF 다운로드
