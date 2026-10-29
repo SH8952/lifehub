@@ -510,6 +510,29 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
 
   "image-media": [
   {
+    id: "image-crop",
+    name: "이미지 크롭(자르기) 도구",
+    nameEn: "Image Crop Tool",
+    nameJa: "画像クロップ（切り取り）ツール",
+    nameEs: "Herramienta de Recorte de Imagen",
+    description: "원하는 비율을 선택하고 위치를 조절해 이미지를 잘라내는 도구",
+    descriptionEn: "Pick an aspect ratio and fine-tune the position to crop your image",
+    descriptionJa: "希望の比率を選択し、位置を調整して画像を切り取るツール",
+    descriptionEs: "Elige una proporción y ajusta la posición para recortar tu imagen",
+  },
+  {
+    id: "image-text-watermark",
+    name: "이미지 텍스트 워터마크 추가기",
+    nameEn: "Image Text Watermark Adder",
+    nameJa: "画像テキストウォーターマーク追加ツール",
+    nameEs: "Añadidor de Marca de Agua de Texto en Imagen",
+    description: "텍스트, 위치, 크기, 투명도를 설정해 이미지에 워터마크를 추가하는 도구",
+    descriptionEn: "Set text, position, size, and opacity to add a watermark to your image",
+    descriptionJa: "テキスト、位置、サイズ、不透明度を設定して画像にウォーターマークを追加するツール",
+    descriptionEs: "Configura texto, posición, tamaño y opacidad para añadir una marca de agua",
+  },
+
+  {
     id: "image-vignette",
     name: "이미지 비네트 효과 필터",
     nameEn: "Image Vignette Effect Filter",
