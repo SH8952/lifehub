@@ -252,6 +252,17 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
   ],
   "finance": [
     {
+      id: "card-installment-calculator",
+      name: "신용카드 할부 수수료 계산기",
+      nameEn: "Card Installment Fee Calculator",
+      nameJa: "クレジットカード分割手数料計算機",
+      nameEs: "Calculadora de Comisión por Pago en Cuotas",
+      description: "결제금액/할부개월수/월 수수료율로 할부 수수료와 월 납입금 계산",
+      descriptionEn: "Calculate installment fee and monthly payment from amount, months, and fee rate",
+      descriptionJa: "決済金額・分割回数・月利手数料率から分割手数料と月々の支払額を計算",
+      descriptionEs: "Calcula la comisión por cuotas y el pago mensual a partir del monto, plazo y tasa",
+    },
+    {
       id: "car-loan-calculator",
       name: "자동차 할부금 계산기",
       nameEn: "Car Loan Calculator",
