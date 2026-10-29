@@ -252,6 +252,17 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
   ],
   "finance": [
     {
+      id: "salary-net-calculator",
+      name: "급여 실수령액 계산기",
+      nameEn: "Salary Net Pay Calculator",
+      nameJa: "給与実受取額計算機",
+      nameEs: "Calculadora de Salario Neto",
+      description: "연봉/월급에서 4대보험과 세금을 제외한 실수령액 계산 (2026년 요율 반영)",
+      descriptionEn: "Calculate take-home pay from annual/monthly salary after 2026 insurance rates and taxes",
+      descriptionJa: "年俸・月給から2026年基準の4大保険と税金を除いた実受取額を計算",
+      descriptionEs: "Calcula el salario neto a partir del salario anual/mensual con tasas 2026",
+    },
+    {
       id: "loan-amortization-schedule",
       name: "대출 원리금 상환 스케줄표",
       nameEn: "Loan Amortization Schedule",
