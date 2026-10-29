@@ -2,6 +2,14 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## [2026-10-29] B-3. compatibility(궁합) 구현 (Claude Cowork 인수 작업)
+
+- JDN 기반 일주 오행 계산 + 오행 상생/상극 비교로 궁합 등급(최고/편안함/도전적) 판정, 비율(%)·강점·주의사항·조언 제공.
+- 기존 page.tsx의 ja FAQ에 있던 깨진 글자(인코딩 오류)도 함께 수정.
+- B-1~B-3(saju-pool/tojung-fortune/compatibility) 모두 완료.
+- 검증: tsc --noEmit 0 에러, next build 정상 통과.
+
+
 ## [2026-10-29] B-2. tojung-fortune(토정비결) 구현 (Claude Cowork 인수 작업)
 
 - 로컬 LLM이 2026-10-24 B-1(saju-pool) 완료 후 5일간 중단되어, Claude Cowork가 상태 점검 후 직접 인수해 진행.
