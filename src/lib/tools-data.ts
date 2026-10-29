@@ -510,6 +510,29 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
 
   "image-media": [
   {
+    id: "image-color-palette",
+    name: "이미지 색상 추출기(팔레트)",
+    nameEn: "Image Color Palette Extractor",
+    nameJa: "画像カラー抽出ツール（パレット）",
+    nameEs: "Extractor de Paleta de Colores de Imagen",
+    description: "이미지에서 가장 많이 사용된 색상을 자동으로 추출해 팔레트로 보여주는 도구",
+    descriptionEn: "Automatically extract the most dominant colors from your image into a palette",
+    descriptionJa: "画像から最も多く使われている色を自動的に抽出し、パレットとして表示するツール",
+    descriptionEs: "Extrae automáticamente los colores dominantes de tu imagen en una paleta",
+  },
+  {
+    id: "image-base64-converter",
+    name: "이미지 ↔ Base64 변환기",
+    nameEn: "Image ↔ Base64 Converter",
+    nameJa: "画像 ↔ Base64 変換ツール",
+    nameEs: "Convertidor de Imagen ↔ Base64",
+    description: "이미지를 Base64 텍스트로, 또는 Base64 텍스트를 이미지로 변환하는 도구",
+    descriptionEn: "Convert an image to Base64 text, or Base64 text back into an image",
+    descriptionJa: "画像をBase64テキストに、またはBase64テキストを画像に変換するツール",
+    descriptionEs: "Convierte una imagen a texto Base64, o texto Base64 de nuevo en una imagen",
+  },
+
+  {
     id: "image-crop",
     name: "이미지 크롭(자르기) 도구",
     nameEn: "Image Crop Tool",
