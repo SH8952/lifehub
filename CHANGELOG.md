@@ -2,6 +2,13 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-10-29 — 카테고리 균형 확장 13/132 — document-pdf 카테고리 착수 (2/24)
+
+- **markdown-to-pdf**: marked로 마크다운 파싱 + 실시간 미리보기, exportElementToPdf로 PDF 다운로드
+- **images-to-pdf**: pdf-lib로 여러 이미지를 각 1페이지(A4)씩 중앙 배치해 PDF 생성
+- marked 패키지 설치 (신규 취약점 없음)
+- document-pdf 카테고리 진행: 2/24 (기존 pdf-lib/pdfjs-dist 패턴 확인 후 적용)
+
 ## 2026-10-29 — 카테고리 균형 확장 12/132 — image-media 카테고리 완료(24/24)
 
 - **image-to-gif**: 2~10장 이미지 업로드 + 프레임 간격 슬라이더, gifenc로 애니메이션 GIF 인코딩

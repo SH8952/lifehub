@@ -14,7 +14,7 @@
 | 카테고리 | 기존 | 목표 | 추가 필요 | 상태 |
 |---|---|---|---|---|
 | **image-media** | 5 | 29 | 24 | ✅ 완료 (24/24) |
-| **document-pdf** | 5 | 29 | 24 | ⏳ 대기 |
+| **document-pdf** | 5 | 29 | 24 | ⏳ 진행 중 (2/24 완료, 3번부터 계속) |
 | **utility** | 6 | 29 | 23 | ⏳ 대기 |
 | **fun-entertainment** | 10 | 29 | 19 | ⏳ 대기 |
 | **dev-it** | 11 | 29 | 18 | ⏳ 대기 |
@@ -64,12 +64,12 @@
 | 23 | image-duotone | 이미지 듀오톤(2색) 필터 | ✅ 완료 (6f63157) |
 | 24 | image-exif-strip | 이미지 메타데이터(EXIF) 제거기 | ✅ 완료 (16e95ed) |
 
-## 2. document-pdf (24개 신규)
+## 2. document-pdf (24개 신규) — ⏳ 진행 중
 
 | # | slug | 도구명 |
 |---|---|---|
-| 1 | markdown-to-pdf | 마크다운 → PDF 변환기 |
-| 2 | images-to-pdf | 이미지 → PDF 변환기(여러 장) |
+| 1 | markdown-to-pdf | 마크다운 → PDF 변환기 | ✅ 완료 (e6236dc) |
+| 2 | images-to-pdf | 이미지 → PDF 변환기(여러 장) | ✅ 완료 (e6236dc) |
 | 3 | pdf-compress | PDF 압축기 |
 | 4 | pdf-watermark | PDF 워터마크 추가기 |
 | 5 | pdf-metadata-editor | PDF 메타데이터(제목·작성자) 편집기 |
