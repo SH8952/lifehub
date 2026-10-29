@@ -13,7 +13,7 @@
 
 | 카테고리 | 기존 | 목표 | 추가 필요 | 상태 |
 |---|---|---|---|---|
-| **image-media** | 5 | 29 | 24 | ⏳ **지금 할 일 (1번부터)** |
+| **image-media** | 5 | 29 | 24 | ⏳ 진행 중 (4/24 완료, 5번부터 계속) |
 | **document-pdf** | 5 | 29 | 24 | ⏳ 대기 |
 | **utility** | 6 | 29 | 23 | ⏳ 대기 |
 | **fun-entertainment** | 10 | 29 | 19 | ⏳ 대기 |
@@ -39,16 +39,16 @@
 
 | # | slug | 도구명 |
 |---|---|---|
-| 1 | image-grayscale | 이미지 흑백 변환기 |
-| 2 | image-sepia | 이미지 세피아 필터 |
-| 3 | image-crop | 이미지 크롭(자르기) 도구 |
-| 4 | image-border-frame | 이미지 테두리(프레임) 추가기 |
+| 1 | image-grayscale | 이미지 흑백 변환기 | ✅ 완료 (16e95ed) |
+| 2 | image-sepia | 이미지 세피아 필터 | ✅ 완료 (16e95ed) |
+| 3 | image-crop | 이미지 크롭(자르기) 도구 | ⏳ 대기 |
+| 4 | image-border-frame | 이미지 테두리(프레임) 추가기 | ⏳ 대기 |
 | 5 | image-mosaic-blur | 이미지 모자이크·블러 처리기 |
 | 6 | image-collage-maker | 이미지 콜라주 메이커(그리드) |
 | 7 | image-rounded-corners | 이미지 둥근 모서리 처리기 |
 | 8 | image-text-watermark | 이미지 텍스트 워터마크 추가기 |
 | 9 | image-color-palette | 이미지 색상 추출기(팔레트) |
-| 10 | image-negative-filter | 이미지 네거티브(색 반전) 필터 |
+| 10 | image-negative-filter | 이미지 네거티브(색 반전) 필터 | ✅ 완료 (16e95ed) |
 | 11 | image-vignette | 이미지 비네트 효과 필터 |
 | 12 | image-meme-maker | 캡션·밈 메이커 |
 | 13 | image-square-thumbnail | 정사각형 썸네일 생성기(SNS용) |
@@ -62,7 +62,7 @@
 | 21 | image-noise-filter | 이미지 노이즈(그레인) 필터 |
 | 22 | image-pixelate | 이미지 픽셀화(모자이크 아트) 필터 |
 | 23 | image-duotone | 이미지 듀오톤(2색) 필터 |
-| 24 | image-exif-strip | 이미지 메타데이터(EXIF) 제거기 |
+| 24 | image-exif-strip | 이미지 메타데이터(EXIF) 제거기 | ✅ 완료 (16e95ed) |
 
 ## 2. document-pdf (24개 신규)
 

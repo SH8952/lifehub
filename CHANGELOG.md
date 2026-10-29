@@ -3,6 +3,13 @@
 모든 변경 사항은 한국어로 기록합니다.
 
 
+## [2026-10-29] 카테고리 균형 확장 1/132 — image-media 간단 필터 도구 4종 추가
+
+- image-grayscale(흑백), image-sepia(세피아), image-negative-filter(네거티브), image-exif-strip(EXIF 제거) 추가.
+- Canvas API 기반 100% 브라우저 처리, 4개 언어 지원.
+- tsc --noEmit 및 next build 통과 확인. (EXPANSION_TASKLIST_2026-10-29.md image-media 1~4/24 완료)
+
+
 ## [2026-10-29] 사용자 로컬 테스트 완료 확인 및 전체 로드맵 점검
 
 - 사용자가 오늘의 타로 카드(tarot-card), 밸런스 게임(balance-game) 등 E단계 신규 도구를 로컬에서 직접 테스트하여 정상 동작을 확인.
