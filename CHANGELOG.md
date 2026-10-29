@@ -2,6 +2,15 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-10-29 — 카테고리 균형 확장 2~4/132 — image-media 도구 4종 추가
+
+- **image-mosaic-blur**: 블러 강도 슬라이더(0~40px)로 이미지 전체에 모자이크·블러 효과 적용
+- **image-brightness-contrast**: 밝기(0~200%)·대비(0~200%) 슬라이더 2종으로 이미지 보정
+- **image-border-frame**: 테두리 두께 슬라이더 + 색상 피커로 이미지에 프레임 추가
+- **image-rounded-corners**: 둥글기 슬라이더(0~50%)로 모서리를 둥글게, 투명 배경 PNG로 출력
+- 모두 외부 API 없이 브라우저 Canvas API만으로 동작, 기존 image-media 패턴(Card/lucide-react) 유지
+- image-media 카테고리 진행: 8/24 완료
+
 
 ## [2026-10-29] 카테고리 균형 확장 1/132 — image-media 간단 필터 도구 4종 추가
 
