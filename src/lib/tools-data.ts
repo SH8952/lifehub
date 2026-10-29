@@ -842,6 +842,29 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
 
   "document-pdf": [
   {
+    id: "pdf-delete-pages",
+    name: "PDF 페이지 삭제기",
+    nameEn: "PDF Page Deleter",
+    nameJa: "PDFページ削除ツール",
+    nameEs: "Eliminador de Páginas PDF",
+    description: "PDF에서 원하는 페이지만 선택해 삭제합니다.",
+    descriptionEn: "Delete specific pages from a PDF.",
+    descriptionJa: "PDFから特定のページだけを削除します。",
+    descriptionEs: "Elimina páginas específicas de un PDF.",
+  },
+  {
+    id: "pdf-rotate-pages",
+    name: "PDF 페이지 회전기",
+    nameEn: "PDF Page Rotator",
+    nameJa: "PDFページ回転ツール",
+    nameEs: "Rotador de Páginas PDF",
+    description: "PDF의 모든 페이지 또는 특정 페이지만 90도 단위로 회전시킵니다.",
+    descriptionEn: "Rotate all or specific pages of a PDF in 90-degree increments.",
+    descriptionJa: "PDFのすべて、または特定のページを90度単位で回転させます。",
+    descriptionEs: "Rota todas o algunas páginas de un PDF en incrementos de 90 grados.",
+  },
+
+  {
     id: "markdown-to-pdf",
     name: "마크다운 → PDF 변환기",
     nameEn: "Markdown to PDF Converter",
