@@ -252,6 +252,17 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
   ],
   "finance": [
     {
+      id: "retirement-simulator",
+      name: "은퇴자금 시뮬레이터",
+      nameEn: "Retirement Savings Simulator",
+      nameJa: "退職資金シミュレーター",
+      nameEs: "Simulador de Ahorro para el Retiro",
+      description: "현재 자산/월 적립액/수익률로 은퇴 시점 예상 자산을 간단히 계산 (적립 단계 전용)",
+      descriptionEn: "Estimate retirement assets from current savings, contributions, and returns (accumulation phase only)",
+      descriptionJa: "現在資産・月積立額・収益率から退職時の予想資産を計算（積立段階のみ）",
+      descriptionEs: "Estima los activos al retiro a partir de ahorros, aportaciones y rendimientos",
+    },
+    {
       id: "salary-net-calculator",
       name: "급여 실수령액 계산기",
       nameEn: "Salary Net Pay Calculator",
