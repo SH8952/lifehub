@@ -3,6 +3,14 @@
 모든 변경 사항은 한국어로 기록합니다.
 
 
+## [2026-10-29] D-3. hash-generator(해시 생성기) 신규 도구 추가 (Claude Cowork 인수 작업)
+
+- SHA-1/256/384/512는 Web Crypto API, MD5는 순수 JS 구현(RFC 1321)으로 동시 계산.
+- HMAC(SHA-1/256/384/512)은 비밀키 입력 시 crypto.subtle로 계산.
+- categoryToolsMap(dev-it)/sitemap.ts 등록 포함.
+- 검증: tsc --noEmit 0 에러(BufferSource 타입 캐스팅 수정), next build 정상 통과.
+
+
 ## [2026-10-29] D-2. qr-code-generator(QR코드 생성기) 신규 도구 추가 (Claude Cowork 인수 작업)
 
 - qrcode npm 패키지(+@types/qrcode) 신규 설치, 기존 의존성 취약점과 무관함을 npm audit로 확인.
