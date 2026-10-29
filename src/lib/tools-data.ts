@@ -582,6 +582,17 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
 
   "dev-it": [
     {
+      id: "qr-code-generator",
+      name: "QR코드 생성기",
+      nameEn: "QR Code Generator",
+      nameJa: "QRコード生成機",
+      nameEs: "Generador de Códigos QR",
+      description: "URL/텍스트/Wi-Fi/연락처/전화/SMS QR코드 생성 및 PNG 다운로드",
+      descriptionEn: "Generate QR codes for URL/text/Wi-Fi/contact/phone/SMS and download as PNG",
+      descriptionJa: "URL・テキスト・Wi-Fi・連絡先・電話・SMSのQRコードを生成しPNGダウンロード",
+      descriptionEs: "Genera códigos QR para URL/texto/Wi-Fi/contacto/teléfono/SMS y descarga como PNG",
+    },
+    {
       id: "password-generator",
       name: "비밀번호 생성기",
       nameEn: "Password Generator",
