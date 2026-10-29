@@ -3,6 +3,14 @@
 모든 변경 사항은 한국어로 기록합니다.
 
 
+## [2026-10-29] C-3. fuel-cost-calculator(연비·주유비 계산기) 신규 도구 추가 (Claude Cowork 인수 작업)
+
+- 연료사용량/연비 직접입력 2가지 모드, km/L·L/100km·mpg 환산 지원.
+- 왕복 여부, 탑승 인원 더치페이 금액 계산 포함.
+- categoryToolsMap(finance)/sitemap.ts 등록 포함.
+- 검증: tsc --noEmit 0 에러, next build 정상 통과.
+
+
 ## [2026-10-29] C-2. vat-calculator(부가세 계산기) 신규 도구 추가 (Claude Cowork 인수 작업)
 
 - 세전/세포함 금액 상호 변환, 세율 직접 입력(기본 10%, 한국 부가세 기준).
