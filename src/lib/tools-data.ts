@@ -397,6 +397,17 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
   ],
   "fun-entertainment": [
     {
+      id: "tarot-card",
+      name: "오늘의 타로 카드",
+      nameEn: "Today's Tarot Card",
+      nameJa: "今日のタロットカード",
+      nameEs: "Tarot de Hoy",
+      description: "오늘 하루를 위한 메이저 아르카나 카드를 뽑아보세요",
+      descriptionEn: "Draw a Major Arcana card for today",
+      descriptionJa: "今日のための大アルカナカードを引いてみましょう",
+      descriptionEs: "Saca una carta de los Arcanos Mayores para hoy",
+    },
+    {
       id: "balance-game",
       name: "밸런스 게임",
       nameEn: "Balance Game",
