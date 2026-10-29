@@ -13,7 +13,7 @@
 
 | 카테고리 | 기존 | 목표 | 추가 필요 | 상태 |
 |---|---|---|---|---|
-| **image-media** | 5 | 29 | 24 | ⏳ 진행 중 (10/24 완료, 3/6/8/9/11~15/17~21번 계속) |
+| **image-media** | 5 | 29 | 24 | ⏳ 진행 중 (12/24 완료, 3/6/8/9/11~15/18~20번 계속) |
 | **document-pdf** | 5 | 29 | 24 | ⏳ 대기 |
 | **utility** | 6 | 29 | 23 | ⏳ 대기 |
 | **fun-entertainment** | 10 | 29 | 19 | ⏳ 대기 |
@@ -55,11 +55,11 @@
 | 14 | image-base64-converter | 이미지 ↔ Base64 변환기 |
 | 15 | image-to-gif | 여러 이미지 → GIF 생성기 |
 | 16 | image-brightness-contrast | 이미지 밝기·대비 조정기 | ✅ 완료 (5601afe) |
-| 17 | image-sharpen | 이미지 선명도(샤픈) 필터 |
+| 17 | image-sharpen | 이미지 선명도(샤픈) 필터 | ✅ 완료 (cd87143) |
 | 18 | image-dpi-info | 이미지 해상도·DPI 정보 확인기 |
 | 19 | image-size-compare | 압축 전후 파일 크기 비교기 |
 | 20 | image-zip-download | 여러 변환 결과 ZIP 다운로드기 |
-| 21 | image-noise-filter | 이미지 노이즈(그레인) 필터 |
+| 21 | image-noise-filter | 이미지 노이즈(그레인) 필터 | ✅ 완료 (cd87143) |
 | 22 | image-pixelate | 이미지 픽셀화(모자이크 아트) 필터 | ✅ 완료 (6f63157) |
 | 23 | image-duotone | 이미지 듀오톤(2색) 필터 | ✅ 완료 (6f63157) |
 | 24 | image-exif-strip | 이미지 메타데이터(EXIF) 제거기 | ✅ 완료 (16e95ed) |
