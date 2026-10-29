@@ -7,6 +7,7 @@ const CATEGORY_IDS = ["life-health", "finance", "fun-entertainment", "image-medi
 const STATIC_PAGES = ["about", "contact", "privacy", "terms"];
 
 const TOOL_IDS = [
+  "fuel-cost-calculator",
   "vat-calculator",
   "dti-calculator",
   "tip-calculator",

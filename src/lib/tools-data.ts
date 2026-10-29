@@ -252,6 +252,17 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
   ],
   "finance": [
     {
+      id: "fuel-cost-calculator",
+      name: "연비·주유비 계산기",
+      nameEn: "Fuel Cost Calculator",
+      nameJa: "燃費・ガソリン代計算機",
+      nameEs: "Calculadora de Costo de Combustible",
+      description: "주행거리/연료사용량/연비로 연비와 주유비, 1인당 비용 계산",
+      descriptionEn: "Calculate fuel economy, fuel cost, and per-person cost from trip details",
+      descriptionJa: "走行距離・燃料使用量・燃費から燃費とガソリン代、1人当たりの費用を計算",
+      descriptionEs: "Calcula el rendimiento, el costo de combustible y el costo por persona",
+    },
+    {
       id: "vat-calculator",
       name: "부가세 계산기",
       nameEn: "VAT Calculator",
