@@ -3,6 +3,14 @@
 모든 변경 사항은 한국어로 기록합니다.
 
 
+## [2026-10-29] E-1. random-picker(랜덤 추첨기) 신규 도구 추가 (Claude Cowork 인수 작업)
+
+- 항목 목록(한 줄에 하나씩, 2~50개) 입력, "중복 제거(뽑힌 항목 제외)" 옵션.
+- Math.random() 기반 무작위 선택, 당첨 항목 큰 글씨 표시, "다시 뽑기" 버튼.
+- 4개 언어(ko/en/ja/es) 지원, FAQ/JSON-LD/면책조항 포함.
+- tsc --noEmit 및 next build 통과 확인.
+
+
 ## [2026-10-29] D-5. jwt-decoder(JWT 디코더) 신규 도구 추가 — D단계(신규 dev-it 도구 5종) 전체 완료 (Claude Cowork 인수 작업)
 
 - 헤더/페이로드 base64url 디코딩, exp 클레임 유효/만료 배지 표시.
