@@ -509,6 +509,29 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
   ],
 
   "image-media": [
+  {
+    id: "image-mosaic-blur",
+    name: "이미지 모자이크·블러 처리기",
+    nameEn: "Image Mosaic & Blur Tool",
+    nameJa: "画像モザイク・ブラー処理ツール",
+    nameEs: "Herramienta de Mosaico y Difuminado de Imagen",
+    description: "슬라이더로 블러 강도를 조절해 이미지 전체에 모자이크·블러 효과를 적용하는 도구",
+    descriptionEn: "Adjust the slider to apply a blur/mosaic effect across your image",
+    descriptionJa: "スライダーでブラー強度を調整し、画像全体にモザイク・ブラー効果を適用するツール",
+    descriptionEs: "Ajusta el control deslizante para aplicar un efecto de difuminado/mosaico a toda la imagen",
+  },
+  {
+    id: "image-brightness-contrast",
+    name: "이미지 밝기·대비 조정기",
+    nameEn: "Image Brightness & Contrast Adjuster",
+    nameJa: "画像の明るさ・コントラスト調整ツール",
+    nameEs: "Ajustador de Brillo y Contraste de Imagen",
+    description: "슬라이더로 밝기와 대비를 조절해 이미지를 보정하는 도구",
+    descriptionEn: "Adjust brightness and contrast with sliders to get the look you want",
+    descriptionJa: "スライダーで明るさとコントラストを調整し、画像を補正するツール",
+    descriptionEs: "Ajusta el brillo y el contraste con controles deslizantes",
+  },
+
     {
       id: "image-grayscale",
       name: "이미지 흑백 변환기",
