@@ -7,6 +7,8 @@ const CATEGORY_IDS = ["life-health", "finance", "fun-entertainment", "image-medi
 const STATIC_PAGES = ["about", "contact", "privacy", "terms"];
 
 const TOOL_IDS = [
+  "markdown-to-pdf",
+  "images-to-pdf",
   "image-to-gif",
   "image-zip-download",
   "image-meme-maker",

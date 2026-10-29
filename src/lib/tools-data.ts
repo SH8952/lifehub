@@ -841,6 +841,29 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
   ],
 
   "document-pdf": [
+  {
+    id: "markdown-to-pdf",
+    name: "마크다운 → PDF 변환기",
+    nameEn: "Markdown to PDF Converter",
+    nameJa: "マークダウン → PDF変換ツール",
+    nameEs: "Convertidor de Markdown a PDF",
+    description: "마크다운 문서를 작성하고 실시간 미리보기 후 PDF로 다운로드하는 도구",
+    descriptionEn: "Write Markdown, preview it live, and download it as a PDF",
+    descriptionJa: "マークダウン文書を作成し、プレビュー後にPDFでダウンロードするツール",
+    descriptionEs: "Escribe Markdown, previsualízalo y descárgalo como PDF",
+  },
+  {
+    id: "images-to-pdf",
+    name: "이미지 → PDF 변환기(여러 장)",
+    nameEn: "Images to PDF Converter (Multiple)",
+    nameJa: "画像 → PDF変換ツール（複数枚）",
+    nameEs: "Convertidor de Imágenes a PDF (Varias)",
+    description: "여러 장의 이미지를 업로드해 한 페이지씩 되는 PDF로 만드는 도구",
+    descriptionEn: "Upload multiple images and turn each one into a page of a PDF",
+    descriptionJa: "複数の画像をアップロードし、1ページずつのPDFを作成するツール",
+    descriptionEs: "Sube varias imágenes y convierte cada una en una página de un PDF",
+  },
+
     {
       id: "text-to-pdf",
       name: "텍스트 → PDF 변환",
