@@ -3,6 +3,13 @@
 모든 변경 사항은 한국어로 기록합니다.
 
 
+## [2026-10-29] C-6. compound-interest-calculator(복리 계산기) 신규 도구 추가 (Claude Cowork 인수 작업)
+
+- 원금/연이율/복리빈도(연1회·월1회·일1회)/투자기간으로 최종금액·총 이자 계산.
+- categoryToolsMap(finance)/sitemap.ts 등록 포함.
+- 검증: tsc --noEmit 0 에러, next build 정상 통과.
+
+
 ## [2026-10-29] C-5. deposit-rent-converter(보증금·월세 상호 환산기) 신규 도구 추가 (Claude Cowork 인수 작업)
 
 - 전월세 전환율로 보증금↔월세 전액 상호 환산(전환율 직접 입력, 기본 5.5%).
