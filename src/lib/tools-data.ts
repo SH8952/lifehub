@@ -510,6 +510,29 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
 
   "image-media": [
   {
+    id: "image-noise-filter",
+    name: "이미지 노이즈(그레인) 필터",
+    nameEn: "Image Noise/Grain Filter",
+    nameJa: "画像ノイズ（グレイン）フィルター",
+    nameEs: "Filtro de Ruido/Grano de Imagen",
+    description: "슬라이더로 강도를 조절해 이미지에 필름 그레인 질감을 추가하는 도구",
+    descriptionEn: "Adjust the slider to add film-grain-like noise texture to your image",
+    descriptionJa: "スライダーで強度を調整し、画像にフィルムグレイン質感を追加するツール",
+    descriptionEs: "Ajusta la intensidad para añadir una textura de grano de película",
+  },
+  {
+    id: "image-sharpen",
+    name: "이미지 선명도(샤픈) 필터",
+    nameEn: "Image Sharpen Filter",
+    nameJa: "画像シャープ（鮮明化）フィルター",
+    nameEs: "Filtro de Enfoque de Imagen",
+    description: "슬라이더로 강도를 조절해 이미지의 윤곽선과 디테일을 선명하게 만드는 도구",
+    descriptionEn: "Adjust the slider to sharpen edges and details in your image",
+    descriptionJa: "スライダーで強度を調整し、画像の輪郭やディテールを鮮明にするツール",
+    descriptionEs: "Ajusta la intensidad para realzar los bordes y detalles de tu imagen",
+  },
+
+  {
     id: "image-pixelate",
     name: "이미지 픽셀화(모자이크 아트) 필터",
     nameEn: "Image Pixelate Filter",
