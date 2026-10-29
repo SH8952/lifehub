@@ -13,7 +13,7 @@
 
 | 카테고리 | 기존 | 목표 | 추가 필요 | 상태 |
 |---|---|---|---|---|
-| **image-media** | 5 | 29 | 24 | ⏳ 진행 중 (20/24 완료, 6/12/15/20번 계속) |
+| **image-media** | 5 | 29 | 24 | ⏳ 진행 중 (22/24 완료, 15/20번만 남음 — npm 패키지 설치 필요) |
 | **document-pdf** | 5 | 29 | 24 | ⏳ 대기 |
 | **utility** | 6 | 29 | 23 | ⏳ 대기 |
 | **fun-entertainment** | 10 | 29 | 19 | ⏳ 대기 |
@@ -44,13 +44,13 @@
 | 3 | image-crop | 이미지 크롭(자르기) 도구 | ✅ 완료 (657a4f8) |
 | 4 | image-border-frame | 이미지 테두리(프레임) 추가기 | ✅ 완료 (55d7c45) |
 | 5 | image-mosaic-blur | 이미지 모자이크·블러 처리기 | ✅ 완료 (5601afe) |
-| 6 | image-collage-maker | 이미지 콜라주 메이커(그리드) |
+| 6 | image-collage-maker | 이미지 콜라주 메이커(그리드) | ✅ 완료 (f0de069) |
 | 7 | image-rounded-corners | 이미지 둥근 모서리 처리기 | ✅ 완료 (55d7c45) |
 | 8 | image-text-watermark | 이미지 텍스트 워터마크 추가기 | ✅ 완료 (657a4f8) |
 | 9 | image-color-palette | 이미지 색상 추출기(팔레트) | ✅ 완료 (62a83fd) |
 | 10 | image-negative-filter | 이미지 네거티브(색 반전) 필터 | ✅ 완료 (16e95ed) |
 | 11 | image-vignette | 이미지 비네트 효과 필터 | ✅ 완료 (75d19d0) |
-| 12 | image-meme-maker | 캡션·밈 메이커 |
+| 12 | image-meme-maker | 캡션·밈 메이커 | ✅ 완료 (f0de069) |
 | 13 | image-square-thumbnail | 정사각형 썸네일 생성기(SNS용) | ✅ 완료 (75d19d0) |
 | 14 | image-base64-converter | 이미지 ↔ Base64 변환기 | ✅ 완료 (62a83fd) |
 | 15 | image-to-gif | 여러 이미지 → GIF 생성기 |
