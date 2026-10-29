@@ -7,6 +7,7 @@ const CATEGORY_IDS = ["life-health", "finance", "fun-entertainment", "image-medi
 const STATIC_PAGES = ["about", "contact", "privacy", "terms"];
 
 const TOOL_IDS = [
+  "hash-generator",
   "qr-code-generator",
   "password-generator",
   "retirement-simulator",

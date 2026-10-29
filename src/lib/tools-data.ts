@@ -582,6 +582,17 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
 
   "dev-it": [
     {
+      id: "hash-generator",
+      name: "해시 생성기",
+      nameEn: "Hash Generator",
+      nameJa: "ハッシュ生成機",
+      nameEs: "Generador de Hash",
+      description: "텍스트의 MD5/SHA-1/SHA-256/SHA-384/SHA-512 해시 및 HMAC 계산",
+      descriptionEn: "Calculate MD5/SHA-1/SHA-256/SHA-384/SHA-512 hashes and HMAC for text",
+      descriptionJa: "テキストのMD5・SHA-1・SHA-256・SHA-384・SHA-512ハッシュとHMACを計算",
+      descriptionEs: "Calcula hashes MD5/SHA-1/SHA-256/SHA-384/SHA-512 y HMAC para texto",
+    },
+    {
       id: "qr-code-generator",
       name: "QR코드 생성기",
       nameEn: "QR Code Generator",
