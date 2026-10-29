@@ -252,6 +252,17 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
   ],
   "finance": [
     {
+      id: "compound-interest-calculator",
+      name: "복리 계산기",
+      nameEn: "Compound Interest Calculator",
+      nameJa: "複利計算機",
+      nameEs: "Calculadora de Interés Compuesto",
+      description: "원금/연이율/복리빈도/투자기간으로 최종금액과 총 이자 계산",
+      descriptionEn: "Calculate final amount and total interest from principal, rate, frequency, and term",
+      descriptionJa: "元金・年利率・複利頻度・投資期間から最終金額と合計利息を計算",
+      descriptionEs: "Calcula el monto final y el interés total a partir del capital, la tasa, la frecuencia y el plazo",
+    },
+    {
       id: "deposit-rent-converter",
       name: "보증금·월세 상호 환산기",
       nameEn: "Deposit-Rent Converter",
