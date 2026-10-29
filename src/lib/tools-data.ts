@@ -397,6 +397,17 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
   ],
   "fun-entertainment": [
     {
+      id: "balance-game",
+      name: "밸런스 게임",
+      nameEn: "Balance Game",
+      nameJa: "バランスゲーム",
+      nameEs: "Juego del Equilibrio",
+      description: "둘 중 하나, 당신의 선택은? 35개 이상의 밸런스 게임 문항",
+      descriptionEn: "Pick one: which would you choose? Over 35 balance game questions",
+      descriptionJa: "二択のうち、あなたの選択は?35問以上のバランスゲーム",
+      descriptionEs: "Elige uno: ¿cuál escogerías? Más de 35 preguntas del juego del equilibrio",
+    },
+    {
       id: "ladder-game",
       name: "사다리타기",
       nameEn: "Ladder Game",
