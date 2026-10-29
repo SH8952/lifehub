@@ -3,6 +3,14 @@
 모든 변경 사항은 한국어로 기록합니다.
 
 
+## [2026-10-29] D-1. password-generator(비밀번호 생성기) 신규 도구 추가 — D단계(신규 dev-it 도구 5종) 시작 (Claude Cowork 인수 작업)
+
+- crypto.getRandomValues() 기반 암호학적으로 안전한 난수로 비밀번호 생성(Math.random 미사용).
+- 길이 프리셋+슬라이더, 문자종류 체크박스, 유사문자 제외, 1~100개 일괄생성, 복사 기능.
+- categoryToolsMap(dev-it)/sitemap.ts 등록 포함.
+- 검증: tsc --noEmit 0 에러, next build 정상 통과.
+
+
 ## [2026-10-29] C-11. retirement-simulator(은퇴자금 시뮬레이터, 간이 버전) 신규 도구 추가 — C단계(신규 재무 도구 11종) 전체 완료 (Claude Cowork 인수 작업)
 
 - 현재나이/목표은퇴나이/현재자산/월적립액/수익률/물가상승률로 은퇴 시점 명목·실질가치 계산(적립 단계 전용).
