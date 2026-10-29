@@ -252,6 +252,17 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
   ],
   "finance": [
     {
+      id: "deposit-rent-converter",
+      name: "보증금·월세 상호 환산기",
+      nameEn: "Deposit-Rent Converter",
+      nameJa: "保証金・家賃相互換算機",
+      nameEs: "Convertidor de Depósito-Renta",
+      description: "전월세 전환율로 보증금과 월세를 상호 환산",
+      descriptionEn: "Convert between deposit and monthly rent using the conversion rate",
+      descriptionJa: "転貸換算率で保証金と家賃を相互換算",
+      descriptionEs: "Convierte entre depósito y renta mensual usando la tasa de conversión",
+    },
+    {
       id: "fuel-cost-calculator",
       name: "연비·주유비 계산기",
       nameEn: "Fuel Cost Calculator",
