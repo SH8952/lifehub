@@ -13,7 +13,7 @@
 
 | 카테고리 | 기존 | 목표 | 추가 필요 | 상태 |
 |---|---|---|---|---|
-| **image-media** | 5 | 29 | 24 | ⏳ 진행 중 (16/24 완료, 6/9/12/14/15/18~20번 계속) |
+| **image-media** | 5 | 29 | 24 | ⏳ 진행 중 (18/24 완료, 6/12/15/18~20번 계속) |
 | **document-pdf** | 5 | 29 | 24 | ⏳ 대기 |
 | **utility** | 6 | 29 | 23 | ⏳ 대기 |
 | **fun-entertainment** | 10 | 29 | 19 | ⏳ 대기 |
@@ -47,12 +47,12 @@
 | 6 | image-collage-maker | 이미지 콜라주 메이커(그리드) |
 | 7 | image-rounded-corners | 이미지 둥근 모서리 처리기 | ✅ 완료 (55d7c45) |
 | 8 | image-text-watermark | 이미지 텍스트 워터마크 추가기 | ✅ 완료 (657a4f8) |
-| 9 | image-color-palette | 이미지 색상 추출기(팔레트) |
+| 9 | image-color-palette | 이미지 색상 추출기(팔레트) | ✅ 완료 (62a83fd) |
 | 10 | image-negative-filter | 이미지 네거티브(색 반전) 필터 | ✅ 완료 (16e95ed) |
 | 11 | image-vignette | 이미지 비네트 효과 필터 | ✅ 완료 (75d19d0) |
 | 12 | image-meme-maker | 캡션·밈 메이커 |
 | 13 | image-square-thumbnail | 정사각형 썸네일 생성기(SNS용) | ✅ 완료 (75d19d0) |
-| 14 | image-base64-converter | 이미지 ↔ Base64 변환기 |
+| 14 | image-base64-converter | 이미지 ↔ Base64 변환기 | ✅ 완료 (62a83fd) |
 | 15 | image-to-gif | 여러 이미지 → GIF 생성기 |
 | 16 | image-brightness-contrast | 이미지 밝기·대비 조정기 | ✅ 완료 (5601afe) |
 | 17 | image-sharpen | 이미지 선명도(샤픈) 필터 | ✅ 완료 (cd87143) |
