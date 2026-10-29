@@ -397,6 +397,17 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
   ],
   "fun-entertainment": [
     {
+      id: "random-picker",
+      name: "랜덤 추첨기",
+      nameEn: "Random Picker",
+      nameJa: "ランダム抽選機",
+      nameEs: "Selector Aleatorio",
+      description: "항목 목록을 입력하면 무작위로 하나를 뽑아줍니다",
+      descriptionEn: "Enter a list of items and randomly pick one",
+      descriptionJa: "項目リストを入力するとランダムに1つを選びます",
+      descriptionEs: "Introduce una lista de elementos y selecciona uno al azar",
+    },
+    {
       id: "saju-pool",
       name: "정통 사주풀이",
       nameEn: "Traditional Saju (Four Pillars)",
