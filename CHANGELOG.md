@@ -2,6 +2,24 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-10-31 — 수익화 준비 3단계: NEXT_PUBLIC_SITE_URL 환경변수 설정 + 재배포
+
+"다음 진행해줘" 요청에 따라, 2단계 배포 기록에 "별도 승인 필요"로 남겨뒀던 항목을 진행했습니다.
+
+**진행 과정**:
+1. Vercel 프로젝트(lifehub) → Project Settings → Domains에서 안정적인 프로덕션 도메인이 `lifehub-weld.vercel.app`임을 확인 (배포마다 바뀌는 해시형 URL이 아닌, 고정 별칭)
+2. Vercel Environment Variables에 `NEXT_PUBLIC_SITE_URL = https://lifehub-weld.vercel.app` 를 Production 환경, Config 타입으로 추가
+3. 기존 배포(bf10de2)를 Redeploy하여 새 환경변수 반영 (빌드 1m 53s, Ready)
+4. 배포 완료 후 `https://lifehub-weld.vercel.app/sitemap.xml` 접속하여 모든 URL이 `alltools365.com`이 아닌 `lifehub-weld.vercel.app`로 정상 반영된 것을 확인
+
+**결과**: sitemap, canonical URL, hreflang, Open Graph, JSON-LD가 모두 실제 라이브 주소(`https://lifehub-weld.vercel.app`) 기준으로 생성됨. 코드 수정 없이 환경변수만으로 해결.
+
+**남은 사항**:
+- 구글 서치콘솔(URL 접두어 속성) 등록 + sitemap 제출 — 아직 미착수
+- 네이버 웹마스터도구 등록 — 아직 미착수
+- 다음 push 스크립트부터는 터미널 자동 종료 로직 수정본 적용 (osascript 자체 delay + 독립 백그라운드 프로세스 방식으로 교체 예정, 아직 실제 push 미발생)
+- 도메인(alltools365.com) 구매는 9/29 합의대로 노출 데이터 확인 전까지 보류
+
 ## 2026-10-31 — 수익화 준비 2단계: GitHub 연동 + Vercel 최초 배포 (무료 검증)
 
 9/29에 합의했던 "도메인 없이 Vercel 무료 주소로 먼저 공개" 방향을 실행에 옮겼습니다.
@@ -16,7 +34,7 @@
 **결과**: `https://lifehub-czrjrwzi5-sh8952-adsense-project.vercel.app` 로 라이브 확인. 홈(ko) 디자인 정상 렌더링(차콜+앰버, 레이아웃 정돈 전부 반영된 상태), 영어 도구 페이지(/en/tool/bmi)도 정상 렌더링 확인.
 
 **남은 사항**:
-- `NEXT_PUBLIC_SITE_URL` 환경변수 미설정 — 현재 sitemap/canonical/OG URL이 아직 구매하지 않은 `alltools365.com`(코드 기본값)을 가리키고 있음. 실제 배포 주소로 맞추는 작업은 별도 승인 필요
+- ~~`NEXT_PUBLIC_SITE_URL` 환경변수 미설정~~ → 해결됨 (아래 "3단계" 참고)
 - 구글 서치콘솔 / 네이버 웹마스터 등록, sitemap 제출은 아직 미착수
 - 도메인(alltools365.com) 구매는 여전히 보류 — 9/29 계획대로 노출 데이터 확인 후 결정
 
