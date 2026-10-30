@@ -2,6 +2,49 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-10-30 — 카테고리 균형 확장 document-pdf 24/24 전체 완료
+
+- `pdf-form-fill`: pdf-lib AcroForm API(`getForm`, `getFields`)로 PDF 내 텍스트/체크박스/라디오그룹/드롭다운 필드를 자동 감지해 입력 UI를 생성, 값 채우기 후 선택적 `form.flatten()`으로 편집 잠금 지원.
+- `pdf-password-protect`: 표준 pdf-lib에는 암호화 기능이 없어 서드파티 fork `pdf-lib-plus-encrypt`(brennanmcquerry, AESv2/AESv3 지원) 도입. 열기 암호(필수) + 소유자 암호(선택) + 인쇄/복사/편집 권한 토글 지원.
+  - 패키지 도입 전 `.d.ts` 타입 정의 직접 확인으로 실제 `encrypt()` API 존재 검증 (README의 구버전 안내 텍스트와 달리 실제로는 암호화 지원), `npm audit` 전후 비교로 신규 취약점 0건 확인.
+  - 도구 출하 전 Node.js 스크립트 + `qpdf` CLI로 암호화↔복호화 라운드트립 검증: 올바른 암호로만 파일이 열리고(틀린 암호 거부 확인), 설정한 권한(인쇄 허용/복사·편집 불허)이 정확히 반영되며 텍스트 내용이 손상 없이 보존됨을 확인.
+  - 이 패키지는 `pdf-password-protect` 도구 파일에서만 import하여 다른 ~20여 개 PDF 도구(표준 pdf-lib 사용)에 영향 없음.
+- 2개 도구 모두 `src/lib/tools-data.ts`(document-pdf 카테고리) 및 `src/app/sitemap.ts`(TOOL_IDS)에 등록 완료.
+- `npx tsc --noEmit`, `next build` 검증 통과. commit: e15c739
+- **document-pdf 카테고리 24/24 전체 완료** — 다음은 "모든 단계 완료 후 정밀 검증" 지시에 따라 전체 구현 기능 점검 진행
+
+## 2026-10-30 — 카테고리 균형 확장 document-pdf 22/24
+
+- `pdf-blank-page-insert`: 지정한 위치에 빈 페이지 삽입. "기존 페이지와 동일한 크기로 맞추기" 옵션(직전 페이지의 `getSize()` 참조) 또는 A4/Letter 중 선택.
+- `pdf-combine-preview`: 여러 PDF 파일 업로드 시 각 파일의 1페이지 썸네일(pdfjs-dist, scale 0.5)을 미리보기로 표시, 위/아래 버튼으로 순서 조정 후 `copyPages`로 하나의 PDF로 병합.
+- 2개 도구 모두 `src/lib/tools-data.ts`/`src/app/sitemap.ts` 등록 완료. `npx tsc --noEmit`, `next build` 검증 통과. commit: 18134fd
+
+## 2026-10-30 — 카테고리 균형 확장 document-pdf 20/24
+
+- `pdf-to-text-file`: pdfjs-dist로 전체 페이지 텍스트를 추출해 `.txt` 파일로 다운로드.
+- `pdf-duplicate-page`: 특정 페이지를 N번 복제해 바로 뒤에 삽입. 출하 전 Node.js 스크립트로 동일 `PDFPage` 객체 재사용 시 페이지 트리 손상 여부를 pdfjs-dist 텍스트 추출로 직접 검증(문제 없음 확인).
+- 2개 도구 모두 `src/lib/tools-data.ts`/`src/app/sitemap.ts` 등록 완료. `npx tsc --noEmit`, `next build` 검증 통과. commit: a5b955e
+
+## 2026-10-30 — 카테고리 균형 확장 document-pdf 18/24
+
+- `pdf-signature-insert`: 캔버스 기반 손글씨 서명 패드(마우스/터치 드로잉) + 퍼센트 기반 위치·크기 슬라이더로 페이지 미리보기 위에 서명 이미지를 합성해 PDF에 삽입.
+- `pdf-page-count`: 페이지 수, 파일 크기, 페이지별 크기(A4/Letter 등) 정보를 표시하고 클립보드 복사 지원.
+- 2개 도구 모두 `src/lib/tools-data.ts`/`src/app/sitemap.ts` 등록 완료. `npx tsc --noEmit`, `next build` 검증 통과. commit: 9f357cd
+
+## 2026-10-30 — 카테고리 균형 확장 document-pdf 16/24
+
+- `pdf-bookmark-adder`: pdf-lib 저수준 API(`context.obj`/`context.register`/`PDFDict`/`PDFName`)로 PDF 아웃라인(북마크) 트리를 직접 구성. 출하 전 한글 제목으로 Node.js 검증 테스트 수행 중 `PDFString.of()`가 Latin-1 인코딩이라 한글이 깨지는 버그를 발견, `PDFHexString.fromText()`로 수정 후 재검증 완료.
+- `pdf-thumbnail-extract`: 모든 페이지를 pdfjs-dist로 렌더링해 썸네일 이미지로 추출, 개별 또는 ZIP 일괄 다운로드.
+- 2개 도구 모두 `src/lib/tools-data.ts`/`src/app/sitemap.ts` 등록 완료. `npx tsc --noEmit`, `next build` 검증 통과. commit: 67f8d48
+
+## 2026-10-30 — 카테고리 균형 확장 document-pdf 14/24
+
+- `invoice-pdf-maker`: 품목/수량/단가 입력 테이블 + 공용 `exportElementToPdf`(html2canvas+jsPDF, A4)로 견적서·인보이스 PDF 생성.
+- `business-card-pdf`: jsPDF 커스텀 크기([90,50]mm)로 명함 PDF 생성.
+- `pdf-page-size-converter`: pdfjs-dist 렌더링 → 캔버스 리사이즈 → 새 PDF(A4/Letter) 재구성으로 용지 크기 변환.
+- `pdf-grayscale`: 캔버스 `getImageData`/`putImageData` 픽셀 단위 흑백(luminance) 변환 후 JPEG 재인코딩·재삽입.
+- 4개 도구 모두 `src/lib/tools-data.ts`/`src/app/sitemap.ts` 등록 완료. `npx tsc --noEmit`, `next build` 검증 통과. commit: d7347bf
+
 ## 2026-10-30 — 카테고리 균형 확장 21/132 — document-pdf 카테고리 진행 (10/24)
 
 - `pdf-compress`: 각 페이지를 pdfjs-dist로 캔버스에 렌더링 후 JPEG로 재압축해 새 PDF 생성. 압축 수준 3단계(낮음/중간/높음), 원본·압축 후 크기 및 감소율 표시. 텍스트 선택 불가 경고 포함.

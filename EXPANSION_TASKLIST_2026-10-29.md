@@ -14,7 +14,7 @@
 | 카테고리 | 기존 | 목표 | 추가 필요 | 상태 |
 |---|---|---|---|---|
 | **image-media** | 5 | 29 | 24 | ✅ 완료 (24/24) |
-| **document-pdf** | 5 | 29 | 24 | ⏳ 진행 중 (10/24 완료, 11번부터 계속) |
+| **document-pdf** | 5 | 29 | 24 | ✅ 완료 (24/24) |
 | **utility** | 6 | 29 | 23 | ⏳ 대기 |
 | **fun-entertainment** | 10 | 29 | 19 | ⏳ 대기 |
 | **dev-it** | 11 | 29 | 18 | ⏳ 대기 |
@@ -64,7 +64,7 @@
 | 23 | image-duotone | 이미지 듀오톤(2색) 필터 | ✅ 완료 (6f63157) |
 | 24 | image-exif-strip | 이미지 메타데이터(EXIF) 제거기 | ✅ 완료 (16e95ed) |
 
-## 2. document-pdf (24개 신규) — ⏳ 진행 중
+## 2. document-pdf (24개 신규) — ✅ 완료 (24/24)
 
 | # | slug | 도구명 |
 |---|---|---|
@@ -78,20 +78,20 @@
 | 8 | pdf-rotate-pages | PDF 페이지 회전기 | ✅ 완료 (255813e) |
 | 9 | pdf-extract-text | PDF 텍스트 추출기 | ✅ 완료 (a9827af) |
 | 10 | csv-to-pdf | CSV → PDF 표 변환기 | ✅ 완료 (2844746) |
-| 11 | invoice-pdf-maker | 견적서·인보이스 PDF 생성기 |
-| 12 | business-card-pdf | 명함 PDF 생성기 |
-| 13 | pdf-page-size-converter | PDF 용지 크기 변환기(A4↔Letter) |
-| 14 | pdf-grayscale | PDF 흑백 변환기 |
-| 15 | pdf-bookmark-adder | PDF 북마크(목차) 추가기 |
-| 16 | pdf-thumbnail-extract | PDF 표지 썸네일 추출기 |
-| 17 | pdf-signature-insert | PDF 서명 이미지 삽입기 |
-| 18 | pdf-page-count | PDF 페이지 수·용량 정보 확인기 |
-| 19 | pdf-to-text-file | PDF → 텍스트 파일(.txt) 변환기 |
-| 20 | pdf-duplicate-page | PDF 특정 페이지 복제기 |
-| 21 | pdf-blank-page-insert | PDF 빈 페이지 삽입기 |
-| 22 | pdf-combine-preview | 여러 PDF 미리보기 한 번에 합치기 |
-| 23 | pdf-form-fill | PDF 양식(Form) 필드 채우기 도구 |
-| 24 | pdf-password-protect | PDF 비밀번호 설정기 |
+| 11 | invoice-pdf-maker | 견적서·인보이스 PDF 생성기 | ✅ 완료 (d7347bf) |
+| 12 | business-card-pdf | 명함 PDF 생성기 | ✅ 완료 (d7347bf) |
+| 13 | pdf-page-size-converter | PDF 용지 크기 변환기(A4↔Letter) | ✅ 완료 (d7347bf) |
+| 14 | pdf-grayscale | PDF 흑백 변환기 | ✅ 완료 (d7347bf) |
+| 15 | pdf-bookmark-adder | PDF 북마크(목차) 추가기 | ✅ 완료 (67f8d48) |
+| 16 | pdf-thumbnail-extract | PDF 표지 썸네일 추출기 | ✅ 완료 (67f8d48) |
+| 17 | pdf-signature-insert | PDF 서명 이미지 삽입기 | ✅ 완료 (9f357cd) |
+| 18 | pdf-page-count | PDF 페이지 수·용량 정보 확인기 | ✅ 완료 (9f357cd) |
+| 19 | pdf-to-text-file | PDF → 텍스트 파일(.txt) 변환기 | ✅ 완료 (a5b955e) |
+| 20 | pdf-duplicate-page | PDF 특정 페이지 복제기 | ✅ 완료 (a5b955e) |
+| 21 | pdf-blank-page-insert | PDF 빈 페이지 삽입기 | ✅ 완료 (18134fd) |
+| 22 | pdf-combine-preview | 여러 PDF 미리보기 한 번에 합치기 | ✅ 완료 (18134fd) |
+| 23 | pdf-form-fill | PDF 양식(Form) 필드 채우기 도구 | ✅ 완료 (e15c739) |
+| 24 | pdf-password-protect | PDF 비밀번호 설정기 | ✅ 완료 (e15c739) |
 
 ## 3. utility (23개 신규)
 
