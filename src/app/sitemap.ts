@@ -7,6 +7,10 @@ const CATEGORY_IDS = ["life-health", "finance", "fun-entertainment", "image-medi
 const STATIC_PAGES = ["about", "contact", "privacy", "terms"];
 
 const TOOL_IDS = [
+  "lucky-number-generator",
+  "couple-name-compatibility",
+  "movie-recommendation-roulette",
+  "book-recommendation-roulette",
   "name-fortune",
   "birthday-personality",
   "mbti-simple-test",
