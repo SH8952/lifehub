@@ -133,7 +133,7 @@ export default function SajuPoolClient({ initialLocale }: { initialLocale: Local
     setShowResult(true);
   }
 
-  const elements = countElements(result!);
+  const elements = result ? countElements(result) : [0, 0, 0, 0, 0];
   const total = elements.reduce((a, b) => a + b, 0);
 
   return (
