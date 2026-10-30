@@ -7,6 +7,11 @@ const CATEGORY_IDS = ["life-health", "finance", "fun-entertainment", "image-medi
 const STATIC_PAGES = ["about", "contact", "privacy", "terms"];
 
 const TOOL_IDS = [
+  "roman-numeral-converter",
+  "name-initials-generator",
+  "random-team-divider",
+  "simple-checklist-maker",
+
   "pomodoro-timer",
   "world-time-converter",
   "date-diff-calculator",
