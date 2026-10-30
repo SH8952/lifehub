@@ -7,6 +7,10 @@ const CATEGORY_IDS = ["life-health", "finance", "fun-entertainment", "image-medi
 const STATIC_PAGES = ["about", "contact", "privacy", "terms"];
 
 const TOOL_IDS = [
+  "chinese-zodiac-fortune",
+  "daily-affirmation-generator",
+  "travel-destination-roulette",
+  "number-baseball-game",
   "daily-quote-generator",
   "truth-game-questions",
   "role-assignment-roulette",
