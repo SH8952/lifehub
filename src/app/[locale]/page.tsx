@@ -197,16 +197,7 @@ export default async function Home({
     count: (categoryToolsMap[c.id] ?? []).length,
   }));
   const maxCategoryCount = Math.max(...categoryStats.map((c) => c.count), 1);
-  const spotlightCategory = categoryStats.reduce(
-    (max, c) => (c.count > max.count ? c : max),
-    categoryStats[0]
-  );
-
   const toolsUnit = t("toolsUnit");
-  const formatToolCount = (count: number) =>
-    localeKey === "ko" || localeKey === "ja"
-      ? `${count}${toolsUnit}`
-      : `${count} ${toolsUnit}`;
 
   return (
     <div className="flex flex-col">
@@ -249,167 +240,63 @@ export default async function Home({
         </div>
       </section>
 
-      {/* Hub — 3단 벤토 그리드: 모바일에서는 "중앙(빠른 도구) → 좌측(추천) → 우측(현황)" 순서로 쌓임 */}
-      <section id="hub" className="mx-auto max-w-6xl px-4 py-10 sm:py-12">
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
-          {/* 좌측: 오늘의 추천 도구 + 카테고리 스포트라이트 */}
-          <div className="order-2 flex flex-col gap-4 lg:order-1 lg:col-span-3">
-            <a
-              href={`/${locale}/tool/${featuredTool.id}`}
-              className="group block"
-            >
-              <Card className="h-full overflow-hidden bg-primary text-primary-foreground">
-                <CardContent className="flex h-full flex-col gap-3 p-5">
-                  <span className="inline-flex w-fit items-center rounded-full bg-white/20 px-2.5 py-0.5 text-xs font-medium">
-                    ✨ {t("todaysPickBadge")}
-                  </span>
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/20">
-                    {(() => {
-                      const FeaturedIcon =
-                        categoryIconComponentById[featuredTool.categoryId] ?? Wrench;
-                      return <FeaturedIcon className="h-5 w-5" />;
-                    })()}
-                  </span>
-                  <div>
-                    <p className="font-semibold">{featuredTool[nameKey]}</p>
-                    <p className="mt-1 text-sm text-white/80 line-clamp-2">
-                      {featuredTool[descKey]}
-                    </p>
-                  </div>
-                  <span className="mt-auto text-sm font-medium underline-offset-2 group-hover:underline">
-                    {t("todaysPickCta")} →
-                  </span>
-                </CardContent>
-              </Card>
-            </a>
-
-            <a
-              href={`/${locale}/category/${spotlightCategory.id}`}
-              className="group block"
-            >
-              <Card className="h-full">
-                <CardContent className="flex h-full flex-col gap-3 p-5">
-                  <span className="inline-flex w-fit items-center rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
-                    {t("categorySpotlightBadge")}
-                  </span>
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-                    {(() => {
-                      const SpotlightIcon =
-                        categoryIconComponentById[spotlightCategory.id] ?? Wrench;
-                      return <SpotlightIcon className="h-5 w-5" />;
-                    })()}
-                  </span>
-                  <div>
-                    <p className="font-semibold transition-colors group-hover:text-primary">
-                      {spotlightCategory[nameKey]}
-                    </p>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      {formatToolCount(spotlightCategory.count)}
-                    </p>
-                  </div>
-                  <span className="mt-auto text-sm font-medium text-primary underline-offset-2 group-hover:underline">
-                    {t("categorySpotlightCta")} →
-                  </span>
-                </CardContent>
-              </Card>
-            </a>
-          </div>
-
-          {/* 중앙: 카테고리를 거치지 않고 바로 눌러보는 인기 도구 아이콘 그리드 */}
-          <div className="order-1 lg:order-2 lg:col-span-6">
-            <p className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-              {t("hubQuickTitle")}
-            </p>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-              {popularTools.map((tool) => {
-                const PopularIcon =
-                  categoryIconComponentById[tool.categoryId] ?? Wrench;
-                return (
-                  <a
-                    key={tool.id}
-                    href={`/${locale}/tool/${tool.id}`}
-                    className="group block"
-                  >
-                    <Card className="h-full text-center">
-                      <CardContent className="flex flex-col items-center gap-2 p-4">
-                        <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-primary">
-                          <PopularIcon className="h-4 w-4" />
-                        </span>
-                        <p className="line-clamp-2 text-xs font-semibold leading-tight transition-colors group-hover:text-primary">
-                          {tool[nameKey]}
-                        </p>
-                      </CardContent>
-                    </Card>
-                  </a>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* 우측: 신뢰 지표 + 카테고리별 도구 현황(실제 데이터 기반 막대) */}
-          <div className="order-3 flex flex-col gap-4 lg:col-span-3">
-            <Card>
-              <CardContent className="flex flex-col gap-3 p-5">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">
-                    {t("statsToolsLabel")}
-                  </span>
-                  <span className="text-lg font-bold">{totalToolsCount}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">
-                    {t("statsLanguagesLabel")}
-                  </span>
-                  <span className="text-lg font-bold">{languageCount}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">
-                    {t("statsCategoriesLabel")}
-                  </span>
-                  <span className="text-lg font-bold">{categoryCount}</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="flex flex-col gap-3 p-5">
-                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                  {t("categoryStatusTitle")}
+      {/* 오늘의 추천 — 가로 전체 배너 (2026-10-30: 좁은 좌측 컬럼 카드 → 전체 너비로 변경, 레이아웃 정돈) */}
+      <section className="mx-auto max-w-6xl px-4 pt-10 sm:pt-12">
+        <a href={`/${locale}/tool/${featuredTool.id}`} className="group block">
+          <Card className="overflow-hidden bg-primary text-primary-foreground">
+            <CardContent className="flex items-center gap-4 p-5 sm:p-6">
+              <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/20">
+                {(() => {
+                  const FeaturedIcon =
+                    categoryIconComponentById[featuredTool.categoryId] ?? Wrench;
+                  return <FeaturedIcon className="h-6 w-6" />;
+                })()}
+              </span>
+              <div className="min-w-0 flex-1">
+                <span className="inline-flex w-fit items-center rounded-full bg-white/20 px-2.5 py-0.5 text-xs font-medium">
+                  ✨ {t("todaysPickBadge")}
+                </span>
+                <p className="mt-1 truncate font-semibold">{featuredTool[nameKey]}</p>
+                <p className="mt-0.5 text-sm text-white/80 line-clamp-1">
+                  {featuredTool[descKey]}
                 </p>
-                {categoryStats.map((c) => {
-                  const StatusIcon = categoryIconComponentById[c.id] ?? Wrench;
-                  return (
-                    <a
-                      key={c.id}
-                      href={`/${locale}/category/${c.id}`}
-                      className="group block"
-                    >
-                      <div className="mb-1 flex items-center justify-between gap-2 text-xs">
-                        <span className="flex min-w-0 items-center gap-1 font-medium transition-colors group-hover:text-primary">
-                          <StatusIcon className="h-3.5 w-3.5 shrink-0" />
-                          <span className="truncate">{c[nameKey]}</span>
-                        </span>
-                        <span className="shrink-0 text-muted-foreground">
-                          {c.count}
-                        </span>
-                      </div>
-                      <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
-                        <div
-                          className="h-full rounded-full bg-primary"
-                          style={{
-                            width: `${Math.max(
-                              (c.count / maxCategoryCount) * 100,
-                              6
-                            )}%`,
-                          }}
-                        />
-                      </div>
-                    </a>
-                  );
-                })}
-              </CardContent>
-            </Card>
-          </div>
+              </div>
+              <span className="hidden shrink-0 text-sm font-medium underline-offset-2 group-hover:underline sm:inline">
+                {t("todaysPickCta")} →
+              </span>
+            </CardContent>
+          </Card>
+        </a>
+      </section>
+
+      {/* 인기 도구 — 전체 너비 균일 그리드 (2026-10-30: 비대칭 3단 벤토 구성 제거, 레이아웃 정돈) */}
+      <section id="hub" className="mx-auto max-w-6xl px-4 py-10 sm:py-12">
+        <p className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+          {t("hubQuickTitle")}
+        </p>
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
+          {popularTools.map((tool) => {
+            const PopularIcon =
+              categoryIconComponentById[tool.categoryId] ?? Wrench;
+            return (
+              <a
+                key={tool.id}
+                href={`/${locale}/tool/${tool.id}`}
+                className="group block"
+              >
+                <Card className="h-full text-center">
+                  <CardContent className="flex flex-col items-center gap-2 p-4">
+                    <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-primary">
+                      <PopularIcon className="h-4 w-4" />
+                    </span>
+                    <p className="line-clamp-2 text-xs font-semibold leading-tight transition-colors group-hover:text-primary">
+                      {tool[nameKey]}
+                    </p>
+                  </CardContent>
+                </Card>
+              </a>
+            );
+          })}
         </div>
       </section>
 
@@ -418,11 +305,16 @@ export default async function Home({
         id="categories"
         className="mx-auto max-w-6xl px-4 py-12 scroll-mt-16"
       >
-        <p className="mb-6 text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-          {t("categories")}
-        </p>
+        <div className="mb-6 flex flex-wrap items-baseline justify-between gap-2">
+          <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+            {t("categories")}
+          </p>
+          <p className="text-xs text-muted-foreground">
+            {t("statsToolsLabel")} {totalToolsCount}{toolsUnit} · {t("statsLanguagesLabel")} {languageCount} · {t("statsCategoriesLabel")} {categoryCount}
+          </p>
+        </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {categories.map((cat) => {
+          {categoryStats.map((cat) => {
             const previewNames = (categoryToolsMap[cat.id] ?? [])
               .slice(0, 3)
               .map((tool) => tool[nameKey]);
@@ -452,6 +344,17 @@ export default async function Home({
                           ? previewNames.join(" · ")
                           : t("comingSoon")}
                       </p>
+                      <div className="mt-3 h-1 w-full overflow-hidden rounded-full bg-muted">
+                        <div
+                          className="h-full rounded-full bg-primary"
+                          style={{
+                            width: `${Math.max(
+                              (cat.count / maxCategoryCount) * 100,
+                              6
+                            )}%`,
+                          }}
+                        />
+                      </div>
                     </div>
                     <span className="text-xl text-muted-foreground group-hover:text-primary transition-colors">
                       →
