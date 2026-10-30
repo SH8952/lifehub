@@ -2,6 +2,13 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-10-30 — 카테고리 균형 확장 17/132 — document-pdf 카테고리 진행 (6/24)
+
+- `pdf-reorder-pages`: 페이지 목록을 위/아래 버튼으로 재배열하고 pdf-lib `copyPages`로 새 순서의 PDF를 생성. 순서 초기화 버튼 포함.
+- `pdf-extract-text`: pdfjs-dist `getTextContent`로 페이지별 텍스트를 추출해 화면에 표시. 전체 복사(클립보드) 및 txt 파일 다운로드 지원, 텍스트가 없는 스캔본 PDF는 안내 메시지 표시.
+- 두 도구 모두 `src/lib/tools-data.ts`(document-pdf 카테고리) 및 `src/app/sitemap.ts`(TOOL_IDS)에 등록 완료.
+- `npx tsc --noEmit`, `next build` 검증 통과. commit: a9827af
+
 ## 2026-10-30 — 카테고리 균형 확장 15/132 — document-pdf 카테고리 진행 (4/24)
 
 - `pdf-delete-pages`: PDF 업로드 후 페이지 범위(쉼표/하이픈 구문) 입력으로 선택한 페이지만 삭제. pdf-lib `removePage`를 내림차순 인덱스로 적용해 인덱스 시프트 버그 방지. 전체 페이지 삭제 시도 시 검증 메시지 표시.
