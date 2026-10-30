@@ -842,6 +842,29 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
 
   "document-pdf": [
   {
+    id: "pdf-blank-page-insert",
+    name: "PDF 빈 페이지 삽입기",
+    nameEn: "PDF Blank Page Inserter",
+    nameJa: "PDF空白ページ挿入ツール",
+    nameEs: "Insertar Página en Blanco en PDF",
+    description: "PDF의 원하는 위치에 빈 페이지를 삽입합니다.",
+    descriptionEn: "Insert blank pages at any position in a PDF.",
+    descriptionJa: "PDFの任意の位置に空白ページを挿入します。",
+    descriptionEs: "Inserta páginas en blanco en cualquier posición de un PDF.",
+  },
+  {
+    id: "pdf-combine-preview",
+    name: "PDF 결합 미리보기",
+    nameEn: "PDF Combine with Preview",
+    nameJa: "PDF結合プレビュー",
+    nameEs: "Combinar PDF con Vista Previa",
+    description: "여러 PDF를 표지 미리보기로 확인하고 순서를 조정한 뒤 하나로 합칩니다.",
+    descriptionEn: "Preview covers of multiple PDFs, reorder them, then combine into one.",
+    descriptionJa: "複数のPDFを表紙プレビューで確認し、順序を調整してから1つに結合します。",
+    descriptionEs: "Previsualiza portadas de varios PDF, reordénalos y combínalos en uno.",
+  },
+
+  {
     id: "pdf-to-text-file",
     name: "PDF → 텍스트 파일(.txt) 변환기",
     nameEn: "PDF to TXT File Converter",

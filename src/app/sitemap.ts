@@ -7,6 +7,9 @@ const CATEGORY_IDS = ["life-health", "finance", "fun-entertainment", "image-medi
 const STATIC_PAGES = ["about", "contact", "privacy", "terms"];
 
 const TOOL_IDS = [
+  "pdf-blank-page-insert",
+  "pdf-combine-preview",
+
   "pdf-to-text-file",
   "pdf-duplicate-page",
 
