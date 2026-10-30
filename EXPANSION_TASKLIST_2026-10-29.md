@@ -20,7 +20,7 @@
 | **fun-entertainment** | 10 | 30 | 20 | ✅ 완료 (20/20) |
 | **dev-it** | 11 | 30 | 19 | ✅ 완료 (19/19) |
 | **finance** | 13 | 30 | 17 | ✅ 완료 (17/17) |
-| **life-health** | 21 | 30 | 9 | ⏳ 대기 |
+| **life-health** | 21 | 30 | 9 | ✅ 완료 (9/9) |
 
 **총 139개 신규 도구 (71 → 210개, 2026-10-30 기준 수정)**
 
@@ -196,7 +196,7 @@
 | 16 | currency-exchange-fee-compare | 환전 수수료 비교기 |
 | 17 | break-even-point-calculator | 손익분기점(BEP) 계산기 |
 
-## 7. life-health (9개 신규)
+## 7. life-health (9개 신규) — ✅ 완료 (9/9)
 
 | # | slug | 도구명 |
 |---|---|---|
