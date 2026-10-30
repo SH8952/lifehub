@@ -2,6 +2,39 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-10-30 — 🎉 카테고리 균형 확장(30개 통일) 전체 완료 (7/7 카테고리, 총 210개 도구)
+
+2026-10-29 작업 지시서(EXPANSION_TASKLIST_2026-10-29.md)에 따라 시작된 7개 카테고리 균형화 작업이 전부 완료되었습니다.
+
+**최종 결과:**
+
+| 카테고리 | 기존 | 완료 | 신규 추가 |
+|---|---|---|---|
+| image-media | 5 | 30 | 25 |
+| document-pdf | 5 | 30 | 25 |
+| utility | 6 | 30 | 24 |
+| fun-entertainment | 10 | 30 | 20 |
+| dev-it | 11 | 30 | 19 |
+| finance | 13 | 30 | 17 |
+| life-health | 21 | 30 | 9 |
+
+**총 71개 → 210개 (139개 신규 도구 추가), 전체 카테고리 각 정확히 30개로 균형화.**
+
+이번 세션(dev-it 마지막 배치부터 전체 완료까지)에서 완료한 부분:
+- dev-it 카테고리 19/19 완료 (regex-tester ~ css-animation-generator)
+- finance 카테고리 17/17 완료 (savings-maturity-calculator ~ break-even-point-calculator) — 세금·보험 관련 도구에는 "참고용 추정치" 고지 포함
+- life-health 카테고리 9/9 완료 (weight-loss-goal-calculator ~ heart-rate-zone-calculator) — 건강 관련 도구에는 "의학적 조언 아님" 고지 포함
+- image-media, document-pdf 각 +1 (image-color-picker, pdf-redact)로 마지막 1개씩 보완해 30/30 달성
+  - pdf-redact는 pdfjs-dist(렌더링) + pdf-lib(검은 박스 적용) 조합으로 구현했으며, 시각적 가리기일 뿐 PDF 내부 텍스트 데이터는 삭제되지 않는다는 점을 명확히 고지함
+
+**검증 방식 (전 배치 공통 적용):**
+- 각 배치(2~5개 도구)마다 `npx tsc --noEmit` 통과 확인
+- 각 카테고리 완료 시점마다 `npx next build` 전체 빌드 실행, 신규 라우트가 빌드 결과에 모두 포함되는지 `grep`으로 확인
+- 전체 완료 후 최종 `npx next build` 실행 → 210개 도구 라우트 전체(`grep -c "tool/"` = 210) 정상 생성 확인
+- 외부 유료/네트워크 API를 전혀 사용하지 않고 모든 도구가 브라우저에서 100% 처리됨 (기존 방침 유지)
+- 모든 도구 4개 언어(ko/en/ja/es) 지원, Card/lucide-react/FAQ UI 패턴 일관 적용
+
+
 ## 2026-10-30 — 카테고리 균형 확장(30개 통일) life-health 카테고리 9/9 완료
 
 finance(30/30) 완료에 이어 life-health 카테고리(21개 → 30개, 9개 신규)를 3개 배치로 완료했습니다. 모든 계산기는 브라우저에서 100% 처리되며 외부 API를 사용하지 않습니다. 건강 관련 계산 결과에는 "참고용 추정치이며 의학적 조언이 아님"을 명시하고 필요 시 의사 상담을 권장하는 문구를 포함했습니다.
