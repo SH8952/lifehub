@@ -7,6 +7,10 @@ const CATEGORY_IDS = ["life-health", "finance", "fun-entertainment", "image-medi
 const STATIC_PAGES = ["about", "contact", "privacy", "terms"];
 
 const TOOL_IDS = [
+  "rock-paper-scissors",
+  "last-digit-fortune",
+  "would-you-rather",
+  "dice-roller",
   "chinese-zodiac-fortune",
   "daily-affirmation-generator",
   "travel-destination-roulette",
