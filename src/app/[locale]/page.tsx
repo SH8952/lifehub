@@ -3,6 +3,16 @@ import { webApplicationJsonLd } from "@/lib/seo";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import ToolSearch, { type SearchableTool } from "@/components/ToolSearch";
 import {
+  HeartPulse,
+  Image as ImageIcon,
+  FileText,
+  Wallet,
+  PartyPopper,
+  Code2,
+  Wrench,
+  type LucideIcon,
+} from "lucide-react";
+import {
   categoryToolsMap,
   allTools,
   totalToolsCount,
@@ -109,6 +119,18 @@ export const categories = [
   },
 ] as const;
 
+// 2026-10-30: 카테고리별 시각 아이콘을 이모지 대신 lucide 라인 아이콘으로 통일
+// (플랫폼마다 다르게 보이는 이모지 대신, 배지 원형 + 아이콘으로 일관된 톤 유지)
+const categoryIconComponentById: Record<string, LucideIcon> = {
+  "life-health": HeartPulse,
+  "image-media": ImageIcon,
+  "document-pdf": FileText,
+  finance: Wallet,
+  "fun-entertainment": PartyPopper,
+  "dev-it": Code2,
+  utility: Wrench,
+};
+
 // 메인 화면 "인기 도구" 하이라이트(벤토 중앙 그리드)에 노출할 도구 id (직접 큐레이션, 카테고리 균형 고려)
 const popularToolIds = [
   "bmi",
@@ -195,12 +217,12 @@ export default async function Home({
         }}
       />
 
-      {/* Hero — 가볍고 절제된 톤(자매 사이트의 진한 그라디언트 배너와 차별화) */}
-      <section className="bg-gradient-to-b from-indigo-50 to-white py-12 sm:py-16">
+      {/* Hero — 차분하고 전문적인 톤(2026-10-30: 진한 그라디언트·펄스 배지 제거, 로즈 시그니처 컬러로 통일) */}
+      <section className="border-b bg-rose-50/40 py-12 sm:py-16">
         <div className="mx-auto max-w-6xl px-4">
           <div className="flex flex-col items-center gap-5 text-center">
-            <span className="inline-flex items-center gap-2 rounded-full bg-indigo-100 px-4 py-1 text-sm text-indigo-700">
-              <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
+            <span className="inline-flex items-center gap-2 rounded-full border bg-background px-4 py-1 text-sm text-muted-foreground">
+              <span className="h-2 w-2 rounded-full bg-primary" />
               {t("heroBadge")}
             </span>
             <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl">
@@ -219,7 +241,7 @@ export default async function Home({
 
             <a
               href="#categories"
-              className="text-sm font-medium text-indigo-600 underline-offset-4 hover:underline"
+              className="text-sm font-medium text-primary underline-offset-4 hover:underline"
             >
               {t("ctaPrimary")} →
             </a>
@@ -236,13 +258,17 @@ export default async function Home({
               href={`/${locale}/tool/${featuredTool.id}`}
               className="group block"
             >
-              <Card className="h-full overflow-hidden border-2 border-transparent bg-gradient-to-br from-indigo-600 to-purple-600 text-white transition-all hover:border-indigo-300">
+              <Card className="h-full overflow-hidden bg-primary text-primary-foreground">
                 <CardContent className="flex h-full flex-col gap-3 p-5">
                   <span className="inline-flex w-fit items-center rounded-full bg-white/20 px-2.5 py-0.5 text-xs font-medium">
                     ✨ {t("todaysPickBadge")}
                   </span>
-                  <span className="text-3xl">
-                    {categoryIconById.get(featuredTool.categoryId) ?? "🔧"}
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/20">
+                    {(() => {
+                      const FeaturedIcon =
+                        categoryIconComponentById[featuredTool.categoryId] ?? Wrench;
+                      return <FeaturedIcon className="h-5 w-5" />;
+                    })()}
                   </span>
                   <div>
                     <p className="font-semibold">{featuredTool[nameKey]}</p>
@@ -261,21 +287,27 @@ export default async function Home({
               href={`/${locale}/category/${spotlightCategory.id}`}
               className="group block"
             >
-              <Card className="h-full border-2 border-transparent transition-all hover:border-indigo-200 hover:bg-indigo-50/30">
+              <Card className="h-full">
                 <CardContent className="flex h-full flex-col gap-3 p-5">
-                  <span className="inline-flex w-fit items-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-medium text-indigo-700">
+                  <span className="inline-flex w-fit items-center rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
                     {t("categorySpotlightBadge")}
                   </span>
-                  <span className="text-3xl">{spotlightCategory.icon}</span>
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    {(() => {
+                      const SpotlightIcon =
+                        categoryIconComponentById[spotlightCategory.id] ?? Wrench;
+                      return <SpotlightIcon className="h-5 w-5" />;
+                    })()}
+                  </span>
                   <div>
-                    <p className="font-semibold transition-colors group-hover:text-indigo-600">
+                    <p className="font-semibold transition-colors group-hover:text-primary">
                       {spotlightCategory[nameKey]}
                     </p>
                     <p className="mt-1 text-sm text-muted-foreground">
                       {formatToolCount(spotlightCategory.count)}
                     </p>
                   </div>
-                  <span className="mt-auto text-sm font-medium text-indigo-600 underline-offset-2 group-hover:underline">
+                  <span className="mt-auto text-sm font-medium text-primary underline-offset-2 group-hover:underline">
                     {t("categorySpotlightCta")} →
                   </span>
                 </CardContent>
@@ -289,24 +321,28 @@ export default async function Home({
               {t("hubQuickTitle")}
             </p>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-              {popularTools.map((tool) => (
-                <a
-                  key={tool.id}
-                  href={`/${locale}/tool/${tool.id}`}
-                  className="group block"
-                >
-                  <Card className="h-full border-2 border-transparent text-center transition-all hover:border-indigo-200 hover:bg-indigo-50/30">
-                    <CardContent className="flex flex-col items-center gap-2 p-4">
-                      <span className="text-2xl">
-                        {categoryIconById.get(tool.categoryId) ?? "🔧"}
-                      </span>
-                      <p className="line-clamp-2 text-xs font-semibold leading-tight transition-colors group-hover:text-indigo-600">
-                        {tool[nameKey]}
-                      </p>
-                    </CardContent>
-                  </Card>
-                </a>
-              ))}
+              {popularTools.map((tool) => {
+                const PopularIcon =
+                  categoryIconComponentById[tool.categoryId] ?? Wrench;
+                return (
+                  <a
+                    key={tool.id}
+                    href={`/${locale}/tool/${tool.id}`}
+                    className="group block"
+                  >
+                    <Card className="h-full text-center">
+                      <CardContent className="flex flex-col items-center gap-2 p-4">
+                        <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-primary">
+                          <PopularIcon className="h-4 w-4" />
+                        </span>
+                        <p className="line-clamp-2 text-xs font-semibold leading-tight transition-colors group-hover:text-primary">
+                          {tool[nameKey]}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </a>
+                );
+              })}
             </div>
           </div>
 
@@ -340,34 +376,37 @@ export default async function Home({
                 <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                   {t("categoryStatusTitle")}
                 </p>
-                {categoryStats.map((c) => (
-                  <a
-                    key={c.id}
-                    href={`/${locale}/category/${c.id}`}
-                    className="group block"
-                  >
-                    <div className="mb-1 flex items-center justify-between gap-2 text-xs">
-                      <span className="flex min-w-0 items-center gap-1 font-medium transition-colors group-hover:text-indigo-600">
-                        <span>{c.icon}</span>
-                        <span className="truncate">{c[nameKey]}</span>
-                      </span>
-                      <span className="shrink-0 text-muted-foreground">
-                        {c.count}
-                      </span>
-                    </div>
-                    <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
-                      <div
-                        className="h-full rounded-full bg-indigo-500"
-                        style={{
-                          width: `${Math.max(
-                            (c.count / maxCategoryCount) * 100,
-                            6
-                          )}%`,
-                        }}
-                      />
-                    </div>
-                  </a>
-                ))}
+                {categoryStats.map((c) => {
+                  const StatusIcon = categoryIconComponentById[c.id] ?? Wrench;
+                  return (
+                    <a
+                      key={c.id}
+                      href={`/${locale}/category/${c.id}`}
+                      className="group block"
+                    >
+                      <div className="mb-1 flex items-center justify-between gap-2 text-xs">
+                        <span className="flex min-w-0 items-center gap-1 font-medium transition-colors group-hover:text-primary">
+                          <StatusIcon className="h-3.5 w-3.5 shrink-0" />
+                          <span className="truncate">{c[nameKey]}</span>
+                        </span>
+                        <span className="shrink-0 text-muted-foreground">
+                          {c.count}
+                        </span>
+                      </div>
+                      <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
+                        <div
+                          className="h-full rounded-full bg-primary"
+                          style={{
+                            width: `${Math.max(
+                              (c.count / maxCategoryCount) * 100,
+                              6
+                            )}%`,
+                          }}
+                        />
+                      </div>
+                    </a>
+                  );
+                })}
               </CardContent>
             </Card>
           </div>
@@ -393,11 +432,16 @@ export default async function Home({
                 href={`/${locale}/category/${cat.id}`}
                 className="group block"
               >
-                <Card className="h-full border-2 border-transparent hover:border-indigo-200 hover:bg-indigo-50/30 transition-all">
+                <Card className="h-full">
                   <CardContent className="p-6 flex items-start gap-4">
-                    <span className="text-3xl">{cat.icon}</span>
+                    <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                      {(() => {
+                        const CatIcon = categoryIconComponentById[cat.id] ?? Wrench;
+                        return <CatIcon className="h-5 w-5" />;
+                      })()}
+                    </span>
                     <div className="flex-1">
-                      <CardTitle className="text-lg group-hover:text-indigo-600 transition-colors">
+                      <CardTitle className="text-lg group-hover:text-primary transition-colors">
                         {cat[nameKey]}
                       </CardTitle>
                       <p className="text-sm text-muted-foreground mt-1">
@@ -409,7 +453,7 @@ export default async function Home({
                           : t("comingSoon")}
                       </p>
                     </div>
-                    <span className="text-xl text-muted-foreground group-hover:text-indigo-600 transition-colors">
+                    <span className="text-xl text-muted-foreground group-hover:text-primary transition-colors">
                       →
                     </span>
                   </CardContent>
