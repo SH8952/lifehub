@@ -842,6 +842,29 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
 
   "document-pdf": [
   {
+    id: "pdf-reorder-pages",
+    name: "PDF 페이지 순서 변경기",
+    nameEn: "PDF Page Reorder Tool",
+    nameJa: "PDFページ順序変更ツール",
+    nameEs: "Reordenador de Páginas PDF",
+    description: "PDF 페이지의 순서를 위/아래로 바꾸고 새 PDF로 저장합니다.",
+    descriptionEn: "Move PDF pages up or down and save as a new PDF.",
+    descriptionJa: "PDFページの順序を上下に変更して新しいPDFとして保存します。",
+    descriptionEs: "Mueve páginas de un PDF hacia arriba o abajo y guarda un nuevo PDF.",
+  },
+  {
+    id: "pdf-extract-text",
+    name: "PDF 텍스트 추출기",
+    nameEn: "PDF Text Extractor",
+    nameJa: "PDFテキスト抽出ツール",
+    nameEs: "Extractor de Texto PDF",
+    description: "PDF 파일에서 텍스트를 추출해 복사하거나 txt 파일로 저장합니다.",
+    descriptionEn: "Extract text from a PDF to copy or save as a txt file.",
+    descriptionJa: "PDFファイルからテキストを抽出してコピーまたはtxtファイルとして保存します。",
+    descriptionEs: "Extrae texto de un PDF para copiarlo o guardarlo como archivo txt.",
+  },
+
+  {
     id: "pdf-delete-pages",
     name: "PDF 페이지 삭제기",
     nameEn: "PDF Page Deleter",

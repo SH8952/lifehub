@@ -7,6 +7,9 @@ const CATEGORY_IDS = ["life-health", "finance", "fun-entertainment", "image-medi
 const STATIC_PAGES = ["about", "contact", "privacy", "terms"];
 
 const TOOL_IDS = [
+  "pdf-reorder-pages",
+  "pdf-extract-text",
+
   "pdf-delete-pages",
   "pdf-rotate-pages",
 
