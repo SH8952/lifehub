@@ -12,8 +12,8 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.514 0.198 16.935); /* Deep Rose #BE123C — LifeHub signature color (2026-10-30) */
-  --primary-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.769 0.165 70.080); /* Charcoal + Amber (D안) — #F59E0B, LifeHub signature color (2026-10-30) */
+  --primary-foreground: oklch(0.210 0.006 285.885); /* #18181B 다크 텍스트 — 밝은 앰버 배경 대비용 */
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
@@ -33,7 +33,7 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.719 0.169 13.428); /* Deep Rose (lighter) #FB7185 — dark mode (2026-10-30) */
+  --primary: oklch(0.769 0.165 70.080); /* Charcoal + Amber (D안) — #F59E0B, dark mode (2026-10-30) */
   --primary-foreground: oklch(0.145 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
