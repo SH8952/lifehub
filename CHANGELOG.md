@@ -2,6 +2,38 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-10-30 — 카테고리 균형 확장(30개 통일) fun-entertainment 카테고리 20/20 완료
+
+utility(30/30) 완료에 이어 사용자 확인 순서대로 fun-entertainment 카테고리를 기존 10개에서
+30개로 확장하기 위해 20개 신규 도구를 5개 배치로 생성:
+
+1. name-fortune(이름+날짜 해시 기반 획수지수/운세/행운색), birthday-personality(생년월일로 12유형),
+   mbti-simple-test(8문항 E/I·S/N·T/F·J/P 집계로 4글자 유형 계산), color-of-the-day(날짜 해시로
+   10가지 색상 운세) — commit 25a9f05
+2. lucky-number-generator(1-45/1-99 범위 6개 무작위 숫자), couple-name-compatibility(이름 조합
+   해시 궁합점수), movie-recommendation-roulette, book-recommendation-roulette(둘 다 저작권 회피를
+   위해 실제 영화/책 제목 대신 장르·분위기 조합 15종 룰렛) — commit 3ef4443
+3. daily-quote-generator(자체 창작 20개 문구, 실제 인물 발언 아님), truth-game-questions(가벼운/깊은
+   질문 각 15개), role-assignment-roulette(팀원+역할 셔플 배정, 기본 역할 제공), birthday-compatibility
+   (생년월일 조합 해시 궁합점수, couple-name-compatibility와 별개 계산 방식) — commit 7c8be74
+4. chinese-zodiac-fortune(태어난 연도 mod 12로 12간지), daily-affirmation-generator(1인칭 다짐
+   20개, 자체 창작), travel-destination-roulette(여행 분위기·테마 15종, 특정 지역명 미사용),
+   number-baseball-game(중복없는 3~4자리 숫자 추리, 스트라이크/볼 판정) — commit ec884d5
+5. rock-paper-scissors(컴퓨터 대결, 승패무 기록), last-digit-fortune(0~9 숫자+날짜 해시 운세),
+   would-you-rather(밸런스게임 질문 20개), dice-roller(1~6개 주사위 동시 굴림, 유니코드 다이스
+   이모지 시각화) — commit 3a61ee1
+
+영화/책 추천 룰렛과 여행지 추천 룰렛은 저작권·상표권 문제를 피하기 위해 실제 작품명이나 지역명이
+아닌 장르·분위기·테마 조합만 추천하도록 설계. 명언/다짐 생성기도 실제 인물의 발언을 인용하지 않고
+전부 자체 창작 문구로 구성.
+
+모든 도구는 외부 유료/네트워크 API 없이 브라우저 내 해시·셔플 로직으로 동작하며 4개 언어
+(ko/en/ja/es) 전체 번역 포함, 재미 콘텐츠임을 명시하는 disclaimer 포함. 각 배치마다
+`npx tsc --noEmit` 클린 확인, 카테고리 완료 시점에 `next build` 전체 클린 확인(신규 라우트 전부
+정상 생성).
+
+**fun-entertainment 카테고리 20/20 신규(총 30/30) 완료** — 다음은 dev-it 카테고리(19개 신규 필요) 진행.
+
 ## 2026-10-30 — 카테고리 균형 확장(30개 통일) utility 카테고리 24/24 완료
 
 사용자가 스크린샷으로 카테고리별 도구 개수 불균형(생활·건강 21, 이미지·미디어 29, 문서·PDF 29, 재무·투자 13,

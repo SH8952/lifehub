@@ -17,7 +17,7 @@
 | **image-media** | 5 | 30 | 25 | ⏳ 진행 중 (24/25 완료, 25번 남음) |
 | **document-pdf** | 5 | 30 | 25 | ⏳ 진행 중 (24/25 완료, 25번 남음) |
 | **utility** | 6 | 30 | 24 | ✅ 완료 (24/24) |
-| **fun-entertainment** | 10 | 30 | 20 | ⏳ 대기 |
+| **fun-entertainment** | 10 | 30 | 20 | ✅ 완료 (20/20) |
 | **dev-it** | 11 | 30 | 19 | ⏳ 대기 |
 | **finance** | 13 | 30 | 17 | ⏳ 대기 |
 | **life-health** | 21 | 30 | 9 | ⏳ 대기 |
@@ -125,7 +125,7 @@
 | 23 | find-and-replace | 텍스트 찾기·바꾸기 도구 |
 | 24 | percentage-calculator | 퍼센트(%) 계산기(비율·증감률·전체값 역산) |
 
-## 4. fun-entertainment (20개 신규)
+## 4. fun-entertainment (20개 신규) — ✅ 완료 (20/20)
 
 | # | slug | 도구명 |
 |---|---|---|
