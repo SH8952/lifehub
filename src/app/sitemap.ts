@@ -7,6 +7,12 @@ const CATEGORY_IDS = ["life-health", "finance", "fun-entertainment", "image-medi
 const STATIC_PAGES = ["about", "contact", "privacy", "terms"];
 
 const TOOL_IDS = [
+  "pdf-page-size-converter",
+  "pdf-grayscale",
+
+  "invoice-pdf-maker",
+  "business-card-pdf",
+
   "pdf-metadata-editor",
   "csv-to-pdf",
 

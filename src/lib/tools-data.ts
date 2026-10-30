@@ -842,6 +842,52 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
 
   "document-pdf": [
   {
+    id: "pdf-page-size-converter",
+    name: "PDF 용지 크기 변환기",
+    nameEn: "PDF Page Size Converter",
+    nameJa: "PDF用紙サイズ変換ツール",
+    nameEs: "Convertidor de Tamaño de Página PDF",
+    description: "PDF의 모든 페이지를 A4 또는 Letter 크기로 맞춰 다시 생성합니다.",
+    descriptionEn: "Resize every page in a PDF to fit A4 or Letter size.",
+    descriptionJa: "PDFのすべてのページをA4またはLetterサイズに合わせて再生成します。",
+    descriptionEs: "Ajusta todas las páginas de un PDF al tamaño A4 o Letter.",
+  },
+  {
+    id: "pdf-grayscale",
+    name: "PDF 흑백 변환기",
+    nameEn: "PDF Grayscale Converter",
+    nameJa: "PDFグレースケール変換ツール",
+    nameEs: "Convertidor de PDF a Blanco y Negro",
+    description: "컬러 PDF의 모든 페이지를 흑백(그레이스케일)으로 변환합니다.",
+    descriptionEn: "Convert every page of a color PDF to grayscale.",
+    descriptionJa: "カラーPDFのすべてのページをグレースケールに変換します。",
+    descriptionEs: "Convierte todas las páginas de un PDF en color a escala de grises.",
+  },
+
+  {
+    id: "invoice-pdf-maker",
+    name: "견적서·인보이스 PDF 생성기",
+    nameEn: "Invoice / Quote PDF Maker",
+    nameJa: "見積書・インボイスPDF作成ツール",
+    nameEs: "Generador de Facturas/Cotizaciones PDF",
+    description: "회사·고객 정보와 품목을 입력해 간단한 견적서·인보이스 PDF를 생성합니다.",
+    descriptionEn: "Create a simple invoice/quote PDF from company, client, and line item info.",
+    descriptionJa: "会社・顧客情報と項目を入力して簡単な見積書・インボイスPDFを作成します。",
+    descriptionEs: "Crea una factura/cotización PDF sencilla con datos de empresa, cliente y líneas.",
+  },
+  {
+    id: "business-card-pdf",
+    name: "명함 PDF 생성기",
+    nameEn: "Business Card PDF Maker",
+    nameJa: "名刺PDF作成ツール",
+    nameEs: "Generador de Tarjetas de Presentación PDF",
+    description: "이름·직책·회사·연락처로 표준 크기(90x50mm) 명함 PDF를 만듭니다.",
+    descriptionEn: "Create a standard-size (90x50mm) business card PDF with your contact info.",
+    descriptionJa: "名前・役職・会社・連絡先で標準サイズ（90x50mm）の名刺PDFを作成します。",
+    descriptionEs: "Crea una tarjeta de presentación PDF de tamaño estándar (90x50mm) con tu información.",
+  },
+
+  {
     id: "pdf-metadata-editor",
     name: "PDF 메타데이터 편집기",
     nameEn: "PDF Metadata Editor",
