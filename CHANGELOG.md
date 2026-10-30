@@ -2,6 +2,31 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-10-31 — 수익화 준비 5단계: RSS 피드 신설 + 네이버 서치어드바이저 등록
+
+GSC에 이어 "RSS도 만들어서 제출" + "네이버 웹마스터도구 등록" 요청을 진행했습니다.
+
+**RSS 피드 (신규)**:
+- LifeHub는 블로그/가이드 글이 없고 225개 도구 페이지로만 구성되어 있어, 사용자에게 RSS 범위를 먼저 확인(AskUserQuestion) — "전체 225개 도구 × 4개 언어(900개 항목), pubDate는 git 로그 기준 실제 추가일로 복원" 방식을 선택받음.
+- `src/lib/tool-pub-dates.ts`(신규, 자동 생성): `git log --diff-filter=A` 전체 이력에서 각 도구 폴더가 처음 커밋된 날짜를 추출하는 `build_pubdates.py` 스크립트로 생성. 225개 전부 실제 날짜 복원 성공(fallback 불필요).
+- `src/app/rss.xml/route.ts`(신규): `sitemap.ts`와 동일한 `TOOL_IDS`/`SITE_URL`/`categoryToolsMap`을 재사용해 RSS 2.0 XML 생성, pubDate 내림차순 정렬.
+- 검증: `npx tsc --noEmit` 0 errors, 로컬 `next dev` 실기동으로 `GET /rss.xml` → 200, `application/xml`, 900개 item, python `xml.etree`로 well-formed 확인. 배포 후 라이브에서도 900개 item 확인.
+
+**네이버 서치어드바이저 등록**:
+- naver.com 도메인이 이 세션의 브라우저 자동화 도구(Claude-in-Chrome, 내장 브라우저 둘 다)에서 안전 정책상 하드 차단되어 있어(권한 요청으로도 불가), 사용자가 직접 Naver Search Advisor에서 사이트 등록 + HTML 태그 방식 선택 + 메타태그 코드를 확인해 전달.
+- Vercel에 `NEXT_PUBLIC_NAVER_SITE_VERIFICATION` 환경변수(Production, Config 타입) 추가 — 코드 쪽 `naverVerification` 분기는 bcefead에서 이미 준비되어 있었음(4단계 기록 참고).
+- 재배포 후 라이브에서 `<meta name="naver-site-verification" content="8c421b21...">` 정상 반영 확인.
+- 네이버 콘솔의 최종 "확인" 버튼 클릭은 naver.com 차단으로 인해 사용자가 직접 진행 필요 — 코드/환경변수/배포까지는 완료, 콘솔 클릭만 남음.
+
+**구글 서치콘솔 추가 제출**:
+- `rss.xml`을 GSC에 제출 — 상태 "성공", 901개 페이지 발견(sitemap.xml 948개와 별도)
+
+**작업 전 백업**: 신규 파일만 추가(`rss.xml/route.ts`, `tool-pub-dates.ts`)이므로 기존 파일 백업 불필요.
+
+**남은 사항**:
+- 네이버 서치어드바이저 "확인" 버튼 클릭(사용자 직접) → 완료 후 네이버 사이트맵/RSS 제출
+- 도메인(alltools365.com) 구매는 9/29 합의대로 노출 데이터 확인 전까지 보류
+
 ## 2026-10-31 — 수익화 준비 4단계: 구글 서치콘솔(GSC) 등록 + 사이트 루트 404 버그 수정
 
 "다음단계 진행해줘" 요청에 따라 구글 서치콘솔(Search Console) 등록을 진행했습니다. 과정 중 사이트 루트 URL이 404를 반환하는 기존 버그를 발견해 함께 수정했습니다.
