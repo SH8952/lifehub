@@ -7,6 +7,10 @@ const CATEGORY_IDS = ["life-health", "finance", "fun-entertainment", "image-medi
 const STATIC_PAGES = ["about", "contact", "privacy", "terms"];
 
 const TOOL_IDS = [
+  "name-fortune",
+  "birthday-personality",
+  "mbti-simple-test",
+  "color-of-the-day",
   "text-sorter",
   "whitespace-remover",
   "find-and-replace",
