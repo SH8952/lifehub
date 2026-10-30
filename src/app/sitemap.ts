@@ -7,6 +7,16 @@ const CATEGORY_IDS = ["life-health", "finance", "fun-entertainment", "image-medi
 const STATIC_PAGES = ["about", "contact", "privacy", "terms"];
 
 const TOOL_IDS = [
+  "pomodoro-timer",
+  "world-time-converter",
+  "date-diff-calculator",
+  "weekday-finder",
+
+  "sns-character-counter",
+  "password-strength-checker",
+  "qr-code-scanner",
+  "timer-stopwatch",
+
   "pdf-form-fill",
   "pdf-password-protect",
 
