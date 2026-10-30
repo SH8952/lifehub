@@ -7,6 +7,10 @@ const CATEGORY_IDS = ["life-health", "finance", "fun-entertainment", "image-medi
 const STATIC_PAGES = ["about", "contact", "privacy", "terms"];
 
 const TOOL_IDS = [
+  "regex-tester",
+  "css-gradient-generator",
+  "css-box-shadow-generator",
+  "css-flexbox-generator",
   "rock-paper-scissors",
   "last-digit-fortune",
   "would-you-rather",
