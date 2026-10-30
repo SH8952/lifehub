@@ -7,6 +7,10 @@ const CATEGORY_IDS = ["life-health", "finance", "fun-entertainment", "image-medi
 const STATIC_PAGES = ["about", "contact", "privacy", "terms"];
 
 const TOOL_IDS = [
+  "text-sorter",
+  "whitespace-remover",
+  "find-and-replace",
+  "percentage-calculator",
   "color-name-converter",
   "duplicate-line-remover",
   "clipboard-history-viewer",
