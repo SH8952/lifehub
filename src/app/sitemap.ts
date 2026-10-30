@@ -7,6 +7,10 @@ const CATEGORY_IDS = ["life-health", "finance", "fun-entertainment", "image-medi
 const STATIC_PAGES = ["about", "contact", "privacy", "terms"];
 
 const TOOL_IDS = [
+  "savings-maturity-calculator",
+  "severance-pay-calculator",
+  "stock-profit-calculator",
+  "dividend-yield-calculator",
   "regex-tester",
   "css-gradient-generator",
   "css-box-shadow-generator",
