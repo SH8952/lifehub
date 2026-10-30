@@ -842,6 +842,29 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
 
   "document-pdf": [
   {
+    id: "pdf-to-text-file",
+    name: "PDF → 텍스트 파일(.txt) 변환기",
+    nameEn: "PDF to TXT File Converter",
+    nameJa: "PDF → テキストファイル(.txt)変換ツール",
+    nameEs: "Convertidor de PDF a Archivo TXT",
+    description: "PDF 파일을 바로 텍스트(.txt) 파일로 변환해 다운로드합니다.",
+    descriptionEn: "Convert a PDF directly into a downloadable .txt file.",
+    descriptionJa: "PDFファイルをすぐにテキスト（.txt）ファイルに変換してダウンロードします。",
+    descriptionEs: "Convierte un PDF directamente en un archivo .txt descargable.",
+  },
+  {
+    id: "pdf-duplicate-page",
+    name: "PDF 특정 페이지 복제기",
+    nameEn: "PDF Page Duplicator",
+    nameJa: "PDF特定ページ複製ツール",
+    nameEs: "Duplicador de Páginas PDF",
+    description: "PDF의 특정 페이지를 원하는 횟수만큼 복제해 바로 뒤에 삽입합니다.",
+    descriptionEn: "Duplicate a specific PDF page as many times as needed, right after the original.",
+    descriptionJa: "PDFの特定ページを必要な回数だけ複製し、元のページの直後に挿入します。",
+    descriptionEs: "Duplica una página específica de un PDF las veces que necesites, justo después.",
+  },
+
+  {
     id: "pdf-signature-insert",
     name: "PDF 서명 이미지 삽입기",
     nameEn: "PDF Signature Inserter",
