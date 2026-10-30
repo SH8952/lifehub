@@ -842,6 +842,52 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
 
   "document-pdf": [
   {
+    id: "pdf-metadata-editor",
+    name: "PDF 메타데이터 편집기",
+    nameEn: "PDF Metadata Editor",
+    nameJa: "PDFメタデータ編集ツール",
+    nameEs: "Editor de Metadatos PDF",
+    description: "PDF의 제목, 작성자, 주제, 키워드 등 메타데이터를 편집합니다.",
+    descriptionEn: "Edit a PDF's title, author, subject, and keyword metadata.",
+    descriptionJa: "PDFのタイトル、作成者、サブジェクト、キーワードなどのメタデータを編集します。",
+    descriptionEs: "Edita el título, autor, asunto y palabras clave de un PDF.",
+  },
+  {
+    id: "csv-to-pdf",
+    name: "CSV → PDF 표 변환기",
+    nameEn: "CSV to PDF Table Converter",
+    nameJa: "CSV → PDF表変換ツール",
+    nameEs: "Convertidor de CSV a Tabla PDF",
+    description: "CSV 파일이나 텍스트를 표 형태의 PDF로 변환합니다.",
+    descriptionEn: "Convert a CSV file or text into a table-style PDF.",
+    descriptionJa: "CSVファイルやテキストを表形式のPDFに変換します。",
+    descriptionEs: "Convierte un archivo o texto CSV en un PDF con formato de tabla.",
+  },
+
+  {
+    id: "pdf-compress",
+    name: "PDF 압축기",
+    nameEn: "PDF Compressor",
+    nameJa: "PDF圧縮ツール",
+    nameEs: "Compresor de PDF",
+    description: "PDF 각 페이지를 이미지로 재압축해 파일 크기를 줄입니다.",
+    descriptionEn: "Shrink PDF file size by re-compressing each page as an image.",
+    descriptionJa: "PDFの各ページを画像として再圧縮しファイルサイズを縮小します。",
+    descriptionEs: "Reduce el tamaño del PDF recomprimiendo cada página como imagen.",
+  },
+  {
+    id: "pdf-watermark",
+    name: "PDF 워터마크 추가기",
+    nameEn: "PDF Watermark Tool",
+    nameJa: "PDFウォーターマーク追加ツール",
+    nameEs: "Añadir Marca de Agua a PDF",
+    description: "PDF 모든 페이지에 텍스트 워터마크를 추가합니다.",
+    descriptionEn: "Add a text watermark to every page of a PDF.",
+    descriptionJa: "PDFのすべてのページにテキストウォーターマークを追加します。",
+    descriptionEs: "Añade una marca de agua de texto a todas las páginas de un PDF.",
+  },
+
+  {
     id: "pdf-reorder-pages",
     name: "PDF 페이지 순서 변경기",
     nameEn: "PDF Page Reorder Tool",
