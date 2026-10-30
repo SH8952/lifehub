@@ -2,6 +2,35 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-10-30 — 카테고리 균형 확장(30개 통일) dev-it 카테고리 19/19 완료
+
+utility(30/30), fun-entertainment(30/30)에 이어 dev-it 카테고리를 기존 11개에서 30개로
+확장하기 위해 19개 신규 도구를 5개 배치로 생성:
+
+1. regex-tester(정규식 매치 하이라이트/캡처그룹), css-gradient-generator(선형·원형 그라디언트
+   실시간 미리보기+코드복사), css-box-shadow-generator(슬라이더 기반 box-shadow 생성),
+   css-flexbox-generator(flex 옵션 선택형 레이아웃 미리보기)
+2. markdown-preview(marked 라이브러리 기반 실시간 렌더링), lorem-ipsum-generator(단락/문장/단어
+   단위 더미 텍스트), contrast-checker(WCAG AA/AAA 명암 대비 계산), svg-to-png(캔버스 기반
+   SVG→PNG 변환)
+3. jwt-generator(Web Crypto HMAC-SHA256 HS256 토큰 생성, 테스트용 경고 포함),
+   html-entity-converter(특수문자↔HTML엔티티), slug-generator(URL 친화적 슬러그 변환),
+   subnet-calculator(IP+CIDR 네트워크/브로드캐스트/호스트 계산)
+4. base-converter(2/8/10/16진수 변환), morse-code-converter(텍스트↔모스코드+Web Audio
+   신호음 재생), mock-data-generator(더미 데이터 JSON/CSV 생성), code-diff-checker(LCS
+   알고리즘 기반 줄 단위 코드 비교)
+5. http-status-reference(1xx~5xx 상태 코드 검색/카테고리별 참조표), css-unit-converter
+   (px/rem/em/pt/% 상호 변환), css-animation-generator(bounce/fade/spin/pulse/shake
+   @keyframes 코드 생성)
+
+- 모든 신규 도구 4개 언어(ko/en/ja/es) 번역 포함, tools-data.ts/sitemap.ts 등록
+- 각 배치마다 tsc --noEmit 통과 확인, 19/19 완료 시점에 next build 전체 빌드로 신규 라우트
+  19개 모두 생성 확인
+- 외부 유료/네트워크 API 없이 순수 클라이언트 로직으로만 구현 (jwt-generator는 브라우저
+  Web Crypto API 사용, 실제 운영 비밀 키 사용 금지 경고 명시)
+- 커밋: 84acfd9, 29c3495, 4c8c1d0, 46ff515, 543190d
+
+
 ## 2026-10-30 — 카테고리 균형 확장(30개 통일) fun-entertainment 카테고리 20/20 완료
 
 utility(30/30) 완료에 이어 사용자 확인 순서대로 fun-entertainment 카테고리를 기존 10개에서
