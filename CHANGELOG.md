@@ -2,6 +2,16 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-10-31 — 수익화 준비 6단계: ESLint v9 플랫 설정 마이그레이션 + 전체 코드베이스 린트 이슈 수정
+
+- `next lint` CLI가 Next.js 16에서 완전히 제거되어, `eslint-config-next`가 제공하는 네이티브 플랫 설정(`eslint-config-next/core-web-vitals`)으로 `eslint.config.mjs`를 새로 작성 (FlatCompat 방식은 순환 참조 오류로 포기).
+- 애드센스 신청을 앞두고 사이트 전체(225개 도구 페이지 포함) 린트 이슈를 전수 조사·수정:
+  - 실제 코드 수정(7건): `Date.now()`/impure 값을 렌더링 중 호출하던 2건(단식 타이머, 세계시간 변환기)을 기존 state에서 파생하도록 교체, 점심/저녁 메뉴 룰렛 2건의 `useCallback` 의존성 누락(실제 잠재 버그였던 stale-closure 포함)을 수정, 미사용 eslint-disable 주석 2건 제거, JSX 인용부호 미탈출 1건 수정.
+  - 주석으로 억제(8건, `react-hooks/set-state-in-effect`/`react-hooks/purity`): 밸런스게임·사다리타기·포모도로·유행어퀴즈·단위변환기·타로카드의 마운트/상태변경 동기화 effect, 가위바위보·텍스트정렬기의 이벤트 핸들러 내부 `Math.random()` — 모두 코드 분석 후 정당한 패턴 또는 린트 오탐으로 판단, 사유를 명시한 `eslint-disable-next-line` 주석으로 처리 (동작 변경 없음).
+  - 주석으로 억제(33건, `@next/next/no-img-element`): 이미지/PDF 도구 32개 파일의 `<img>` 태그는 모두 캔버스 결과물 또는 사용자 업로드의 blob/data URL 미리보기로, `next/image` 최적화 대상이 아님을 확인 후 사유를 명시해 억제.
+  - `_to_delete/` (미추적 임시 폴더)는 `eslint.config.mjs`의 `ignores`에 추가해 제외.
+- 검증: `npx tsc --noEmit` 0 에러, `npx eslint .` 0 에러/0 경고, `npx next build` 954개 페이지 정적 생성 성공 — 모두 확인 후 커밋.
+
 ## 2026-10-31 — 수익화 준비 5단계: RSS 피드 신설 + 네이버 서치어드바이저 등록
 
 GSC에 이어 "RSS도 만들어서 제출" + "네이버 웹마스터도구 등록" 요청을 진행했습니다.

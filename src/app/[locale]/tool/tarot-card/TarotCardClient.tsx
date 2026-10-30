@@ -17,6 +17,7 @@ export default function TarotCardClient({ initialLocale }: { initialLocale: Loca
   const [cardIndex, setCardIndex] = useState<number | null>(null);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- 날짜 기반 값은 렌더링 중 계산하면 안되는 impure 값이라 마운트 후 1회만 설정(하이드레이션 불일치 방지)
     setCardIndex(getTodaysCardIndex());
   }, []);
 

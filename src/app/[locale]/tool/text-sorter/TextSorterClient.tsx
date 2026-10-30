@@ -52,6 +52,7 @@ export default function TextSorter({ initialLocale }: { initialLocale: Locale })
       case "random": {
         void shuffleSeed;
         for (let i = arr.length - 1; i > 0; i--) {
+          // eslint-disable-next-line react-hooks/purity -- shuffleSeed를 의도적 트리거로 쓰는 재섞기 패턴, 결과는 버튼 클릭 시에만 의미있게 변경됨
           const j = Math.floor(Math.random() * (i + 1));
           [arr[i], arr[j]] = [arr[j], arr[i]];
         }
@@ -59,7 +60,6 @@ export default function TextSorter({ initialLocale }: { initialLocale: Locale })
       }
     }
     return arr.join("\n");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [input, mode, ignoreCase, removeEmpty, shuffleSeed]);
 
   const copyResult = () => {

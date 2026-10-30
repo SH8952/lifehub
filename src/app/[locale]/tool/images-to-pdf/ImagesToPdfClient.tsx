@@ -159,6 +159,7 @@ export default function ImagesToPdf({ initialLocale }: { initialLocale: Locale }
               <div className="grid grid-cols-3 gap-3 sm:grid-cols-4">
                 {items.map((item, i) => (
                   <div key={i} className="relative">
+                    {/* eslint-disable-next-line @next/next/no-img-element -- 사용자 업로드/캔버스 결과 미리보기(blob 또는 data URL)라 next/image 최적화 대상 아님 */}
                     <img src={item.previewUrl} alt={item.file.name} className="h-24 w-full rounded-md border object-cover" />
                     <button
                       onClick={() => removeItem(i)}

@@ -34,6 +34,7 @@ export default function PomodoroTimer({ initialLocale }: { initialLocale: Locale
     p === "focus" ? focusMin * 60 : p === "break" ? breakMin * 60 : longBreakMin * 60;
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- 설정(분) 변경 시 표시 시간 동기화, 의도된 derived-state 패턴
     if (!running) setRemaining(phaseDuration(phase));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focusMin, breakMin, longBreakMin]);

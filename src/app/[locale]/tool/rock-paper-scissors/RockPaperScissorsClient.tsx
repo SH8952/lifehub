@@ -35,6 +35,7 @@ export default function RockPaperScissors({ initialLocale }: { initialLocale: Lo
 
   const play = (choice: Choice) => {
     const choices: Choice[] = ["rock", "paper", "scissors"];
+    // eslint-disable-next-line react-hooks/purity -- 클릭 이벤트 핸들러 내부 호출이며 렌더링 중에는 실행되지 않음
     const comp = choices[Math.floor(Math.random() * 3)];
     const result = decideWinner(choice, comp);
     setUserChoice(choice);

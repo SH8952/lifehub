@@ -20,12 +20,12 @@ export default function NightmealRoulette({ initialLocale }: { initialLocale: Lo
 
   const categories = ["all", ...Object.keys(menusByCategory)];
 
-  function getMenus() {
+  const getMenus = useCallback(() => {
     if (selectedCategory === "all" || !selectedCategory) {
       return Object.values(menusByCategory).flat();
     }
     return menusByCategory[selectedCategory] || Object.values(menusByCategory).flat();
-  }
+  }, [selectedCategory, menusByCategory]);
 
   function categoryLabel(cat: string): string {
     if (cat === "all") return d.allMenu;
@@ -49,7 +49,7 @@ export default function NightmealRoulette({ initialLocale }: { initialLocale: Lo
         setSelectedMenu(final);
       }
     }, 60);
-  }, [spinning, selectedCategory]);
+  }, [spinning, getMenus]);
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">

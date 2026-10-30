@@ -122,6 +122,7 @@ export default function QrCodeScanner({ initialLocale }: { initialLocale: Locale
         <div className="mt-6 space-y-6">
           <Card>
             <CardContent className="flex flex-col gap-4 p-5 sm:flex-row">
+              {/* eslint-disable-next-line @next/next/no-img-element -- 사용자 업로드/캔버스 결과 미리보기(blob 또는 data URL)라 next/image 최적화 대상 아님 */}
               <img src={imageUrl} alt="QR" className="h-40 w-40 rounded-md border object-contain" />
               <div className="flex-1 space-y-3">
                 <button

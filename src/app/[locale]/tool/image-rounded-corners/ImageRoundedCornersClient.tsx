@@ -173,6 +173,7 @@ export default function ImageRoundedCorners({ initialLocale }: { initialLocale: 
           <Card>
             <CardContent className="flex flex-col items-center gap-2 p-4" style={{ backgroundImage: "linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(-45deg, #ccc 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #ccc 75%), linear-gradient(-45deg, transparent 75%, #ccc 75%)", backgroundSize: "20px 20px", backgroundPosition: "0 0, 0 10px, 10px -10px, -10px 0px" }}>
               <p className="text-sm font-semibold text-muted-foreground">{d.resultLabel}</p>
+              {/* eslint-disable-next-line @next/next/no-img-element -- 사용자 업로드/캔버스 결과 미리보기(blob 또는 data URL)라 next/image 최적화 대상 아님 */}
               {resultUrl && <img src={resultUrl} alt={fileName} className="max-h-96 object-contain" />}
             </CardContent>
           </Card>

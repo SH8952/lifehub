@@ -36,7 +36,7 @@ function WordCard({ word, locale, d }: { word: WordItem; locale: Locale; d: i18n
               {locale === "ko" ? `🇰🇷 ${word.Korean} | 🇯🇵 ${word.Japanese}` : locale === "en" ? `🇺🇸 ${word.English} | 🇯🇵 ${word.Japanese}` : locale === "ja" ? `🇯🇵 ${word.Japanese} | 🇺🇸 ${word.English}` : `🇪🇸 ${word.Spanish} | 🇺🇸 ${word.English}`}
             </p>
             <p className="text-sm text-muted-foreground italic">
-              "{locale === "ko" ? word.exampleKo : word.exampleEn}"
+              &ldquo;{locale === "ko" ? word.exampleKo : word.exampleEn}&rdquo;
             </p>
           </div>
         )}

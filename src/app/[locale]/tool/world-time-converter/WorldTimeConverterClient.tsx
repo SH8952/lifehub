@@ -41,7 +41,7 @@ export default function WorldTimeConverter({ initialLocale }: { initialLocale: L
   // interpret the naive input datetime as being in baseCityTz
   const utcMs = useMemo(() => {
     const [datePart, timePart] = inputValue.split("T");
-    if (!datePart || !timePart) return Date.now();
+    if (!datePart || !timePart) return 0;
     const [y, m, day] = datePart.split("-").map(Number);
     const [h, min] = timePart.split(":").map(Number);
 

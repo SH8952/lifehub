@@ -218,6 +218,7 @@ export default function ImageResizer({ initialLocale }: { initialLocale: Locale 
               <p className="text-sm font-semibold text-muted-foreground">
                 {d.resultDims}: {Math.round(width)} x {Math.round(height)}px
               </p>
+              {/* eslint-disable-next-line @next/next/no-img-element -- 사용자 업로드/캔버스 결과 미리보기(blob 또는 data URL)라 next/image 최적화 대상 아님 */}
               {resultUrl && <img src={resultUrl} alt="result" className="max-h-80 rounded-md object-contain" />}
             </CardContent>
           </Card>

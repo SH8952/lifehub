@@ -243,7 +243,6 @@ export default async function ZodiacFinderPage({
 
   const d = { ko, en, ja, es }[lang] ?? ko;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const labels: any = d;
 
   return (

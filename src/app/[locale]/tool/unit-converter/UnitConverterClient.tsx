@@ -110,6 +110,7 @@ export default function UnitConverter({ initialLocale }: { initialLocale: Locale
 
   useEffect(() => {
     const u = UNIT_ORDER[category];
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- 카테고리 변경 시 단위 초기화, 의도된 derived-state 패턴
     setFromUnit(u[0]);
     setToUnit(u[1]);
   }, [category]);

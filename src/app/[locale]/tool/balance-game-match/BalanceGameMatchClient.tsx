@@ -47,6 +47,7 @@ export default function BalanceGameMatchClient({ initialLocale }: { initialLocal
     if (sync) {
       const decoded = decodeAnswers(sync);
       if (decoded && decoded.length === totalQuestions) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect -- URL 쿼리(외부 소스) 동기화, 마운트 시 1회만 실행되는 정당한 패턴
         setFriendAnswers(decoded);
       }
     }

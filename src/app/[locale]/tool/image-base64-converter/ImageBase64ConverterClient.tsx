@@ -138,6 +138,7 @@ export default function ImageBase64Converter({ initialLocale }: { initialLocale:
             <>
               <Card>
                 <CardContent className="flex flex-col items-center gap-3 p-4">
+                  {/* eslint-disable-next-line @next/next/no-img-element -- 사용자 업로드/캔버스 결과 미리보기(blob 또는 data URL)라 next/image 최적화 대상 아님 */}
                   <img src={base64Result} alt={fileName} className="max-h-60 rounded-md object-contain" />
                   <button
                     onClick={() => document.getElementById("b64-file-input-2")?.click()}
@@ -193,6 +194,7 @@ export default function ImageBase64Converter({ initialLocale }: { initialLocale:
           {decodedUrl && (
             <Card>
               <CardContent className="flex flex-col items-center gap-3 p-4">
+                {/* eslint-disable-next-line @next/next/no-img-element -- 사용자 업로드/캔버스 결과 미리보기(blob 또는 data URL)라 next/image 최적화 대상 아님 */}
                 <img src={decodedUrl} alt="decoded" className="max-h-72 rounded-md object-contain" />
                 <a
                   href={decodedUrl}

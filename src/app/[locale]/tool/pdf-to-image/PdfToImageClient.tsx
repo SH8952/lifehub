@@ -135,6 +135,7 @@ export default function PdfToImage({ initialLocale }: { initialLocale: Locale })
                   <p className="text-sm font-semibold text-muted-foreground">
                     {d.pageLabel} {p.pageNumber}
                   </p>
+                  {/* eslint-disable-next-line @next/next/no-img-element -- 사용자 업로드/캔버스 결과 미리보기(blob 또는 data URL)라 next/image 최적화 대상 아님 */}
                   <img src={p.dataUrl} alt={`page-${p.pageNumber}`} className="max-h-72 rounded-md border object-contain" />
                   <a
                     href={p.dataUrl}

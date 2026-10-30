@@ -85,6 +85,7 @@ export default function LadderGameClient({ initialLocale }: { initialLocale: Loc
   const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- count(참가자 수) 변경 시 배열 길이 동기화, 의도된 derived-state 패턴
     setNames((prev) => {
       const next = [...prev];
       while (next.length < count) next.push("");

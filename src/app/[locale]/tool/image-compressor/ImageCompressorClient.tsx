@@ -195,6 +195,7 @@ export default function ImageCompressor({ initialLocale }: { initialLocale: Loca
             <Card>
               <CardContent className="flex flex-col items-center gap-2 p-4">
                 <p className="text-sm font-semibold text-muted-foreground">{d.originalLabel}</p>
+                {/* eslint-disable-next-line @next/next/no-img-element -- 사용자 업로드/캔버스 결과 미리보기(blob 또는 data URL)라 next/image 최적화 대상 아님 */}
                 <img src={imgEl.src} alt={fileName} className="max-h-64 rounded-md object-contain" />
                 <p className="text-sm">{formatBytes(originalSize)}</p>
               </CardContent>
@@ -202,6 +203,7 @@ export default function ImageCompressor({ initialLocale }: { initialLocale: Loca
             <Card>
               <CardContent className="flex flex-col items-center gap-2 p-4">
                 <p className="text-sm font-semibold text-muted-foreground">{d.resultLabel}</p>
+                {/* eslint-disable-next-line @next/next/no-img-element -- 사용자 업로드/캔버스 결과 미리보기(blob 또는 data URL)라 next/image 최적화 대상 아님 */}
                 {resultUrl && <img src={resultUrl} alt="result" className="max-h-64 rounded-md object-contain" />}
                 <p className="text-sm">
                   {formatBytes(resultSize)}

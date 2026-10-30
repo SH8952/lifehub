@@ -69,6 +69,7 @@ export default function TrendSlangQuizClient({ initialLocale }: { initialLocale:
 
   useEffect(() => {
     if (mode !== "playing" || !current) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- 문제 전환 시 타이머 초기화, setInterval 구독과 함께 쓰이는 정당한 effect
     setTimeLeft(TIME_LIMIT);
     setSelected(null);
     timerRef.current = setInterval(() => {

@@ -83,7 +83,7 @@ export default function FastingTimer({ initialLocale }: { initialLocale: Locale 
 
   const fastingEnd = fastState ? fastState.startTime + fastState.fastingHours * 3600000 : 0;
   const eatingEnd = fastState ? fastingEnd + (24 - fastState.fastingHours) * 3600000 : 0;
-  const now = Date.now();
+  const now = fastState ? fastState.startTime + elapsed * 1000 : 0;
   const remainingFasting = Math.max(0, fastingEnd - now);
   const remainingEating = Math.max(0, eatingEnd - now);
 
