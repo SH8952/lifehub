@@ -842,6 +842,29 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
 
   "document-pdf": [
   {
+    id: "pdf-bookmark-adder",
+    name: "PDF 북마크(목차) 추가기",
+    nameEn: "PDF Bookmark (Outline) Adder",
+    nameJa: "PDFブックマーク（目次）追加ツール",
+    nameEs: "Añadir Marcadores (Índice) a PDF",
+    description: "PDF에 페이지별 북마크(목차)를 추가해 뷰어에서 바로 이동할 수 있게 합니다.",
+    descriptionEn: "Add page bookmarks (an outline) to a PDF for quick navigation.",
+    descriptionJa: "PDFにページごとのブックマーク（目次）を追加し、すぐに移動できるようにします。",
+    descriptionEs: "Añade marcadores de página a un PDF para navegar rápidamente.",
+  },
+  {
+    id: "pdf-thumbnail-extract",
+    name: "PDF 표지 썸네일 추출기",
+    nameEn: "PDF Cover Thumbnail Extractor",
+    nameJa: "PDF表紙サムネイル抽出ツール",
+    nameEs: "Extractor de Miniatura de Portada PDF",
+    description: "PDF 첫 페이지(표지)를 이미지 파일로 추출합니다.",
+    descriptionEn: "Extract the first page (cover) of a PDF as an image file.",
+    descriptionJa: "PDFの最初のページ（表紙）を画像ファイルとして抽出します。",
+    descriptionEs: "Extrae la primera página (portada) de un PDF como imagen.",
+  },
+
+  {
     id: "pdf-page-size-converter",
     name: "PDF 용지 크기 변환기",
     nameEn: "PDF Page Size Converter",
