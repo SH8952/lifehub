@@ -145,7 +145,8 @@ export default function SalaryRaiseCalculator({ initialLocale }: { initialLocale
         </div>
       </section>
 
-      <p className="mt-8 text-sm text-muted-foreground">{d.footer}</p>
+      <p className="mt-8 text-sm text-muted-foreground">{d.disclaimer}</p>
+      <p className="mt-2 text-sm text-muted-foreground">{d.footer}</p>
     </div>
   );
 }

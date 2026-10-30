@@ -15,6 +15,7 @@ export interface i18nData {
   howTitle: string;
   howSteps: string[];
   faq: FaqItem[];
+  disclaimer: string;
   footer: string;
 }
 
@@ -47,6 +48,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "신용점수는 얼마나 자주 확인해도 괜찮나요?", a: "본인이 직접 조회하는 경우(비금융 목적의 '본인 조회')는 신용점수에 영향을 주지 않으므로, 네이버페이·토스·카카오페이 등에서 수시로 확인해도 무방합니다." },
       { q: "신용점수가 떨어지는 가장 큰 원인은 무엇인가요?", a: "연체(특히 5만원 이상 90일 이상 장기연체)가 가장 큰 영향을 미치며, 과도한 신용카드 이용률과 제2금융권 대출 이용 빈도도 주요 요인입니다." },
     ],
+    disclaimer: "⚠️ 본 체크리스트는 신용점수에 영향을 주는 일반적인 요인을 참고용으로 안내하는 것으로, 실제 신용점수 산정 방식은 금융기관·신용평가사별로 다릅니다. 구체적인 신용 관리는 금융기관이나 전문가와 상담하세요.",
     footer: "브라우저에서 100% 처리됩니다. 체크 상태는 저장되지 않으며 서버로 전송되는 데이터가 없습니다.",
   },
   en: {
@@ -77,6 +79,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "How often can I check my credit score safely?", a: "Self-inquiries (for personal, non-financial purposes) don't affect your score, so checking via apps as often as you like is fine." },
       { q: "What's the biggest cause of a credit score drop?", a: "Delinquency (especially 90+ days overdue on 50,000+ KRW) has the largest impact, along with high card utilization and frequent second-tier lender use." },
     ],
+    disclaimer: "⚠️ This checklist provides general reference guidance on factors that typically affect credit scores. Actual scoring methods vary by financial institution and credit bureau. For specific credit management, consult your financial institution or a professional.",
     footer: "100% processed in your browser. Checked state is not saved and no data is sent to a server.",
   },
   ja: {
@@ -107,6 +110,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "信用スコアはどのくらい頻繁に確認しても大丈夫ですか？", a: "本人による照会（非金融目的の「本人照会」）は信用スコアに影響しないため、アプリで随時確認しても問題ありません。" },
       { q: "信用スコアが下がる最大の原因は何ですか？", a: "延滞（特に5万ウォン以上90日以上の長期延滞）が最も大きな影響を与え、過度なカード利用率や第2金融圏融資の利用頻度も主要因です。" },
     ],
+    disclaimer: "⚠️ このチェックリストは信用スコアに影響を与える一般的な要因を参考用に案内するものであり、実際のスコア算定方法は金融機関・信用評価機関によって異なります。具体的な信用管理については金融機関や専門家にご相談ください。",
     footer: "ブラウザで100%処理されます。チェック状態は保存されず、サーバーに送信されるデータはありません。",
   },
   es: {
@@ -137,6 +141,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "¿Con qué frecuencia puedo revisar mi puntaje de forma segura?", a: "Las consultas propias (para fines personales) no afectan el puntaje, así que revisarlo con apps regularmente está bien." },
       { q: "¿Cuál es la mayor causa de una caída del puntaje?", a: "La morosidad (especialmente 90+ días de retraso) tiene el mayor impacto, junto con la alta utilización de crédito." },
     ],
+    disclaimer: "⚠️ Esta lista ofrece orientación general de referencia sobre factores que suelen afectar el puntaje de crédito. Los métodos reales de calificación varían según la institución financiera. Para una gestión específica de tu crédito, consulta a tu institución financiera o a un profesional.",
     footer: "Procesado 100% en tu navegador. El estado no se guarda y no se envían datos a un servidor.",
   },
 };

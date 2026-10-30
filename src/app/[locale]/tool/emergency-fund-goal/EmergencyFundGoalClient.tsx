@@ -131,7 +131,8 @@ export default function EmergencyFundGoal({ initialLocale }: { initialLocale: Lo
         </div>
       </section>
 
-      <p className="mt-8 text-sm text-muted-foreground">{d.footer}</p>
+      <p className="mt-8 text-sm text-muted-foreground">{d.disclaimer}</p>
+      <p className="mt-2 text-sm text-muted-foreground">{d.footer}</p>
     </div>
   );
 }

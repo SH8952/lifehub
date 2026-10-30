@@ -28,6 +28,7 @@ export interface i18nData {
   howTitle: string;
   howSteps: string[];
   faq: FaqItem[];
+  disclaimer: string;
   footer: string;
 }
 
@@ -62,6 +63,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "MET이 무엇인가요?", a: "MET(Metabolic Equivalent of Task)은 운동 강도를 나타내는 단위로, 안정 시 대사량의 몇 배에 해당하는 에너지를 소모하는지를 나타냅니다. 소모 칼로리 = MET × 체중(kg) × 시간(h) 공식으로 계산합니다." },
       { q: "실제 소모 칼로리와 차이가 있을 수 있나요?", a: "네, MET 기반 계산은 평균적인 추정치이며 개인의 체력, 운동 강도, 신진대사에 따라 실제 소모량은 다를 수 있습니다." },
     ],
+    disclaimer: "⚠️ 본 계산 결과는 MET 공식에 기반한 일반적인 참고용 추정치이며, 실제 소모 칼로리는 개인의 체력, 운동 강도, 신진대사에 따라 달라질 수 있습니다. 건강 상의 문제가 있다면 운동 전 의사와 상담하세요.",
     footer: "브라우저에서 100% 처리됩니다. 서버로 전송되는 데이터가 없습니다.",
   },
   en: {
@@ -94,6 +96,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "What is MET?", a: "MET (Metabolic Equivalent of Task) measures exercise intensity as a multiple of resting metabolic rate. Calories burned = MET × weight(kg) × time(h)." },
       { q: "Can actual calories burned differ?", a: "Yes, MET-based calculations are average estimates; actual burn varies with fitness level, intensity, and individual metabolism." },
     ],
+    disclaimer: "⚠️ This result is a general reference estimate based on the MET formula. Actual calories burned can vary depending on individual fitness level, exercise intensity, and metabolism. If you have a health condition, consult a doctor before exercising.",
     footer: "100% processed in your browser. No data is sent to a server.",
   },
   ja: {
@@ -126,6 +129,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "METとは何ですか？", a: "MET（Metabolic Equivalent of Task）は運動強度を示す単位で、安静時代謝量の何倍のエネルギーを消耗するかを表します。消耗カロリー＝MET×体重(kg)×時間(h)の式で計算します。" },
       { q: "実際の消耗カロリーと差が出ることがありますか？", a: "はい、METベースの計算は平均的な推定値であり、個人の体力、運動強度、代謝によって実際の消耗量は異なる場合があります。" },
     ],
+    disclaimer: "⚠️ この結果はMET公式に基づく一般的な参考用の推定値であり、実際の消耗カロリーは個人の体力、運動強度、新陳代謝によって異なる場合があります。健康上の問題がある場合は運動前に医師にご相談ください。",
     footer: "ブラウザで100%処理されます。サーバーに送信されるデータはありません。",
   },
   es: {
@@ -158,6 +162,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "¿Qué es MET?", a: "MET (Equivalente Metabólico de Tarea) mide la intensidad del ejercicio como un múltiplo de la tasa metabólica en reposo. Calorías quemadas = MET × peso(kg) × tiempo(h)." },
       { q: "¿Puede diferir el consumo real de calorías?", a: "Sí, los cálculos basados en MET son estimaciones promedio; el consumo real varía según el nivel de condición física, intensidad y metabolismo individual." },
     ],
+    disclaimer: "⚠️ Este resultado es una estimación de referencia general basada en la fórmula MET. Las calorías reales quemadas pueden variar según la condición física, intensidad del ejercicio y metabolismo. Si tienes alguna condición de salud, consulta a un médico antes de hacer ejercicio.",
     footer: "Procesado 100% en tu navegador. No se envían datos a un servidor.",
   },
 };

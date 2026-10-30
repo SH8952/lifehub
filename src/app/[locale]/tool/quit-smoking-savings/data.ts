@@ -21,6 +21,7 @@ export interface i18nData {
   howTitle: string;
   howSteps: string[];
   faq: FaqItem[];
+  disclaimer: string;
   footer: string;
 }
 
@@ -48,6 +49,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "이 계산기는 흡연이나 음주량도 알려주나요?", a: "아니요, 이 계산기는 금전적인 절약 효과만 계산합니다. 건강 효과는 개인마다 다르므로 전문적인 의학 정보를 참고하세요." },
       { q: "하루 지출 비용은 어떻게 추정하나요?", a: "담배 한 팩 가격 × 하루 소비량, 또는 평소 음주 비용을 하루 평균으로 나누어 입력하면 됩니다." },
     ],
+    disclaimer: "⚠️ 본 계산 결과는 입력하신 지출 비용을 기준으로 한 단순 참고용 추정치입니다. 금연·금주는 건강에 큰 도움이 되지만, 금단 증상이나 건강 관리가 필요한 경우 의사 등 전문가와 상담하세요.",
     footer: "브라우저에서 100% 처리됩니다. 서버로 전송되는 데이터가 없습니다.",
   },
   en: {
@@ -73,6 +75,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "Does this calculator also show health benefits?", a: "No, this calculator only estimates financial savings. Health effects vary by individual, so consult medical resources for that." },
       { q: "How do I estimate daily cost?", a: "Multiply the price per pack by daily cigarette consumption, or average your typical drinking costs per day." },
     ],
+    disclaimer: "⚠️ This result is a simple reference estimate based on the spending you entered. Quitting smoking or drinking offers major health benefits, but if you experience withdrawal symptoms or need health guidance, consult a doctor or other professional.",
     footer: "100% processed in your browser. No data is sent to a server.",
   },
   ja: {
@@ -98,6 +101,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "このツールは喫煙や飲酒量も教えてくれますか？", a: "いいえ、このツールは金銭的な節約効果のみを計算します。健康効果は個人差があるため、専門的な医学情報を参考にしてください。" },
       { q: "1日の支出額はどう推定すればいいですか？", a: "タバコ1パックの価格×1日の消費量、または普段の飲酒費用を1日平均に換算して入力してください。" },
     ],
+    disclaimer: "⚠️ この結果は入力した支出額に基づく単純な参考用の推定値です。禁煙・禁酒は健康に大きく役立ちますが、禁断症状や健康管理が必要な場合は医師などの専門家にご相談ください。",
     footer: "ブラウザで100%処理されます。サーバーに送信されるデータはありません。",
   },
   es: {
@@ -123,6 +127,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "¿Esta calculadora también muestra beneficios de salud?", a: "No, esta calculadora solo estima el ahorro financiero. Los efectos de salud varían según la persona." },
       { q: "¿Cómo estimo el costo diario?", a: "Multiplica el precio por paquete por el consumo diario de cigarrillos, o promedia tus gastos típicos de bebida por día." },
     ],
+    disclaimer: "⚠️ Este resultado es una estimación de referencia simple basada en el gasto que ingresaste. Dejar de fumar o beber tiene grandes beneficios para la salud, pero si experimentas síntomas de abstinencia o necesitas orientación de salud, consulta a un médico u otro profesional.",
     footer: "Procesado 100% en tu navegador. No se envían datos a un servidor.",
   },
 };

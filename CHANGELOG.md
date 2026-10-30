@@ -2,6 +2,20 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-10-31 — 수익화 준비 1단계: 건강·재무 도구 8종 면책 문구 추가
+
+"사이트를 수익화하려면 어떤 작업을 하면 좋을지" 질문에 답변하며 전체 로드맵(배포 준비 → 노출 확인 → 애드센스/제휴)을 안내드렸고, 사용자가 "도구 페이지 콘텐츠 보강 먼저"를 선택해 진행했습니다.
+
+**점검 결과**: 225개 도구 페이지 전체를 점검한 결과 FAQ 100%, 면책 문구 88%(199/225), 사용법 설명 84%(188/225) 보유로 전반적인 콘텐츠 수준은 양호했습니다. 다만 건강/재무 성격인데 면책 문구가 빠진 도구 8개를 발견해, 애드센스 심사 시 "전문적인 조언이 아님"을 명확히 하기 위해 우선 보강했습니다.
+
+**대상 도구(8개)**: break-even-point-calculator, caffeine-intake-tracker, credit-score-checklist, emergency-fund-goal, exercise-calorie-calculator, quit-smoking-savings, salary-raise-calculator, sleep-cycle-calculator
+
+**변경 내역**: 각 도구의 `data.ts`에 `disclaimer` 필드를 추가(4개 언어 전체, 도구 주제에 맞는 내용으로 작성)하고, `<Name>Client.tsx`에서 기존 `footer` 문구 위에 `disclaimer` 문구를 렌더링하도록 추가. 기존 콘텐츠·레이아웃·기능은 그대로 유지(시각적으로는 작은 안내 문구 한 줄만 추가됨).
+
+**작업 전 백업**: `_backups/backup_20261030_152901_tool-disclaimer-8/`(8개 도구의 `data.ts`·`Client.tsx` 원본)
+
+**검증**: `npx tsc --noEmit` → 0 errors. `npx next build` → 성공. `npx next dev -p 4762` 실전 기동 → 8개 도구 × 4개 언어 = 32개 라우트 전부 HTTP 200 확인, 면책 문구가 실제 화면에 렌더링되는 것 확인(예: sleep-cycle-calculator ko 페이지에 "90분 수면 사이클 이론에 기반한 참고용 추정치" 텍스트 노출), 서버 로그 에러 0건.
+
 ## 2026-10-30 — 시그니처 컬러 재변경: 차콜 + 앰버(D안)로 최종 교체
 
 딥 로즈 계열(C안 → V2 재제안 8종)을 검토한 끝에, 사용자가 가장 처음 제안했던 **D. 차콜 + 앰버**로 최종 결정.

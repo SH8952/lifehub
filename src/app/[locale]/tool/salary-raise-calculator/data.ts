@@ -22,6 +22,7 @@ export interface i18nData {
   howTitle: string;
   howSteps: string[];
   faq: FaqItem[];
+  disclaimer: string;
   footer: string;
 }
 
@@ -50,6 +51,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "연봉 인상률과 체감 월급 인상액이 다르게 느껴지는 이유는?", a: "연봉 인상분에서 국민연금·건강보험·소득세 등 공제가 추가로 늘어나기 때문에, 실제 통장에 들어오는 월급 인상액은 단순 12분할 금액보다 적게 느껴질 수 있습니다. 이 계산기는 세전 기준입니다." },
       { q: "평균 연봉 인상률은 보통 어느 정도인가요?", a: "일반적으로 물가상승률을 고려한 통상임금 인상률은 연 3~5% 수준이 많이 언급되지만, 업종·기업·개인 성과에 따라 큰 차이가 있습니다." },
     ],
+    disclaimer: "⚠️ 본 계산 결과는 입력하신 수치를 기반으로 한 단순 참고용 추정치이며, 실제 급여는 세금, 4대 보험, 회사 규정 등에 따라 달라질 수 있습니다. 정확한 금액은 회사 인사팀이나 세무 전문가와 확인하세요.",
     footer: "브라우저에서 100% 처리됩니다. 서버로 전송되는 데이터가 없습니다.",
   },
   en: {
@@ -76,6 +78,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "Why does the felt monthly increase differ from the raise rate?", a: "Since deductions (pension, health insurance, income tax) scale up with the raise, the actual take-home monthly increase feels smaller than a simple 12-way split. This calculator is pre-tax." },
       { q: "What's a typical average salary raise rate?", a: "A commonly cited range considering inflation is 3-5% annually, though it varies widely by industry, company, and individual performance." },
     ],
+    disclaimer: "⚠️ This result is a simple reference estimate based on your inputs. Actual pay can vary depending on taxes, insurance deductions, and company policy. Check the exact amount with your company's HR team or a tax professional.",
     footer: "100% processed in your browser. No data is sent to a server.",
   },
   ja: {
@@ -102,6 +105,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "年俸引き上げ率と体感月給引き上げ額が違うのはなぜ？", a: "年俸引き上げ分から国民年金・健康保険・所得税などの控除が追加で増えるため、実際の月給引き上げ額は単純12分割額より少なく感じられる場合があります。このツールは税引前基準です。" },
       { q: "平均的な年俸引き上げ率はどの程度ですか？", a: "一般的に物価上昇率を考慮した通常賃金引き上げ率は年3〜5%程度が多く言及されますが、業種・企業・個人成果によって大きな差があります。" },
     ],
+    disclaimer: "⚠️ この結果は入力値に基づく単純な参考用の推定値であり、実際の給与は税金、社会保険、会社規定などによって異なる場合があります。正確な金額は会社の人事部や税務専門家にご確認ください。",
     footer: "ブラウザで100%処理されます。サーバーに送信されるデータはありません。",
   },
   es: {
@@ -128,6 +132,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "¿Por qué el aumento mensual percibido difiere de la tasa?", a: "Como las deducciones aumentan con el aumento, el incremento neto mensual se siente menor que una simple división por 12. Esta calculadora es antes de impuestos." },
       { q: "¿Cuál es una tasa de aumento salarial promedio típica?", a: "Un rango comúnmente citado considerando la inflación es 3-5% anual, aunque varía ampliamente según la industria y el desempeño." },
     ],
+    disclaimer: "⚠️ Este resultado es una estimación de referencia simple basada en tus datos. El salario real puede variar según impuestos, deducciones de seguros y políticas de la empresa. Verifica el monto exacto con el departamento de RR.HH. o un asesor fiscal.",
     footer: "Procesado 100% en tu navegador. No se envían datos a un servidor.",
   },
 };

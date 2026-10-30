@@ -21,6 +21,7 @@ export interface i18nData {
   howTitle: string;
   howSteps: string[];
   faq: FaqItem[];
+  disclaimer: string;
   footer: string;
 }
 
@@ -48,6 +49,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "공헌이익이란 무엇인가요?", a: "공헌이익은 판매 단가에서 단위당 변동비를 뺀 금액으로, 제품 하나를 더 팔 때마다 고정비를 회수하는 데 기여하는 이익을 의미합니다." },
       { q: "손익분기점을 넘으면 바로 수익이 나나요?", a: "네, 손익분기점(BEP)을 넘는 판매량부터는 추가 판매분의 공헌이익이 모두 순이익으로 쌓이기 시작합니다." },
     ],
+    disclaimer: "⚠️ 본 계산 결과는 입력하신 수치를 기반으로 한 단순 참고용 추정치이며, 실제 사업 운영에는 세금, 인건비 변동 등 다양한 요인이 작용합니다. 중요한 사업 결정 전에는 세무사·회계사 등 전문가와 상담하세요.",
     footer: "브라우저에서 100% 처리됩니다. 서버로 전송되는 데이터가 없습니다.",
   },
   en: {
@@ -73,6 +75,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "What is the contribution margin?", a: "It's the sale price minus the variable cost per unit — the amount each additional unit sold contributes toward covering fixed costs." },
       { q: "Does profit start right after the break-even point?", a: "Yes, once sales exceed the BEP, the contribution margin from each additional unit becomes pure profit." },
     ],
+    disclaimer: "⚠️ This result is a simple reference estimate based on your inputs. Actual business operations involve many additional factors such as taxes and labor cost changes. Consult a tax professional or accountant before making important business decisions.",
     footer: "100% processed in your browser. No data is sent to a server.",
   },
   ja: {
@@ -98,6 +101,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "貢献利益とは何ですか？", a: "貢献利益は販売単価から単位当たり変動費を引いた金額で、製品を1つ多く売るたびに固定費回収に貢献する利益を意味します。" },
       { q: "損益分岐点を超えるとすぐ利益が出ますか？", a: "はい、損益分岐点（BEP）を超える販売量からは追加販売分の貢献利益がすべて純利益として積み上がります。" },
     ],
+    disclaimer: "⚠️ この結果は入力値に基づく単純な参考用推定値です。実際の事業運営には税金や人件費の変動など様々な要因が影響します。重要な経営判断の前には税理士などの専門家にご相談ください。",
     footer: "ブラウザで100%処理されます。サーバーに送信されるデータはありません。",
   },
   es: {
@@ -123,6 +127,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "¿Qué es el margen de contribución?", a: "Es el precio de venta menos el costo variable por unidad — lo que cada unidad adicional contribuye a cubrir los costos fijos." },
       { q: "¿La ganancia comienza justo después del punto de equilibrio?", a: "Sí, una vez que las ventas superan el BEP, el margen de cada unidad adicional se convierte en ganancia pura." },
     ],
+    disclaimer: "⚠️ Este resultado es una estimación de referencia simple basada en tus datos. La operación real del negocio involucra factores adicionales como impuestos y cambios en costos laborales. Consulta a un contador o asesor fiscal antes de tomar decisiones importantes.",
     footer: "Procesado 100% en tu navegador. No se envían datos a un servidor.",
   },
 };

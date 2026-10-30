@@ -17,6 +17,7 @@ export interface i18nData {
   howTitle: string;
   howSteps: string[];
   faq: FaqItem[];
+  disclaimer: string;
   footer: string;
 }
 
@@ -40,6 +41,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "왜 90분 사이클 단위로 계산하나요?", a: "수면은 얕은 잠-깊은 잠-REM 수면을 거치는 약 90분 주기로 반복됩니다. 사이클이 완전히 끝나는 시점에 일어나면 깊은 잠 중간에 깨는 것보다 훨씬 개운합니다." },
       { q: "왜 15분을 추가하나요?", a: "침대에 누운 뒤 실제로 잠드는 데 평균적으로 약 15분이 걸리기 때문에, 취침 시각 계산 시 이를 더해줍니다." },
     ],
+    disclaimer: "⚠️ 본 계산 결과는 평균적인 90분 수면 사이클 이론에 기반한 참고용 추정치이며, 실제 적정 수면 시간과 패턴은 개인에 따라 다를 수 있습니다. 수면 장애나 건강 상의 문제가 있다면 의사와 상담하세요.",
     footer: "브라우저에서 100% 처리됩니다. 서버로 전송되는 데이터가 없습니다.",
   },
   en: {
@@ -61,6 +63,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "Why calculate in 90-minute cycles?", a: "Sleep repeats in roughly 90-minute cycles through light sleep, deep sleep, and REM. Waking at the end of a full cycle feels far more refreshing than waking mid-deep-sleep." },
       { q: "Why add 15 minutes?", a: "It typically takes about 15 minutes to actually fall asleep after getting into bed, so this is added when calculating bedtime." },
     ],
+    disclaimer: "⚠️ This result is a reference estimate based on the average 90-minute sleep cycle theory. Actual optimal sleep duration and patterns vary by individual. If you have a sleep disorder or health condition, consult a doctor.",
     footer: "100% processed in your browser. No data is sent to a server.",
   },
   ja: {
@@ -82,6 +85,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "なぜ90分サイクル単位で計算するのですか？", a: "睡眠は浅い眠り・深い眠り・REM睡眠を経る約90分周期で繰り返されます。サイクルが完全に終わる時点で起きると、深い眠りの最中に起きるよりずっと気持ちよく感じます。" },
       { q: "なぜ15分を追加するのですか？", a: "ベッドに入った後、実際に眠りに落ちるまで平均約15分かかるため、就寝時刻の計算時にこれを加えます。" },
     ],
+    disclaimer: "⚠️ この結果は平均的な90分睡眠サイクル理論に基づく参考用の推定値であり、実際の適正な睡眠時間とパターンは個人によって異なる場合があります。睡眠障害や健康上の問題がある場合は医師にご相談ください。",
     footer: "ブラウザで100%処理されます。サーバーに送信されるデータはありません。",
   },
   es: {
@@ -103,6 +107,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "¿Por qué calcular en ciclos de 90 minutos?", a: "El sueño se repite en ciclos de aproximadamente 90 minutos a través del sueño ligero, profundo y REM. Despertar al final de un ciclo completo se siente mucho más reparador." },
       { q: "¿Por qué agregar 15 minutos?", a: "Normalmente se tarda unos 15 minutos en dormirse después de acostarse, por lo que esto se suma al calcular la hora de acostarse." },
     ],
+    disclaimer: "⚠️ Este resultado es una estimación de referencia basada en la teoría del ciclo de sueño promedio de 90 minutos. La duración y los patrones de sueño óptimos reales varían según la persona. Si tienes un trastorno del sueño o una condición de salud, consulta a un médico.",
     footer: "Procesado 100% en tu navegador. No se envían datos a un servidor.",
   },
 };

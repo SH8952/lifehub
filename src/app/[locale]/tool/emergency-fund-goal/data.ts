@@ -22,6 +22,7 @@ export interface i18nData {
   howTitle: string;
   howSteps: string[];
   faq: FaqItem[];
+  disclaimer: string;
   footer: string;
 }
 
@@ -50,6 +51,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "비상금은 보통 몇 개월치를 모아야 하나요?", a: "일반적으로 월 생활비의 3~6개월치를 권장하지만, 소득이 불안정하거나 부양가족이 많다면 6~12개월치를 목표로 하는 것이 더 안전합니다." },
       { q: "비상금은 어디에 보관해야 하나요?", a: "비상금은 투자 위험 없이 필요시 즉시 꺼낼 수 있어야 하므로, 일반적으로 입출금이 자유로운 통장이나 단기 예금에 보관하는 것이 권장됩니다." },
     ],
+    disclaimer: "⚠️ 본 계산 결과는 입력하신 월 생활비를 기준으로 한 참고용 추정치이며, 실제 적정 비상금 규모는 개인의 소득 안정성, 부양가족, 보험 가입 여부 등에 따라 달라질 수 있습니다. 구체적인 재무 계획은 전문가와 상담하세요.",
     footer: "브라우저에서 100% 처리됩니다. 서버로 전송되는 데이터가 없습니다.",
   },
   en: {
@@ -76,6 +78,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "How many months of expenses should an emergency fund cover?", a: "3-6 months is commonly recommended, but 6-12 months may be safer if your income is unstable or you have many dependents." },
       { q: "Where should I keep my emergency fund?", a: "It should be easily accessible without investment risk, so a liquid savings account or short-term deposit is generally recommended." },
     ],
+    disclaimer: "⚠️ This result is a reference estimate based on your monthly expenses. The appropriate emergency fund size can vary depending on income stability, dependents, and insurance coverage. Consult a financial professional for a specific financial plan.",
     footer: "100% processed in your browser. No data is sent to a server.",
   },
   ja: {
@@ -102,6 +105,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "緊急資金は通常何か月分貯めるべきですか？", a: "一般的に月の生活費の3〜6か月分が推奨されますが、収入が不安定な場合や扶養家族が多い場合は6〜12か月分を目標にする方が安全です。" },
       { q: "緊急資金はどこに保管すべきですか？", a: "投資リスクなく必要時すぐに取り出せる必要があるため、一般的に入出金自由な口座や短期預金が推奨されます。" },
     ],
+    disclaimer: "⚠️ この結果は入力した月の生活費に基づく参考用の推定値であり、実際の適正な緊急資金規模は収入の安定性、扶養家族、保険加入状況などによって異なります。具体的な財務計画については専門家にご相談ください。",
     footer: "ブラウザで100%処理されます。サーバーに送信されるデータはありません。",
   },
   es: {
@@ -128,6 +132,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "¿Cuántos meses de gastos debería cubrir un fondo de emergencia?", a: "Se recomiendan comúnmente 3-6 meses, pero 6-12 meses puede ser más seguro si tu ingreso es inestable." },
       { q: "¿Dónde debería guardar mi fondo de emergencia?", a: "Debe ser fácilmente accesible sin riesgo de inversión, por lo que se recomienda una cuenta líquida o depósito a corto plazo." },
     ],
+    disclaimer: "⚠️ Este resultado es una estimación de referencia basada en tus gastos mensuales. El tamaño adecuado del fondo de emergencia puede variar según la estabilidad de ingresos, dependientes y cobertura de seguro. Consulta a un profesional financiero para un plan específico.",
     footer: "Procesado 100% en tu navegador. No se envían datos a un servidor.",
   },
 };
