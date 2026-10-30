@@ -2,6 +2,24 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-10-31 — 수익화 준비 2단계: GitHub 연동 + Vercel 최초 배포 (무료 검증)
+
+9/29에 합의했던 "도메인 없이 Vercel 무료 주소로 먼저 공개" 방향을 실행에 옮겼습니다.
+
+**진행 과정**:
+1. GitHub 저장소 `SH8952/lifehub`(Public, 빈 저장소)를 사용자 로그인 후 생성
+2. repo root에 원클릭 push 스크립트(`push-to-github.command`, git add -u만 사용, 실행 후 자동 삭제)를 만들어 사용자가 실행 → 로컬 커밋 전체를 최초 push. 로컬 HEAD와 origin/main 커밋 해시 일치 확인(0671c0f)
+3. Vercel 쪽 GitHub App에 lifehub 저장소 접근 권한 추가(사용자 직접 처리)
+4. Vercel에서 lifehub 프로젝트 Import → 기존 3개 사이트(exiflens/flydronemap/firelic)와 동일한 팀(Hobby 플랜)으로 배포
+5. 빌드 성공, 배포 완료
+
+**결과**: `https://lifehub-czrjrwzi5-sh8952-adsense-project.vercel.app` 로 라이브 확인. 홈(ko) 디자인 정상 렌더링(차콜+앰버, 레이아웃 정돈 전부 반영된 상태), 영어 도구 페이지(/en/tool/bmi)도 정상 렌더링 확인.
+
+**남은 사항**:
+- `NEXT_PUBLIC_SITE_URL` 환경변수 미설정 — 현재 sitemap/canonical/OG URL이 아직 구매하지 않은 `alltools365.com`(코드 기본값)을 가리키고 있음. 실제 배포 주소로 맞추는 작업은 별도 승인 필요
+- 구글 서치콘솔 / 네이버 웹마스터 등록, sitemap 제출은 아직 미착수
+- 도메인(alltools365.com) 구매는 여전히 보류 — 9/29 계획대로 노출 데이터 확인 후 결정
+
 ## 2026-10-31 — 수익화 준비 1단계: 건강·재무 도구 8종 면책 문구 추가
 
 "사이트를 수익화하려면 어떤 작업을 하면 좋을지" 질문에 답변하며 전체 로드맵(배포 준비 → 노출 확인 → 애드센스/제휴)을 안내드렸고, 사용자가 "도구 페이지 콘텐츠 보강 먼저"를 선택해 진행했습니다.
