@@ -842,6 +842,29 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
 
   "document-pdf": [
   {
+    id: "pdf-signature-insert",
+    name: "PDF 서명 이미지 삽입기",
+    nameEn: "PDF Signature Inserter",
+    nameJa: "PDF署名画像挿入ツール",
+    nameEs: "Insertar Firma en PDF",
+    description: "손으로 그린 서명을 PDF의 원하는 페이지와 위치에 삽입합니다.",
+    descriptionEn: "Draw a signature and insert it at a chosen position on a PDF page.",
+    descriptionJa: "手描きの署名をPDFの任意のページと位置に挿入します。",
+    descriptionEs: "Dibuja una firma e insértala en la posición que elijas de una página PDF.",
+  },
+  {
+    id: "pdf-page-count",
+    name: "PDF 페이지 수·용량 정보 확인기",
+    nameEn: "PDF Page Count & File Info",
+    nameJa: "PDFページ数・容量情報確認ツール",
+    nameEs: "Información de Páginas y Tamaño de PDF",
+    description: "PDF의 페이지 수, 용량, 용지 크기, 메타데이터를 한눈에 확인합니다.",
+    descriptionEn: "Check a PDF's page count, file size, dimensions, and metadata at a glance.",
+    descriptionJa: "PDFのページ数、容量、用紙サイズ、メタデータをひと目で確認します。",
+    descriptionEs: "Consulta el número de páginas, tamaño y metadatos de un PDF de un vistazo.",
+  },
+
+  {
     id: "pdf-bookmark-adder",
     name: "PDF 북마크(목차) 추가기",
     nameEn: "PDF Bookmark (Outline) Adder",
