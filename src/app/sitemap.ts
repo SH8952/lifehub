@@ -191,6 +191,13 @@ const TOOL_IDS = [
   "supplement-recommender",
   "word-practice",
   "monthly-cost",
+  "moving-cost-estimator",
+  "cooking-measurement-converter",
+  "recipe-serving-converter",
+  "beverage-abv-coffee-ratio-calculator",
+  "one-rep-max-calculator",
+  "running-pace-calculator",
+  "golf-distance-handicap-calculator",
   "weight-loss-goal-calculator",
   "sleep-cycle-calculator",
   "water-intake-calculator",
@@ -236,6 +243,10 @@ const TOOL_IDS = [
   "text-diff",
   "unicode-info",
   "unit-converter",
+  "wallpaper-flooring-calculator",
+  "paint-amount-calculator",
+  "clothing-shoe-size-converter",
+  "tire-pressure-size-calculator",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
