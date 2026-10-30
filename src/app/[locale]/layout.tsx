@@ -85,7 +85,7 @@ export default async function RootLayout({
             <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
               <a
                 href={`/${locale}`}
-                className="text-lg font-bold tracking-tight"
+                className="text-lg font-bold tracking-tight text-primary"
               >
                 LifeHub
               </a>

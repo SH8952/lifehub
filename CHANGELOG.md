@@ -2,6 +2,25 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-10-30 — 시그니처 컬러 적용: 딥 로즈(Deep Rose) 리브랜딩 (1단계, 사이트 크롬만)
+
+웹디자인/시그니처 컬러 변경 요청에 따라 4가지 방향(모던 인디고 / 웜 코랄 / 딥 로즈 / 차콜+앰버)을 Claude Design 아티팩트로 제안, 사용자가 **C. 딥 로즈**를 선택해 반영했습니다. 포트폴리오 내 다른 사이트(FlyDroneMap=블루, FIRE 계산기=그린)와 겹치지 않는 색입니다.
+
+**변경 범위 (의도적으로 최소화 — 사이트 전체 "크롬"만, 개별 도구 페이지의 제각각인 포인트 컬러는 그대로 유지):**
+- `src/app/globals.css`: shadcn `--primary`/`--primary-foreground` 토큰만 교체
+  - 라이트 모드 `--primary`: 기존 그레이스케일 `oklch(0.205 0 0)` → `oklch(0.514 0.198 16.935)` (#BE123C, rose-700)
+  - 다크 모드 `--primary`: 기존 오렌지 `oklch(0.72 0.14 60)` → `oklch(0.719 0.169 13.428)` (#FB7185, rose-400 — 어두운 배경에서 대비 확보용으로 더 밝은 톤 사용)
+  - `--primary-foreground`(버튼/워드마크 위 텍스트 색)는 기존 값 유지
+- `src/app/[locale]/layout.tsx`: 헤더 "LifeHub" 워드마크에 `text-primary` 클래스 추가 (기존엔 무색 텍스트) → 헤더에서 바로 브랜드 컬러 노출
+
+**영향 범위**: `bg-primary`/`text-primary`/`border-primary` 등 shadcn 시맨틱 토큰을 쓰는 모든 버튼·링크·헤더가 자동으로 새 색을 받음. 225개 개별 도구 페이지가 각자 쓰는 pink/sky/amber/orange/rose/slate/green/violet 등의 로컬 포인트 컬러는 전혀 건드리지 않음(제안 문서에서 권장한 "사이트 크롬 vs 도구별 장식 컬러 분리" 원칙 그대로 적용).
+
+**작업 전 백업**: `_backups/backup_20261030_142559_signature-color-c/`(`globals.css`, `layout.tsx`)
+
+**검증**: `npx tsc --noEmit` → 0 errors. `npx next build`(프로덕션) → 전체 빌드 성공, 에러 없음. `.next` 캐시 삭제 후 `npx next dev -p 4720` 실전 기동 → 홈페이지(`/ko`) HTTP 200, 헤더 HTML에 `class="text-lg font-bold tracking-tight text-primary"` 정상 반영 확인. 서버 종료 후 포트(`lsof -i:4720`) 정리 확인.
+
+**다음 단계(보류, 사용자 추가 요청 시 진행)**: 로고 마크(아이콘) 신규 제작, 카테고리별 색상 코딩(현재 이모지 전용), 액센트 컬러(#FBBF24) 활용처 확정 등은 이번 1단계에 포함하지 않음.
+
 ## 2026-10-30 — 생활·요리·자동차 영역 신규 계산기 11개 추가 (life-health 7, utility 4, 외부 API 없음)
 
 웹 조사(omnicalculator, 국내 계산기 모음 사이트 등)를 바탕으로 기존에 없던 "집안일·이사", "요리·주방", "자동차·스포츠" 3개 영역의 계산기 11종을 사용자 선택에 따라 추가했습니다. 모두 외부 API 연동 없이 100% 브라우저에서 처리됩니다.
