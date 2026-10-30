@@ -14,7 +14,7 @@
 | 카테고리 | 기존 | 목표 | 추가 필요 | 상태 |
 |---|---|---|---|---|
 | **image-media** | 5 | 29 | 24 | ✅ 완료 (24/24) |
-| **document-pdf** | 5 | 29 | 24 | ⏳ 진행 중 (6/24 완료, 3번부터 계속) |
+| **document-pdf** | 5 | 29 | 24 | ⏳ 진행 중 (10/24 완료, 11번부터 계속) |
 | **utility** | 6 | 29 | 23 | ⏳ 대기 |
 | **fun-entertainment** | 10 | 29 | 19 | ⏳ 대기 |
 | **dev-it** | 11 | 29 | 18 | ⏳ 대기 |
@@ -70,14 +70,14 @@
 |---|---|---|
 | 1 | markdown-to-pdf | 마크다운 → PDF 변환기 | ✅ 완료 (e6236dc) |
 | 2 | images-to-pdf | 이미지 → PDF 변환기(여러 장) | ✅ 완료 (e6236dc) |
-| 3 | pdf-compress | PDF 압축기 |
-| 4 | pdf-watermark | PDF 워터마크 추가기 |
-| 5 | pdf-metadata-editor | PDF 메타데이터(제목·작성자) 편집기 |
+| 3 | pdf-compress | PDF 압축기 | ✅ 완료 (2844746) |
+| 4 | pdf-watermark | PDF 워터마크 추가기 | ✅ 완료 (2844746) |
+| 5 | pdf-metadata-editor | PDF 메타데이터(제목·작성자) 편집기 | ✅ 완료 (2844746) |
 | 6 | pdf-delete-pages | PDF 페이지 삭제기 | ✅ 완료 (255813e) |
 | 7 | pdf-reorder-pages | PDF 페이지 순서 변경기 | ✅ 완료 (a9827af) |
 | 8 | pdf-rotate-pages | PDF 페이지 회전기 | ✅ 완료 (255813e) |
 | 9 | pdf-extract-text | PDF 텍스트 추출기 | ✅ 완료 (a9827af) |
-| 10 | csv-to-pdf | CSV → PDF 표 변환기 |
+| 10 | csv-to-pdf | CSV → PDF 표 변환기 | ✅ 완료 (2844746) |
 | 11 | invoice-pdf-maker | 견적서·인보이스 PDF 생성기 |
 | 12 | business-card-pdf | 명함 PDF 생성기 |
 | 13 | pdf-page-size-converter | PDF 용지 크기 변환기(A4↔Letter) |

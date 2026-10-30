@@ -2,6 +2,15 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-10-30 — 카테고리 균형 확장 21/132 — document-pdf 카테고리 진행 (10/24)
+
+- `pdf-compress`: 각 페이지를 pdfjs-dist로 캔버스에 렌더링 후 JPEG로 재압축해 새 PDF 생성. 압축 수준 3단계(낮음/중간/높음), 원본·압축 후 크기 및 감소율 표시. 텍스트 선택 불가 경고 포함.
+- `pdf-watermark`: 텍스트 워터마크를 전 페이지에 삽입. 투명도, 글자 크기, 색상, 회전 각도를 슬라이더/컬러피커로 조정. pdf-lib `StandardFonts`/`rgb`/`degrees` 사용.
+- `pdf-metadata-editor`: 제목·작성자·주제·키워드·생성 프로그램 메타데이터를 불러와 수정 후 저장.
+- `csv-to-pdf`: CSV 파일 업로드 또는 직접 붙여넣기 → 표 미리보기 → 공용 `exportElementToPdf`로 PDF 변환. 쌍따옴표 포함 CSV 직접 파싱.
+- 4개 도구 모두 `src/lib/tools-data.ts`(document-pdf 카테고리) 및 `src/app/sitemap.ts`(TOOL_IDS)에 등록 완료.
+- `npx tsc --noEmit`, `next build` 검증 통과 (pdfjs-dist `render()` 호출에 `canvas` 파라미터 필요 이슈 발견 및 수정). commit: 2844746
+
 ## 2026-10-30 — 카테고리 균형 확장 17/132 — document-pdf 카테고리 진행 (6/24)
 
 - `pdf-reorder-pages`: 페이지 목록을 위/아래 버튼으로 재배열하고 pdf-lib `copyPages`로 새 순서의 PDF를 생성. 순서 초기화 버튼 포함.
