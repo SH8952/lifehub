@@ -1344,6 +1344,17 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
       descriptionJa: "テキスト/ロゴのウォーターマークを好きな位置に合成",
       descriptionEs: "Agrega una marca de agua de texto o logo en la posicion que elijas",
     },
+    {
+      id: "image-color-picker",
+      name: "이미지 색상 추출기 (스포이드)",
+      nameEn: "Image Color Picker (Eyedropper)",
+      nameJa: "画像色抽出機（スポイト）",
+      nameEs: "Extractor de Color de Imagen (Cuentagotas)",
+      description: "이미지를 업로드하고 원하는 위치를 클릭하면 해당 픽셀의 색상 코드를 바로 추출합니다.",
+      descriptionEn: "Upload an image and click anywhere on it to instantly extract that pixel's color code.",
+      descriptionJa: "画像をアップロードして任意の位置をクリックすると、そのピクセルの色コードを即座に抽出します。",
+      descriptionEs: "Sube una imagen y haz clic en cualquier parte para extraer instantáneamente el código de color de ese píxel.",
+    },
   ],
 
   "document-pdf": [
@@ -1677,6 +1688,17 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
       descriptionEn: "Convert each PDF page into a PNG image and download individually",
       descriptionJa: "PDFの各ページをPNG画像に変換して個別にダウンロード",
       descriptionEs: "Convierte cada pagina del PDF en una imagen PNG y descargalas individualmente",
+    },
+    {
+      id: "pdf-redact",
+      name: "PDF 민감정보 가리기",
+      nameEn: "PDF Sensitive Info Redactor",
+      nameJa: "PDF機密情報隠し",
+      nameEs: "Ocultador de Información Sensible en PDF",
+      description: "PDF 페이지에서 가리고 싶은 영역을 드래그로 선택해 검은색 박스로 덮은 뒤 새 PDF로 다운로드합니다.",
+      descriptionEn: "Drag to select areas on a PDF page to cover with black boxes, then download the result as a new PDF.",
+      descriptionJa: "PDFページで隠したい領域をドラッグで選択して黒い箱で覆い、新しいPDFとしてダウンロードします。",
+      descriptionEs: "Arrastra para seleccionar áreas en una página PDF para cubrir con cajas negras, luego descarga el resultado.",
     },
   ],
 
