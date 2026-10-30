@@ -6,6 +6,7 @@
 
 **확정된 사항 (사용자 승인, 2026-10-29):**
 - 전체 목표 개수: **200개 이상** (카테고리당 약 29개 기준, 총 203개)
+- **2026-10-30 추가 확정 (사용자 요청)**: 카테고리 간 불균형(스크린샷 확인)을 이유로 목표를 **카테고리당 정확히 30개, 총 210개**로 상향. 이미 완료된 image-media/document-pdf 에도 각 1개씩 추가해 30개로 통일. 진행 순서·방식(외부 유료/네트워크 API 금지, 2개씩 배치)은 기존과 동일 유지.
 - 진행 순서: **부족한 카테고리부터** — image-media → document-pdf → utility → fun-entertainment → dev-it → finance → life-health
 - 아래 후보 목록을 그대로 사용해서 진행
 
@@ -13,15 +14,15 @@
 
 | 카테고리 | 기존 | 목표 | 추가 필요 | 상태 |
 |---|---|---|---|---|
-| **image-media** | 5 | 29 | 24 | ✅ 완료 (24/24) |
-| **document-pdf** | 5 | 29 | 24 | ✅ 완료 (24/24) |
-| **utility** | 6 | 29 | 23 | ⏳ 대기 |
-| **fun-entertainment** | 10 | 29 | 19 | ⏳ 대기 |
-| **dev-it** | 11 | 29 | 18 | ⏳ 대기 |
-| **finance** | 13 | 29 | 16 | ⏳ 대기 |
-| **life-health** | 21 | 29 | 8 | ⏳ 대기 |
+| **image-media** | 5 | 30 | 25 | ⏳ 진행 중 (24/25 완료, 25번 남음) |
+| **document-pdf** | 5 | 30 | 25 | ⏳ 진행 중 (24/25 완료, 25번 남음) |
+| **utility** | 6 | 30 | 24 | ⏳ 대기 (가장 먼저 진행) |
+| **fun-entertainment** | 10 | 30 | 20 | ⏳ 대기 |
+| **dev-it** | 11 | 30 | 19 | ⏳ 대기 |
+| **finance** | 13 | 30 | 17 | ⏳ 대기 |
+| **life-health** | 21 | 30 | 9 | ⏳ 대기 |
 
-**총 132개 신규 도구 (71 → 203개)**
+**총 139개 신규 도구 (71 → 210개, 2026-10-30 기준 수정)**
 
 ## 작업 방식 (기존 23개 항목과 동일)
 
@@ -35,7 +36,7 @@
 
 ---
 
-## 1. image-media (24개 신규) — ✅ 완료 (24/24)
+## 1. image-media (25개 신규) — ⏳ 진행 중 (24/25 완료, 30개 목표로 1개 추가)
 
 | # | slug | 도구명 |
 |---|---|---|
@@ -63,8 +64,9 @@
 | 22 | image-pixelate | 이미지 픽셀화(모자이크 아트) 필터 | ✅ 완료 (6f63157) |
 | 23 | image-duotone | 이미지 듀오톤(2색) 필터 | ✅ 완료 (6f63157) |
 | 24 | image-exif-strip | 이미지 메타데이터(EXIF) 제거기 | ✅ 완료 (16e95ed) |
+| 25 | image-color-picker | 이미지 색상 추출기(스포이드, 클릭 지점 HEX 확인) |
 
-## 2. document-pdf (24개 신규) — ✅ 완료 (24/24)
+## 2. document-pdf (25개 신규) — ⏳ 진행 중 (24/25 완료, 30개 목표로 1개 추가)
 
 | # | slug | 도구명 |
 |---|---|---|
@@ -92,8 +94,9 @@
 | 22 | pdf-combine-preview | 여러 PDF 미리보기 한 번에 합치기 | ✅ 완료 (18134fd) |
 | 23 | pdf-form-fill | PDF 양식(Form) 필드 채우기 도구 | ✅ 완료 (e15c739) |
 | 24 | pdf-password-protect | PDF 비밀번호 설정기 | ✅ 완료 (e15c739) |
+| 25 | pdf-redact | PDF 민감정보 가리기(검열/블랙박스 처리) |
 
-## 3. utility (23개 신규)
+## 3. utility (24개 신규)
 
 | # | slug | 도구명 |
 |---|---|---|
@@ -120,8 +123,9 @@
 | 21 | text-sorter | 텍스트 줄 정렬기(가나다/숫자순) |
 | 22 | whitespace-remover | 공백·줄바꿈 정리기 |
 | 23 | find-and-replace | 텍스트 찾기·바꾸기 도구 |
+| 24 | percentage-calculator | 퍼센트(%) 계산기(비율·증감률·전체값 역산) |
 
-## 4. fun-entertainment (19개 신규)
+## 4. fun-entertainment (20개 신규)
 
 | # | slug | 도구명 |
 |---|---|---|
@@ -144,8 +148,9 @@
 | 17 | rock-paper-scissors | 가위바위보 vs 컴퓨터 |
 | 18 | last-digit-fortune | 끝자리 숫자로 보는 오늘의 운세 |
 | 19 | would-you-rather | 이럴 때 당신의 선택은(밸런스게임 변형, 상황 질문형) |
+| 20 | dice-roller | 주사위 굴리기(1~6개 동시 굴림) |
 
-## 5. dev-it (18개 신규)
+## 5. dev-it (19개 신규)
 
 | # | slug | 도구명 |
 |---|---|---|
@@ -167,8 +172,9 @@
 | 16 | code-diff-checker | 코드 Diff 체커 |
 | 17 | http-status-reference | HTTP 상태 코드 참조표 |
 | 18 | css-unit-converter | CSS 단위 변환기(px↔rem↔em) |
+| 19 | css-animation-generator | CSS 애니메이션(keyframes) 생성기 |
 
-## 6. finance (16개 신규)
+## 6. finance (17개 신규)
 
 | # | slug | 도구명 |
 |---|---|---|
@@ -188,8 +194,9 @@
 | 14 | credit-score-checklist | 신용점수 올리기 체크리스트 |
 | 15 | salary-raise-calculator | 연봉 인상률 계산기 |
 | 16 | currency-exchange-fee-compare | 환전 수수료 비교기 |
+| 17 | break-even-point-calculator | 손익분기점(BEP) 계산기 |
 
-## 7. life-health (8개 신규)
+## 7. life-health (9개 신규)
 
 | # | slug | 도구명 |
 |---|---|---|
@@ -201,6 +208,7 @@
 | 6 | quit-smoking-savings | 금연·금주 절약 금액 계산기 |
 | 7 | body-fat-estimator | 체지방률 추정 계산기(둘레 기반) |
 | 8 | caffeine-intake-tracker | 카페인 섭취량 트래커 |
+| 9 | heart-rate-zone-calculator | 목표 심박수 구간 계산기(운동 강도별) |
 
 ---
 
