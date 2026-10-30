@@ -2,6 +2,22 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-10-30 — 전체 구현 기능 정밀 검증 (사용자 요청) 및 saju-pool 버그 수정
+
+사용자가 document-pdf 24/24 완료 후 "현재 구현된 기능들 정밀 검증"을 요청하며 "현재 작동불가 기능도 포함되어있어"라고 경고함에 따라 아래 절차로 전체 사이트를 점검:
+
+1. **등록 일관성 검사**: `src/lib/tools-data.ts`(119개), `src/app/sitemap.ts`(119개), `src/app/[locale]/tool/` 실제 폴더(119개)를 상호 비교 — 완전히 일치, 고아 등록/고아 폴더 없음.
+2. **`npx tsc --noEmit`**: 클린.
+3. **`next build`**: "Compiled successfully" 클린.
+4. **전체 라우트 전수 조사**: production 서버(`next start`)를 직접 기동해 119개 도구 × 4개 로케일(ko/en/ja/es) = 476개 URL을 모두 요청해 HTTP 상태 코드 및 에러 마커 확인.
+   - **발견: `saju-pool`(사주풀이) 도구가 4개 로케일 모두 HTTP 500** — `TypeError: Cannot read properties of null (reading 'yearStem')`. 원인은 `SajuPoolClient.tsx`에서 `countElements(result!)`가 컴포넌트 최초 렌더링 시(사용자가 계산 버튼을 누르기 전) `result` state의 초기값인 `null`에 대해 무조건 호출되는 로직 버그. non-null 단언(`!`)이 타입 체크는 통과시키지만 런타임에는 실제로 null이라 즉시 크래시.
+   - 수정: `result ? countElements(result) : [0,0,0,0,0]`로 가드 추가. commit: 5d28ee1
+5. **재검증**: 수정 후 `tsc`/`next build` 재클린 확인, 동일 476개 경로 재전수 조사 → 오류 0건.
+6. **동일 버그 패턴 재발 여부 확인**: "렌더 본문에서 null 가능 state를 `!` 단언 후 함수에 직접 전달" 패턴을 전체 코드베이스에서 grep 검색 → saju-pool 외 추가 발견 없음.
+7. **네비게이션 경로 점검**: 홈(`/`), 7개 카테고리 목록(`/category/*`), 소개/문의/약관/개인정보 페이지 × 4개 로케일(48개 요청) 전수 조사 → 오류 0건.
+
+**결론**: 사용자가 경고한 "현재 작동불가 기능"은 `saju-pool`(사주풀이) 도구였으며, 원인 규명 및 수정 완료. 그 외 118개 도구 및 전체 네비게이션 경로는 정상 동작 확인(단, 이 검증은 서버 응답/크래시 여부 기준이며 각 도구 내부의 세부 계산 로직 100% 전수 검산은 포함하지 않음 — 필요 시 개별 도구 단위로 추가 검증 가능).
+
 ## 2026-10-30 — 카테고리 균형 확장 document-pdf 24/24 전체 완료
 
 - `pdf-form-fill`: pdf-lib AcroForm API(`getForm`, `getFields`)로 PDF 내 텍스트/체크박스/라디오그룹/드롭다운 필드를 자동 감지해 입력 UI를 생성, 값 채우기 후 선택적 `form.flatten()`으로 편집 잠금 지원.
