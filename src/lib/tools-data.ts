@@ -842,6 +842,29 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
 
   "document-pdf": [
   {
+    id: "pdf-form-fill",
+    name: "PDF 양식 채우기",
+    nameEn: "PDF Form Filler",
+    nameJa: "PDFフォーム入力ツール",
+    nameEs: "Rellenar Formulario PDF",
+    description: "입력 가능한 PDF 양식의 필드를 감지해 값을 채우고 저장합니다.",
+    descriptionEn: "Detect fillable fields in a PDF form, fill in values, and save.",
+    descriptionJa: "入力可能なPDFフォームのフィールドを検出して値を入力し、保存します。",
+    descriptionEs: "Detecta campos rellenables en un PDF, completa los valores y guarda.",
+  },
+  {
+    id: "pdf-password-protect",
+    name: "PDF 암호 설정",
+    nameEn: "PDF Password Protect",
+    nameJa: "PDFパスワード保護",
+    nameEs: "Proteger PDF con Contraseña",
+    description: "PDF 파일에 열기 암호와 권한을 설정해 보호합니다.",
+    descriptionEn: "Protect a PDF with an open password and permission controls.",
+    descriptionJa: "PDFファイルに開くためのパスワードと権限を設定して保護します。",
+    descriptionEs: "Protege un PDF con una contraseña de apertura y control de permisos.",
+  },
+
+  {
     id: "pdf-blank-page-insert",
     name: "PDF 빈 페이지 삽입기",
     nameEn: "PDF Blank Page Inserter",
