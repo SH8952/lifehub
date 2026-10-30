@@ -41,6 +41,17 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const meta = SITE_META[locale as Locale] ?? SITE_META.ko;
+  const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+  const naverVerification = process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION;
+  const verification: Metadata["verification"] =
+    googleVerification || naverVerification
+      ? {
+          ...(googleVerification ? { google: googleVerification } : {}),
+          ...(naverVerification
+            ? { other: { "naver-site-verification": naverVerification } }
+            : {}),
+        }
+      : undefined;
   return {
     metadataBase: new URL(SITE_URL),
     title: {
@@ -63,6 +74,7 @@ export async function generateMetadata({
       index: true,
       follow: true,
     },
+    verification,
   };
 }
 
