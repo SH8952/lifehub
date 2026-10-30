@@ -2,6 +2,36 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-10-30 — 카테고리 균형 확장(30개 통일) utility 카테고리 24/24 완료
+
+사용자가 스크린샷으로 카테고리별 도구 개수 불균형(생활·건강 21, 이미지·미디어 29, 문서·PDF 29, 재무·투자 13,
+Fun·엔터테인먼트 10, 개발·IT 11, 공통 유틸리티 6)을 지적하며 "카테고리별 30개씩 맞춰서 구현 가능할까?"라고
+질문 → `AskUserQuestion`으로 범위("전체 7개 모두 30개로 통일, 총 210개")와 순서("공통 유틸리티→Fun·엔터테인먼트
+→개발·IT→재무·투자→생활·건강")를 명시적으로 확인받은 후 작업 착수(백업: `_backups/backup_20261030_080406_
+category-balance-30-expansion/`).
+
+utility 카테고리를 기존 6개에서 30개로 확장하기 위해 24개 신규 도구를 6개 배치로 생성:
+
+1. sns-character-counter, password-strength-checker, qr-code-scanner(jsQR 라이브러리 신규 설치),
+   timer-stopwatch, pomodoro-timer, world-time-converter(Intl.DateTimeFormat timeZone), date-diff-calculator,
+   weekday-finder(ISO 8601 주차 계산) — commit 3f24069
+2. roman-numeral-converter, name-initials-generator, random-team-divider, simple-checklist-maker —
+   commit 426935b
+3. utf8-byte-counter, emoji-finder, special-characters-list, keyboard-shortcuts-reference — commit 8aa2daa
+   (생성 중 `BRACKETS` 배열 문자열 오탈자 발견·즉시 수정)
+4. color-name-converter(CSS 140여개 named color, RGB 유클리드 거리 매칭), duplicate-line-remover,
+   clipboard-history-viewer(navigator.clipboard.readText, 세션 내 메모리 보관), random-number-generator
+   (숫자/문자열 두 모드) — commit d174a69
+5. text-sorter(가나다/숫자/길이/거꾸로/셔플 6가지 모드), whitespace-remover(트림/공백압축/빈줄제거/탭변환/
+   줄바꿈제거 조합), find-and-replace(정규식/대소문자구분/단어단위 옵션, 일치 개수 표시),
+   percentage-calculator(비율/퍼센트값/증감률/전체값역산 4모드) — commit 2251d1a
+
+모든 도구는 외부 유료/네트워크 API 없이 브라우저 내에서만 동작하며 4개 언어(ko/en/ja/es) 전체 번역 포함,
+기존 Card/lucide-react/FAQ UI 패턴 유지. 각 배치마다 `npx tsc --noEmit` 클린 확인, 카테고리 완료 시점에
+`next build` 전체 클린 확인(신규 라우트 전부 정상 생성).
+
+**utility 카테고리 24/24 신규(총 30/30) 완료** — 다음은 fun-entertainment 카테고리(20개 신규 필요) 진행.
+
 ## 2026-10-30 — 전체 구현 기능 정밀 검증 (사용자 요청) 및 saju-pool 버그 수정
 
 사용자가 document-pdf 24/24 완료 후 "현재 구현된 기능들 정밀 검증"을 요청하며 "현재 작동불가 기능도 포함되어있어"라고 경고함에 따라 아래 절차로 전체 사이트를 점검:
