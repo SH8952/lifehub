@@ -2,6 +2,38 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-10-30 — 카테고리 균형 확장(30개 통일) finance 카테고리 17/17 완료
+
+7개 카테고리를 각 30개씩(총 210개)으로 균형화하는 작업 중 finance 카테고리(13개 → 30개, 17개 신규)를 완료했습니다. 모든 계산기는 브라우저에서 100% 처리되며 외부 유료/네트워크 API를 사용하지 않습니다. 세금·보험 관련 도구에는 "참고용 추정치"임을 명시하고 정확한 금액은 세무사·국세청 홈택스·보험사 등 공식 경로를 통해 확인하도록 안내하는 문구를 포함했습니다.
+
+**배치 1/4 (커밋 203d3ae):**
+- savings-maturity-calculator — 적금 만기 수령액 계산기 (단리 방식 적금 이자 계산)
+- severance-pay-calculator — 퇴직금 계산기 (평균임금 × 30 × 재직일수/365)
+- stock-profit-calculator — 주식 손익 계산기 (매수·매도 수수료 및 매도 거래세 반영)
+- dividend-yield-calculator — 배당수익률 계산기
+
+**배치 2/4 (커밋 cc1cf63):**
+- lease-insurance-calculator — 전세 보증보험료 계산기 (HUG 기준 아파트/기타 주택 요율)
+- realty-commission-calculator — 부동산 중개수수료 계산기 (2021년 개정 매매/임대 요율 구간)
+- gift-tax-estimator — 증여세 간이 계산기 (관계별 공제 + 과세표준 구간별 세율)
+- capital-gains-tax-estimator — 양도소득세 간이 계산기 (장기보유특별공제, 1세대1주택 비과세 기준 안내 포함)
+
+**배치 3/4 (커밋 74dd29e):**
+- emergency-fund-goal — 비상금 목표 계산기
+- savings-goal-reverse-calculator — 목표 저축액 역산 계산기
+- installment-vs-lumpsum — 할부 vs 일시불 비교기
+- year-end-tax-refund-estimator — 연말정산 환급액 간이 계산기 (근로소득공제·인적공제·세액공제 반영)
+
+**배치 4/4 (커밋 ae0093c):**
+- car-insurance-estimator — 자동차 보험료 추정기 (차량가·나이·경력·사고이력 기반 범위 추정)
+- credit-score-checklist — 신용점수 올리기 체크리스트 (10항목 + 진행률 추적, 커스텀 build_data_ts_with_items 빌더로 해결)
+- salary-raise-calculator — 연봉 인상률 계산기 (인상률 기반/목표연봉 기반 양방향 계산)
+- currency-exchange-fee-compare — 환전 수수료 비교기 (우대율 적용 전후 비교)
+- break-even-point-calculator — 손익분기점(BEP) 계산기 (고정비/변동비/단가 기반)
+
+각 배치마다 `npx tsc --noEmit` 검증을 통과했고, 17/17 완료 시점에 `npx next build` 전체 빌드를 실행해 새로 추가된 17개 라우트가 모두 정상적으로 생성되는 것을 확인했습니다. tools-data.ts, sitemap.ts에도 모두 등록을 완료했습니다.
+
+
 ## 2026-10-30 — 카테고리 균형 확장(30개 통일) dev-it 카테고리 19/19 완료
 
 utility(30/30), fun-entertainment(30/30)에 이어 dev-it 카테고리를 기존 11개에서 30개로
