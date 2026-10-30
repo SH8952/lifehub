@@ -2,6 +2,31 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-10-31 — 수익화 준비 4단계: 구글 서치콘솔(GSC) 등록 + 사이트 루트 404 버그 수정
+
+"다음단계 진행해줘" 요청에 따라 구글 서치콘솔(Search Console) 등록을 진행했습니다. 과정 중 사이트 루트 URL이 404를 반환하는 기존 버그를 발견해 함께 수정했습니다.
+
+**진행 과정**:
+1. Google Search Console에서 URL 접두어 속성(`https://lifehub-weld.vercel.app`) 생성, HTML 태그 방식으로 소유권 확인 선택
+2. `src/app/[locale]/layout.tsx`의 `generateMetadata`에 `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` / `NEXT_PUBLIC_NAVER_SITE_VERIFICATION` 환경변수 opt-in 방식으로 구글/네이버 소유확인 메타태그 지원 추가 (커밋 `bcefead`) — 환경변수가 설정된 경우에만 메타태그를 렌더링하며, 설정 안 하면 아무 영향 없음. ExifLens/FlyDroneMap/firelic 자매 프로젝트의 기존 네이버 opt-in 패턴을 참고해 동일하게 구현.
+3. Vercel에 `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` 환경변수(Production, Config 타입) 추가 후 재배포
+4. 1차 소유권 확인 시도 실패 — 원인 조사 결과, **사이트 루트(`https://lifehub-weld.vercel.app/`, locale 없는 주소)가 404를 반환**하는 것을 발견. GSC가 속성 루트 URL 그대로 요청해서 메타태그를 찾았으나, 루트 자체가 404라 실패한 것.
+5. 근본 원인: 커스텀 `middleware.ts`가 `next-intl`의 공식 `createMiddleware`를 쓰지 않고 자체 구현(헤더만 설정, 실제 리다이렉트 없음)을 사용 중이었음. `routing.ts`는 `localePrefix: "always"`로 설정되어 있어 `/` → `/ko` 리다이렉트가 필요했는데 동작하지 않았던 것. 기존 헤더(`x-next-intl-locale`)는 코드베이스 어디서도 참조되지 않는 죽은 코드였음을 grep으로 확인.
+6. `middleware.ts`를 `next-intl`의 `createMiddleware(routing)`로 교체 (커밋 `a0cc344`). 로컬 `next dev` 서버로 실제 기동 검증: `GET /` → 307 → `/ko` 리다이렉트, `/ko`·`/en` 200 정상 확인 후 배포.
+7. 재배포 완료 후 라이브에서 루트 리다이렉트 + 메타태그 정상 노출 확인 → GSC가 백그라운드에서 재확인에 성공, "인증된 소유자입니다" 상태로 전환됨 (별도 수동 확인 클릭 없이 자동 통과)
+8. `sitemap.xml`을 GSC에 제출 — 상태 "성공", 948개 페이지 발견됨
+
+**결과**: 구글 서치콘솔 소유권 확인 완료 + sitemap 제출 완료. 덤으로 사이트 루트 bare 도메인 접속 시 404가 나던 실제 버그(일반 방문자에게도 영향)를 함께 해결함.
+
+**작업 전 백업**: `_backups/backup_20261030_162935_root-404-middleware-fix/`(`middleware.ts`, `routing.ts` 원본)
+
+**검증**: `npx tsc --noEmit` → 0 errors. 로컬 `next dev` 실기동으로 `/`, `/ko`, `/en` 라우트 상태코드 확인. 배포 후 라이브 사이트에서 `document.querySelector('meta[name="google-site-verification"]')` 존재 확인 + GSC 설정 페이지에서 "인증된 소유자입니다" 확인 + sitemap 제출 "성공" 상태 확인.
+
+**남은 사항**:
+- 네이버 웹마스터도구(서치어드바이저) 등록 — 코드 지원은 준비됨(`naverVerification` 분기), 네이버 콘솔 등록 + 환경변수 설정은 아직 미착수
+- robots.txt 파일이 없는 것을 GSC 설정 페이지에서 확인(참고사항, 아직 대응 안 함)
+- 도메인(alltools365.com) 구매는 9/29 합의대로 노출 데이터 확인 전까지 보류
+
 ## 2026-10-31 — 수익화 준비 3단계: NEXT_PUBLIC_SITE_URL 환경변수 설정 + 재배포
 
 "다음 진행해줘" 요청에 따라, 2단계 배포 기록에 "별도 승인 필요"로 남겨뒀던 항목을 진행했습니다.
