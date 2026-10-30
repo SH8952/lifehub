@@ -199,6 +199,7 @@ const TOOL_IDS = [
   "quit-smoking-savings",
   "body-fat-estimator",
   "caffeine-intake-tracker",
+  "heart-rate-zone-calculator",
   "fixed-deposit-interest",
   "2nd-loan",
   "saju-pool",

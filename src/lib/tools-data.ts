@@ -107,6 +107,17 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
       descriptionEs: "Agrega las bebidas que tomaste hoy para rastrear tu consumo acumulado de cafeína y compararlo con el límite recomendado.",
     },
     {
+      id: "heart-rate-zone-calculator",
+      name: "목표 심박수 구간 계산기",
+      nameEn: "Heart Rate Zone Calculator",
+      nameJa: "目標心拍数ゾーン計算機",
+      nameEs: "Calculadora de Zonas de Frecuencia Cardíaca",
+      description: "나이와 안정시 심박수를 입력해 운동 강도별 목표 심박수 구간을 계산합니다 (카보넨 공식).",
+      descriptionEn: "Enter your age and resting heart rate to calculate target heart rate zones by exercise intensity (Karvonen formula).",
+      descriptionJa: "年齢と安静時心拍数を入力して運動強度別の目標心拍数ゾーンを計算します（カルボーネン式）。",
+      descriptionEs: "Introduce tu edad y frecuencia cardíaca en reposo para calcular zonas objetivo por intensidad (fórmula de Karvonen).",
+    },
+    {
       id: "age-calculator",
       name: "만 나이 계산기",
       nameEn: "Age Calculator",
