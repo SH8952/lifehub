@@ -2,6 +2,14 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-10-31 — 순수 도메인 접속 시 기본 언어 고정 (한국어)
+
+- 증상: `https://lifehub-weld.vercel.app` 순수 도메인으로 접속했을 때, 접속자 브라우저의 Accept-Language 헤더에 따라 스페인어 등 다른 언어로 리다이렉트되는 경우가 있었음.
+- 원인: `src/i18n/routing.ts`에서 `defaultLocale: "ko"`는 이미 설정돼 있었지만, next-intl 미들웨어의 브라우저 언어 자동 감지(`localeDetection`, 기본값 true)가 켜져 있어 접속자 언어를 우선 반영하고 있었음.
+- 수정: `routing.ts`에 `localeDetection: false` 추가. URL 구조(`localePrefix: "always"`, 즉 `/ko`, `/en`, `/es`, `/ja` 접두사 체계)는 전혀 변경하지 않음 — 순수 도메인(`/`) 접속 시 브라우저 언어와 무관하게 항상 `/ko`로 리다이렉트되도록만 수정.
+- 검토 결과 URL 구조를 접두사 없는 방식(`as-needed`)으로 바꾸는 더 큰 변경도 가능했지만, hreflang/사이트맵/RSS/IndexNow 자동화/언어 선택 링크 등 다수 파일을 함께 수정해야 하고 이미 등록된 `/ko/...` URL이 전부 바뀌는 위험이 있어, 사용자 확인 후 URL 구조는 그대로 유지하는 안전한 방식으로 진행.
+- 검증: `npx tsc --noEmit` 0 에러, `npx eslint` 0 에러/0 경고, `npx next build` 성공, 실기동 후 Accept-Language 헤더 없음/es/en/ja 4가지 경우 모두 `/` → `/ko` 307 리다이렉트로 일치 확인, `/en` 등 다른 언어 경로는 기존과 동일하게 정상 응답(200) 확인.
+
 ## 2026-10-31 — 수익화 준비 11단계: 메타 설명(description) 중복·누락 점검
 
 - `npx next build` + `next start` 실기동으로 225개 도구 × 4개 로케일(en/es/ja/ko), 총 900개 페이지의 실제 `<meta name="description">` 태그를 전수 수집·검증(소스 코드 파싱이 아닌 실제 렌더링된 HTML 기준 — 도구별로 `page.tsx` 내부 정의/별도 `data.ts`/`pageMeta` 등 구조가 섞여 있어 가장 정확한 방법).
