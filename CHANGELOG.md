@@ -2,6 +2,15 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-10-31 — 수익화 준비 7단계: 225개 도구 페이지 언어 선택 버튼 색상 토큰 통일
+
+- 시그니처 컬러(차콜+앰버, D안) 확정 이후 보류됐던 "225개 도구 페이지 언어 선택 버튼 하드코딩 색상 통일" 작업을 진행.
+- 전수 조사 결과 225개 중 218개 파일이 언어 선택 버튼에 하드코딩 색상 사용 중(`bg-indigo-600` 174개가 대다수, 나머지는 blue/amber/orange/violet/slate/rose/pink/emerald/teal/sky/red/green 등 13종) — 시그니처 컬러 변경 이전 잔재.
+- **1차 파일럿(8개 도구)**: 색상 다양성을 대표하는 8개 도구를 선정해 `bg-primary text-primary-foreground` 토큰으로 교체 후, 별도 브랜치(`color-token-pilot`)로 Vercel 프리뷰 배포 → 운영 도메인을 건드리지 않고 스크린샷으로 전/후 비교 검증 → 사용자 확인 후 전체 적용 승인.
+- **2차 전체 적용(나머지 210개 도구)**: 동일 패턴으로 일괄 치환 — 선택된 로케일 버튼은 `bg-primary text-primary-foreground`, 미선택 상태는 다수 패턴인 `bg-white hover:bg-muted`로 통일(일부 `bg-gray-100 text-gray-700` 변형 포함).
+- 검증: `npx tsc --noEmit` 0 에러, `npx eslint .` 0 에러/0 경고, `npx next build` 954개 페이지 정적 생성 성공, 치환 후 재검색 결과 전체 218개 파일이 동일한 토큰 패턴으로 일치 확인.
+- 색상 테마(선택 버튼)만 변경했으며 레이아웃·텍스트·기능은 변경 없음.
+
 ## 2026-10-31 — 수익화 준비 6단계: ESLint v9 플랫 설정 마이그레이션 + 전체 코드베이스 린트 이슈 수정
 
 - `next lint` CLI가 Next.js 16에서 완전히 제거되어, `eslint-config-next`가 제공하는 네이티브 플랫 설정(`eslint-config-next/core-web-vitals`)으로 `eslint.config.mjs`를 새로 작성 (FlatCompat 방식은 순환 참조 오류로 포기).

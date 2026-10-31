@@ -81,7 +81,7 @@ export default function LunchRoulette({ initialLocale }: { initialLocale: Locale
           <button
             key={l}
             onClick={() => setLocale(l)}
-            className={`rounded-md border px-3 py-1 text-sm ${locale === l ? "bg-indigo-600 text-white" : "bg-white hover:bg-muted"}`}
+            className={`rounded-md border px-3 py-1 text-sm ${locale === l ? "bg-primary text-primary-foreground" : "bg-white hover:bg-muted"}`}
           >
             {l.toUpperCase()}
           </button>

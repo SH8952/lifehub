@@ -77,7 +77,7 @@ export default function JsonFormatter({ initialLocale }: { initialLocale: Locale
 
       <div className="my-6 flex gap-2">
         {(["ko", "en", "ja", "es"] as Locale[]).map((l) => (
-          <button key={l} onClick={() => setLocale(l)} className={`rounded-md border px-3 py-1 text-sm ${locale === l ? "bg-indigo-600 text-white" : "bg-white hover:bg-muted"}`}>
+          <button key={l} onClick={() => setLocale(l)} className={`rounded-md border px-3 py-1 text-sm ${locale === l ? "bg-primary text-primary-foreground" : "bg-white hover:bg-muted"}`}>
             {l.toUpperCase()}
           </button>
         ))}

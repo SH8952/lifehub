@@ -49,7 +49,7 @@ export default function DepositRentConverterClient({ initialLocale }: { initialL
             key={l}
             onClick={() => setLocale(l)}
             className={`rounded px-3 py-1 text-sm ${
-              locale === l ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-700"
+              locale === l ? "bg-primary text-primary-foreground" : "bg-white hover:bg-muted"
             }`}
           >
             {localeLabels[l]}
