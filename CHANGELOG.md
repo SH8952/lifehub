@@ -2,6 +2,14 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-10-31 — 수익화 준비 11단계: 메타 설명(description) 중복·누락 점검
+
+- `npx next build` + `next start` 실기동으로 225개 도구 × 4개 로케일(en/es/ja/ko), 총 900개 페이지의 실제 `<meta name="description">` 태그를 전수 수집·검증(소스 코드 파싱이 아닌 실제 렌더링된 HTML 기준 — 도구별로 `page.tsx` 내부 정의/별도 `data.ts`/`pageMeta` 등 구조가 섞여 있어 가장 정확한 방법).
+- **중복**: 0건 (900개 전부 서로 다른 고유한 설명).
+- **누락**: 0건 (빈 값이나 태그 자체가 없는 경우 없음).
+- 부가로 길이를 확인해 1건(es/image-dpi-info, 165자)이 구글 권장 상한(약 160자)을 초과해 발견 → `src/app/[locale]/tool/image-dpi-info/data.ts`의 `es.subtitle`에서 "estimado" 한 단어를 제거해 156자로 축약(의미 변화 없음). 30자 미만으로 짧은 61건은 대부분 일본어(한자/가나 특성상 글자 수 기준 비교가 부정확)라 사용자 확인 후 그대로 유지.
+- 검증: `npx tsc --noEmit` 0 에러, `npx next build` 954페이지 생성 성공, 수정된 es/image-dpi-info 페이지를 실기동해 메타 설명이 156자로 정확히 반영됨을 확인.
+
 ## 2026-10-31 — 수익화 준비 10단계: IndexNow 연동 (Bing·Naver·Yandex 등)
 
 - 변경된 페이지를 IndexNow 참여 검색엔진(Bing·Naver·Yandex 등)에 즉시 알려 색인 반영 속도를 높이는 자동화 구축. Google은 IndexNow 미참여 — 기존 sitemap.xml/rss.xml/GSC 등록은 그대로 유지되며 이 작업과 무관.

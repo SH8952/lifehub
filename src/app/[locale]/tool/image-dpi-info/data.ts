@@ -105,7 +105,7 @@ export const data: Record<Locale, i18nData> = {
   },
   es: {
     title: "Verificador de Resolución y DPI de Imagen",
-    subtitle: "Consulta la resolución en píxeles, el tamaño de archivo, la proporción y el tamaño de impresión estimado de tu imagen de un vistazo. Todo se procesa en tu navegador.",
+    subtitle: "Consulta la resolución en píxeles, el tamaño de archivo, la proporción y el tamaño de impresión de tu imagen de un vistazo. Todo se procesa en tu navegador.",
     uploadLabel: "Sube una imagen",
     uploadHint: "Haz clic o arrastra y suelta un archivo (JPG, PNG, WebP, etc.)",
     changeImage: "Elegir otra imagen",
