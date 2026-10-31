@@ -48,6 +48,21 @@ export default function PaintAmountCalculatorClient({ initialLocale }: { initial
         }}
       />
 
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: d.faq.map((faq) => ({
+              "@type": "Question",
+              name: faq.q,
+              acceptedAnswer: { "@type": "Answer", text: faq.a },
+            })),
+          }),
+        }}
+      />
+
       <div className="my-6 flex gap-2">
         {(["ko", "en", "ja", "es"] as Locale[]).map((l) => (
           <button

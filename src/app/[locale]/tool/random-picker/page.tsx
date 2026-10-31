@@ -39,11 +39,25 @@ export default async function RandomPickerPage({
     })),
   };
 
+  const jsonLdApp = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: d.title,
+    description: d.subtitle,
+    applicationCategory: "EntertainmentApplication",
+    operatingSystem: "Any",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  };
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdApp) }}
       />
 
       <h1 className="mb-2 text-2xl font-bold text-gray-900">{d.title}</h1>

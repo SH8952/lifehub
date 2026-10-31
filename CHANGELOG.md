@@ -2,6 +2,14 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-10-31 — 수익화 준비 8단계: JSON-LD 구조화 데이터 점검/보강 (WebApplication + FAQPage)
+
+- 225개 도구 전체의 JSON-LD 적용 현황을 전수 조사: WebApplication/Offer 스키마는 221개 도구에 이미 적용돼 있었으나, 화면에 FAQ 섹션(자주 묻는 질문)을 노출하면서도 FAQPage 구조화 데이터가 없는 도구가 48개, 반대로 FAQPage만 있고 WebApplication이 없는 도구가 4개 발견됨.
+- **48개 도구(FAQPage 추가)**: 이미 화면에 렌더링 중인 `d.faq` 배열(질문/답변)을 그대로 재사용해 WebApplication 스크립트 옆에 FAQPage(mainEntity: Question/Answer) 구조화 데이터를 추가. 25개는 `page.tsx`에서, 23개는 `*Client.tsx`에서 FAQ를 렌더링하고 있어 각 파일에 맞춰 추가(타로카드, 사다리타기, 밸런스게임, 랜덤 뽑기 제외).
+- **4개 도구(WebApplication 추가)**: 타로카드·사다리타기·밸런스게임·랜덤 뽑기는 FAQPage만 있고 WebApplication이 빠져 있어 `applicationCategory: "EntertainmentApplication"`으로 WebApplication 스키마를 추가.
+- 새로 표시되는 콘텐츠·레이아웃 변경은 없음(순수 구조화 데이터 추가).
+- 검증: `npx tsc --noEmit` 0 에러, `npx eslint .` 0 에러/0 경고, `npx next build` 954개 페이지 생성 성공, 변경된 52개 도구 전체를 로컬에서 실기동해 각 페이지의 JSON-LD 2개 블록(WebApplication + FAQPage)이 유효한 JSON이고 올바른 `@type`을 갖는지 스크립트로 전수 검증(52/52 통과).
+
 ## 2026-10-31 — 수익화 준비 7단계: 225개 도구 페이지 언어 선택 버튼 색상 토큰 통일
 
 - 시그니처 컬러(차콜+앰버, D안) 확정 이후 보류됐던 "225개 도구 페이지 언어 선택 버튼 하드코딩 색상 통일" 작업을 진행.
