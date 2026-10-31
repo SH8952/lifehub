@@ -2,6 +2,17 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-10-31 — 수익화 준비 10단계: IndexNow 연동 (Bing·Naver·Yandex 등)
+
+- 변경된 페이지를 IndexNow 참여 검색엔진(Bing·Naver·Yandex 등)에 즉시 알려 색인 반영 속도를 높이는 자동화 구축. Google은 IndexNow 미참여 — 기존 sitemap.xml/rss.xml/GSC 등록은 그대로 유지되며 이 작업과 무관.
+- 사이트 소유 확인용 키 파일 `public/33672b3e79efbf0b913b4f72b578f3f3.txt` 신설 (`https://lifehub-weld.vercel.app/33672b3e79efbf0b913b4f72b578f3f3.txt`로 공개 제공, Next.js `public/` 디렉터리가 LifeHub 저장소에 없어 이번에 신설).
+- `automation/indexnow-submit.py`: 표준 라이브러리만 사용(외부 의존성 0)하는 제출 스크립트. 주소를 전송 전 실제로 200으로 열리는지 확인(기본 최대 20분 대기), `--dry-run`/`--no-wait`/`--detach` 옵션 지원, 어떤 오류가 나도 항상 종료 코드 0 — 이 스크립트가 실패해도 `git push` 자체의 성공/실패에는 영향을 주지 않음.
+- `automation/indexnow-push-hook.py`: `git diff`로 커밋 범위의 변경 파일을 분석해 자동으로 제출 대상 URL을 생성. LifeHub 구조에 맞춘 매핑 규칙 — 도구 페이지(`src/app/[locale]/tool/{slug}/...`) 변경 시 4개 로케일(en/es/ja/ko) 전부, 홈페이지(`src/app/[locale]/page.tsx`) 변경 시 4개 로케일 홈을 대상으로 추가. 동적 라우트·설정 파일·API 라우트 등 도구/홈 패턴에 해당하지 않는 파일은 제외(예: `next.config.ts`만 바뀐 보안 헤더 커밋은 0개 주소로 정확히 제외됨을 검증). ExifLens/FlyDroneMap 등 자매 프로젝트에 있는 `--slugs`(블로그/가이드 글 전용) 모드는 LifeHub에 블로그·가이드 콘텐츠가 없어 이번 구현에서 제외.
+- 24시간 중복 방지: 같은 URL을 반복 전송하지 않도록 `~/Library/Logs/lifehub-indexnow-sent.json`에 전송 기록을 남기고, 최근 24시간 내 전송된 주소는 자동 제외(`--force`로 무시 가능). 모든 실행 로그는 `~/Library/Logs/lifehub-indexnow.log`에 누적.
+- `automation/push-and-notify.sh`: `git push` 성공 시에만, push 전 remote 커밋 기준으로 변경 범위를 계산해 `indexnow-push-hook.py`를 백그라운드(`--detach`)로 호출하는 래퍼. 이후 모든 수익화 준비 작업의 푸시는 이 래퍼(`bash automation/push-and-notify.sh origin main`)를 통해 진행.
+- 자매 프로젝트의 실제 스크립트 소스 접근은 폴더 권한 문제로 불가능했으나, 프로젝트 문서(`claude/indexnow-rollout-2026-10-07.md`, `claude/indexnow-push-hook-2026-10-30.md`)에 기록된 상세 스펙(파일 구성·동작·옵션·안전장치·로그 경로)을 바탕으로 LifeHub 구조(블로그 없는 평면적 도구 페이지 구조)에 맞춰 재구현.
+- 검증: `python3 -m py_compile`로 두 스크립트 문법 오류 0건, `bash -n`으로 셸 스크립트 문법 오류 0건 확인. 실제 LifeHub 저장소의 과거 커밋 4건(보안 헤더 전용 커밋 → 0개 주소, 색상 토큰 전체 적용 커밋 → 840개=210×4, JSON-LD 커밋 → 208개=52×4, RSS 신기능 커밋 → 0개 주소)을 `--map-only`로 역검증해 매핑 로직이 모두 기대값과 일치함을 확인. `--dry-run --no-wait`로 실제 전송 없이 전체 파이프라인(주소 매핑 → 전송 시뮬레이션) 흐름도 정상 동작 확인.
+
 ## 2026-10-31 — 수익화 준비 9단계: HTTP 보안 헤더 적용
 
 - ExifLens에 적용했던 보안 헤더 패턴을 조사 후 LifeHub에 동일하게 적용.
