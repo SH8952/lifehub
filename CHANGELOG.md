@@ -2,6 +2,17 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-10-31 — 작업폴더 정리 (불필요 파일 삭제)
+
+- 사용자 요청으로 작업폴더 전체를 조사해 불필요한 파일을 정리.
+- **git 미추적, 즉시 삭제(안전)**: `.next/`(빌드 캐시, 354MB), `automation/__pycache__/`, `next-env.d.ts`, `tsconfig.tsbuildinfo` — 전부 자동 재생성되는 캐시/생성 파일.
+- **고아 폴더 삭제**: `_to_delete/`(이전에 이미 "삭제 대상"으로 분류돼 있던 폴더, 내부 메시지 json·고아 컴포넌트 전부 현재 코드에서 참조 안 됨 확인 후 삭제), `Marketing/`, `Affiliate/`(완전히 빈 폴더 — 과거 공백 포함 경로를 따옴표 없이 쓴 스크립트의 부산물로 추정).
+- **_backups/ 전체 삭제**(12MB, 9/21~9/28 날짜 스냅샷 29개): git으로 버전관리가 이미 자리잡은 이후의 내용이라 사실상 git 히스토리와 중복 — 사용자 확인 후 삭제.
+- **git 추적 파일 중 미사용 코드 제거** (`git rm`): `scripts/dev.sh`(현재 `package.json`의 dev는 `scripts/dev-open.mjs`를 사용, 루트의 `start-dev.command`가 실제 실행 스크립트라 미사용 확인), `_data/word-practice.ts`, `_research/tier3-api-research.md`(코드 전체에서 import/참조 없는 고아 파일 확인).
+- **삭제하지 않고 유지**: `_archive/`(CHANGELOG.md가 참조하는 정식 히스토리 아카이브), `gemini-code-1790279104701.md`(이름은 지저분하지만 git에 커밋된 실제 콘텐츠 파일), `node_modules/`(1.1GB — 삭제 시 다음 빌드 전 재설치 필요해 사용자가 유지 선택).
+- 작업폴더 전체 용량 1.5GB → 1.1GB(node_modules 제외하면 약 100MB대).
+- 검증: `npx tsc --noEmit` 0 에러, `npx next build` 성공 — 삭제한 파일 어느 것도 빌드에 영향 없음 확인.
+
 ## 2026-10-31 — 순수 도메인 접속 시 기본 언어 고정 (한국어)
 
 - 증상: `https://lifehub-weld.vercel.app` 순수 도메인으로 접속했을 때, 접속자 브라우저의 Accept-Language 헤더에 따라 스페인어 등 다른 언어로 리다이렉트되는 경우가 있었음.
