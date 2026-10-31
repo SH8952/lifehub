@@ -2,6 +2,14 @@
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-10-31 — 수익화 준비 9단계: HTTP 보안 헤더 적용
+
+- ExifLens에 적용했던 보안 헤더 패턴을 조사 후 LifeHub에 동일하게 적용.
+- LifeHub는 API 라우트가 전혀 없는 100% 클라이언트 사이드 사이트(모든 도구가 "브라우저에서 100% 처리, 서버로 전송되는 데이터 없음")라, ExifLens 패턴의 레이트리밋(요청 횟수 제한) 부분은 보호할 서버 엔드포인트가 없어 해당 없음 — 보안 헤더만 적용.
+- `next.config.ts`에 전 경로(`/:path*`) 공통 헤더 3종 추가: `X-Content-Type-Options: nosniff`, `X-Frame-Options: SAMEORIGIN`, `Referrer-Policy: strict-origin-when-cross-origin`.
+- ExifLens와 동일하게 CSP(Content-Security-Policy)·Permissions-Policy는 제외 — 향후 애드센스·GA4 스크립트 연동 시 충돌 위험 방지.
+- 검증: `npx tsc --noEmit` 0 에러, `npx next build` 954페이지 생성 성공, `next start` 실기동으로 도구 페이지·sitemap.xml·rss.xml 전부에서 3개 헤더 응답 확인.
+
 ## 2026-10-31 — 수익화 준비 8단계: JSON-LD 구조화 데이터 점검/보강 (WebApplication + FAQPage)
 
 - 225개 도구 전체의 JSON-LD 적용 현황을 전수 조사: WebApplication/Offer 스키마는 221개 도구에 이미 적용돼 있었으나, 화면에 FAQ 섹션(자주 묻는 질문)을 노출하면서도 FAQPage 구조화 데이터가 없는 도구가 48개, 반대로 FAQPage만 있고 WebApplication이 없는 도구가 4개 발견됨.
