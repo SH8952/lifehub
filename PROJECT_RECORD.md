@@ -334,6 +334,21 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-11-02 — 방문자/봇 카운터 푸터 배지 추가 (ExifLens/FlyDroneMap/firelic 패턴 이식)
+
+- 사용자 요청: lifehub 하단에도 다른 3개 사이트와 동일한 방문자 카운터(+ 개발자 전용 봇 카운트) 기능 추가.
+- 조사 결과 lifehub에는 해당 기능이 전혀 없었음(코드도, Redis/KV·DEV_EXCLUDE_TOKEN 환경변수도 없음) — 단순 복사가 아니라 저장소 연동부터 새로 하는 작업으로 확인, 진행 전 사용자에게 선택지 확인(기존 공유 Redis 저장소 연결 / ExifLens 로컬 저장소 접근 허용 / 기존 DEV_EXCLUDE_TOKEN 재사용 — 전부 승인받고 진행).
+- ExifLens 저장소(`src/lib/visitor-counter.ts`, `src/lib/rate-limit.ts`, `src/app/api/visitor-count/route.ts`, `src/components/visitor-counter.tsx`, `src/proxy.ts`)를 실제로 읽어 그대로 이식(`PROJECT` 상수만 `"lifehub"`로 변경). Redis는 ExifLens/FlyDroneMap/firelic이 공유하는 기존 Upstash 저장소를 `lifehub:` 접두어로 함께 쓰도록 설계(새 저장소 생성 없음).
+- **신규 파일**: `src/lib/visitor-counter.ts`(방문자/봇 카운트 daily+total, KST 기준, TTL 2일), `src/lib/rate-limit.ts`(IP당 분당 60회 메모리 기반 제한, Redis 비사용), `src/app/api/visitor-count/route.ts`(User-Agent 정규식으로 봇 판별, 봇 수치는 `dev_exclude` 쿠키가 있을 때만 응답에 포함), `src/components/visitor-counter.tsx`(마운트 시 API 호출, "Today N · Total M" 배지).
+- **`src/middleware.ts` 수정**: `?dev=<DEV_EXCLUDE_TOKEN>` 접속 시 1년 쿠키를 심는 로직 추가. 이 과정에서 기존 matcher(`/(api|trpc)(.*)`  포함)가 next-intl 미들웨어를 API 라우트에도 적용시켜 `/api/visitor-count`를 `/ko/api/visitor-count`로 307 리다이렉트시키는 버그를 발견(lifehub에 API 라우트가 생긴 게 이번이 처음이라 지금까지 드러나지 않았던 문제) — ExifLens와 동일하게 matcher에서 `api|trpc`를 제외하도록 수정해 해결. 순수 도메인 접속 시 `/ko`로 고정되는 기존 동작(2026-10-31 수정분)은 영향 없음을 재확인.
+- **`src/app/[locale]/layout.tsx` 수정**: 기존 푸터(별도 컴포넌트 없이 레이아웃에 인라인)에 `<VisitorCounter />`를 네비게이션과 저작권 문구 사이에 추가.
+- 작업 전 백업: `_backups/visitor-bot-counter_20261102_120009/`.
+- 검증: `npx tsc --noEmit` 0 에러, `npx eslint` 0 에러, `npx next build` 성공(`/api/visitor-count` 정상 생성). 로컬(3040) 실기동 확인 — `/` → `/ko` 307 리다이렉트 정상 유지, `/api/visitor-count` 200 OK(로컬이라 집계 없이 `{"daily":0,"total":0}` 읽기 전용, 정상), Googlebot UA로도 동일하게 로컬 분기가 먼저 적용되어 0 응답(Redis 증가 자체가 로컬에서는 발생하지 않음 — ExifLens와 동일한 구조적 한계).
+- **남은 절차(사용자 Vercel 대시보드 작업, 운영 반영을 위해 필수)**:
+  1. lifehub Vercel 프로젝트 → Storage 탭에서 기존 Redis 저장소(ExifLens/FlyDroneMap/firelic이 쓰는 것과 동일한 스토어)를 Connect — `KV_URL`/`KV_REST_API_URL`/`KV_REST_API_TOKEN`/`KV_REST_API_READ_ONLY_TOKEN`/`REDIS_URL`이 자동 등록됨.
+  2. lifehub Vercel 프로젝트 → Settings → Environment Variables에 `DEV_EXCLUDE_TOKEN`을 Production/Preview 각각 추가(기존 3개 사이트와 동일한 값).
+  - 이 두 단계 전에는 배포해도 카운터가 항상 0으로만 보임(에러는 아님 — `upstash()` 헬퍼가 KV 자격 증명 없을 때 조용히 0을 반환하도록 설계돼 있음).
+
 ## 2026-10-31 — 작업폴더 정리 (불필요 파일 삭제)
 
 - 사용자 요청으로 작업폴더 전체를 조사해 불필요한 파일을 정리.

@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { routing, type Locale } from "@/i18n/routing";
 import { SITE_URL, languageAlternates, ogLocale } from "@/lib/seo";
 import LanguageDropdown from "@/components/LanguageDropdown";
+import { VisitorCounter } from "@/components/visitor-counter";
 import "@/app/globals.css";
 
 export function generateStaticParams() {
@@ -122,6 +123,9 @@ export default async function RootLayout({
                 {tFooter("terms")}
               </a>
             </nav>
+            <div className="mb-2">
+              <VisitorCounter />
+            </div>
             © {new Date().getFullYear()} LifeHub — All rights reserved.
           </footer>
         </NextIntlClientProvider>
