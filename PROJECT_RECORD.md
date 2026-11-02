@@ -344,10 +344,10 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 - **`src/app/[locale]/layout.tsx` 수정**: 기존 푸터(별도 컴포넌트 없이 레이아웃에 인라인)에 `<VisitorCounter />`를 네비게이션과 저작권 문구 사이에 추가.
 - 작업 전 백업: `_backups/visitor-bot-counter_20261102_120009/`.
 - 검증: `npx tsc --noEmit` 0 에러, `npx eslint` 0 에러, `npx next build` 성공(`/api/visitor-count` 정상 생성). 로컬(3040) 실기동 확인 — `/` → `/ko` 307 리다이렉트 정상 유지, `/api/visitor-count` 200 OK(로컬이라 집계 없이 `{"daily":0,"total":0}` 읽기 전용, 정상), Googlebot UA로도 동일하게 로컬 분기가 먼저 적용되어 0 응답(Redis 증가 자체가 로컬에서는 발생하지 않음 — ExifLens와 동일한 구조적 한계).
-- **남은 절차(사용자 Vercel 대시보드 작업, 운영 반영을 위해 필수)**:
-  1. lifehub Vercel 프로젝트 → Storage 탭에서 기존 Redis 저장소(ExifLens/FlyDroneMap/firelic이 쓰는 것과 동일한 스토어)를 Connect — `KV_URL`/`KV_REST_API_URL`/`KV_REST_API_TOKEN`/`KV_REST_API_READ_ONLY_TOKEN`/`REDIS_URL`이 자동 등록됨.
-  2. lifehub Vercel 프로젝트 → Settings → Environment Variables에 `DEV_EXCLUDE_TOKEN`을 Production/Preview 각각 추가(기존 3개 사이트와 동일한 값).
-  - 이 두 단계 전에는 배포해도 카운터가 항상 0으로만 보임(에러는 아님 — `upstash()` 헬퍼가 KV 자격 증명 없을 때 조용히 0을 반환하도록 설계돼 있음).
+- **Vercel 대시보드 작업 완료 (사용자 직접 진행)**:
+  1. lifehub Vercel 프로젝트 → Storage 탭에서 기존 Redis 저장소(ExifLens/FlyDroneMap/firelic이 쓰는 것과 동일한 스토어)를 Connect — `KV_URL`/`KV_REST_API_URL`/`KV_REST_API_TOKEN`/`KV_REST_API_READ_ONLY_TOKEN`/`REDIS_URL` 자동 등록 완료.
+  2. `DEV_EXCLUDE_TOKEN`: 애초 계획은 기존 3개 사이트와 동일한 값을 재사용하는 것이었으나, 그 값이 Vercel에 **"Sensitive" 타입**으로 저장되어 있어(저장 후에는 소유자도 대시보드/API로 다시 조회 불가 — Vercel 설계상 특성) 기존 값을 꺼내올 방법이 없었음. lifehub 전용 새 토큰을 발급해 Production/Preview 각각에 등록하는 것으로 변경(다른 3개 사이트는 변경 없음 — lifehub만 별도 `?dev=` 북마크를 쓰게 됨). 로컬 `.env.local`에도 동일 값 반영 완료(사용자가 직접 입력, Claude는 토큰 값을 직접 다루지 않음).
+- **운영 반영 확인 완료 (2026-11-02)**: 두 단계 등록 후 커밋 `1b97ea1`이 새로 배포되어 Production에 Ready 반영됨(`lifehub-weld.vercel.app`에 alias). 실제 운영 도메인에서 `/api/visitor-count` 호출 결과 `{"daily":2,"total":2}`로 실제 Redis 증가 확인, 푸터에도 "Today 1 · Total 1"로 정상 렌더링 확인(그사이 Claude의 확인 접속 2회가 실 방문자로 집계됨 — 개발자 제외 쿠키는 본인 토큰으로 접속해야 적용되므로 정상적인 집계임). 봇 카운트 줄(`?dev=` 쿠키 필요) 자체는 Claude가 사용자의 최종 토큰 값을 모르므로 직접 확인하지 못했고, 사용자가 본인 북마크로 직접 확인 필요.
 
 ## 2026-10-31 — 작업폴더 정리 (불필요 파일 삭제)
 
