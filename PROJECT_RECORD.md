@@ -334,6 +334,17 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-11-06 (4) — adpass.app 97점 확인 + 기술·색인 "참고" 항목 대응(ads.txt, AdSense 헤드 스크립트)
+
+- adpass.app 재검사 결과 93 → **97점**, 오류 0건(지난 Lorem Ipsum 제목 변경 반영 확인), 콘텐츠 품질 75 → 90으로 상승. 남은 경고 1건(본문 평균 1,151자)은 이번 13개 샘플에 아직 2차 배치 도구가 포함되지 않아 그대로.
+- 사용자가 "기술·색인 영역 참고 항목도 모두 처리해달라"고 요청 — 4개 참고 항목 중 조치 가능한 것과 불가능한 것을 구분해 진행.
+  - **ads.txt 없음 → 조치 완료**: ExifLens/FlyDroneMap/firelic과 동일한 애드센스 계정(`google.com, pub-0042120343274941, DIRECT, f08c47fec0942fa0`)으로 `public/ads.txt` 신규 생성. 순수 정적 파일이라 별도 인프라 설정 없이 바로 반영됨.
+  - **애드센스 코드가 head에 없음 → 코드는 준비, 활성화는 보류**: `src/app/[locale]/layout.tsx`에 ExifLens와 동일한 패턴(`NEXT_PUBLIC_ADSENSE_PUBLISHER_ID` 환경변수가 있을 때만 `<head>`에 adsbygoogle.js 스크립트를 조건부로 로드)을 이식. 로컬 검증 결과 환경변수가 없는 상태에서는 스크립트가 전혀 렌더링되지 않아(정상) 기존 동작에 영향 없음을 확인. **다만 Vercel 프로젝트에 실제 환경변수(`NEXT_PUBLIC_ADSENSE_PUBLISHER_ID=pub-0042120343274941`, Production)를 추가하는 작업은 Claude의 Vercel MCP 호출이 "공유 리소스 변경" 승인 거부로 차단되어 미완료** — 사용자가 Vercel 대시보드에서 직접 등록 필요(안내 예정).
+  - **서치콘솔 색인 페이지 수 — 직접 확인 → 조치 불가(사용자 액션 필요)**: 구글 서치콘솔은 Claude가 접근할 수 있는 영역이 아니므로, 사용자가 직접 확인해야 하는 항목으로 남겨둠.
+  - **도메인 등록 2,474일째 → 조치 대상 아님**: lifehub가 쓰는 `lifehub-weld.vercel.app`은 자체 도메인이 아닌 Vercel 서브도메인이라, 이 "등록일"은 vercel.app 자체의 등록일을 가리키는 정보성 항목 — alltools365.com 등 자체 도메인을 구매하지 않는 한 변경 불가.
+- 편집 전 `_backups/adsense-infra-setup_<timestamp>/`에 layout.tsx 원본 백업.
+- 검증: `device_bash` 단일 호출 내 `npm run dev` 로컬 실행 → 홈페이지 4개 언어 200, `/ads.txt` 200(내용 정상), 도구 페이지 1개 200, 환경변수 미설정 상태에서 `adsbygoogle` 스크립트가 렌더링되지 않음(0건, 정상 동작) 확인, 에러 로그 없음 확인 후 서버 종료.
+
 ## 2026-11-06 (3) — Lorem Ipsum Generator 영어/스페인어 제목 변경 (adpass.app 오류 완전 제거 시도)
 
 - adpass.app 재검사 결과 점수가 여전히 93(콘텐츠 품질 75, 오류 1건·경고 1건)으로 동일 — 지난 작업(문구 완화 + 콘텐츠 2차 배치 8개)이 이번 13개 샘플 페이지에는 포함되지 않아 반영되지 않은 것으로 추정(샘플에 잡힌 도구가 severance-pay/dividend-yield/lease-insurance-calculator 등 이번에 손대지 않은 도구들이었음).

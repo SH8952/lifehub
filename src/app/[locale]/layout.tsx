@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -11,6 +12,16 @@ import "@/app/globals.css";
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
+
+const ADSENSE_PUBLISHER_ID = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID;
+// AdSense's script tag requires the "ca-" prefixed client id (e.g.
+// "ca-pub-XXXX"), while ads.txt and most dashboards use the bare "pub-XXXX"
+// form. Normalize here so either form works in the env var.
+const ADSENSE_CLIENT_ID = ADSENSE_PUBLISHER_ID
+  ? ADSENSE_PUBLISHER_ID.startsWith("ca-")
+    ? ADSENSE_PUBLISHER_ID
+    : `ca-${ADSENSE_PUBLISHER_ID}`
+  : undefined;
 
 const SITE_META: Record<Locale, { title: string; description: string }> = {
   ko: {
@@ -92,6 +103,16 @@ export default async function RootLayout({
   const tFooter = await getTranslations("Footer");
   return (
     <html lang={locale} className="scroll-smooth">
+      <head>
+        {ADSENSE_CLIENT_ID ? (
+          <Script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}`}
+            crossOrigin="anonymous"
+            strategy="afterInteractive"
+          />
+        ) : null}
+      </head>
       <body className="antialiased">
         <NextIntlClientProvider messages={messages}>
           <header className="border-b">
