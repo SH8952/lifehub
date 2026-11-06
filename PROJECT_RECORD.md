@@ -334,6 +334,29 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-11-06 (8) — adpass.app 99점 유지 + 전체 순차 도구 확충 6차 배치(8개 도구)
+
+- 사용자 지시("전체 순차 도구 확충을 계속 진행해줘")에 따라 adpass.app 점수와 무관하게 전체 225개 도구에 대한
+  순차 콘텐츠 확충을 계속 진행. `data.ts` 파일 크기 기준으로 다음으로 짧은 8개 도구를 선정:
+  css-unit-converter, keyboard-shortcuts-reference, name-initials-generator, weekday-finder,
+  image-color-picker, color-of-the-day, roman-numeral-converter, movie-recommendation-roulette
+- 각 도구의 howSteps 1개, FAQ 3개를 ko/en/ja/es 4개 로케일 모두에 추가
+  (예: css-unit-converter - rem/px 접근성 차이, pt 단위의 인쇄 vs 웹 차이;
+       keyboard-shortcuts-reference - 단축키 커스터마이징 불가 안내, 키보드 배열별 차이;
+       name-initials-generator - 멀티 워드 이름 처리, 팀/회사 아바타 활용;
+       weekday-finder - 날짜 범위 제한, 타임존 영향, 실사용 예시;
+       image-color-picker - 지원 이미지 포맷, 추출 기록 보관 방식, 대용량 이미지 처리;
+       color-of-the-day - 색상 풀 규모, 동일 날짜 결과 일관성, 타임존에 따른 "오늘" 기준;
+       roman-numeral-converter - 3999 상한 이유, 현대 사용 사례, 시계 문자판의 IIII 표기;
+       movie-recommendation-roulette - 총 조합 수, 선택 피로 해소, 드라마에도 활용 가능)
+- 파일 크기: 5,265~5,415 bytes → 8,245~9,483 bytes로 증가
+- 로컬 서버(포트 3040)에서 8개 도구 × 4개 로케일(32개 페이지) 전부 HTTP 200 확인,
+  신규 추가 콘텐츠 렌더링 여부 로케일별 스팟체크 완료
+- `_backups/content-expansion-batch6_20261106_135538/`에 원본 백업
+- 1~5차 배치(금융 계산기 6종, Contact·About, 8개 도구×2회) 포함 전체 225개 도구 중
+  현재까지 22개 도구 + 2개 페이지(Contact/About) 콘텐츠 확충 완료. 나머지 도구는
+  동일한 방식으로 계속 순차 진행 예정 (adpass.app 점수와 무관하게 전체 순차 진행 지속)
+
 ## 2026-11-06 (7) — adpass.app 99점 확인 + 전체 순차 도구 확충 5차 배치(8개 도구)
 
 - 사용자 확인: 4차 배치(Contact/About) 푸시 + Vercel 배포 후 adpass.app 재검사 결과 99점 유지, 평균 본문 1,584자 → **1,646자**로 상승(`/en/contact` 426→767자, `/en/about` 923→1,319자). 경고 1건(권장 2,000자 미달)은 남아있으나, 남은 격차를 메우려면 홈페이지(탐색용 페이지)까지 억지로 늘려야 해 효율이 떨어지는 구간이라는 점을 안내.
