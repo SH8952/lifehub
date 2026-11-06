@@ -1882,9 +1882,9 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
     {
       id: "lorem-ipsum-generator",
       name: "로렘 입숨 생성기",
-      nameEn: "Lorem Ipsum Generator",
+      nameEn: "Placeholder Text Generator",
       nameJa: "ロレムイプサム生成ツール",
-      nameEs: "Generador de Lorem Ipsum",
+      nameEs: "Generador de Texto de Relleno",
       description: "디자인 목업·테스트용 더미 텍스트를 단락/문장/단어 단위로 생성",
       descriptionEn: "Generate placeholder dummy text by paragraphs, sentences, or words",
       descriptionJa: "デザインモックアップ・テスト用のダミーテキストを段落・文・単語単位で生成",

@@ -51,7 +51,7 @@ export const data: Record<Locale, i18nData> = {
     footer: "모든 처리는 로컬에서 즉시 이루어집니다.",
   },
   en: {
-    title: "Lorem Ipsum Generator",
+    title: "Placeholder Text Generator",
     subtitle: "Generate placeholder dummy text for design mockups or testing, in the amount you need.",
     unitLabel: "Unit",
     unitParagraphs: "Paragraphs",
@@ -101,7 +101,7 @@ export const data: Record<Locale, i18nData> = {
     footer: "すべての処理はローカルで即座に行われます。",
   },
   es: {
-    title: "Generador de Lorem Ipsum",
+    title: "Generador de Texto de Relleno",
     subtitle: "Genera texto de relleno para maquetas de diseño o pruebas, en la cantidad que necesites.",
     unitLabel: "Unidad",
     unitParagraphs: "Párrafos",

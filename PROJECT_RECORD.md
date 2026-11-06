@@ -334,6 +334,18 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-11-06 (3) — Lorem Ipsum Generator 영어/스페인어 제목 변경 (adpass.app 오류 완전 제거 시도)
+
+- adpass.app 재검사 결과 점수가 여전히 93(콘텐츠 품질 75, 오류 1건·경고 1건)으로 동일 — 지난 작업(문구 완화 + 콘텐츠 2차 배치 8개)이 이번 13개 샘플 페이지에는 포함되지 않아 반영되지 않은 것으로 추정(샘플에 잡힌 도구가 severance-pay/dividend-yield/lease-insurance-calculator 등 이번에 손대지 않은 도구들이었음).
+- 사용자가 "제목 변경건도 오류 제거를 위해 조치해달라"고 명시적으로 승인 — 지난번 안내한 SEO 트레이드오프(실제 "lorem ipsum generator" 검색 유입 키워드 상실 가능성)를 인지한 상태에서 진행 결정.
+- 조치 범위: 리터럴 영문 "Lorem Ipsum"이 남아있던 두 곳만 수정(한국어 "로렘 입숨", 일본어 "ロレムイプサム"는 음역이라 원래부터 해당 없음).
+  - `src/app/[locale]/tool/lorem-ipsum-generator/data.ts`: en `title` "Lorem Ipsum Generator" → "Placeholder Text Generator", es `title` "Generador de Lorem Ipsum" → "Generador de Texto de Relleno" (각각 `<title>`/H1/메타 태그에 그대로 반영됨).
+  - `src/lib/tools-data.ts`(사이트 전역 도구 레지스트리, 홈페이지 카테고리 미리보기·검색 등에 사용): `nameEn`/`nameEs` 동일하게 변경해 사이트 내 다른 위치(홈페이지 미리보기 등)에서의 표기 불일치 방지.
+- Client.tsx의 실제 생성 로직(`"Lorem ipsum dolor sit amet, " + ...`)은 그대로 유지 — 이 문자열은 "생성하기" 클릭 후에만 클라이언트에서 동적으로 만들어지는 결과물이라 정적 크롤링 시점에는 노출되지 않으며, 도구의 핵심 기능이라 변경 대상에서 제외.
+- 편집 전 `_backups/lorem-ipsum-title-change_<timestamp>/`에 원본 2개 파일 백업.
+- 검증: `device_bash` 단일 호출 내 `npm run dev` 로컬 실행 → 홈페이지 4개 언어 200 확인, lorem-ipsum-generator 4개 언어 200 확인, en/es 페이지에서 "Lorem Ipsum" 리터럴 매칭 0건 확인(`grep -io`), 홈페이지에 새 이름("Placeholder Text Generator")이 정상 반영되고 레지스트리 불일치 없음 확인, 에러 로그 없음 확인 후 서버 종료.
+- 참고: adpass.app은 한 번에 13개 페이지만 샘플링하므로, 이번 변경 역시 다음 재검사 때 해당 페이지가 샘플에 포함되지 않으면 반영이 안 보일 수 있음 — 사용자에게 안내 예정.
+
 ## 2026-11-06 (2) — adpass.app 100점 목표 대응: Lorem Ipsum 문구 완화 + 콘텐츠 확충 2차 배치(8개 도구)
 
 - 사용자가 firelic/flydronemap/exiflens 3개 자매 사이트의 adpass.app 100점 화면을 공유하며 "구조를 참고해서 무조건 100점이 되도록 조사해서 수정해달라" 요청.
