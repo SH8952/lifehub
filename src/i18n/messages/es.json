@@ -18,7 +18,16 @@
     "categorySpotlightBadge": "Categoría Destacada",
     "categorySpotlightCta": "Ver todas las herramientas",
     "categoryStatusTitle": "Herramientas por Categoría",
-    "toolsUnit": "herramientas"
+    "toolsUnit": "herramientas",
+    "aboutTitle": "Sobre LifeHub",
+    "aboutHeading1": "¿Qué es LifeHub?",
+    "aboutBody1": "LifeHub reúne calculadoras y herramientas de conversión prácticas en 7 categorías — Vida y Salud, Finanzas e Inversión, Imagen y Multimedia, Documentos y PDF, Diversión y Entretenimiento, Desarrollo y TI, y Utilidades Generales — todo en un único servicio gratuito. No se necesita registro ni instalación; solo busca una herramienta o explora por categoría y empieza a usarla de inmediato.",
+    "aboutHeading2": "¿Cómo se Maneja tu Privacidad?",
+    "aboutBody2": "La mayoría de las herramientas procesan tu entrada completamente en tu navegador en lugar de enviarla a un servidor. Puedes introducir cifras sensibles como montos de préstamos o datos de activos sin preocuparte de que salgan de tu dispositivo. Consulta nuestra página de Política de Privacidad para más detalles.",
+    "aboutHeading3": "¿Para Quién es LifeHub?",
+    "aboutBody3": "LifeHub se creó para cualquiera que quiera seguir indicadores de salud diarios, planificar un préstamo o una estrategia de ahorro para la jubilación, convertir formatos de archivos de fotos o documentos, o recurrir a una herramienta rápida de codificación o decodificación mientras programa — una gama realmente amplia de necesidades cotidianas.",
+    "aboutHeading4": "Se Añaden Nuevas Herramientas Regularmente",
+    "aboutBody4": "LifeHub ofrece actualmente más de 200 herramientas en cuatro idiomas — coreano, inglés, japonés y español — y se añaden nuevas herramientas regularmente según los comentarios de los usuarios. Si hay una herramienta que te gustaría ver, no dudes en sugerirla en nuestra página de Contacto."
   },
   "Category": {
     "categories": "Categorías",

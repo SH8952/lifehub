@@ -367,6 +367,41 @@ export default async function Home({
           {t("trustNote")}
         </p>
       </section>
+
+      {/* About — 홈페이지 콘텐츠 깊이 보강용 짧은 소개 섹션 (2026-11-06, adpass.app 콘텐츠 품질 대응) */}
+      <section className="border-t bg-muted/20 py-12">
+        <div className="mx-auto max-w-4xl px-4">
+          <p className="mb-6 text-center text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+            {t("aboutTitle")}
+          </p>
+          <div className="grid gap-6 sm:grid-cols-2">
+            <div>
+              <h2 className="text-base font-semibold">{t("aboutHeading1")}</h2>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {t("aboutBody1")}
+              </p>
+            </div>
+            <div>
+              <h2 className="text-base font-semibold">{t("aboutHeading2")}</h2>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {t("aboutBody2")}
+              </p>
+            </div>
+            <div>
+              <h2 className="text-base font-semibold">{t("aboutHeading3")}</h2>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {t("aboutBody3")}
+              </p>
+            </div>
+            <div>
+              <h2 className="text-base font-semibold">{t("aboutHeading4")}</h2>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {t("aboutBody4")}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

@@ -18,7 +18,16 @@
     "categorySpotlightBadge": "Category Spotlight",
     "categorySpotlightCta": "View all tools",
     "categoryStatusTitle": "Tools by Category",
-    "toolsUnit": "tools"
+    "toolsUnit": "tools",
+    "aboutTitle": "About LifeHub",
+    "aboutHeading1": "What Is LifeHub?",
+    "aboutBody1": "LifeHub brings together practical calculators and conversion tools across 7 categories — Life & Health, Finance & Investment, Image & Media, Documents & PDF, Fun & Entertainment, Dev & IT, and General Utilities — all in one free service. No sign-up or installation is required; just search for a tool or browse by category and start using it right away.",
+    "aboutHeading2": "How Is Your Privacy Handled?",
+    "aboutBody2": "Most tools process your input entirely in your browser rather than sending it to a server. You can enter sensitive numbers like loan amounts or asset details without worrying about them leaving your device. See our Privacy Policy page for the full details.",
+    "aboutHeading3": "Who Is LifeHub For?",
+    "aboutBody3": "LifeHub was built for anyone who wants to track everyday health metrics, plan a loan or retirement savings strategy, convert photo or document file formats, or reach for a quick encoding or decoding tool while coding — a genuinely wide range of everyday needs.",
+    "aboutHeading4": "New Tools Are Added Regularly",
+    "aboutBody4": "LifeHub currently offers over 200 tools in four languages — Korean, English, Japanese, and Spanish — and new tools are added regularly based on user feedback. If there's a tool you'd like to see, feel free to suggest it on our Contact page."
   },
   "Category": {
     "categories": "Categories",
