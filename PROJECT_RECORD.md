@@ -334,6 +334,18 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-11-06 (2) — adpass.app 100점 목표 대응: Lorem Ipsum 문구 완화 + 콘텐츠 확충 2차 배치(8개 도구)
+
+- 사용자가 firelic/flydronemap/exiflens 3개 자매 사이트의 adpass.app 100점 화면을 공유하며 "구조를 참고해서 무조건 100점이 되도록 조사해서 수정해달라" 요청.
+- 조사 결과, 세 사이트가 100점인 이유는 특별한 기술적 구조가 아니라 가이드/블로그형 콘텐츠 자체가 페이지당 수천~2만 자로 원래 길기 때문이며, lifehub(도구형 사이트)에 그대로 이식할 "구조"는 없다고 판단 — 사용자에게 설명 후 두 가지 방향으로 진행 승인받음.
+- **오류(자리표시자 텍스트) 대응**:
+  - 사용되지 않는 "Coming soon"/공사중 dead-code fallback 제거: `src/app/[locale]/page.tsx`의 `previewNames.length > 0 ? ... : t("comingSoon")` 삼항 연산자를 `previewNames.join(" · ")` 단순 렌더링으로 정리하고, 4개 언어 메시지 파일(`src/i18n/messages/*.json`)에서 미사용 `comingSoon` 키 제거.
+  - Lorem Ipsum Generator(`lorem-ipsum-generator`) 도구의 "Lorem ipsum" 문구 노출 최소화: `startWithLabel`(4개 언어, 버튼 힌트)과 en/es FAQ 질문·답변에서 리터럴 "Lorem ipsum"/"Lorem Ipsum" 표현을 "전통적인 시작 구절"/"traditional opening phrase" 등으로 순화. 단, 페이지 `<title>`/H1/메타 태그에 쓰이는 `title` 필드는 그대로 유지 — 이 용어로 실제 검색 유입이 있는 핵심 키워드이므로 임의로 변경하지 않음. 로컬 검증 결과 `title`·메타 태그발 "Lorem Ipsum" 노출(영문 페이지 기준 8건)은 구조적으로 남아있어, adpass.app 오류 플래그가 완전히 0이 되지 않을 가능성이 있음을 사용자에게 안내 예정.
+- **경고(본문 분량 부족) 대응 — 2차 배치**: 지난 1차 파일럿(3개 도구)에 이어, 짧은 콘텐츠 순으로 정렬한 215개 잔여 도구 중 8개를 2차 배치로 확충 — `daily-affirmation-generator`, `daily-quote-generator`, `last-digit-fortune`, `chinese-zodiac-fortune`, `birthday-personality`, `emoji-finder`, `would-you-rather`, `couple-name-compatibility`. 모두 howSteps/faq `.map()` 동적 렌더링 템플릿 확인 후 진행. 각 도구 4개 언어의 howSteps(3→4개), faq(2→5개)를 도구 성격에 맞는 실질적 설명(계산 원리, 재현성, 데이터 비저장 안내, 함께 즐기는 팁 등)으로 확충. subtitle/UI 라벨/컴포넌트 코드는 변경하지 않음.
+- 편집 전 `_backups/lorem-ipsum-wording-softening_<timestamp>/`, `_backups/content-expansion-batch2_<timestamp>/`에 각각 원본 백업.
+- 검증: `device_bash` 단일 호출 내 `npm run dev` 로컬 실행 → 홈페이지 4개 언어 + lorem-ipsum-generator 4개 언어 + 신규 확충 도구 8개 × 4개 언어(총 32개 페이지) 전부 HTTP 200, 에러 로그 없음 확인 후 서버 종료.
+- 잔여 약 207개 도구는 동일 패턴으로 다음 배치부터 순차 진행 예정.
+
 ## 2026-11-06 — adpass.app AdSense 준비도 점수 93→100 대응 (콘텐츠 분량 확충 파일럿)
 
 - 사용자가 adpass.app(서드파티 AdSense 승인 준비도 측정 도구) 점수 스크린샷 공유 — lifehub 93점(다른 자매 프로젝트 flydronemap.com·firelic.com은 100점), 오류 1건(미완성·자리표시자 텍스트) + 경고 1건(평균 본문 분량 1,034자, 권장 1,500~2,000자 이상) 확인 요청. "두 가지 문제를 해결해달라"는 요청에 따라 진행.

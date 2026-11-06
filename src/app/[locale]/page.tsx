@@ -340,9 +340,7 @@ export default async function Home({
                         {cat[descKey]}
                       </p>
                       <p className="text-xs text-muted-foreground/80 mt-2 line-clamp-1">
-                        {previewNames.length > 0
-                          ? previewNames.join(" · ")
-                          : t("comingSoon")}
+                        {previewNames.join(" · ")}
                       </p>
                       <div className="mt-3 h-1 w-full overflow-hidden rounded-full bg-muted">
                         <div
