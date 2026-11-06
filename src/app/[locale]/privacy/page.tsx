@@ -72,6 +72,14 @@ const content: Record<Locale, PageContent> = {
         body: "LifeHub는 만 14세 미만 아동을 대상으로 하지 않으며, 이들로부터 고의로 개인정보를 수집하지 않습니다.",
       },
       {
+        heading: "데이터 보관 기간",
+        body: "브라우저에서 처리되는 계산 데이터는 애초에 서버로 전송되지 않으므로 보관 대상이 아닙니다. 자동으로 수집되는 접속 로그 등 일부 데이터는 서비스 운영 및 보안 목적상 합리적인 기간 동안만 보관한 후 삭제됩니다.",
+      },
+      {
+        heading: "귀하의 선택권",
+        body: "브라우저 설정에서 쿠키를 차단하거나 삭제할 수 있으며, 이 경우에도 LifeHub의 핵심 계산 기능은 대부분 정상적으로 이용하실 수 있습니다. 다만 쿠키를 차단하면 광고가 맞춤형이 아닌 일반 광고로 표시될 수 있습니다.",
+      },
+      {
         heading: "개인정보처리방침의 변경",
         body: "본 방침은 서비스 내용 변경이나 관련 법령 개정에 따라 수정될 수 있으며, 변경 시 이 페이지를 통해 공지합니다.",
       },
@@ -105,6 +113,14 @@ const content: Record<Locale, PageContent> = {
       {
         heading: "Children's Privacy",
         body: "LifeHub is not directed at children under the age of 14, and we do not knowingly collect personal information from children.",
+      },
+      {
+        heading: "Data Retention",
+        body: "Calculation data processed in your browser is never sent to our servers in the first place, so there is nothing to retain. Automatically collected data such as access logs is kept only for a reasonable period needed for service operation and security, then deleted.",
+      },
+      {
+        heading: "Your Choices",
+        body: "You can block or delete cookies in your browser settings at any time, and doing so won't affect your ability to use LifeHub's core calculation tools. Blocking cookies may simply mean you see non-personalized ads instead of personalized ones.",
       },
       {
         heading: "Changes to This Policy",
@@ -142,6 +158,14 @@ const content: Record<Locale, PageContent> = {
         body: "LifeHubは14歳未満のお子様を対象としておらず、意図的に児童の個人情報を収集することはありません。",
       },
       {
+        heading: "データの保管期間",
+        body: "ブラウザで処理される計算データはそもそもサーバーに送信されないため、保管対象にはなりません。自動的に収集されるアクセスログなどの一部データは、サービス運営およびセキュリティの目的上、合理的な期間のみ保管された後削除されます。",
+      },
+      {
+        heading: "ご利用者様の選択肢",
+        body: "ブラウザの設定でクッキーをブロックまたは削除することができ、その場合でもLifeHubの主要な計算機能はほとんど問題なくご利用いただけます。ただし、クッキーをブロックすると、パーソナライズされた広告ではなく一般的な広告が表示される場合があります。",
+      },
+      {
         heading: "本方針の変更",
         body: "本方針はサービス内容の変更や関連法令の改正に伴い変更される場合があります。変更があった場合は本ページにてお知らせします。",
       },
@@ -175,6 +199,14 @@ const content: Record<Locale, PageContent> = {
       {
         heading: "Privacidad de menores",
         body: "LifeHub no está dirigido a menores de 14 años y no recopilamos intencionadamente información personal de menores.",
+      },
+      {
+        heading: "Retención de Datos",
+        body: "Los datos de cálculo procesados en tu navegador nunca se envían a nuestros servidores, así que no hay nada que retener. Los datos recopilados automáticamente, como los registros de acceso, se conservan solo durante un período razonable necesario para el funcionamiento del servicio y la seguridad, y luego se eliminan.",
+      },
+      {
+        heading: "Tus Opciones",
+        body: "Puedes bloquear o eliminar las cookies en la configuración de tu navegador en cualquier momento, y esto no afectará tu capacidad de usar las herramientas de cálculo principales de LifeHub. Bloquear las cookies simplemente puede significar que veas anuncios no personalizados en lugar de personalizados.",
       },
       {
         heading: "Cambios en esta política",

@@ -48,6 +48,7 @@ export const data: Record<Locale, i18nData> = {
       "매수·매도 수수료율과 매도 시 거래세율을 입력합니다.",
       "'계산하기'를 눌러 수수료·세금을 반영한 실제 순손익과 수익률을 확인하세요.",
       "여러 번에 걸쳐 분할 매수했다면, 평균 매수단가(총 매수금액 ÷ 총 수량)를 계산해 매수 가격란에 입력하세요.",
+      "배당금을 받은 종목이라면, 배당소득은 이 계산기의 매매차익 계산에 포함되지 않으므로 별도로 고려해야 합니다.",
     ],
     faq: [
       { q: "수수료와 세금을 반영하지 않으면 왜 손익이 다르게 나오나요?", a: "매수·매도 시 부과되는 거래 수수료와 매도 시 부과되는 거래세(증권거래세 등)는 실제 손익에서 차감되므로, 단순 가격 차이만 계산하면 실제보다 수익이 과대평가됩니다." },
@@ -55,6 +56,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "증권거래세와 양도소득세는 다른 건가요?", a: "네, 다릅니다. 증권거래세는 매도 시 거래금액에 부과되는 세금으로 이 계산기에 반영되며, 양도소득세는 일정 요건(대주주, 해외주식 등)에 해당할 때 실현 수익에 대해 별도로 부과되는 세금으로 이 계산기에는 포함되지 않습니다." },
       { q: "소수점 이하는 어떻게 처리되나요?", a: "입력하신 가격·수량·요율을 기준으로 소수점까지 그대로 계산한 뒤 결과만 보기 좋게 반올림해 표시합니다. 실제 체결 시 증권사 내부 반올림 방식과 1~2원 정도 차이가 날 수 있습니다." },
       { q: "손실이 난 경우에도 세금을 내야 하나요?", a: "증권거래세는 손익과 무관하게 매도 금액 자체에 부과되므로, 손실 상태에서 매도해도 거래세는 발생합니다. 다만 양도소득세는 실현 이익이 없다면 일반적으로 부과되지 않습니다." },
+      { q: "공매도 거래도 이 계산기로 계산할 수 있나요?", a: "이 계산기는 일반적인 매수 후 매도(롱 포지션) 거래를 기준으로 설계되었습니다. 공매도(선매도 후 매수) 거래는 손익 계산 방식이 반대이므로, 매도가를 매수가 위치에, 매수가를 매도가 위치에 입력하는 방식으로 근사 계산은 가능하지만 정확한 결과를 보장하지는 않습니다." },
     ],
     footer: "브라우저에서 100% 처리됩니다. 서버로 전송되는 데이터가 없습니다.",
   },
@@ -79,6 +81,7 @@ export const data: Record<Locale, i18nData> = {
       "Enter the buy/sell fee rate and sell transaction tax rate.",
       "Click 'Calculate' to see your actual net profit and return after fees/tax.",
       "If you bought in multiple batches, calculate your average cost basis (total cost ÷ total shares) and enter that as the buy price.",
+      "If the stock paid dividends, note that dividend income is not included in this calculator's profit calculation and should be considered separately.",
     ],
     faq: [
       { q: "Why does the profit differ if I don't account for fees and tax?", a: "Trading fees charged on both buy/sell and transaction tax charged on sell are deducted from actual profit, so a simple price difference overstates your real gain." },
@@ -86,6 +89,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "Is the securities transaction tax the same as capital gains tax?", a: "No. The transaction tax is charged on the sale amount and is included in this calculator. Capital gains tax applies separately to realized profit under certain conditions (e.g., major shareholder status or overseas stocks) and is not included here." },
       { q: "How are decimal values handled?", a: "The calculation keeps full decimal precision internally and only rounds the final result for display. Actual brokerage execution may differ by a small amount (a cent or two) due to their own internal rounding rules." },
       { q: "Do I still owe tax if I sell at a loss?", a: "The securities transaction tax is charged on the sale amount itself regardless of profit or loss, so it still applies even if you sell at a loss. Capital gains tax, by contrast, generally doesn't apply when there's no realized profit." },
+      { q: "Can this calculator handle short selling?", a: "This calculator is designed for a standard buy-then-sell (long) transaction. For short selling (sell first, then buy back), the profit calculation direction is reversed, so you could approximate it by entering your sell price as the buy price and vice versa, though this isn't guaranteed to be fully accurate." },
     ],
     footer: "100% processed in your browser. No data is sent to a server.",
   },
@@ -110,6 +114,7 @@ export const data: Record<Locale, i18nData> = {
       "買付・売却手数料率と売却時取引税率を入力します。",
       "「計算する」を押して手数料・税金を反映した実際の純損益と収益率を確認しましょう。",
       "複数回に分けて買付した場合は、平均買付単価（総買付金額÷総数量）を計算して買付価格欄に入力してください。",
+      "配当金を受け取った銘柄の場合、配当所得はこのツールの売買差益計算には含まれないため、別途考慮する必要があります。",
     ],
     faq: [
       { q: "手数料と税金を反映しないと損益が異なるのはなぜですか？", a: "買付・売却時に課される取引手数料と売却時に課される取引税は実際の損益から差し引かれるため、単純な価格差だけで計算すると実際より収益が過大評価されます。" },
@@ -117,6 +122,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "証券取引税と譲渡所得税は違いますか？", a: "はい、異なります。証券取引税は売却時の取引金額に課される税金でこのツールに反映されますが、譲渡所得税は一定要件（大株主、海外株式など）に該当する場合に実現利益に対して別途課される税金で、このツールには含まれません。" },
       { q: "小数点以下はどう処理されますか？", a: "入力された価格・数量・料率を小数点まで正確に計算し、結果のみ見やすく四捨五入して表示します。実際の約定時は証券会社内部の端数処理方式により1〜2円程度の差が出る場合があります。" },
       { q: "損失が出た場合でも税金を払う必要がありますか？", a: "証券取引税は損益に関係なく売却金額そのものに課されるため、損失状態で売却しても取引税は発生します。ただし譲渡所得税は実現利益がなければ一般的に課されません。" },
+      { q: "空売り取引もこのツールで計算できますか？", a: "このツールは一般的な買付後売却（ロングポジション）取引を基準に設計されています。空売り（先に売却してから買い戻す）取引は損益計算の方向が逆になるため、売却価格を買付価格欄に、買付価格を売却価格欄に入力することで近似計算は可能ですが、正確な結果を保証するものではありません。" },
     ],
     footer: "ブラウザで100%処理されます。サーバーに送信されるデータはありません。",
   },
@@ -141,6 +147,7 @@ export const data: Record<Locale, i18nData> = {
       "Introduce la tasa de comisión y el impuesto de transacción.",
       "Haz clic en 'Calcular' para ver tu ganancia neta real.",
       "Si compraste en varios lotes, calcula tu costo promedio (costo total ÷ acciones totales) e introdúcelo como precio de compra.",
+      "Si la acción pagó dividendos, ten en cuenta que el ingreso por dividendos no está incluido en el cálculo de ganancia de esta calculadora y debe considerarse por separado.",
     ],
     faq: [
       { q: "¿Por qué la ganancia difiere si no considero comisiones e impuestos?", a: "Las comisiones de compra/venta y el impuesto de transacción en la venta se deducen de la ganancia real, así que una diferencia de precio simple sobreestima tu ganancia." },
@@ -148,6 +155,7 @@ export const data: Record<Locale, i18nData> = {
       { q: "¿Es el impuesto de transacción lo mismo que el impuesto a las ganancias de capital?", a: "No. El impuesto de transacción se cobra sobre el monto de venta y está incluido en esta calculadora. El impuesto a las ganancias de capital aplica por separado a la ganancia realizada bajo ciertas condiciones (como ser accionista principal o acciones extranjeras) y no se incluye aquí." },
       { q: "¿Cómo se manejan los decimales?", a: "El cálculo mantiene la precisión decimal completa internamente y solo redondea el resultado final para mostrarlo. La ejecución real en la correduría puede diferir ligeramente debido a sus propias reglas de redondeo." },
       { q: "¿Debo pagar impuestos si vendo con pérdida?", a: "El impuesto de transacción se cobra sobre el monto de venta en sí, independientemente de la ganancia o pérdida, así que aplica incluso al vender con pérdida. El impuesto a las ganancias de capital, en cambio, generalmente no aplica si no hay ganancia realizada." },
+      { q: "¿Puede esta calculadora manejar ventas en corto?", a: "Esta calculadora está diseñada para una transacción estándar de compra y luego venta (posición larga). Para ventas en corto (vender primero, luego recomprar), la dirección del cálculo de ganancia se invierte, así que podrías aproximarlo introduciendo tu precio de venta como precio de compra y viceversa, aunque esto no garantiza un resultado totalmente preciso." },
     ],
     footer: "Procesado 100% en tu navegador. No se envían datos a un servidor.",
   },

@@ -77,6 +77,14 @@ const content: Record<Locale, PageContent> = {
         heading: "버그 제보 후 어떻게 처리되나요",
         body: "제보해 주신 오류는 재현 가능 여부와 영향 범위를 먼저 확인한 뒤 우선순위를 정해 수정합니다. LifeHub는 웹 서비스라 앱스토어 심사 없이 수정 사항을 바로 배포할 수 있어, 확인된 문제는 비교적 빠르게 반영되는 편입니다. 다만 개별 건마다 수정 완료 시점을 모두 안내드리지는 못하는 점 양해 부탁드립니다.",
       },
+      {
+        heading: "자주 묻는 질문을 먼저 확인해보세요",
+        body: "같은 질문이 여러 번 들어오는 경우를 줄이기 위해, 대부분의 도구 페이지 하단에는 자주 묻는 질문(FAQ) 섹션을 함께 제공하고 있습니다. 문의하시기 전에 해당 도구 페이지의 FAQ를 먼저 살펴보시면 더 빠르게 답을 찾으실 수 있습니다.",
+      },
+      {
+        heading: "광고·제휴 관련 문의",
+        body: "광고 게재, 제휴, 협업 제안 등 비즈니스 관련 문의도 동일한 이메일로 받고 있습니다. 제안 내용을 간단히 정리해 보내주시면 검토 후 답변드리겠습니다. 다만 개인 개발자가 운영하는 서비스 특성상 모든 제안에 참여할 수 없는 점은 양해 부탁드립니다.",
+      },
     ],
   },
   en: {
@@ -110,6 +118,14 @@ const content: Record<Locale, PageContent> = {
       {
         heading: "What Happens After You Report a Bug",
         body: "When you report an issue, we first check whether it's reproducible and how broadly it affects users, then prioritize a fix accordingly. Because LifeHub is a web app, fixes can be deployed immediately without app store review, so confirmed issues are often resolved fairly quickly. That said, we may not always be able to send an individual follow-up for every report.",
+      },
+      {
+        heading: "Check Common Questions First",
+        body: "To reduce repeat questions, most tool pages include a FAQ section at the bottom covering common questions about that specific tool. Checking the FAQ on the relevant tool page before reaching out often gets you an answer faster.",
+      },
+      {
+        heading: "Advertising & Partnership Inquiries",
+        body: "Business inquiries — advertising, partnerships, collaboration proposals — are also welcome at the same email address. A brief summary of your proposal helps us review and respond faster. Please note that, as a service run by an individual developer, we're not able to take on every proposal we receive.",
       },
     ],
   },
@@ -145,6 +161,14 @@ const content: Record<Locale, PageContent> = {
         heading: "不具合報告後の対応の流れ",
         body: "ご報告いただいた不具合は、再現性と影響範囲を確認した上で優先順位を付けて修正しています。LifeHubはWebサービスのため、アプリストアの審査を経ずに修正をすぐに反映できるので、確認された問題は比較的早く反映される傾向にあります。ただし、すべてのご報告に個別の返信や修正完了のご連絡を差し上げられるわけではない点、ご了承ください。",
       },
+      {
+        heading: "どの言語でもお気軽にお問い合わせください",
+        body: "LifeHubは韓国語・英語・日本語・スペイン語の4言語でサービスを提供しており、お問い合わせもこのいずれの言語でいただいても構いません。お使いになりやすい言語で自由にご記入ください。",
+      },
+      {
+        heading: "広告・提携に関するお問い合わせ",
+        body: "広告掲載、提携、コラボレーションのご提案などビジネス関連のお問い合わせも同じメールアドレスで受け付けております。ご提案内容を簡潔にまとめてお送りいただけますと、検討の上ご返信いたします。個人開発者が運営するサービスという特性上、すべてのご提案にお応えできるわけではない点はご了承ください。",
+      },
     ],
   },
   es: {
@@ -178,6 +202,14 @@ const content: Record<Locale, PageContent> = {
       {
         heading: "Qué Sucede Después de Reportar un Error",
         body: "Cuando reportas un problema, primero comprobamos si es reproducible y su alcance, y luego lo priorizamos para solucionarlo. Como LifeHub es una aplicación web, las correcciones pueden desplegarse de inmediato sin revisión de tienda de aplicaciones, por lo que los problemas confirmados suelen resolverse con bastante rapidez. Aun así, no siempre podemos enviar una respuesta individual para cada reporte.",
+      },
+      {
+        heading: "Consulta Primero las Preguntas Frecuentes",
+        body: "Para reducir las preguntas repetidas, la mayoría de las páginas de herramientas incluyen una sección de preguntas frecuentes (FAQ) al final sobre esa herramienta específica. Consultar las FAQ de la página correspondiente antes de escribirnos suele darte una respuesta más rápido.",
+      },
+      {
+        heading: "Consultas Publicitarias y de Colaboración",
+        body: "También recibimos consultas comerciales —publicidad, colaboraciones, propuestas de asociación— en la misma dirección de correo. Un breve resumen de tu propuesta nos ayuda a revisarla y responder más rápido. Ten en cuenta que, al ser un servicio gestionado por un desarrollador individual, no podemos aceptar todas las propuestas que recibimos.",
       },
     ],
   },

@@ -74,6 +74,14 @@ const content: Record<Locale, PageContent> = {
         body: "현재도 새로운 계산기와 유틸리티 도구를 꾸준히 추가하고 있으며, 기존 도구의 정확도와 사용성을 개선하는 작업도 함께 진행하고 있습니다. 사용자분들이 제안해 주시는 아이디어는 다음 업데이트의 우선순위를 정하는 데 큰 도움이 됩니다.",
       },
       {
+        heading: "기술적으로 어떻게 만들어졌나요",
+        body: "LifeHub는 Next.js 기반으로 제작되었으며, 대부분의 계산 로직은 서버가 아닌 사용자의 브라우저에서 자바스크립트로 직접 실행됩니다. 이 방식 덕분에 서버 부하 없이도 많은 사용자가 동시에 이용할 수 있고, 응답 속도도 더 빠릅니다.",
+      },
+      {
+        heading: "계산 결과의 정확도는 어떻게 확인하나요",
+        body: "각 도구를 출시하기 전에 공식 자료(세법, 공공기관 고시 요율 등)와 여러 참고 사례를 바탕으로 계산 로직을 검증합니다. 다만 세법이나 정책은 수시로 바뀔 수 있으므로, 중요한 의사결정 전에는 반드시 최신 공식 정보와 전문가 확인을 함께 거치시길 권장드립니다.",
+      },
+      {
         heading: "문의하기",
         body: "궁금한 점이나 제안하고 싶은 아이디어가 있으시면 아래 이메일로 편하게 연락해 주세요.\n\nskysmoga@gmail.com",
       },
@@ -106,6 +114,14 @@ const content: Record<Locale, PageContent> = {
       {
         heading: "What's Next",
         body: "We're continuously adding new calculators and utility tools, while also improving the accuracy and usability of existing ones. Ideas suggested by users play a big role in shaping what gets prioritized in future updates.",
+      },
+      {
+        heading: "How It's Built",
+        body: "LifeHub is built on Next.js, and most of the calculation logic runs directly in your browser as JavaScript rather than on a server. This keeps response times fast and lets many users use the site at once without placing load on our servers.",
+      },
+      {
+        heading: "How We Verify Calculation Accuracy",
+        body: "Before releasing each tool, we build its calculation logic against official sources (tax law, publicly announced rate schedules, and similar references) and cross-check it against multiple examples. Because tax law and policy can change, we recommend double-checking against the latest official information — and a professional — before any important decision.",
       },
       {
         heading: "Get in Touch",
@@ -142,6 +158,14 @@ const content: Record<Locale, PageContent> = {
         body: "現在も新しい計算機やユーティリティツールを継続的に追加しており、既存ツールの精度や使いやすさの改善も並行して進めています。ユーザーの皆様からいただくアイデアは、今後のアップデートの優先順位を決める上で大きな助けになっています。",
       },
       {
+        heading: "技術的にどのように作られていますか",
+        body: "LifeHubはNext.jsをベースに構築されており、ほとんどの計算ロジックはサーバーではなくユーザーのブラウザ内でJavaScriptとして直接実行されます。この方式により、サーバーに負荷をかけることなく多くのユーザーが同時に利用でき、応答速度も高速です。",
+      },
+      {
+        heading: "計算結果の正確性はどのように確認していますか",
+        body: "各ツールをリリースする前に、公式資料（税法、公的機関が告示する料率など）と複数の参照事例を基に計算ロジックを検証しています。ただし税法や政策は随時変更される可能性があるため、重要な意思決定の前には必ず最新の公式情報と専門家の確認を併せて行うことをおすすめします。",
+      },
+      {
         heading: "お問い合わせ",
         body: "ご不明な点やご提案がございましたら、お気軽に下記メールアドレスまでご連絡ください。\n\nskysmoga@gmail.com",
       },
@@ -174,6 +198,14 @@ const content: Record<Locale, PageContent> = {
       {
         heading: "Próximos pasos",
         body: "Seguimos añadiendo continuamente nuevas calculadoras y herramientas de utilidad, además de mejorar la precisión y usabilidad de las existentes. Las ideas que sugieren los usuarios tienen un papel importante en definir qué se prioriza en futuras actualizaciones.",
+      },
+      {
+        heading: "Cómo Está Construido",
+        body: "LifeHub está construido sobre Next.js, y la mayoría de la lógica de cálculo se ejecuta directamente en tu navegador como JavaScript en lugar de en un servidor. Esto mantiene los tiempos de respuesta rápidos y permite que muchos usuarios utilicen el sitio a la vez sin sobrecargar nuestros servidores.",
+      },
+      {
+        heading: "Cómo Verificamos la Precisión de los Cálculos",
+        body: "Antes de publicar cada herramienta, construimos su lógica de cálculo basándonos en fuentes oficiales (legislación fiscal, tablas de tasas publicadas oficialmente y referencias similares) y la contrastamos con varios ejemplos. Como la legislación fiscal y las políticas pueden cambiar, recomendamos verificar siempre con la información oficial más reciente y un profesional antes de tomar decisiones importantes.",
       },
       {
         heading: "Ponte en contacto",

@@ -399,6 +399,30 @@ export default async function Home({
                 {t("aboutBody4")}
               </p>
             </div>
+            <div>
+              <h2 className="text-base font-semibold">{t("aboutHeading5")}</h2>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {t("aboutBody5")}
+              </p>
+            </div>
+            <div>
+              <h2 className="text-base font-semibold">{t("aboutHeading6")}</h2>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {t("aboutBody6")}
+              </p>
+            </div>
+            <div>
+              <h2 className="text-base font-semibold">{t("aboutHeading7")}</h2>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {t("aboutBody7")}
+              </p>
+            </div>
+            <div>
+              <h2 className="text-base font-semibold">{t("aboutHeading8")}</h2>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {t("aboutBody8")}
+              </p>
+            </div>
           </div>
         </div>
       </section>

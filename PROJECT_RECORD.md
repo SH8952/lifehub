@@ -334,6 +334,42 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-11-07 (1) — adpass.app 100점 목표: 13개 샘플 페이지 전체 2,000자 수준 보강 (사용자 명시적 지시, privacy/terms 포함)
+
+- 사용자가 "13개 페이지 모두 1,500자 기준은 통과했지만 권장 글자수 2,000자 미만이라 99점에서
+  멈춘 것 같다"는 가설을 제시했고, AskUserQuestion으로 범위를 확인한 뒤
+  "모두 2,000자까지 보강 (privacy/terms 포함)"을 명시적으로 선택하여 진행
+- 대상: 홈(/ko), Contact(3차), About(2차), Privacy, Terms, 금융 계산기 6종
+  (퇴직금, 배당수익률, 중개수수료, 전세보증보험, 증여세, 주식양도소득세) — 이미 2,000자를
+  넘긴 savings-maturity-calculator와 /en은 제외
+- 금융 계산기 6종(`data.ts`): 기존 howStep/faq에 각 1~3개 항목 추가
+  (퇴직금: 연차수당 관련 FAQ, 배당수익률: 배당기준일 FAQ, 중개수수료: 부가세 관련 howStep+FAQ 2건,
+  전세보증보험: 중도해지 환급 FAQ, 증여세: 비현금 자산 평가방법 FAQ, 주식양도소득세: 배당소득
+  미포함 howStep + 공매도 FAQ)
+- Contact 페이지 3차 확충: "자주 묻는 질문을 먼저 확인해보세요", "광고·제휴 관련 문의" 2개 섹션 추가
+- About 페이지 2차 확충: "기술적으로 어떻게 만들어졌나요", "계산 결과의 정확도는 어떻게
+  확인하나요" 2개 섹션 추가
+- Privacy 페이지 확충: "데이터 보관 기간", "귀하의 선택권" 2개 섹션 추가 — 법적 정확성을
+  해치지 않도록 기존에 이미 명시된 아키텍처 사실(서버 미전송 등)에 기반한 보수적인 문구로 작성
+  (lastUpdated 날짜는 변경하지 않음)
+- Terms 페이지 확충: "지식재산권", "서비스 이용 중단" 2개 섹션 추가 — 기존 면책/책임제한 조항과
+  동일한 수준의 표준적인 ToS 문구
+- 홈페이지(/ko 등) 2차 보강: 기존 About 섹션(2x2 그리드)을 2x4로 확장, aboutHeading5-8/
+  aboutBody5-8 4쌍 추가("다른 도구와는 무엇이 다른가요", "모바일에서도 편하게 사용하세요",
+  "요금이나 숨겨진 비용이 있나요", "피드백은 어떻게 반영되나요") — `src/i18n/messages/{ko,en,ja,es}.json`
+  Home 네임스페이스에 키 추가 + `page.tsx` 그리드 섹션에 div 4개 추가
+- 로컬 서버(포트 3040)에서 4개 로케일 × 11개 변경 페이지(홈, contact, about, privacy, terms,
+  금융 계산기 6종) 전부 HTTP 200 확인, 신규 콘텐츠 반영 스팟체크 전부 통과, 서버 정상 종료 확인
+- `git status --porcelain` 기준 변경 파일 15개(계획과 일치): about/contact/page.tsx,
+  page.tsx(홈), privacy/page.tsx, terms/page.tsx, 금융 계산기 6종 data.ts,
+  메시지 파일 4개(ko/en/ja/es)
+- 백업: `_backups/content-expansion-batch9_finance6_20261106_145707/`,
+  `_backups/content-expansion-batch9_contact3_20261106_145900/`,
+  `_backups/content-expansion-batch9_about2_20261106_145942/`,
+  `_backups/content-expansion-batch9_privacy_20261106_150018/`,
+  `_backups/content-expansion-batch9_terms_20261106_150050/`,
+  `_backups/content-expansion-batch9_homepage2_20261106_150139/`
+
 ## 2026-11-06 (10) — adpass.app 100점 목표: 홈페이지(/ko) 콘텐츠 보강 (사용자 명시적 지시)
 
 - 사용자가 Contact 2차 확충 후 재검사 스크린샷에서 /ko(홈, 616자)만 유일하게 경고 상태로

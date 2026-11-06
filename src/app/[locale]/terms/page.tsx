@@ -76,6 +76,14 @@ const content: Record<Locale, PageContent> = {
         body: "서비스를 불법적인 목적으로 사용하거나, 서비스 운영을 방해하는 자동화된 접근(과도한 크롤링 등)을 시도하지 않아야 합니다.",
       },
       {
+        heading: "지식재산권",
+        body: "LifeHub의 디자인, 로고, 텍스트, 코드 등 서비스를 구성하는 요소에 대한 지식재산권은 운영자에게 있습니다. 사용자는 개인적·비상업적 용도로 서비스를 이용할 수 있으며, 사전 서면 동의 없이 서비스의 구성요소를 복제·배포·상업적으로 이용할 수 없습니다.",
+      },
+      {
+        heading: "서비스 이용 중단",
+        body: "운영자는 본 약관을 위반하거나 서비스 운영에 지장을 주는 이용자에 대해 사전 통지 없이 서비스 이용을 제한하거나 중단할 수 있습니다. 또한 운영자는 언제든지 서비스 전체 또는 일부를 중단할 수 있으며, 이 경우 가능한 범위 내에서 사전에 공지하도록 노력합니다.",
+      },
+      {
         heading: "서비스 및 약관의 변경",
         body: "운영자는 서비스 내용이나 본 약관을 사전 고지 없이 변경할 수 있습니다. 변경 사항은 이 페이지에 게시된 시점부터 효력을 가집니다.",
       },
@@ -117,6 +125,14 @@ const content: Record<Locale, PageContent> = {
       {
         heading: "User Obligations",
         body: "You agree not to use the Service for unlawful purposes or to attempt automated access (such as excessive scraping) that interferes with the operation of the Service.",
+      },
+      {
+        heading: "Intellectual Property",
+        body: "The design, logo, text, and code that make up LifeHub are the intellectual property of the operator. You may use the Service for personal, non-commercial purposes; copying, redistributing, or commercially exploiting its components without prior written consent is not permitted.",
+      },
+      {
+        heading: "Suspension of Access",
+        body: "The operator may restrict or suspend access, without prior notice, for users who violate these Terms or interfere with the operation of the Service. The operator may also discontinue all or part of the Service at any time, and will make reasonable efforts to provide advance notice where practical.",
       },
       {
         heading: "Changes to the Service and Terms",
@@ -162,6 +178,14 @@ const content: Record<Locale, PageContent> = {
         body: "本サービスを違法な目的で使用したり、過度なクローリングなど本サービスの運営を妨げる自動化されたアクセスを試みたりしないものとします。",
       },
       {
+        heading: "知的財産権",
+        body: "LifeHubのデザイン、ロゴ、テキスト、コードなどサービスを構成する要素に関する知的財産権は運営者に帰属します。ユーザーは個人的・非商業的な目的でサービスを利用できますが、事前の書面による同意なしにサービスの構成要素を複製・配布・商業的に利用することはできません。",
+      },
+      {
+        heading: "サービス利用の停止",
+        body: "運営者は、本規約に違反したり、サービス運営に支障を与えたりする利用者に対し、事前の通知なくサービスの利用を制限または停止することができます。また、運営者はいつでもサービスの全部または一部を中止することができ、その場合は可能な範囲で事前に告知するよう努めます。",
+      },
+      {
         heading: "サービスおよび規約の変更",
         body: "運営者は、事前の通知なくサービス内容や本規約を変更することができます。変更は本ページに掲載された時点から効力を持ちます。",
       },
@@ -203,6 +227,14 @@ const content: Record<Locale, PageContent> = {
       {
         heading: "Obligaciones del usuario",
         body: "Aceptas no utilizar el Servicio con fines ilegales ni intentar accesos automatizados (como el rastreo excesivo) que interfieran con el funcionamiento del Servicio.",
+      },
+      {
+        heading: "Propiedad Intelectual",
+        body: "El diseño, el logotipo, el texto y el código que componen LifeHub son propiedad intelectual del operador. Puedes usar el Servicio con fines personales y no comerciales; copiar, redistribuir o explotar comercialmente sus componentes sin consentimiento previo por escrito no está permitido.",
+      },
+      {
+        heading: "Suspensión del Acceso",
+        body: "El operador puede restringir o suspender el acceso, sin previo aviso, a los usuarios que incumplan estos Términos o interfieran con el funcionamiento del Servicio. El operador también puede discontinuar todo o parte del Servicio en cualquier momento, y hará esfuerzos razonables por avisar con antelación cuando sea posible.",
       },
       {
         heading: "Cambios en el servicio y los términos",

@@ -27,7 +27,15 @@
     "aboutHeading3": "Who Is LifeHub For?",
     "aboutBody3": "LifeHub was built for anyone who wants to track everyday health metrics, plan a loan or retirement savings strategy, convert photo or document file formats, or reach for a quick encoding or decoding tool while coding — a genuinely wide range of everyday needs.",
     "aboutHeading4": "New Tools Are Added Regularly",
-    "aboutBody4": "LifeHub currently offers over 200 tools in four languages — Korean, English, Japanese, and Spanish — and new tools are added regularly based on user feedback. If there's a tool you'd like to see, feel free to suggest it on our Contact page."
+    "aboutBody4": "LifeHub currently offers over 200 tools in four languages — Korean, English, Japanese, and Spanish — and new tools are added regularly based on user feedback. If there's a tool you'd like to see, feel free to suggest it on our Contact page.",
+    "aboutHeading5": "What Makes LifeHub Different",
+    "aboutBody5": "There are many calculator sites out there, but LifeHub stands out by requiring no sign-up and processing most calculations instantly in your browser. It also brings health, finance, image, document, entertainment, and dev tools together in one place, so you don't need to hop between different sites.",
+    "aboutHeading6": "Works Great on Mobile",
+    "aboutBody6": "Every tool on LifeHub is designed to work the same way on both desktop and mobile. You can run a calculation right from your phone's browser while out and about, with no app installation required.",
+    "aboutHeading7": "Are There Any Hidden Costs?",
+    "aboutBody7": "Every tool on LifeHub is completely free, and there's no paid plan or subscription required to unlock any feature. The plan going forward is to keep the core calculation tools free.",
+    "aboutHeading8": "How Feedback Shapes LifeHub",
+    "aboutBody8": "Many past user suggestions have already turned into new tools or feature improvements. If a specific calculator's result looks off, or there's an input field you wish it had, even a small note through the Contact page is genuinely useful and often shapes the next update."
   },
   "Category": {
     "categories": "Categories",
