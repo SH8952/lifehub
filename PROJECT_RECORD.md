@@ -334,6 +334,20 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-11-06 (5) — adpass.app 콘텐츠 품질 경고 대응: 금융 계산기 6종 3차 콘텐츠 확충
+
+- 사용자 확인: 환경변수(`NEXT_PUBLIC_ADSENSE_PUBLISHER_ID`) 등록 + 재배포 완료, adpass.app 재검사 결과 **97점** 유지, "애드센스 코드가 head에 있어요"·"ads.txt가 있어요" 모두 통과로 전환 확인. 콘텐츠 품질(90점)의 "글 평균 본문 1,151자" 경고 1건만 남음.
+- adpass.app이 샘플링한 13개 페이지 중 금융 계산기 6종(dividend-yield-calculator, lease-insurance-calculator, realty-commission-calculator, gift-tax-estimator, stock-profit-calculator, severance-pay-calculator)이 모두 862~997자로 짧아 평균을 끌어내리고 있음을 확인 — 해당 6개 도구를 3차 배치로 우선 확충.
+- 각 도구 `data.ts`의 `howSteps`(3→4개)와 `faq`(2→5개)를 ko/en/ja/es 4개 로케일 모두에 실질적인 내용으로 확장. 기존 `subtitle`(메타 설명)·`disclaimer`·입력 라벨은 변경하지 않음.
+  - **dividend-yield-calculator**: 분기·반기 배당 환산 방법, 배당수익률 vs 배당성향 차이, 배당 지급 주기, 적정 배당수익률 범위.
+  - **lease-insurance-calculator**: 가입 가능 기한, 보험료 부담 주체(세입자/임대인), 임대인 미반환 시 이행청구 절차, HUG/HF/SGI 기관별 차이.
+  - **realty-commission-calculator**: 결과가 "상한"임을 재안내, 중개수수료 외 추가 비용, 비주거용 부동산 적용 여부, 거래 금액 구간별 요율 차등 구조.
+  - **gift-tax-estimator**: 신고 기한(3개월) 안내, 증여세 vs 상속세 차이, 기한 내 자진신고 세액공제, 무신고 시 가산세.
+  - **stock-profit-calculator**: 분할 매수 시 평균 매수단가 입력법, 증권거래세 vs 양도소득세 차이, 소수점 처리 방식, 손실 매도 시 과세 여부.
+  - **severance-pay-calculator**: 결과가 세전 금액임을 안내, 퇴직금 vs 퇴직연금(DB/DC) 차이, 퇴직소득세 계산 방식, 이직 시 재직기간 합산 여부.
+- 편집 전 `_backups/content-expansion-batch3_<timestamp>/`에 6개 파일 원본 백업.
+- 로컬 검증: `npm run dev`(포트 3040) 기동 후 6개 도구 `/en/tool/<slug>` 전부 HTTP 200 확인, 4개 로케일(ko/en/ja/es)에서 새로 추가한 FAQ 문구가 실제 렌더링되는지 각각 grep으로 spot-check 완료, 검증 후 서버 정상 종료.
+
 ## 2026-11-06 (4) — adpass.app 97점 확인 + 기술·색인 "참고" 항목 대응(ads.txt, AdSense 헤드 스크립트)
 
 - adpass.app 재검사 결과 93 → **97점**, 오류 0건(지난 Lorem Ipsum 제목 변경 반영 확인), 콘텐츠 품질 75 → 90으로 상승. 남은 경고 1건(본문 평균 1,151자)은 이번 13개 샘플에 아직 2차 배치 도구가 포함되지 않아 그대로.
