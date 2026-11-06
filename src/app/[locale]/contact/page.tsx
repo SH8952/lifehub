@@ -69,6 +69,14 @@ const content: Record<Locale, PageContent> = {
         heading: "보내주신 내용은 어떻게 쓰이나요",
         body: "문의 메일로 보내주신 내용은 답변과 서비스 개선 목적으로만 사용되며, 제3자에게 제공되지 않습니다. 더 자세한 내용은 개인정보처리방침 페이지를 참고해 주세요.",
       },
+      {
+        heading: "어떤 언어로 문의하셔도 괜찮아요",
+        body: "LifeHub는 한국어, 영어, 일본어, 스페인어 4개 언어로 서비스되고 있으며, 문의 또한 이 중 어떤 언어로 보내주셔도 괜찮습니다. 편하신 언어로 자유롭게 작성해 주세요.",
+      },
+      {
+        heading: "버그 제보 후 어떻게 처리되나요",
+        body: "제보해 주신 오류는 재현 가능 여부와 영향 범위를 먼저 확인한 뒤 우선순위를 정해 수정합니다. LifeHub는 웹 서비스라 앱스토어 심사 없이 수정 사항을 바로 배포할 수 있어, 확인된 문제는 비교적 빠르게 반영되는 편입니다. 다만 개별 건마다 수정 완료 시점을 모두 안내드리지는 못하는 점 양해 부탁드립니다.",
+      },
     ],
   },
   en: {
@@ -94,6 +102,14 @@ const content: Record<Locale, PageContent> = {
       {
         heading: "How We Handle Your Message",
         body: "Anything you send us is used only to respond to you and improve the service, and is never shared with third parties. See our Privacy Policy page for more details.",
+      },
+      {
+        heading: "Write to Us in Any Supported Language",
+        body: "LifeHub is available in Korean, English, Japanese, and Spanish, and you're welcome to write your message in whichever of these languages is most comfortable for you.",
+      },
+      {
+        heading: "What Happens After You Report a Bug",
+        body: "When you report an issue, we first check whether it's reproducible and how broadly it affects users, then prioritize a fix accordingly. Because LifeHub is a web app, fixes can be deployed immediately without app store review, so confirmed issues are often resolved fairly quickly. That said, we may not always be able to send an individual follow-up for every report.",
       },
     ],
   },
@@ -121,6 +137,14 @@ const content: Record<Locale, PageContent> = {
         heading: "お送りいただいた内容の取り扱いについて",
         body: "お問い合わせメールでお送りいただいた内容は、ご返信とサービス改善の目的にのみ使用し、第三者に提供することはありません。詳細はプライバシーポリシーページをご覧ください。",
       },
+      {
+        heading: "どの言語でもお気軽にお問い合わせください",
+        body: "LifeHubは韓国語・英語・日本語・スペイン語の4言語でサービスを提供しており、お問い合わせもこのいずれの言語でいただいても構いません。お使いになりやすい言語で自由にご記入ください。",
+      },
+      {
+        heading: "不具合報告後の対応の流れ",
+        body: "ご報告いただいた不具合は、再現性と影響範囲を確認した上で優先順位を付けて修正しています。LifeHubはWebサービスのため、アプリストアの審査を経ずに修正をすぐに反映できるので、確認された問題は比較的早く反映される傾向にあります。ただし、すべてのご報告に個別の返信や修正完了のご連絡を差し上げられるわけではない点、ご了承ください。",
+      },
     ],
   },
   es: {
@@ -146,6 +170,14 @@ const content: Record<Locale, PageContent> = {
       {
         heading: "Cómo tratamos tu mensaje",
         body: "Todo lo que nos envíes se usa únicamente para responderte y mejorar el servicio, y nunca se comparte con terceros. Consulta nuestra página de Política de Privacidad para más detalles.",
+      },
+      {
+        heading: "Escríbenos en Cualquier Idioma Disponible",
+        body: "LifeHub está disponible en coreano, inglés, japonés y español, y puedes escribirnos tu mensaje en el idioma que te resulte más cómodo entre estos.",
+      },
+      {
+        heading: "Qué Sucede Después de Reportar un Error",
+        body: "Cuando reportas un problema, primero comprobamos si es reproducible y su alcance, y luego lo priorizamos para solucionarlo. Como LifeHub es una aplicación web, las correcciones pueden desplegarse de inmediato sin revisión de tienda de aplicaciones, por lo que los problemas confirmados suelen resolverse con bastante rapidez. Aun así, no siempre podemos enviar una respuesta individual para cada reporte.",
       },
     ],
   },
