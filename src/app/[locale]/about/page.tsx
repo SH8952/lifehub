@@ -66,6 +66,14 @@ const content: Record<Locale, PageContent> = {
         body: "LifeHub는 개인 개발자가 독립적으로 기획·개발·운영하고 있는 서비스입니다. 새로운 도구 제안이나 개선 의견은 언제든 환영합니다.",
       },
       {
+        heading: "광고와 무료 운영 안내",
+        body: "LifeHub는 전적으로 무료로 제공되며, 서비스 운영 비용은 페이지에 노출되는 광고를 통해 충당하고 있습니다. 광고는 콘텐츠 이용을 방해하지 않는 선에서 최소한으로 배치하려 노력하고 있으며, 입력하신 계산 데이터 자체는 광고 목적으로 수집되지 않습니다.",
+      },
+      {
+        heading: "앞으로의 계획",
+        body: "현재도 새로운 계산기와 유틸리티 도구를 꾸준히 추가하고 있으며, 기존 도구의 정확도와 사용성을 개선하는 작업도 함께 진행하고 있습니다. 사용자분들이 제안해 주시는 아이디어는 다음 업데이트의 우선순위를 정하는 데 큰 도움이 됩니다.",
+      },
+      {
         heading: "문의하기",
         body: "궁금한 점이나 제안하고 싶은 아이디어가 있으시면 아래 이메일로 편하게 연락해 주세요.\n\nskysmoga@gmail.com",
       },
@@ -90,6 +98,14 @@ const content: Record<Locale, PageContent> = {
       {
         heading: "About the Operator",
         body: "LifeHub is planned, built, and operated independently by an individual developer. Suggestions for new tools or improvements are always welcome.",
+      },
+      {
+        heading: "Free & Ad-Supported",
+        body: "LifeHub is completely free to use. Running the service is funded through ads shown on the pages, which we try to keep minimal and unobtrusive. The calculation data you enter is never collected for advertising purposes.",
+      },
+      {
+        heading: "What's Next",
+        body: "We're continuously adding new calculators and utility tools, while also improving the accuracy and usability of existing ones. Ideas suggested by users play a big role in shaping what gets prioritized in future updates.",
       },
       {
         heading: "Get in Touch",
@@ -118,6 +134,14 @@ const content: Record<Locale, PageContent> = {
         body: "LifeHubは、個人開発者が独立して企画・開発・運営しているサービスです。新しいツールの提案や改善のご意見はいつでも歓迎いたします。",
       },
       {
+        heading: "無料運営と広告について",
+        body: "LifeHubは完全に無料でご利用いただけます。サービスの運営費用はページに表示される広告によって賄われており、コンテンツの利用を妨げない範囲で最小限に配置するよう努めています。入力いただいた計算データ自体が広告目的で収集されることはありません。",
+      },
+      {
+        heading: "今後の予定",
+        body: "現在も新しい計算機やユーティリティツールを継続的に追加しており、既存ツールの精度や使いやすさの改善も並行して進めています。ユーザーの皆様からいただくアイデアは、今後のアップデートの優先順位を決める上で大きな助けになっています。",
+      },
+      {
         heading: "お問い合わせ",
         body: "ご不明な点やご提案がございましたら、お気軽に下記メールアドレスまでご連絡ください。\n\nskysmoga@gmail.com",
       },
@@ -142,6 +166,14 @@ const content: Record<Locale, PageContent> = {
       {
         heading: "Sobre el operador",
         body: "LifeHub es planificado, desarrollado y operado de forma independiente por un desarrollador individual. Las sugerencias de nuevas herramientas o mejoras siempre son bienvenidas.",
+      },
+      {
+        heading: "Gratuito y con publicidad",
+        body: "LifeHub es completamente gratuito. El funcionamiento del servicio se financia mediante anuncios que se muestran en las páginas, que intentamos mantener mínimos y poco intrusivos. Los datos que introduces en los cálculos nunca se recopilan con fines publicitarios.",
+      },
+      {
+        heading: "Próximos pasos",
+        body: "Seguimos añadiendo continuamente nuevas calculadoras y herramientas de utilidad, además de mejorar la precisión y usabilidad de las existentes. Las ideas que sugieren los usuarios tienen un papel importante en definir qué se prioriza en futuras actualizaciones.",
       },
       {
         heading: "Ponte en contacto",

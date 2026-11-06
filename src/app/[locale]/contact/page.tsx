@@ -61,6 +61,14 @@ const content: Record<Locale, PageContent> = {
         heading: "답변 안내",
         body: "보내주신 문의는 순차적으로 확인하며, 영업일 기준 며칠 내 답변드리도록 노력하겠습니다.",
       },
+      {
+        heading: "문의 시 포함하면 좋은 정보",
+        body: "오류를 제보해 주실 때는 어떤 도구에서(도구 이름 또는 URL), 어떤 입력값을 넣었을 때, 어떤 결과나 문제가 발생했는지를 함께 알려주시면 원인 파악과 수정이 훨씬 빨라집니다. 사용 중인 브라우저나 기기 정보를 함께 알려주시면 더욱 도움이 됩니다.",
+      },
+      {
+        heading: "보내주신 내용은 어떻게 쓰이나요",
+        body: "문의 메일로 보내주신 내용은 답변과 서비스 개선 목적으로만 사용되며, 제3자에게 제공되지 않습니다. 더 자세한 내용은 개인정보처리방침 페이지를 참고해 주세요.",
+      },
     ],
   },
   en: {
@@ -78,6 +86,14 @@ const content: Record<Locale, PageContent> = {
       {
         heading: "Response Time",
         body: "We review messages in the order they're received and aim to respond within a few business days.",
+      },
+      {
+        heading: "What to Include in Your Message",
+        body: "When reporting a bug, it helps a lot to mention which tool (name or URL), what input you entered, and what result or error you saw. Letting us know your browser or device also speeds up diagnosis.",
+      },
+      {
+        heading: "How We Handle Your Message",
+        body: "Anything you send us is used only to respond to you and improve the service, and is never shared with third parties. See our Privacy Policy page for more details.",
       },
     ],
   },
@@ -97,6 +113,14 @@ const content: Record<Locale, PageContent> = {
         heading: "返信について",
         body: "お問い合わせは順次確認しており、営業日ベースで数日以内のご返信を心がけております。",
       },
+      {
+        heading: "お問い合わせ時にあると助かる情報",
+        body: "不具合をご報告いただく際は、どのツールで（ツール名またはURL）、どのような入力値を入れたときに、どのような結果やエラーが出たかを併せてお知らせいただけると、原因の特定と修正がより迅速になります。ご使用のブラウザや端末情報もあわせてお知らせいただけると助かります。",
+      },
+      {
+        heading: "お送りいただいた内容の取り扱いについて",
+        body: "お問い合わせメールでお送りいただいた内容は、ご返信とサービス改善の目的にのみ使用し、第三者に提供することはありません。詳細はプライバシーポリシーページをご覧ください。",
+      },
     ],
   },
   es: {
@@ -114,6 +138,14 @@ const content: Record<Locale, PageContent> = {
       {
         heading: "Tiempo de respuesta",
         body: "Revisamos los mensajes en el orden en que se reciben e intentamos responder en un plazo de pocos días hábiles.",
+      },
+      {
+        heading: "Qué incluir en tu mensaje",
+        body: "Al reportar un error, ayuda mucho mencionar qué herramienta (nombre o URL), qué valores introdujiste y qué resultado o error viste. Indicarnos tu navegador o dispositivo también acelera el diagnóstico.",
+      },
+      {
+        heading: "Cómo tratamos tu mensaje",
+        body: "Todo lo que nos envíes se usa únicamente para responderte y mejorar el servicio, y nunca se comparte con terceros. Consulta nuestra página de Política de Privacidad para más detalles.",
       },
     ],
   },
