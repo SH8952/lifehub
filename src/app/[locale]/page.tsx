@@ -313,7 +313,7 @@ export default async function Home({
             {t("statsToolsLabel")} {totalToolsCount}{toolsUnit} · {t("statsLanguagesLabel")} {languageCount} · {t("statsCategoriesLabel")} {categoryCount}
           </p>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
           {categoryStats.map((cat) => {
             const previewNames = (categoryToolsMap[cat.id] ?? [])
               .slice(0, 3)
@@ -325,7 +325,7 @@ export default async function Home({
                 className="group block"
               >
                 <Card className="h-full">
-                  <CardContent className="p-6 flex items-start gap-4">
+                  <CardContent className="flex h-full flex-col gap-3 p-4 sm:flex-row sm:items-start sm:gap-4 sm:p-6">
                     <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                       {(() => {
                         const CatIcon = categoryIconComponentById[cat.id] ?? Wrench;
@@ -333,10 +333,10 @@ export default async function Home({
                       })()}
                     </span>
                     <div className="flex-1">
-                      <CardTitle className="text-lg group-hover:text-primary transition-colors">
+                      <CardTitle className="text-base sm:text-lg group-hover:text-primary transition-colors">
                         {cat[nameKey]}
                       </CardTitle>
-                      <p className="text-sm text-muted-foreground mt-1">
+                      <p className="text-xs sm:text-sm text-muted-foreground mt-1 line-clamp-2 sm:line-clamp-none">
                         {cat[descKey]}
                       </p>
                       <p className="text-xs text-muted-foreground/80 mt-2 line-clamp-1">
@@ -354,7 +354,7 @@ export default async function Home({
                         />
                       </div>
                     </div>
-                    <span className="text-xl text-muted-foreground group-hover:text-primary transition-colors">
+                    <span className="hidden text-xl text-muted-foreground group-hover:text-primary transition-colors sm:inline">
                       →
                     </span>
                   </CardContent>
