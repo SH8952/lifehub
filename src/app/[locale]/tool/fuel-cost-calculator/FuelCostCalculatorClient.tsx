@@ -32,7 +32,7 @@ function unitLabel(unit: EconomyUnit, d: { unitKmL: string; unitLPer100km: strin
 }
 
 export default function FuelCostCalculatorClient({ initialLocale }: { initialLocale: Locale }) {
-  const [locale, setLocale] = useState<Locale>(initialLocale);
+  const locale: Locale = initialLocale;
   const d = i18n(locale);
 
   const [distance, setDistance] = useState("");
@@ -82,24 +82,9 @@ export default function FuelCostCalculatorClient({ initialLocale }: { initialLoc
     setResult({ economyKmL, fuelUsedL, totalCost, perPerson });
   }
 
-  const locales: Locale[] = ["ko", "en", "ja", "es"];
-  const localeLabels: Record<Locale, string> = { ko: "한국어", en: "English", ja: "日本語", es: "Español" };
 
   return (
     <div>
-      <div className="mb-4 flex gap-2">
-        {locales.map((l) => (
-          <button
-            key={l}
-            onClick={() => setLocale(l)}
-            className={`rounded px-3 py-1 text-sm ${
-              locale === l ? "bg-primary text-primary-foreground" : "bg-white hover:bg-muted"
-            }`}
-          >
-            {localeLabels[l]}
-          </button>
-        ))}
-      </div>
 
       <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
         <h2 className="mb-4 text-lg font-semibold text-gray-900">{d.inputs}</h2>

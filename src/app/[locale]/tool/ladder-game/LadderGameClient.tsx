@@ -71,7 +71,7 @@ function computePath(start: number, n: number, rungs: boolean[][]): number[] {
 }
 
 export default function LadderGameClient({ initialLocale }: { initialLocale: Locale }) {
-  const [locale, setLocale] = useState<Locale>(initialLocale);
+  const locale: Locale = initialLocale;
   const d = i18n(locale);
 
   const [count, setCount] = useState(4);
@@ -137,8 +137,6 @@ export default function LadderGameClient({ initialLocale }: { initialLocale: Loc
     setShowAll(false);
   }
 
-  const locales: Locale[] = ["ko", "en", "ja", "es"];
-  const localeLabels: Record<Locale, string> = { ko: "한국어", en: "English", ja: "日本語", es: "Español" };
 
   const colX = (c: number) => SIDE_PAD + c * COL_GAP;
   const rowY = (r: number) => TOP_PAD + r * ROW_HEIGHT + ROW_HEIGHT / 2;
@@ -147,19 +145,6 @@ export default function LadderGameClient({ initialLocale }: { initialLocale: Loc
 
   return (
     <div>
-      <div className="mb-4 flex gap-2">
-        {locales.map((l) => (
-          <button
-            key={l}
-            onClick={() => setLocale(l)}
-            className={`rounded px-3 py-1 text-sm ${
-              locale === l ? "bg-primary text-primary-foreground" : "bg-white hover:bg-muted"
-            }`}
-          >
-            {localeLabels[l]}
-          </button>
-        ))}
-      </div>
 
       <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
         <h2 className="mb-4 text-lg font-semibold text-gray-900">{d.inputs}</h2>

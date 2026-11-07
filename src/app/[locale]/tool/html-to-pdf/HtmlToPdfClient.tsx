@@ -10,7 +10,7 @@ import { data, type Locale } from "./data";
 const DEFAULT_HTML = `<h1>제목을 입력하세요</h1>\n<p>여기에 본문 내용을 작성합니다.</p>\n<ul>\n  <li>목록 항목 1</li>\n  <li>목록 항목 2</li>\n</ul>`;
 
 export default function HtmlToPdf({ initialLocale }: { initialLocale: Locale }) {
-  const [locale, setLocale] = useState<Locale>(initialLocale);
+  const locale: Locale = initialLocale;
   const t = useTranslations("Tools");
   const d = data[locale];
 
@@ -51,13 +51,7 @@ export default function HtmlToPdf({ initialLocale }: { initialLocale: Locale }) 
         }}
       />
 
-      <div className="my-6 flex gap-2">
-        {(["ko", "en", "ja", "es"] as Locale[]).map((l) => (
-          <button key={l} onClick={() => setLocale(l)} className={`rounded-md border px-3 py-1 text-sm ${locale === l ? "bg-primary text-primary-foreground" : "bg-white hover:bg-muted"}`}>
-            {l.toUpperCase()}
-          </button>
-        ))}
-      </div>
+      <div className="h-6" aria-hidden="true" />
 
       <p className="mb-4 text-xs text-amber-600">{d.trustWarning}</p>
 

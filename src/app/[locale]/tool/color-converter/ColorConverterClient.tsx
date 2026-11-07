@@ -31,7 +31,7 @@ function rgbToHex(r: number, g: number, b: number) {
 }
 
 export default function ColorConverter({ initialLocale }: { initialLocale: Locale }) {
-  const [locale, setLocale] = useState<Locale>(initialLocale);
+  const locale: Locale = initialLocale;
   const t = useTranslations("Tools");
   const d = data[locale];
 
@@ -87,13 +87,7 @@ export default function ColorConverter({ initialLocale }: { initialLocale: Local
         }}
       />
 
-      <div className="my-6 flex gap-2">
-        {(["ko", "en", "ja", "es"] as Locale[]).map((l) => (
-          <button key={l} onClick={() => setLocale(l)} className={`rounded-md border px-3 py-1 text-sm ${locale === l ? "bg-primary text-primary-foreground" : "bg-white hover:bg-muted"}`}>
-            {l.toUpperCase()}
-          </button>
-        ))}
-      </div>
+      <div className="h-6" aria-hidden="true" />
 
       <div className="grid gap-6 sm:grid-cols-[1fr_auto]">
         <div className="space-y-5">

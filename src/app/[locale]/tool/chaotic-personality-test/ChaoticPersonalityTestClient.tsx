@@ -38,7 +38,7 @@ const TYPE_ORDER: TypeKey[] = [
 ];
 
 export default function ChaoticPersonalityTestClient({ initialLocale }: { initialLocale: Locale }) {
-  const [locale, setLocale] = useState<Locale>(initialLocale);
+  const locale: Locale = initialLocale;
   const d = data[locale];
   const total = d.questions.length;
 
@@ -121,20 +121,7 @@ export default function ChaoticPersonalityTestClient({ initialLocale }: { initia
         }}
       />
 
-      <div className="my-6 flex gap-2">
-        {(["ko", "en", "ja", "es"] as Locale[]).map((l) => (
-          <button
-            key={l}
-            onClick={() => {
-              setLocale(l);
-              restart();
-            }}
-            className={`rounded-md border px-3 py-1 text-sm ${locale === l ? "bg-primary text-primary-foreground" : "bg-white hover:bg-muted"}`}
-          >
-            {l.toUpperCase()}
-          </button>
-        ))}
-      </div>
+      <div className="h-6" aria-hidden="true" />
 
       <Card>
         <CardContent className="space-y-6 p-6">

@@ -25,7 +25,7 @@ function calcTax(taxable: number): number {
 }
 
 export default function CapitalGainsTaxEstimator({ initialLocale }: { initialLocale: Locale }) {
-  const [locale, setLocale] = useState<Locale>(initialLocale);
+  const locale: Locale = initialLocale;
   const t = useTranslations("Tools");
   const d = data[locale];
 
@@ -67,13 +67,7 @@ export default function CapitalGainsTaxEstimator({ initialLocale }: { initialLoc
         }}
       />
 
-      <div className="my-6 flex gap-2">
-        {(["ko", "en", "ja", "es"] as Locale[]).map((l) => (
-          <button key={l} onClick={() => setLocale(l)} className={`rounded-md border px-3 py-1 text-sm ${locale === l ? "bg-primary text-primary-foreground" : "bg-white hover:bg-muted"}`}>
-            {l.toUpperCase()}
-          </button>
-        ))}
-      </div>
+      <div className="h-6" aria-hidden="true" />
 
       {oneHouse && salePrice <= 1_200_000_000 && holdingYears >= 2 && (
         <p className="mb-4 rounded-md bg-amber-50 p-3 text-sm text-amber-800">{d.exemptNotice}</p>

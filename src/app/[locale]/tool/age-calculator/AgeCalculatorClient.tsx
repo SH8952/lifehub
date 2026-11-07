@@ -11,7 +11,7 @@ import { i18nData, type Locale, type Data } from "./data";
 
 
 export default function AgeCalculator({ initialLocale }: { initialLocale: Locale }) {
-  const [locale, setLocale] = useState<Locale>(initialLocale);
+  const locale: Locale = initialLocale;
   const t = useTranslations("Tools");
   const [birthYear, setBirthYear] = useState<string>("1990");
   const [birthMonth, setBirthMonth] = useState<string>("1");
@@ -137,18 +137,7 @@ export default function AgeCalculator({ initialLocale }: { initialLocale: Locale
         }}
       />
 
-      {/* Language selector */}
-      <div className="my-6 flex gap-2">
-        {(["ko", "en", "ja", "es"] as Locale[]).map((l) => (
-          <button
-            key={l}
-            onClick={() => setLocale(l)}
-            className={`rounded-md border px-3 py-1 text-sm ${locale === l ? "bg-primary text-primary-foreground" : "bg-white hover:bg-muted"}`}
-          >
-            {l.toUpperCase()}
-          </button>
-        ))}
-      </div>
+      <div className="h-6" aria-hidden="true" />
 
       {/* Calculator */}
       <AgeCalculatorForm

@@ -8,7 +8,7 @@ type Tab = "build" | "check";
 type FieldMode = "every" | "specific";
 
 export default function CronGeneratorClient({ initialLocale }: { initialLocale: Locale }) {
-  const [locale, setLocale] = useState<Locale>(initialLocale);
+  const locale: Locale = initialLocale;
   const d = i18n(locale);
 
   const [tab, setTab] = useState<Tab>("build");
@@ -74,8 +74,6 @@ export default function CronGeneratorClient({ initialLocale }: { initialLocale: 
     });
   }
 
-  const locales: Locale[] = ["ko", "en", "ja", "es"];
-  const localeLabels: Record<Locale, string> = { ko: "한국어", en: "English", ja: "日本語", es: "Español" };
 
   const expression = tab === "build" ? buildExpression() : checkInput;
 
@@ -121,19 +119,6 @@ export default function CronGeneratorClient({ initialLocale }: { initialLocale: 
 
   return (
     <div>
-      <div className="mb-4 flex gap-2">
-        {locales.map((l) => (
-          <button
-            key={l}
-            onClick={() => setLocale(l)}
-            className={`rounded px-3 py-1 text-sm ${
-              locale === l ? "bg-primary text-primary-foreground" : "bg-white hover:bg-muted"
-            }`}
-          >
-            {localeLabels[l]}
-          </button>
-        ))}
-      </div>
 
       <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
         <div className="mb-4 flex gap-2">

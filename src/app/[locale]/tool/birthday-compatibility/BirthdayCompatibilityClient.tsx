@@ -22,7 +22,7 @@ function hashString(s: string): number {
 }
 
 export default function BirthdayCompatibility({ initialLocale }: { initialLocale: Locale }) {
-  const [locale, setLocale] = useState<Locale>(initialLocale);
+  const locale: Locale = initialLocale;
   const t = useTranslations("Tools");
   const d = data[locale];
 
@@ -60,13 +60,7 @@ export default function BirthdayCompatibility({ initialLocale }: { initialLocale
         }}
       />
 
-      <div className="my-6 flex gap-2">
-        {(["ko", "en", "ja", "es"] as Locale[]).map((l) => (
-          <button key={l} onClick={() => setLocale(l)} className={`rounded-md border px-3 py-1 text-sm ${locale === l ? "bg-primary text-primary-foreground" : "bg-white hover:bg-muted"}`}>
-            {l.toUpperCase()}
-          </button>
-        ))}
-      </div>
+      <div className="h-6" aria-hidden="true" />
 
       <Card>
         <CardContent className="space-y-5 p-6">

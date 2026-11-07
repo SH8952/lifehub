@@ -56,7 +56,7 @@ const SHORTCUTS: Record<string, Shortcut[]> = {
 };
 
 export default function KeyboardShortcutsReference({ initialLocale }: { initialLocale: Locale }) {
-  const [locale, setLocale] = useState<Locale>(initialLocale);
+  const locale: Locale = initialLocale;
   const t = useTranslations("Tools");
   const d = data[locale];
 
@@ -90,13 +90,7 @@ export default function KeyboardShortcutsReference({ initialLocale }: { initialL
         }}
       />
 
-      <div className="my-6 flex gap-2">
-        {(["ko", "en", "ja", "es"] as Locale[]).map((l) => (
-          <button key={l} onClick={() => setLocale(l)} className={`rounded-md border px-3 py-1 text-sm ${locale === l ? "bg-primary text-primary-foreground" : "bg-white hover:bg-muted"}`}>
-            {l.toUpperCase()}
-          </button>
-        ))}
-      </div>
+      <div className="h-6" aria-hidden="true" />
 
       <div className="mb-6 flex gap-2">
         <button onClick={() => setOs("windows")} className={`rounded-md px-4 py-2 text-sm font-medium ${os === "windows" ? "bg-indigo-600 text-white" : "bg-muted"}`}>

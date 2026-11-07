@@ -17,7 +17,7 @@ type ScoreResult = {
 } | null;
 
 export default function StudyMethod({ initialLocale }: { initialLocale: Locale }) {
-  const [locale, setLocale] = useState<Locale>(initialLocale);
+  const locale: Locale = initialLocale;
   const t = useTranslations("Tools");
   const [answers, setAnswers] = useState<number[]>(new Array(5).fill(-1));
   const [result, setResult] = useState<ScoreResult>(null);
@@ -96,18 +96,7 @@ export default function StudyMethod({ initialLocale }: { initialLocale: Locale }
         }}
       />
 
-      {/* Language selector */}
-      <div className="my-6 flex gap-2">
-        {(["ko", "en", "ja", "es"] as Locale[]).map((l) => (
-          <button
-            key={l}
-            onClick={() => { setLocale(l); setResult(null); setAnswers(new Array(5).fill(-1)); }}
-            className={`rounded-md border px-3 py-1 text-sm ${locale === l ? "bg-primary text-primary-foreground" : "bg-white hover:bg-muted"}`}
-          >
-            {l.toUpperCase()}
-          </button>
-        ))}
-      </div>
+      <div className="h-6" aria-hidden="true" />
 
       {/* Questions */}
       <div className="mt-8 space-y-4">
