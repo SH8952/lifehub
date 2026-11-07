@@ -18,22 +18,22 @@ export interface Data {
 export const i18nData: Record<Locale, Data> = {
   ko: {
     title: "ADHD 자가검사",
-    subtitle: "주의력결핍 과다행동장애 자가진단 체크리스트 (참용용입니다)",
+    subtitle: "주의력결핍 과다행동장애 자가진단 체크리스트 (참고용입니다)",
     intro: "아래 문항에 대해 자신의 경험과 가장 일치하는 답변을 선택하세요. 총 18개 문항입니다.",
     questions: [
-      { q: "집중한 일을 끝내기가 어렵다", options: [
+      { q: "시작한 일을 끝내기가 어렵다", options: [
         { label: "거의 아니다", score: 0 },
         { label: "가끔 그렇다", score: 1 },
         { label: "자주 그렇다", score: 2 },
         { label: "항상 그렇다", score: 3 },
       ]},
-      { q: "바쁠 일을 미룬다", options: [
+      { q: "중요한 일을 미룬다", options: [
         { label: "거의 아니다", score: 0 },
         { label: "가끔 그렇다", score: 1 },
         { label: "자주 그렇다", score: 2 },
         { label: "항상 그렇다", score: 3 },
       ]},
-      { q: "한 가지 일을 동시에 여러 가지로 한다", options: [
+      { q: "여러 가지 일을 동시에 벌여 놓는다", options: [
         { label: "거의 아니다", score: 0 },
         { label: "가끔 그렇다", score: 1 },
         { label: "자주 그렇다", score: 2 },
@@ -63,7 +63,7 @@ export const i18nData: Record<Locale, Data> = {
         { label: "자주 그렇다", score: 2 },
         { label: "항상 그렇다", score: 3 },
       ]},
-      { q: "손이나 발을 constantly 움직인다", options: [
+      { q: "손이나 발을 끊임없이 움직인다", options: [
         { label: "거의 아니다", score: 0 },
         { label: "가끔 그렇다", score: 1 },
         { label: "자주 그렇다", score: 2 },
@@ -99,7 +99,7 @@ export const i18nData: Record<Locale, Data> = {
         { label: "자주 그렇다", score: 2 },
         { label: "항상 그렇다", score: 3 },
       ]},
-      { q: "감정이 기복이 심하다", options: [
+      { q: "감정 기복이 심하다", options: [
         { label: "거의 아니다", score: 0 },
         { label: "가끔 그렇다", score: 1 },
         { label: "자주 그렇다", score: 2 },
@@ -135,7 +135,7 @@ export const i18nData: Record<Locale, Data> = {
     levels: [
       { min: 0, max: 12, label: "정상 범위", desc: "ADHD 증상이 크게 나타나지 않는 범위입니다. 정상적인 집중력과 행동 조절이 되는 것으로 보입니다.", color: "green" },
       { min: 13, max: 24, label: "경계선", desc: "ADHD 증상이 약간 나타날 수 있는 범위입니다. 일상에서 약간의 집중력 또는 행동 조절에 어려움을 느낄 수 있습니다.", color: "yellow" },
-      { min: 25, max: 54, label: "우려 필요", desc: "ADHD 증상이 상당량 나타날 수 있는 범위입니다. 전문가의 정확한 진단을 받아보시는 것을 권장드립니다.", color: "red" },
+      { min: 25, max: 54, label: "주의 필요", desc: "ADHD 증상이 상당히 많이 나타날 수 있는 범위입니다. 전문가의 정확한 진단을 받아보시는 것을 권장드립니다.", color: "red" },
     ],
     why: "왜 ADHD 자가검사가 필요한가요?",
     whyExplanation:

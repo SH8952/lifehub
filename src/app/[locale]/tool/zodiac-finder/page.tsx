@@ -50,12 +50,12 @@ const zodiacSigns: Record<Locale, ZodiacEntry[]> = {
     { sign: "황소자리", emoji: "♉", dateRange: "4월 20일 ~ 5월 20일", element: "흙", description: "안정성을 중시하고 끈기와 인내심이 강한 사람입니다." },
     { sign: "쌍둥이자리", emoji: "♊", dateRange: "5월 21일 ~ 6월 21일", element: "공기", description: "호기심이 많고 대화 능력을 가진 다재다능한 커뮤니케이터입니다." },
     { sign: "게자리", emoji: "♋", dateRange: "6월 22일 ~ 7월 22일", element: "물", description: "감정적이고 가족을 중시하는 보호본능이 강한 사람입니다." },
-    { sign: "사자자리", emoji: "♌", dateRange: "7월 23일 ~ 8월 22일", element: "불", description: "창조력과 자부심이 강한 자연적인 리더입니다." },
+    { sign: "사자자리", emoji: "♌", dateRange: "7월 23일 ~ 8월 22일", element: "불", description: "창조력과 자부심이 강한 타고난 리더입니다." },
     { sign: "처녀자리", emoji: "♍", dateRange: "8월 23일 ~ 9월 22일", element: "흙", description: "꼼꼼하고 분석적인 능력을 가진 완벽주의자입니다." },
     { sign: "천칭자리", emoji: "♎", dateRange: "9월 23일 ~ 10월 23일", element: "공기", description: "조화와 균형을 추구하는 외교적이며 판단력이 뛰어난 사람입니다." },
     { sign: "전갈자리", emoji: "♏", dateRange: "10월 24일 ~ 11월 21일", element: "물", description: "강한 의지와 통찰력을 가진 집중력 높은 사람입니다." },
     { sign: "궁수자리", emoji: "♐", dateRange: "11월 22일 ~ 12월 21일", element: "불", description: "자유를 사랑하고 모험심 강한 낙관적인 탐험가입니다." },
-    { sign: "염소자리", emoji: "♑", dateRange: "12월 22일 ~ 1월 19일", element: "흙", description: "인내심 있고 책임감이 강한 야망적인 성격을 가졌습니다." },
+    { sign: "염소자리", emoji: "♑", dateRange: "12월 22일 ~ 1월 19일", element: "흙", description: "인내심과 책임감이 강하고 야망 있는 성격입니다." },
   ],
   en: [
     { sign: "Aquarius", emoji: "♒", dateRange: "Jan 20 - Feb 18", element: "Air", description: "A free spirit with original and innovative thinking." },
@@ -122,12 +122,12 @@ export default async function ZodiacFinderPage({
     processingMsg: "별자리 계산은 브라우저에서 처리됩니다.",
     find: "별자리 찾기",
     result: "나의 별자리",
-    element: "오행",
+    element: "4원소",
     whyZodiac: "왜 내 별자리를 알아야 하나요?",
     zodiacExplanation:
-      "별자리는 태어난 날짜에 따라 결정되는 12가지 유형 중 하나로, 성격과 성향을 이해하는 재미있는 도구입니다.\n\n생일을 선택하면 당신의 별자리, 오행(속성), 그리고 간단한 성격 설명을 제공합니다.\n\n이 도구는 재미와 자기 성찰을 위한 참고용이며, 과학적으로 입증된 진단이 아닙니다.",
+      "별자리는 태어난 날짜에 따라 결정되는 12가지 유형 중 하나로, 성격과 성향을 이해하는 재미있는 도구입니다.\n\n생일을 선택하면 당신의 별자리, 4원소(속성), 그리고 간단한 성격 설명을 제공합니다.\n\n이 도구는 재미와 자기 성찰을 위한 참고용이며, 과학적으로 입증된 진단이 아닙니다.",
     limitations: "별자리 정보는 참고용이며, 과학적으로 입증된 진단이 아닙니다.",
-    disclaimer: "이 별자리 찾기는 재미와 자기 성찰을 위한 참고용이며, 의학적·금융적·의학적 진단이 아닙니다. 참고용 목적으로만 사용하세요.",
+    disclaimer: "이 별자리 찾기는 재미와 자기 성찰을 위한 참고용이며, 의학적·금융적 조언이 아닙니다. 참고용 목적으로만 사용하세요.",
     footer: "브라우저에서 100% 처리. 서버로 전송되는 데이터가 없습니다.",
     faq: [
       {
@@ -136,11 +136,11 @@ export default async function ZodiacFinderPage({
       },
       {
         q: "경계일에 태어났는데 어느 별자리인가요?",
-        a: "경계일은 별자리가 바뀌는 시기입니다. 정확한 날짜는 천문연도에 따라 다를 수 있으니, 대부분의 표준 별자리표에 따르면 확인하세요.",
+        a: "경계일은 별자리가 바뀌는 시기입니다. 정확한 날짜는 천문연도에 따라 다를 수 있으니, 대부분의 표준 별자리표를 참고해 확인하세요.",
       },
       {
-        q: "오행(속성)이 뭐예요?",
-        a: "오행은 별자리의 기본 에너지 속성입니다. 불(열정), 공기(사고), 물(감정), 흙(안정)의 네 가지가 있습니다.",
+        q: "4원소(속성)란 무엇인가요?",
+        a: "4원소는 별자리의 기본 에너지 속성입니다. 불(열정), 공기(사고), 물(감정), 흙(안정)의 네 가지가 있습니다.",
       },
     ],
   };

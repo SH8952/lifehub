@@ -23,7 +23,7 @@ export interface i18nData {
 export const data: Record<Locale, i18nData> = {
   ko: {
     title: "이럴 때 당신의 선택은 (밸런스 게임)",
-    subtitle: "둘 중 하나만 선택해야 하는 밸런스 게임 질문을 무작위로 뽑아드립니다.",
+    subtitle: "둘 중 하나만 선택해야 하는 밸런스 게임 질문을 무작위로 뽑아 드립니다.",
     drawBtn: "질문 뽑기",
     optionALabel: "A",
     optionBLabel: "B",

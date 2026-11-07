@@ -19,10 +19,10 @@ export interface Data {
 export const i18nData: Record<Locale, Data> = {
   ko: {
     title: "당뇨 자가진단 체크리스트",
-    subtitle: "당뇨병 위험도 자가검사 (참용용입니다)",
+    subtitle: "당뇨병 위험도 자가검사 (참고용입니다)",
     intro: "아래 문항에 대해 자신의 경험과 건강 상태에 맞게 답변하세요. 총 10개 문항입니다.",
     questions: [
-      { q: "가족력 (부모, 형제가 당뇨가 있다)", options: [
+      { q: "가족력 (부모나 형제 중 당뇨가 있는 사람이 있다)", options: [
         { label: "없음", score: 0 },
         { label: "1명", score: 1 },
         { label: "2명 이상", score: 2 },
@@ -42,7 +42,7 @@ export const i18nData: Record<Locale, Data> = {
         { label: "가끔", score: 1 },
         { label: "자주", score: 2 },
       ]},
-      { q: "피로감 (상시에 피곤한가)", options: [
+      { q: "피로감 (평소에 자주 피곤한가)", options: [
         { label: "아니오", score: 0 },
         { label: "가끔", score: 1 },
         { label: "자주", score: 2 },
@@ -52,7 +52,7 @@ export const i18nData: Record<Locale, Data> = {
         { label: "가끔", score: 1 },
         { label: "자주", score: 2 },
       ]},
-      { q: "천천히 쾌유 (상처가 잘 안 낫는가)", options: [
+      { q: "더딘 회복 (상처가 잘 낫지 않는가)", options: [
         { label: "아니오", score: 0 },
         { label: "가끔", score: 1 },
         { label: "자주", score: 2 },
@@ -73,7 +73,7 @@ export const i18nData: Record<Locale, Data> = {
     ],
     riskFactors: [
       { label: "비만 (BMI 25 이상)", q: "체중 관리가 필요하다" },
-      { label: "고령 (40세 이상)", q: "연령이 40세 이상이다" },
+      { label: "연령 (40세 이상)", q: "연령이 40세 이상이다" },
       { label: "흡연", q: "흡연 경험이 있다" },
       { label: "불규칙한 식사", q: "식사가 불규칙하다" },
       { label: "좌식 생활", q: "앉아 있는 시간이 길다" },
@@ -92,7 +92,7 @@ export const i18nData: Record<Locale, Data> = {
     footer: "브라우저에서 100% 처리. 서버로 전송되는 데이터가 없습니다.",
     faq: [
       { q: "당뇨 자가진단과 혈액검사의 차이점은 무엇인가요?", a: "자가진단은 참고용이며, 실제 혈당 수치(공복 혈당, 식후 혈당, HbA1c)는 의료기관에서 측정해야 합니다." },
-      { q: "검사 결과가 높게 나왔습니다. 어떤 병을 가요?", a: "내과 또는 내분비내과에서 혈당 검사를 받으세요. 당뇨 검사에는 공복 혈당, 경구당내성검사(OGTT), 당화혈색소(HbA1c) 등이 있습니다." },
+      { q: "검사 결과가 높게 나왔습니다. 어느 병원에 가야 하나요?", a: "내과 또는 내분비내과에서 혈당 검사를 받으세요. 당뇨 검사에는 공복 혈당, 경구당내성검사(OGTT), 당화혈색소(HbA1c) 등이 있습니다." },
       { q: "당뇨 예방을 위해 어떤 생활습관이 좋나요?", a: "균형 잡힌 식사, 규칙적인 운동(주 150분 이상), 체중 관리, 충분한 수면, 스트레스 관리가 도움이 됩니다." },
     ],
   },

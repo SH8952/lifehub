@@ -24,7 +24,7 @@ export interface i18nData {
 export const data: Record<Locale, i18nData> = {
   ko: {
     title: "진실게임 질문 룰렛",
-    subtitle: "친구나 연인과 함께 즐기는 진실게임용 질문을 무작위로 뽑아드립니다.",
+    subtitle: "친구나 연인과 함께 즐기는 진실게임용 질문을 무작위로 뽑아 드립니다.",
     drawBtn: "질문 뽑기",
     questionLabel: "오늘의 질문",
     categoryLabel: "난이도",

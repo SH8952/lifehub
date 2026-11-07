@@ -230,7 +230,7 @@ export const questions: BalanceQuestion[] = [
   },
   {
     a: { ko: "매일 걸어서 통근하기", en: "Walk to work every day", ja: "毎日歩いて通勤する", es: "Caminar al trabajo todos los días" },
-    b: { ko: "매일 차로 막히는 길 통근하기", en: "Drive through traffic to work every day", ja: "毎日渋滞した道を車で通勤する", es: "Conducir por tráfico al trabajo todos los días" },
+    b: { ko: "매일 차가 막히는 길로 통근하기", en: "Drive through traffic to work every day", ja: "毎日渋滞した道を車で通勤する", es: "Conducir por tráfico al trabajo todos los días" },
   },
   {
     a: { ko: "평생 재택근무하기", en: "Work from home forever", ja: "一生在宅勤務をする", es: "Trabajar desde casa para siempre" },

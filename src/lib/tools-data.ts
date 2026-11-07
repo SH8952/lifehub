@@ -20,7 +20,7 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
   "life-health": [
     {
       id: "weight-loss-goal-calculator",
-      name: "목표체중 감량 계산기",
+      name: "목표 체중 감량 계산기",
       nameEn: "Weight Loss Goal Calculator",
       nameJa: "目標体重減量計算機",
       nameEs: "Calculadora de Meta de Pérdida de Peso",
@@ -306,7 +306,7 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
     },
     {
       id: "visa-comparison",
-      name: "전세계 비자 비교",
+      name: "전 세계 비자 비교",
       nameEn: "Worldwide Visa Comparison",
       nameJa: "世界のビザ比較",
       nameEs: "Comparación de Visas Mundial",
@@ -339,7 +339,7 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
     },
     {
       id: "monthly-cost",
-      name: "도시별 한달살기 비용",
+      name: "도시별 한 달 살기 비용",
       nameEn: "Monthly Cost by City",
       nameJa: "都市別ホームステイコスト",
       nameEs: "Costo Mensual por Ciudad",
@@ -1029,7 +1029,7 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
       nameEn: "Traditional Saju (Four Pillars)",
       nameJa: "正統サジュー（四柱推命）",
       nameEs: "Saju Tradicional (Cuatro Pilares)",
-      description: "생년월시(生年月上時)로 사주팔자(四柱八字)를 계산",
+      description: "생년월시(生年月日時)로 사주팔자(四柱八字)를 계산",
       descriptionEn: "Calculate your Four Pillars from birth year, month, day, and hour",
       descriptionJa: "生年月日時で四柱八字を計算します",
       descriptionEs: "Calcula tus Cuatro Pilares a partir del año, mes, día y hora de nacimiento",
@@ -1062,7 +1062,7 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
       nameEn: "Zodiac Sign Finder",
       nameJa: "星座探し",
       nameEs: "Buscador de Signos Zodiacales",
-      description: "생일로 내 별자리 확인 (오행·성격 설명 포함)",
+      description: "생일로 내 별자리 확인 (4원소·성격 설명 포함)",
       descriptionEn: "Find your zodiac sign by birth date (with element & personality)",
       descriptionJa: "生年月日から星座を特定（元素・性格説明付き）",
       descriptionEs: "Encuentra tu signo zodiacal por fecha de nacimiento (con elemento y personalidad)",

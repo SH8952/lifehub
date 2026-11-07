@@ -64,9 +64,9 @@ export const data: Record<Locale, I18nData> = {
   },
     questions: [
     { question: "주말 아침, 당신의 모습은?", options: [{ text: "거울 보면서 '나 오늘도 완전 괜찮네'", typeKey: "selfLove" }, { text: "이미 오늘 할 일 리스트 다 써놓음", typeKey: "planner" }, { text: "그냥 침대에서 안 일어남, 집이 최고", typeKey: "homebody" }] },
-    { question: "단체 카톡방에서 내가 보낸 메시지에 아무도 답이 없을 때?", options: [{ text: "'다들 바쁜가보네' 하고 넘어간다", typeKey: "respect" }, { text: "괜히 분위기 싸해진 것 같아 딴 얘기로 급하게 돌린다", typeKey: "moodBreaker" }, { text: "그래도 내 메시지가 제일 웃겼다고 생각한다", typeKey: "selfLove" }] },
+    { question: "단체 카톡방에서 내가 보낸 메시지에 아무도 답이 없을 때?", options: [{ text: "'다들 바쁜가 보네' 하고 넘어간다", typeKey: "respect" }, { text: "괜히 분위기 싸해진 것 같아 딴 얘기로 급하게 돌린다", typeKey: "moodBreaker" }, { text: "그래도 내 메시지가 제일 웃겼다고 생각한다", typeKey: "selfLove" }] },
     { question: "친구가 새로 생긴 핫플레이스 가자고 할 때?", options: [{ text: "'콜! 당장 가자'", typeKey: "hotspotHunter" }, { text: "'거기 웨이팅 몇 시간인지부터 알아보고'", typeKey: "planner" }, { text: "'그냥 우리 집에서 보는 게 낫지 않아?'", typeKey: "homebody" }] },
-    { question: "처음 만난 사람과 대화할 때 나는?", options: [{ text: "일단 있어보이는 척부터 한다", typeKey: "bravado" }, { text: "상대 얘기를 더 많이 들어주는 편이다", typeKey: "respect" }, { text: "SNS 보여주면서 내 일상을 자랑한다", typeKey: "socialCosplay" }] },
+    { question: "처음 만난 사람과 대화할 때 나는?", options: [{ text: "일단 있어 보이는 척부터 한다", typeKey: "bravado" }, { text: "상대 얘기를 더 많이 들어주는 편이다", typeKey: "respect" }, { text: "SNS 보여주면서 내 일상을 자랑한다", typeKey: "socialCosplay" }] },
     { question: "갑자기 생긴 하루 휴가, 당신의 선택은?", options: [{ text: "집에서 아무것도 안 하고 뒹굴기", typeKey: "homebody" }, { text: "미리 세워둔 '휴가 계획표'대로 움직이기", typeKey: "planner" }, { text: "인스타에 올릴 만한 장소를 급하게 찾아본다", typeKey: "socialCosplay" }] },
     { question: "거울 셀카를 찍었을 때 내 반응은?", options: [{ text: "'역시 나 오늘 비주얼 미쳤다'", typeKey: "selfLove" }, { text: "100장 찍고 그중 하나도 안 올림, 애매해서", typeKey: "moodBreaker" }, { text: "바로 여기저기 자랑하러 다닌다", typeKey: "bravado" }] },
     { question: "다른 사람이 내 의견에 반대할 때?", options: [{ text: "'오 그럴 수도 있겠다' 하고 받아들인다", typeKey: "respect" }, { text: "겉으론 쿨한 척하지만 속으론 흔들린다", typeKey: "bravado" }, { text: "괜히 분위기가 어색해져서 화제를 돌린다", typeKey: "moodBreaker" }] },

@@ -26,7 +26,7 @@ export interface i18nData {
 export const data: Record<Locale, i18nData> = {
   ko: {
     title: "QR코드 스캐너",
-    subtitle: "QR코드가 담긴 이미지를 업로드하면 안에 담긴 내용을 바로 읽어드립니다.",
+    subtitle: "QR코드가 담긴 이미지를 업로드하면 안에 담긴 내용을 바로 읽어 드립니다.",
     uploadLabel: "QR코드 이미지를 업로드하세요",
     uploadHint: "클릭하거나 파일을 끌어다 놓으세요",
     changeImage: "다른 이미지 선택",

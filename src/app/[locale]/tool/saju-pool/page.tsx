@@ -36,9 +36,9 @@ const data: Record<Locale, {
 }> = {
   ko: {
     title: "정통 사주풀이",
-    subtitle: "생년월시(生年月上時)로 사주팔자(四柱八字)를 계산합니다",
-    inputs: "생정보 입력",
-    year: "년도 (예: 1990)",
+    subtitle: "생년월시(生年月日時)로 사주팔자(四柱八字)를 계산합니다",
+    inputs: "생년월일 입력",
+    year: "연도 (예: 1990)",
     month: "월 (1-12)",
     day: "일 (1-31)",
     hour: "출생 시각 (24시간제)",
@@ -49,9 +49,9 @@ const data: Record<Locale, {
     fiveElements: "오행(五行) 비율",
     whySaju: "왜 사주풀이가 필요한가요?",
     sajuExplanation:
-      "사주팔자는 태어난 연·월·일·시(生年月上時)를 간지(干支) 여덟 글자로 표현한 것입니다. 일주(日柱)의 천간(天干) 오행을 본인이며, 오행(목·화·토·금·수)의 균형으로 성향과 강약을 봅니다.\n\n이 도구는 전통 만세력(萬年曆) 알고리즘으로 간지를 계산하며, 참고용 성향 분석입니다. 사주는 한 가지 관점일 뿐, 인생의 모든 것을 결정하지 않습니다.",
+      "사주팔자는 태어난 연·월·일·시(生年月日時)를 간지(干支) 여덟 글자로 표현한 것입니다. 일주(日柱)의 천간(天干) 오행이 본인을 나타내며, 오행(목·화·토·금·수)의 균형으로 성향과 강약을 봅니다.\n\n이 도구는 전통 만세력(萬年曆) 알고리즘으로 간지를 계산하며, 참고용 성향 분석입니다. 사주는 한 가지 관점일 뿐, 인생의 모든 것을 결정하지 않습니다.",
     limitations: "사주풀이는 참고용이며, 과학적으로 입증된 진단이 아닙니다.",
-    disclaimer: "이 사주풀이는 전통 명리학 알고리즘을 기반으로 한 참고용이며, 의학적·금융적·의학적 진단이 아닙니다. 참고용 목적으로만 사용하세요.",
+    disclaimer: "이 사주풀이는 전통 명리학 알고리즘을 기반으로 한 참고용이며, 의학적·금융적 조언이 아닙니다. 참고용 목적으로만 사용하세요.",
     footer: "브라우저에서 100% 처리. 서버로 전송되는 데이터가 없습니다.",
     processingMsg: "사주팔자 계산은 브라우저에서 처리됩니다.",
     faq: [
@@ -61,7 +61,7 @@ const data: Record<Locale, {
       },
       {
         q: "출생 시각을 모르면 어떻게 하나요?",
-        a: "시(時)를 모르면 사주의 3柱(연·월·일)만 볼 수 있습니다. 정확한 사주를 위해서는 출생 시각이 필요합니다. 대략적인 시간만 알려줘도 큰 도움이 됩니다.",
+        a: "시(時)를 모르면 사주의 3柱(연·월·일)만 볼 수 있습니다. 정확한 사주를 위해서는 출생 시각이 필요합니다. 대략적인 시간만 입력해도 큰 도움이 됩니다.",
       },
       {
         q: "간지(干支)는 어떻게 계산하나요?",
@@ -87,7 +87,7 @@ const data: Record<Locale, {
     fiveElements: "Five Elements Ratio",
     whySaju: "Why explore Saju?",
     sajuExplanation:
-      "Saju (사주) expresses your birth year, month, day, and hour as eight Chinese character strokes (干支). The Day Master (日主) represents you, and the balance of Five Elements (Wood, Fire, Earth, Metal, Water) reveals personality traits and tendencies.\n\nThis tool uses a traditional calendar algorithm to calculate the stems and branches for reference. Saju is one perspective, not a determinant of your fate.",
+      "Saju (사주) expresses your birth year, month, day, and hour as eight Chinese characters (干支). The Day Master (日主) represents you, and the balance of Five Elements (Wood, Fire, Earth, Metal, Water) reveals personality traits and tendencies.\n\nThis tool uses a traditional calendar algorithm to calculate the stems and branches for reference. Saju is one perspective, not a determinant of your fate.",
     limitations: "Saju is for reference only and is not a scientifically proven diagnosis.",
     disclaimer: "This Saju reading is based on traditional Korean astrology algorithms and is for reference purposes only. It is not a medical, financial, or professional diagnosis.",
     footer: "100% processed in browser. No data is sent to the server.",

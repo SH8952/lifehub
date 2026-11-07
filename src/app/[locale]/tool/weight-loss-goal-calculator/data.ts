@@ -27,7 +27,7 @@ export interface i18nData {
 
 export const data: Record<Locale, i18nData> = {
   ko: {
-    title: "목표체중 감량 계산기",
+    title: "목표 체중 감량 계산기",
     subtitle: "현재 체중과 목표 체중, 주간 감량 속도를 입력해 목표 달성까지 걸리는 기간을 계산합니다.",
     currentWeightLabel: "현재 체중 (kg)",
     targetWeightLabel: "목표 체중 (kg)",
@@ -38,7 +38,7 @@ export const data: Record<Locale, i18nData> = {
     weeksUnit: "주",
     dailyDeficitLabel: "필요한 일일 칼로리 결손",
     kcalUnit: "kcal",
-    alreadyAtGoalMsg: "이미 목표 체중에 도달했거나 더 낮습니다.",
+    alreadyAtGoalMsg: "이미 목표 체중에 도달했거나 목표보다 낮은 체중입니다.",
     disclaimer: "⚠️ 본 계산 결과는 일반적인 공식(지방 1kg ≈ 7,700kcal)에 기반한 참고용 추정치이며, 의학적 조언이 아닙니다. 건강한 감량 속도는 주당 0.5~1kg이 권장되며, 체중 관리 계획은 의사·영양사와 상담하세요.",
     howTitle: "사용 방법",
     howSteps: [

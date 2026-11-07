@@ -83,7 +83,7 @@ const i18nData: Record<Locale, I18nData> = {
     person1: "첫 번째 사람",
     person2: "두 번째 사람",
     name: "이름",
-    birthYear: "출생년도",
+    birthYear: "출생 연도",
     birthMonth: "출생월",
     birthDay: "출생일",
     calculate: "궁합 풀이",
@@ -96,7 +96,7 @@ const i18nData: Record<Locale, I18nData> = {
     whyCompatibility: "왜 궁합을 보나요?",
     compatibilityExplanation: "궁합은 두 사람의 생년월일(간지)과 이름의 오행(五行) 관계를 분석하여 상호작용의 조화를 보는 전통입니다.\n\n오행(목·화·토·금·수)의 상생(相生)과 상극(相剋) 관계로 두 사람의 성향, 강점, 주의할 점을 참고로 살펴봅니다.\n\n이 도구는 각자의 일주(日柱) 오행을 율리우스일 기반으로 계산해 비교하는 간이 버전이며, 과학적으로 입증된 진단이 아닙니다.",
     limitations: "궁합 풀이는 참고용이며, 과학적으로 입증된 진단이 아닙니다.",
-    disclaimer: "이 궁합 풀이는 전통 명리학 개념을 참고한 간이 버전이며, 의학적·금융적 진단이 아닙니다. 참고용 목적으로만 사용하세요.",
+    disclaimer: "이 궁합 풀이는 전통 명리학 개념을 참고한 간이 버전이며, 의학적·금융적 조언이 아닙니다. 참고용 목적으로만 사용하세요.",
     footer: "브라우저에서 100% 처리. 서버로 전송되는 데이터가 없습니다.",
     processingMsg: "궁합 계산은 브라우저에서 처리됩니다.",
     faq: [

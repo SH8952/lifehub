@@ -28,7 +28,7 @@ export interface i18nData {
 export const data: Record<Locale, i18nData> = {
   ko: {
     title: "자동차 보험료 추정기",
-    subtitle: "차량 정보와 운전자 조건을 입력해 자동차 보험료 대략적인 범위를 추정합니다.",
+    subtitle: "차량 정보와 운전자 조건을 입력해 자동차 보험료의 대략적인 범위를 추정합니다.",
     vehicleValueLabel: "차량 가액",
     ageLabel: "운전자 나이",
     experienceLabel: "운전 경력 (년)",

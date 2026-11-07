@@ -33,13 +33,13 @@ export interface Data {
 
 export const i18nData: Record<Locale, Data> = {
   ko: {
-    title: "전세계 비자 비교",
+    title: "전 세계 비자 비교",
     subtitle: "한국 여권으로 갈 수 있는 국가의 비자 정보를 한눈에 비교하세요",
     intro:
-      "한국 여권은 세계에서 강력한 여권 중 하나로, 비자 없는 입국이 가능한 국가가 많습니다.\n\n그러나 비자 정책은 수시로 변경되므로, 여행 전에 반드시 공식 출입국 관리처 또는 대사관의 최신 정보를 확인하세요.\n\n이 도구는 참고용이며, 실제 비자 발급 및 입국은 해당 국가의 공식 기관에서 최종 결정합니다.",
+      "한국 여권은 세계에서 가장 강력한 여권 중 하나로, 비자 없는 입국이 가능한 국가가 많습니다.\n\n그러나 비자 정책은 수시로 변경되므로, 여행 전에 반드시 공식 출입국 관리처 또는 대사관의 최신 정보를 확인하세요.\n\n이 도구는 참고용이며, 실제 비자 발급 및 입국은 해당 국가의 공식 기관에서 최종 결정합니다.",
     showAll: "전체",
     visaFree: "비자 면제",
-    visaOnArrival: "비자 도착",
+    visaOnArrival: "도착 비자",
     eVisa: "전자 비자",
     visaRequired: "비자 필요",
     filterPlaceholder: "국가 검색...",
@@ -52,17 +52,17 @@ export const i18nData: Record<Locale, Data> = {
     tips: "비자 준비 체크리스트",
     tipsList: [
       "출국 전 해당 국가 대사관 또는 출입국 공식 사이트 확인",
-      "여권 유효기간 — 출국일로부터 최소 6개월 이상여야 하는 국가가 많음",
+      "여권 유효기간 — 출국일로부터 최소 6개월 이상이어야 하는 국가가 많음",
       "비자 면제 국가도 왕복 항공권 또는 숙박증명서를 요구할 수 있음",
       "전자 비자(eVisa)는 최소 1~2주 전에 신청",
       "체류 기간을 초과하면 과태료 또는 향후 입국 제한이 있음",
       "비자 정책은 수시로 변경되므로 여행 직전에 다시 확인",
-      " Transit(경유) 국가도 비자가 필요한 경우가 많음",
+      " 경유(Transit) 국가도 비자가 필요한 경우가 많음",
     ],
     faq: [
       {
         q: "한국 여권으로 무비자 입국 가능한 국가는 몇 개 있나요?",
-        a: "2026년 기준 약 190개국이상이 한국 여권 소지자에게 무비자 또는 도착비자로 입국을 허용하고 있습니다. 구체적인 숫자는 여권 파워 인덱스(Henley Passport Index)에서 확인할 수 있습니다.",
+        a: "2026년 기준 약 190개국 이상이 한국 여권 소지자에게 무비자 또는 도착비자로 입국을 허용하고 있습니다. 구체적인 숫자는 여권 파워 인덱스(Henley Passport Index)에서 확인할 수 있습니다.",
       },
       {
         q: "무비자 입국과 도착비자의 차이가 뭔가요?",
@@ -70,7 +70,7 @@ export const i18nData: Record<Locale, Data> = {
       },
       {
         q: "비자 면제 체류 기간은 모두 같은가요?",
-        a: "아닙니다. 미국은 90일(ESTA 필요), 일본은 90일, EU 국가 대부분은 90일, 호주는 무제한, 중국은 15일 등 국가별로 차이가 큽니다.",
+        a: "아닙니다. 미국은 90일(ESTA 필요), 일본은 90일, EU 국가 대부분은 90일, 호주는 3개월(ETA 필요), 중국은 30일(2026년 12월 31일까지 시행) 등 국가별로 차이가 큽니다.",
       },
       {
         q: "비자가 필요한 국가는 어떻게 신청하나요?",
@@ -103,7 +103,7 @@ export const i18nData: Record<Locale, Data> = {
       { country: "필리핀", countryEn: "Philippines", category: "visa-free", visaFreeDays: 30, note: "30일 무비자" },
       { country: "인도네시아", countryEn: "Indonesia", category: "visa-free", visaFreeDays: 30, note: "30일 무비자" },
       { country: "인도", countryEn: "India", category: "visa-on-arrival", note: "도착비자 또는 eVisa 필요. 60일 체류" },
-      { country: "중국", countryEn: "China", category: "visa-required", note: "비자 필요. 15일 무비자(일부 조건)" },
+      { country: "중국", countryEn: "China", category: "visa-free", visaFreeDays: 30, note: "30일 무비자(관광·상용·친지 방문·환승, 2026년 12월 31일까지 시행)" },
       { country: "아랍에미리트", countryEn: "UAE", category: "visa-free", visaFreeDays: 90, note: "90일 무비자" },
       { country: "터키", countryEn: "Turkey", category: "evisa", note: "eVisa 필요. 90일 체류 가능" },
       { country: "이집트", countryEn: "Egypt", category: "visa-on-arrival", note: "도착비자 필요. 30일 체류" },
@@ -154,7 +154,7 @@ export const i18nData: Record<Locale, Data> = {
       },
       {
         q: "Is the visa-free stay period the same for all countries?",
-        a: "No. The US requires 90 days (with ESTA), Japan allows 90 days, most EU countries allow 90 days under the Schengen rules, Australia allows up to 3 months, and China allows 15 days visa-free under certain conditions.",
+        a: "No. The US requires 90 days (with ESTA), Japan allows 90 days, most EU countries allow 90 days under the Schengen rules, Australia allows up to 3 months, and China allows 30 days visa-free (policy in effect through Dec 31, 2026).",
       },
       {
         q: "How do I apply for a visa for countries that require one?",
@@ -187,7 +187,7 @@ export const i18nData: Record<Locale, Data> = {
       { country: "Philippines", countryEn: "Philippines", category: "visa-free", visaFreeDays: 30, note: "30 days visa-free" },
       { country: "Indonesia", countryEn: "Indonesia", category: "visa-free", visaFreeDays: 30, note: "30 days visa-free" },
       { country: "India", countryEn: "India", category: "visa-on-arrival", note: "Visa on arrival or eVisa required. Stay up to 60 days" },
-      { country: "China", countryEn: "China", category: "visa-required", note: "Visa required. 15 days visa-free (some conditions)" },
+      { country: "China", countryEn: "China", category: "visa-free", visaFreeDays: 30, note: "30 days visa-free (tourism, business, family visits, transit; in effect through Dec 31, 2026)" },
       { country: "United Arab Emirates", countryEn: "UAE", category: "visa-free", visaFreeDays: 90, note: "90 days visa-free" },
       { country: "Turkey", countryEn: "Turkey", category: "evisa", note: "eVisa required. Stay up to 90 days" },
       { country: "Egypt", countryEn: "Egypt", category: "visa-on-arrival", note: "Visa on arrival required. Stay up to 30 days" },
@@ -237,7 +237,7 @@ export const i18nData: Record<Locale, Data> = {
       },
       {
         q: "ビザ免除の滞在期間はすべて同じですか？",
-        a: "いいえ。米国は90日(ESTA必要)、日本は90日、EU諸国は90日、豪州は無制限、中国は15日など国によって差が大。",
+        a: "いいえ。米国は90日(ESTA必要)、日本は90日、EU諸国は90日、豪州は3か月(ETA必要)、中国は30日(2026年12月31日まで実施)など国によって差が大。",
       },
       {
         q: "ビザが必要な国はどうやって申請しますか？",
@@ -270,7 +270,7 @@ export const i18nData: Record<Locale, Data> = {
       { country: "フィリピン", countryEn: "Philippines", category: "visa-free", visaFreeDays: 30, note: "30日ビザ免除" },
       { country: "インドネシア", countryEn: "Indonesia", category: "visa-free", visaFreeDays: 30, note: "30日ビザ免除" },
       { country: "インド", countryEn: "India", category: "visa-on-arrival", note: "到着時ビザまたはeVisa必要。60日滞在" },
-      { country: "中国", countryEn: "China", category: "visa-required", note: "ビザ必要。15日ビザ免除(条件有)" },
+      { country: "中国", countryEn: "China", category: "visa-free", visaFreeDays: 30, note: "30日ビザ免除(観光・商用・親族訪問・乗り継ぎ、2026年12月31日まで実施)" },
       { country: "アラブ首長国連邦", countryEn: "UAE", category: "visa-free", visaFreeDays: 90, note: "90日ビザ免除" },
       { country: "トルコ", countryEn: "Turkey", category: "evisa", note: "eVisa必要。90日滞在可能" },
       { country: "エジプト", countryEn: "Egypt", category: "visa-on-arrival", note: "到着時ビザ必要。30日滞在" },
@@ -321,7 +321,7 @@ export const i18nData: Record<Locale, Data> = {
       },
       {
         q: "¿Es el período de estadía sin visa el mismo para todos los países?",
-        a: "No. EE.UU. permite 90 días (con ESTA), Japón permite 90 días, la mayoría de países de la UE permiten 90 días bajo las reglas de Schengen, Australia permite hasta 3 meses, y China permite 15 días sin visa bajo ciertas condiciones.",
+        a: "No. EE.UU. permite 90 días (con ESTA), Japón permite 90 días, la mayoría de países de la UE permiten 90 días bajo las reglas de Schengen, Australia permite hasta 3 meses, y China permite 30 días sin visa (vigente hasta el 31 de diciembre de 2026).",
       },
       {
         q: "¿Cómo aplico para una visa de los países que la requieren?",
@@ -354,7 +354,7 @@ export const i18nData: Record<Locale, Data> = {
       { country: "Filipinas", countryEn: "Philippines", category: "visa-free", visaFreeDays: 30, note: "30 días sin visa" },
       { country: "Indonesia", countryEn: "Indonesia", category: "visa-free", visaFreeDays: 30, note: "30 días sin visa" },
       { country: "India", countryEn: "India", category: "visa-on-arrival", note: "Visa al llegar o eVisa requerido. Estadía hasta 60 días" },
-      { country: "China", countryEn: "China", category: "visa-required", note: "Visa requerido. 15 días sin visa (algunas condiciones)" },
+      { country: "China", countryEn: "China", category: "visa-free", visaFreeDays: 30, note: "30 días sin visa (turismo, negocios, visitas familiares, tránsito; vigente hasta el 31 de dic. de 2026)" },
       { country: "Emiratos Árabes", countryEn: "UAE", category: "visa-free", visaFreeDays: 90, note: "90 días sin visa" },
       { country: "Turquía", countryEn: "Turkey", category: "evisa", note: "eVisa requerido. Estadía hasta 90 días" },
       { country: "Egipto", countryEn: "Egypt", category: "visa-on-arrival", note: "Visa al llegar requerido. Estadía hasta 30 días" },

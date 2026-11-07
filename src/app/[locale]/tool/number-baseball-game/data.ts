@@ -28,7 +28,7 @@ export interface i18nData {
 export const data: Record<Locale, i18nData> = {
   ko: {
     title: "숫자 야구 게임 (업다운)",
-    subtitle: "컴퓨터가 정한 중복 없는 숫자를 추리해서 맞춰보세요. 스트라이크와 볼 힌트로 추리해보세요!",
+    subtitle: "컴퓨터가 정한 중복 없는 숫자를 추리해서 맞춰보세요. 스트라이크와 볼 힌트를 활용해 보세요!",
     digitsLabel: "자릿수",
     startBtn: "새 게임 시작",
     guessPlaceholder: "숫자를 입력하세요",

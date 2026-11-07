@@ -50,8 +50,8 @@ export const elementColors: Record<number, { bg: string; text: string; icon: str
 function dayMasterDesc(locale: Locale, elementIdx: number): string {
   const descs: Record<Locale, string[]> = {
     ko: [
-      "일간이 목(木)이시군요. 성장과 확장을 중시하는 성향이 있습니다. 창의력이 풍부하고 발전지를 향해 나아가는 에너지가 강합니다.",
-      "일간이 화(火)이시군요. 열정과 표현력을 갖춘 성향입니다. 주변에 밝은 에너전을 전파하고 적극적으로 소통하는 모습이 인상적입니다.",
+      "일간이 목(木)이시군요. 성장과 확장을 중시하는 성향이 있습니다. 창의력이 풍부하고 발전을 향해 나아가는 에너지가 강합니다.",
+      "일간이 화(火)이시군요. 열정과 표현력을 갖춘 성향입니다. 주변에 밝은 에너지를 전파하고 적극적으로 소통하는 모습이 인상적입니다.",
       "일간이 토(土)이시군요. 안정과 신뢰를 중시하는 성향이 있습니다. 꼼꼼하고 성실하며 주변을 단단히 받치는 힘이 있습니다.",
       "일간이 금(金)이시군요. 원칙과 절제를 중시하는 성향이 있습니다. 명확한 기준을 가지고 체계적으로 일을 처리하는 능력이 뛰어납니다.",
       "일간이 수(水)이시군요. 지혜와 유연함을 갖춘 성향입니다. 상황에 맞춰 유연하게 대응하며 깊은 통찰력으로 문제를 해결합니다.",
@@ -64,7 +64,7 @@ function dayMasterDesc(locale: Locale, elementIdx: number): string {
       "Your Day Master is Water (水). You have wisdom and flexibility. You adapt to situations and solve problems with deep insight.",
     ],
     ja: [
-      "일간이 목(木)이시군요. 성장과 확장을 중시하는 성향이 있습니다. 창의력이 풍부하고 발전지를 향해 나아가는 에너지가 강합니다.",
+      "일간이 목(木)이시군요. 성장과 확장을 중시하는 성향이 있습니다. 창의력이 풍부하고 발전을 향해 나아가는 에너지가 강합니다.",
       "일간이 화(火)이시군요. 열정과 표현력을 갖춘 성향입니다. 주변에 밝은 에너지를 전파하고 적극적으로 소통하는 모습이 인상적입니다.",
       "일간이 토(土)이시군요. 안정과 신뢰를 중시하는 성향이 있습니다. 꼼꼼하고 성실하며 주변을 단단히 받치는 힘이 있습니다.",
       "일간이 금(金)이시군요. 원칙과 절제를 중시하는 성향이 있습니다. 명확한 기준을 가지고 체계적으로 일을 처리하는 능력이 뛰어납니다.",
@@ -115,8 +115,8 @@ export function i18n(locale: Locale): I18nData {
     ko: {
       title: "정통 사주풀이",
       subtitle: "생년월일과 출생 시각으로 사주팔자(四柱八字)를 계산합니다",
-      inputs: "생정보 입력",
-      year: "년도 (예: 1990)",
+      inputs: "생년월일 입력",
+      year: "연도 (예: 1990)",
       month: "월 (1–12)",
       day: "일 (1–31)",
       hour: "출생 시각 (24시간제, 예: 14)",
@@ -129,7 +129,7 @@ export function i18n(locale: Locale): I18nData {
       fiveElements: "오행(五行) 비율",
       whySaju: "왜 사주풀이가 필요한가요?",
       sajuExplanation:
-        "사주팔자는 태어난 연·월·일·시(生年月上時)를 간지(干支) 여덟 글자로 표현한 것입니다. 일주(日柱)의 천간(天干) 오행을 본인이며, 오행(목·화·토·금·수)의 균형으로 성향과 강약을 봅니다.\n\n이 도구는 양력 기준 근사 공식을 사용해 간지를 계산합니다. 정통 만세력(萬年曆)과는 다를 수 있으니 참고용으로만 활용하세요.",
+        "사주팔자는 태어난 연·월·일·시(生年月日時)를 간지(干支) 여덟 글자로 표현한 것입니다. 일주(日柱)의 천간(天干) 오행이 본인을 나타내며, 오행(목·화·토·금·수)의 균형으로 성향과 강약을 봅니다.\n\n이 도구는 양력 기준 근사 공식을 사용해 간지를 계산합니다. 정통 만세력(萬年曆)과는 다를 수 있으니 참고용으로만 활용하세요.",
       limitations: "사주풀이는 참고용이며, 과학적으로 입증된 진단이 아닙니다.",
       disclaimer:
         "⚠️ 본 계산은 양력 기준 근사 공식을 사용한 간이 버전으로, 정밀한 절기·음력 환산을 반영한 정통 만세력과 다를 수 있습니다. 참고용으로만 활용하세요.",
@@ -172,7 +172,7 @@ export function i18n(locale: Locale): I18nData {
       fiveElements: "Five Elements Ratio",
       whySaju: "Why explore Saju?",
       sajuExplanation:
-        "Saju (사주) expresses your birth year, month, day, and hour as eight Chinese character strokes (干支). The Day Master (日主) represents you, and the balance of Five Elements (Wood, Fire, Earth, Metal, Water) reveals personality traits and tendencies.\n\nThis tool uses an approximation formula based on the Gregorian calendar. It may differ from a traditional almanac (萬年曆) — use for reference only.",
+        "Saju (사주) expresses your birth year, month, day, and hour as eight Chinese characters (干支). The Day Master (日主) represents you, and the balance of Five Elements (Wood, Fire, Earth, Metal, Water) reveals personality traits and tendencies.\n\nThis tool uses an approximation formula based on the Gregorian calendar. It may differ from a traditional almanac (萬年曆) — use for reference only.",
       limitations: "Saju is for reference only and is not a scientifically proven diagnosis.",
       disclaimer:
         "⚠️ This calculation uses an approximation formula based on the Gregorian calendar and may differ from traditional almanacs (萬年曆) that use precise solar terms and lunar calendar conversions. Use for reference only.",

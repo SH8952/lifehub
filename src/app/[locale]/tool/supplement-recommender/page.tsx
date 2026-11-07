@@ -73,7 +73,7 @@ const data: Record<Locale, {
     lifestyle: "생활습관 (복수 선택 가능)",
     lifestyles: {
       "meat": "육식 위주",
-      "veggie": "채식/채식주의",
+      "veggie": "채식 위주",
       "alcohol": "술 자주 마심",
       "eatout": "외식 많음",
       "exercise": "운동 자주 함",

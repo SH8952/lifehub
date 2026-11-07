@@ -45,8 +45,8 @@ export interface Data {
 
 export const i18nData: Record<Locale, Data> = {
   ko: {
-    title: "도시별 한달살기 비용",
-    subtitle: "세계 10개 도시의 월간 생활비를 비교하고 최적의 한달살기 목적지를 찾아보세요",
+    title: "도시별 한 달 살기 비용",
+    subtitle: "세계 10개 도시의 월간 생활비를 비교하고 최적의 한 달 살기 목적지를 찾아보세요",
     city: "도시",
     country: "국가",
     rent: "주거비",
@@ -55,7 +55,7 @@ export const i18nData: Record<Locale, Data> = {
     utilities: "공과금",
     internet: "인터넷",
     total: "총 비용",
-    monthlyTotal: "월 간 총 비용",
+    monthlyTotal: "월간 총 비용",
     costLevel: "비용 수준",
     low: "저렴함",
     medium: "중간",
@@ -65,13 +65,13 @@ export const i18nData: Record<Locale, Data> = {
     compare: "비용 비교",
     why: "왜 도시별 생활비를 알아야 하나요?",
     whyExplanation:
-      "한달살기를 계획할 때 가장 중요한 것은 해당 도시의 실질 생활비입니다.\n\n주거비만 보면 저렴해도 식비나 교통비가 높은 경우가 많습니다.\n\n전체 비용을 종합적으로 비교하면 예산에 맞는 최적의 도시를 찾을 수 있습니다.",
-    tips: "한달살기 비용 절감 팁",
+      "한 달 살기를 계획할 때 가장 중요한 것은 해당 도시의 실질 생활비입니다.\n\n주거비만 보면 저렴해도 식비나 교통비가 높은 경우가 많습니다.\n\n전체 비용을 종합적으로 비교하면 예산에 맞는 최적의 도시를 찾을 수 있습니다.",
+    tips: "한 달 살기 비용 절감 팁",
     tipsList: [
       "현지 마트에서 장보기 (식비 30-40% 절감)",
       "정기교통패스 구매 (월 $50-$100)",
       "에어비앤비 월세 계약 (호텔 대비 50-70% 절약)",
-      "무료 걷기 여행/WIFI 공유 공간 활용",
+      "무료 도보 투어·Wi-Fi 공유 공간 활용",
       "현지인 친구들과 교류하여 무료 이벤트 정보 얻기",
     ],
     faq: [
@@ -95,8 +95,8 @@ export const i18nData: Record<Locale, Data> = {
       { city: "치앙마이", cityEn: "Chiang Mai", country: "태국", rent: 400, food: 250, transport: 40, utilities: 40, internet: 18, total: 748, costLevel: "low", note: "방콕보다 더 저렴함" },
       { city: "다낭", cityEn: "Da Nang", country: "베트남", rent: 450, food: 240, transport: 35, utilities: 40, internet: 15, total: 780, costLevel: "low", note: "바다가 가까움" },
       { city: "호치민시티", cityEn: "Ho Chi Minh City", country: "베트남", rent: 500, food: 260, transport: 40, utilities: 45, internet: 15, total: 860, costLevel: "low", note: "번화한 도시" },
-      { city: "클라크", cityEn: "Clark", country: "필리핀", rent: 350, food: 220, transport: 30, utilities: 35, internet: 20, total: 655, costLevel: "low", note: "휴양지 nearby" },
-      { city: "발리", cityEn: "Bali", country: "인도네시아", rent: 550, food: 280, transport: 45, utilities: 40, internet: 25, total: 940, costLevel: "low", note: "디지털 노마드 인기지" },
+      { city: "클라크", cityEn: "Clark", country: "필리핀", rent: 350, food: 220, transport: 30, utilities: 35, internet: 20, total: 655, costLevel: "low", note: "근처 휴양지" },
+      { city: "발리", cityEn: "Bali", country: "인도네시아", rent: 550, food: 280, transport: 45, utilities: 40, internet: 25, total: 940, costLevel: "low", note: "디지털 노마드 인기 지역" },
       { city: "푸켓", cityEn: "Phuket", country: "태국", rent: 700, food: 320, transport: 50, utilities: 55, internet: 22, total: 1147, costLevel: "medium", note: " TOURIST CITY" },
       { city: "메콩강삼각주", cityEn: "Mekong Delta", country: "베트남", rent: 350, food: 200, transport: 30, utilities: 35, internet: 12, total: 627, costLevel: "low", note: "자연 풍경" },
       { city: "쿠알라룸푸르", cityEn: "Kuala Lumpur", country: "말레이시아", rent: 500, food: 280, transport: 45, utilities: 45, internet: 18, total: 888, costLevel: "low", note: "현대적인 도시" },

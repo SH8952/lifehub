@@ -52,26 +52,26 @@ const data: Record<Locale, {
     results: "계산 결과",
     maturityInterest: "만기 이자",
     maturityPrincipalInterest: "만기 원리합계",
-    afterTaxInterest: "세후 이자 (22% 원천징수)",
-    taxRate: "세율 22%",
+    afterTaxInterest: "세후 이자 (15.4% 원천징수)",
+    taxRate: "세율 15.4%",
     preset: "프리셋",
     whyCalculator: "왜 예금 이자 계산기가 필요한가요?",
     interestExplanation:
-      "은행 예금 상품을 비교할 때, 예상 이자 수익을 미리 계산하면 훨씬 합리적인 선택이 가능합니다. 이 계산기는 원금, 연 이자율, 예치 기간을 기반으로 만기 시 받을 수 있는 이자 수익을 빠르게 계산해 드립니다.\n\n복리 상품을 선택할 경우 단리 대비 추가 수익을 확인할 수 있으며, 원천징수세(22%)를 반영한 세후 수익도 함께 계산됩니다. 실제 은행 상품을 선택하기 전에 예상 수익을 미리 확인하고 비교해 보세요.\n\n단, 실제 금리는 은행별·상품별로 상이할 수 있으므로, 정확한 금액은 가입 시 은행에서 다시 확인하시기 바랍니다.",
+      "은행 예금 상품을 비교할 때, 예상 이자 수익을 미리 계산하면 훨씬 합리적인 선택이 가능합니다. 이 계산기는 원금, 연 이자율, 예치 기간을 기반으로 만기 시 받을 수 있는 이자 수익을 빠르게 계산해 드립니다.\n\n복리 상품을 선택할 경우 단리 대비 추가 수익을 확인할 수 있으며, 이자소득세(15.4%)를 반영한 세후 수익도 함께 계산됩니다. 실제 은행 상품을 선택하기 전에 예상 수익을 미리 확인하고 비교해 보세요.\n\n단, 실제 금리는 은행별·상품별로 상이할 수 있으므로, 정확한 금액은 가입 시 은행에서 다시 확인하시기 바랍니다.",
     limitations: "이 계산기는 참고용이며, 실제 이자 금액을 보장하지 않습니다.",
     footer: "브라우저에서 100% 처리. 서버로 전송되는 데이터가 없습니다.",
     faq: [
       {
         q: "단리와 복리 중 어떤 것이 더 유리한가요?",
-        a: "복리가 더 유리합니다. 단리는 원금에만 이자가 붙지만, 복리는 원금에 accrued 이자가 추가로 이자가 되어 복리로 불어납니다. 예를 들어 원금 1억 원, 연 3%, 10년 조건에서 단리는 총 3천만 원의 이자가 붙지만, 복리는 약 3,439만 원의 이자(원리합계 약 1.344억 원)가 됩니다. 단기가 아닌 장기 예금일수록 복리 효과가 큽니다.",
+        a: "복리가 더 유리합니다. 단리는 원금에만 이자가 붙지만, 복리는 원금뿐 아니라 이미 붙은 이자에도 다시 이자가 붙어 불어납니다. 예를 들어 원금 1억 원, 연 3%, 10년 조건에서 단리는 총 3천만 원의 이자가 붙지만, 복리는 약 3,439만 원의 이자(원리합계 약 1.344억 원)가 됩니다. 단기가 아닌 장기 예금일수록 복리 효과가 큽니다.",
       },
       {
         q: "예금 이자에 붙는 세금은 얼마인가요?",
-        a: "예금 이자에는 22%의 원천징수세(본인세 6.3% + 지방소득세 0.63% + 종합소득세 15.4%)가 부과됩니다. 즉, 100만 원의 이자가 생기면 세후 78만 원을 받게 됩니다. 2022년 1월 1일 이후 신규 가입부터 종합소득 6천만 원 이상자는 종합과세 선택도 가능합니다.",
+        a: "예금 이자에는 이자소득세 14%와 지방소득세 1.4%를 합친 15.4%가 원천징수됩니다. 즉, 100만 원의 이자가 생기면 세후 84만 6천 원을 받게 됩니다. 다만 연간 금융소득(이자·배당 합계)이 2,000만 원을 넘으면 초과분은 다른 소득과 합산해 종합과세되며, 비과세 종합저축 등 세제 혜택 상품은 세율이 다를 수 있습니다.",
       },
       {
         q: "만기 전에 인출하면 어떻게 되나요?",
-        a: "만기 전에 예금을 인출하면 보통 약정 이자보다 낮은 이자가 적용되거나 이자가 전혀 붙지 않을 수 있습니다. 또한 조기 인출 시 패널티가 부과되는 상품도 있습니다. 따라서 여유 자금으로만 예금 가입하시고, 필요 시 긴급 자금은 별도 준비하는 것이 좋습니다.",
+        a: "만기 전에 예금을 인출하면 보통 약정 이자보다 낮은 이자가 적용되거나 이자가 전혀 붙지 않을 수 있습니다. 또한 조기 인출 시 페널티가 부과되는 상품도 있습니다. 따라서 여유 자금으로만 예금에 가입하고, 긴급 자금은 별도로 준비해 두는 것이 좋습니다.",
       },
     ],
   },
@@ -93,12 +93,12 @@ const data: Record<Locale, {
     results: "Results",
     maturityInterest: "Maturity Interest",
     maturityPrincipalInterest: "Total at Maturity",
-    afterTaxInterest: "After-Tax Interest (22% withholding)",
-    taxRate: "Tax rate 22%",
+    afterTaxInterest: "After-Tax Interest (15.4% withholding)",
+    taxRate: "Tax rate 15.4%",
     preset: "Preset",
     whyCalculator: "Why do you need a deposit interest calculator?",
     interestExplanation:
-      "When comparing bank deposit products, calculating expected interest income in advance helps you make more informed decisions. This calculator quickly computes the interest you can earn at maturity based on principal, annual interest rate, and term.\n\nIf you choose a compound interest product, you can see additional earnings compared to simple interest. The after-tax return is also calculated with 22% withholding tax. Check your expected returns in advance before choosing a real bank product.\n\nHowever, actual rates may vary by bank and product, so please confirm the exact amount with the bank at the time of enrollment.",
+      "When comparing bank deposit products, calculating expected interest income in advance helps you make more informed decisions. This calculator quickly computes the interest you can earn at maturity based on principal, annual interest rate, and term.\n\nIf you choose a compound interest product, you can see additional earnings compared to simple interest. The after-tax return is also calculated after deducting the 15.4% withholding tax. Check your expected returns in advance before choosing a real bank product.\n\nHowever, actual rates may vary by bank and product, so please confirm the exact amount with the bank at the time of enrollment.",
     limitations: "This calculator is for reference only and does not guarantee actual interest amounts.",
     footer: "100% processed in browser. No data is sent to the server.",
     faq: [
@@ -108,7 +108,7 @@ const data: Record<Locale, {
       },
       {
         q: "How much tax is applied to deposit interest?",
-        a: "A 22% withholding tax (national income tax 6.3% + local income tax 0.63% + comprehensive income tax 15.4%) is applied to deposit interest. That is, if you earn 1 million KRW in interest, you receive 780,000 KRW after tax. For those with comprehensive income over 60 million KRW since Jan 1, 2022, comprehensive taxation option is also available.",
+        a: "Deposit interest is subject to a 15.4% withholding tax in Korea (14% interest income tax + 1.4% local income tax). That is, if you earn 1 million KRW in interest, you receive 846,000 KRW after tax. If your annual financial income (interest plus dividends) exceeds 20 million KRW, the excess is combined with your other income and taxed comprehensively; tax-advantaged accounts may be taxed at different rates.",
       },
       {
         q: "What happens if I withdraw before maturity?",
@@ -134,12 +134,12 @@ const data: Record<Locale, {
     results: "計算結果",
     maturityInterest: "満期利息",
     maturityPrincipalInterest: "満期元利合計",
-    afterTaxInterest: "税後利息（22%源泉徴収）",
-    taxRate: "税率22%",
+    afterTaxInterest: "税後利息（15.4%源泉徴収）",
+    taxRate: "税率15.4%",
     preset: "プリセット",
     whyCalculator: "なぜ定期預金利息計算機が必要ですか？",
     interestExplanation:
-      "銀行預金商品を比較する際、予想利息収益を事前に計算することで、より合理的な選択が可能になります。この計算機は、元金、年利、預入期間に基づいて、満期時に受け取れる利息収益を素早く計算します。\n\n複利商品を選択した場合、単利との追加収益を確認でき、源泉徴収税(22%)を反映した税後収益も同時に計算されます。実際の銀行商品を選ぶ前に予想収益を事前に確認して比較してみてください。\n\nただし、実際の金利は銀行・商品によって異なりますので、正確な金額は加入時に銀行で再確認してください。",
+      "銀行預金商品を比較する際、予想利息収益を事前に計算することで、より合理的な選択が可能になります。この計算機は、元金、年利、預入期間に基づいて、満期時に受け取れる利息収益を素早く計算します。\n\n複利商品を選択した場合、単利との追加収益を確認でき、利子所得税(15.4%)を反映した税後収益も同時に計算されます。実際の銀行商品を選ぶ前に予想収益を事前に確認して比較してみてください。\n\nただし、実際の金利は銀行・商品によって異なりますので、正確な金額は加入時に銀行で再確認してください。",
     limitations: "この計算機は参考用であり、実際の利息金額を保証するものではありません。",
     footer: "ブラウザで100％処理されます。サーバーに送信されるデータはありません。",
     faq: [
@@ -149,7 +149,7 @@ const data: Record<Locale, {
       },
       {
         q: "預金利息にかかる税金はいくらですか？",
-        a: "預金利息には22%の源泉徴収税（本人税6.3% + 地方所得税0.63% + 総合所得税15.4%）が課されます。つまり、100万ウォンの利息が生じると税後78万ウォンを受け取ります。2022年1月1日以後の新規加入から総合所得6,000万ウォン以上者は総合課税選択も可能です。",
+        a: "韓国の預金利息には、利子所得税14%と地方所得税1.4%を合わせた15.4%が源泉徴収されます。つまり、100万ウォンの利息が生じると税後84万6千ウォンを受け取ります。ただし、年間の金融所得（利息・配当の合計）が2,000万ウォンを超える場合、超過分は他の所得と合算して総合課税されます。非課税貯蓄など税制優遇商品は税率が異なる場合があります。",
       },
       {
         q: "満期前に引き出すとどうなりますか？",
@@ -175,12 +175,12 @@ const data: Record<Locale, {
     results: "Resultados",
     maturityInterest: "Intereses al Vencimiento",
     maturityPrincipalInterest: "Total al Vencimiento",
-    afterTaxInterest: "Intereses Después de Impuestos (retención 22%)",
-    taxRate: "Tasa impositiva 22%",
+    afterTaxInterest: "Intereses Después de Impuestos (retención 15,4%)",
+    taxRate: "Tasa impositiva 15,4%",
     preset: "Preestablecido",
     whyCalculator: "¿Por qué necesitas una calculadora de intereses de depósito?",
     interestExplanation:
-      "Al comparar productos bancarios de depósito, calcular los ingresos por intereses esperados con anticipación te ayuda a tomar decisiones más informadas. Esta calculadora computa rápidamente los intereses que puedes ganar al vencimiento basándose en el capital, la tasa de interés anual y el plazo.\n\nSi eliges un producto de interés compuesto, puedes ver ganancias adicionales comparado con interés simple. El rendimiento después de impuestos también se calcula con un 22% de retención en la fuente. Revisa tus ingresos esperados antes de elegir un producto bancario real.\n\nSin embargo, las tasas reales pueden variar por banco y producto, así que confirma el monto exacto con el banco al momento de la inscripción.",
+      "Al comparar productos bancarios de depósito, calcular los ingresos por intereses esperados con anticipación te ayuda a tomar decisiones más informadas. Esta calculadora computa rápidamente los intereses que puedes ganar al vencimiento basándose en el capital, la tasa de interés anual y el plazo.\n\nSi eliges un producto de interés compuesto, puedes ver ganancias adicionales comparado con interés simple. El rendimiento después de impuestos también se calcula con una retención en la fuente del 15,4%. Revisa tus ingresos esperados antes de elegir un producto bancario real.\n\nSin embargo, las tasas reales pueden variar por banco y producto, así que confirma el monto exacto con el banco al momento de la inscripción.",
     limitations: "Esta calculadora es solo de referencia y no garantiza montos de interés reales.",
     footer: "100% procesado en el navegador. No se envían datos al servidor.",
     faq: [
@@ -190,7 +190,7 @@ const data: Record<Locale, {
       },
       {
         q: "¿Cuánto impuesto se aplica a los intereses de depósito?",
-        a: "Se aplica un 22% de retención en la fuente (impuesto nacional 6.3% + impuesto local 0.63% + impuesto integral 15.4%). Es decir, si ganas 1 millón KRW de intereses, recibes 780,000 KRW después de impuestos. Para quienes tienen ingresos integrales sobre 60 millones KRW desde el 1 de enero de 2022, también está disponible la opción de tributación integral.",
+        a: "A los intereses de depósito en Corea se les retiene un 15,4% (14% de impuesto sobre intereses + 1,4% de impuesto local). Es decir, si ganas 1 millón KRW de intereses, recibes 846.000 KRW después de impuestos. Si tus ingresos financieros anuales (intereses más dividendos) superan los 20 millones KRW, el exceso se suma a tus demás ingresos y tributa de forma integral; las cuentas con ventajas fiscales pueden tener tasas distintas.",
       },
       {
         q: "¿Qué pasa si retiro antes del vencimiento?",

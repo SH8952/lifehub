@@ -55,7 +55,7 @@ export default function FixedDepositInterest({
       // Compound annually
       interest = principal * Math.pow(1 + r, period) - principal;
     }
-    const afterTax = interest * 0.78; // 22% withholding tax
+    const afterTax = interest * (1 - 0.154); // 15.4% withholding tax (14% + local 1.4%)
     setResult({ interest: Math.round(interest), total: Math.round(principal + interest), afterTax: Math.round(afterTax) });
   }
 
