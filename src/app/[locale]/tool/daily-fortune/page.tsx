@@ -1,7 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Card, CardContent } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 import { zodiacData, type Zodiac, type Locale } from "./data";
 
 const pageMeta: Record<Locale, { title: string; description: string }> = {
@@ -23,9 +23,7 @@ export async function generateMetadata({
   return {
     title,
     description: m.description,
-    alternates: {
-      languages: languageAlternates("/tool/daily-fortune"),
-    },
+    alternates: pageAlternates(locale, "/tool/daily-fortune"),
     openGraph: {
       title,
       description: m.description,

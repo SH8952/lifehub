@@ -1,7 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Card, CardContent } from "@/components/ui/card";
 import BMICalculator from "@/components/bmi-calculator";
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 
 type Locale = "ko" | "en" | "ja" | "es";
 
@@ -170,9 +170,7 @@ export async function generateMetadata({
   return {
     title,
     description: d.subtitle,
-    alternates: {
-      languages: languageAlternates("/tool/bmi"),
-    },
+    alternates: pageAlternates(locale, "/tool/bmi"),
     openGraph: {
       title,
       description: d.subtitle,

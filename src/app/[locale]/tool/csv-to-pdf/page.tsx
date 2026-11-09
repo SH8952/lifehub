@@ -1,4 +1,4 @@
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 import CsvToPdf from "./CsvToPdfClient";
 import { data, type Locale } from "./data";
 
@@ -14,9 +14,7 @@ export async function generateMetadata({
   return {
     title,
     description: d.subtitle,
-    alternates: {
-      languages: languageAlternates("/tool/csv-to-pdf"),
-    },
+    alternates: pageAlternates(locale, "/tool/csv-to-pdf"),
     openGraph: {
       title,
       description: d.subtitle,

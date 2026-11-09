@@ -1,7 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { categories } from "../../page";
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 import { Card, CardContent } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
 import { categoryToolsMap } from "@/lib/tools-data";
@@ -43,9 +43,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: {
-      languages: languageAlternates(`/category/${id}`),
-    },
+    alternates: pageAlternates(locale, `/category/${id}`),
     openGraph: {
       title,
       description,

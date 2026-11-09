@@ -1,4 +1,4 @@
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 import CodeMinifier from "./CodeMinifierClient";
 import { data, type Locale } from "./data";
 
@@ -14,9 +14,7 @@ export async function generateMetadata({
   return {
     title,
     description: d.subtitle,
-    alternates: {
-      languages: languageAlternates("/tool/code-minifier"),
-    },
+    alternates: pageAlternates(locale, "/tool/code-minifier"),
     openGraph: {
       title,
       description: d.subtitle,

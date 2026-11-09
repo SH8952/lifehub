@@ -1,4 +1,4 @@
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 import MovieRecommendationRoulette from "./MovieRecommendationRouletteClient";
 import { data, type Locale } from "./data";
 
@@ -14,9 +14,7 @@ export async function generateMetadata({
   return {
     title,
     description: d.subtitle,
-    alternates: {
-      languages: languageAlternates("/tool/movie-recommendation-roulette"),
-    },
+    alternates: pageAlternates(locale, "/tool/movie-recommendation-roulette"),
     openGraph: {
       title,
       description: d.subtitle,

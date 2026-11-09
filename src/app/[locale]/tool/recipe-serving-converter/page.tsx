@@ -1,4 +1,4 @@
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 import RecipeServingConverter from "./RecipeServingConverterClient";
 import { data, type Locale } from "./data";
 
@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title,
     description: d.subtitle,
-    alternates: { languages: languageAlternates("/tool/recipe-serving-converter") },
+    alternates: pageAlternates(locale, "/tool/recipe-serving-converter"),
     openGraph: { title, description: d.subtitle, url: `${SITE_URL}/${locale}/tool/recipe-serving-converter` },
   };
 }

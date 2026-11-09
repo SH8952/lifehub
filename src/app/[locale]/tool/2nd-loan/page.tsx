@@ -1,7 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Card, CardContent } from "@/components/ui/card";
 import SecondLoanCalculator from "@/components/second-loan-calculator";
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 
 type Locale = "ko" | "en" | "ja" | "es";
 
@@ -331,9 +331,7 @@ export async function generateMetadata({
   return {
     title,
     description: d.subtitle,
-    alternates: {
-      languages: languageAlternates("/tool/2nd-loan"),
-    },
+    alternates: pageAlternates(locale, "/tool/2nd-loan"),
     openGraph: {
       title,
       description: d.subtitle,

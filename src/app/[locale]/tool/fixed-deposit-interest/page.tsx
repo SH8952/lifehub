@@ -1,7 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Card, CardContent } from "@/components/ui/card";
 import FixedDepositInterest from "@/components/fixed-deposit-interest";
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 
 type Locale = "ko" | "en" | "ja" | "es";
 
@@ -212,9 +212,7 @@ export async function generateMetadata({
   return {
     title,
     description: d.subtitle,
-    alternates: {
-      languages: languageAlternates("/tool/fixed-deposit-interest"),
-    },
+    alternates: pageAlternates(locale, "/tool/fixed-deposit-interest"),
     openGraph: {
       title,
       description: d.subtitle,

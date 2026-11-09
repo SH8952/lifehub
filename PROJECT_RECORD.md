@@ -334,6 +334,29 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-11-09 (1) — 서치 콘솔 첫 보고서 분석 후 canonical 추가·사이트맵 한국어 우선·색인 요청 목록 생성 (사용자 요청: "3,2번 진행")
+
+- 서치 콘솔 첫 업데이트(보고서 11/6): 색인됨 332 · 발견됨-미색인 629(한 번도 크롤링 안 됨) · 크롤링됨-미색인 11 · 리디렉션 15.
+  구글이 실제 읽은 343개 중 332개(97%)가 색인 → 품질보다 크롤링 양이 병목(신규 사이트 + 공용 서브도메인 vercel.app).
+  언어별 색인 비율 en 50% · es 32% · ja 33% · ko 16%: 사이트맵이 en → es → ja → ko 순이었던 것과 일치(가설).
+  `/ko`·`/en`·`/ja` 메인은 미크롤링(`/es`만 색인), 한국어 카테고리 7개도 미크롤링. 언어 경로 없는 `/tool/...` 22개가 색인으로 잡혀 있음(원인 미확인).
+- **canonical 추가(자기 참조)**: 모든 페이지 메타데이터에 canonical 없었음 → `src/lib/seo.ts`에 `pageAlternates(locale, path)`
+  (canonical + hreflang) 추가, 도구 221개·about/contact/privacy/terms·카테고리·레이아웃(홈)에 적용(227곳, 파일 232개).
+  `ladder-game`·`tarot-card`·`balance-game`·`random-picker` 4개 도구는 기존에 alternates가 없어 레이아웃의 홈 hreflang을 상속하던
+  문제도 함께 바로잡음. 기존 `languageAlternates` 함수는 유지(내부에서 사용).
+- **사이트맵 한국어 우선**: `src/app/sitemap.ts` 순회 순서 ko → en → es → ja (총 948개, 중복 0 그대로).
+- 검증: `tsc` 0 errors, eslint 0건, 로컬(3040, 사본 폴더 webpack 모드)에서 17개 대표 페이지 canonical이 자기 URL과 일치(운영 환경에서는
+  `NEXT_PUBLIC_SITE_URL`=vercel.app 주소로 출력), hreflang 5종(en·es·ja·ko·x-default) 확인, 사이트맵 948/948 유일·언어 순서 ko 237→en→es→ja,
+  언어 경로 없는 `/tool/x`는 307로 `/ko/tool/x`에 넘어감 확인. 서버 종료 확인.
+- 백업: `_backups/canonical-sitemap_20261109_105443/src` (수정 전 src 전체)
+- **색인 요청 목록(lifehub)**: 공용 생성기 `gsc-index-list-builder.py` + 서치 콘솔 Drilldown(629개, 언어 경로 없는 `/` 1개 제외 → 628개).
+  lifehub 우선순위를 언어 우선으로 변경(ko 198 → en 115 → ja 156 → es 159; 같은 언어 안에서 홈 → 카테고리 → 정책 → 도구[금융 → 생활·건강 → …]).
+  하루 10개씩 63일치, 파일 `lifehub-색인요청목록.html`을 최상위 `AdSense Affiliate Marketing` 폴더에 저장(처음 권한 요청은 거부되었다가
+  사용자 재요청 후 허용됨). 입력·출력 주소 집합 일치(628/628) 검증 완료. 공용 생성기 `gsc-index-list-builder.py`는 다른 대화방에서 이미 수정된
+  상태라 통째로 덮어쓰지 않고 lifehub 우선순위 함수만 패치(백업 `_backups/gsc-helper_*_pre-lifehub-1109/`).
+- 확인 필요(사용자): 도우미 패널 "추가"로 628개 불러오기, 서치 콘솔에서 lifehub 속성 선택 후 시작. 요청 하루 한도가 계정 통합이므로
+  사이트 번갈아 진행. 1~2주 뒤 커버리지·실적 보고서를 다시 내보내 최종 크롤링 날짜 변화 확인.
+
 ## 2026-11-07 (6) — (5)에서 보류했던 사실 관계 2건 수정: 예금 이자 세율, 중국 무비자 기간 (사용자 요청: "모두 수정해줘")
 
 - 정기예금 이자 계산기(`fixed-deposit-interest`)

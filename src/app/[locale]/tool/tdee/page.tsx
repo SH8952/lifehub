@@ -1,4 +1,4 @@
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 import TdeeCalculator from "./TdeeCalculatorClient";
 import { i18nData, type Locale } from "./data";
 
@@ -14,9 +14,7 @@ export async function generateMetadata({
   return {
     title,
     description: d.subtitle,
-    alternates: {
-      languages: languageAlternates("/tool/tdee"),
-    },
+    alternates: pageAlternates(locale, "/tool/tdee"),
     openGraph: {
       title,
       description: d.subtitle,

@@ -1,4 +1,4 @@
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 import TraitMindsetCardMaker from "./TraitMindsetCardMakerClient";
 import { data, type Locale } from "./data";
 
@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title,
     description: d.subtitle,
-    alternates: { languages: languageAlternates("/tool/trait-mindset-card-maker") },
+    alternates: pageAlternates(locale, "/tool/trait-mindset-card-maker"),
     openGraph: { title, description: d.subtitle, url: `${SITE_URL}/${locale}/tool/trait-mindset-card-maker` },
   };
 }

@@ -1,4 +1,4 @@
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 import ImageRoundedCorners from "./ImageRoundedCornersClient";
 import { data, type Locale } from "./data";
 
@@ -14,9 +14,7 @@ export async function generateMetadata({
   return {
     title,
     description: d.subtitle,
-    alternates: {
-      languages: languageAlternates("/tool/image-rounded-corners"),
-    },
+    alternates: pageAlternates(locale, "/tool/image-rounded-corners"),
     openGraph: {
       title,
       description: d.subtitle,

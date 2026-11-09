@@ -1,4 +1,4 @@
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 import PdfPageSizeConverter from "./PdfPageSizeConverterClient";
 import { data, type Locale } from "./data";
 
@@ -14,9 +14,7 @@ export async function generateMetadata({
   return {
     title,
     description: d.subtitle,
-    alternates: {
-      languages: languageAlternates("/tool/pdf-page-size-converter"),
-    },
+    alternates: pageAlternates(locale, "/tool/pdf-page-size-converter"),
     openGraph: {
       title,
       description: d.subtitle,

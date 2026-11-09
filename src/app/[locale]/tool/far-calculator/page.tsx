@@ -1,4 +1,4 @@
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 import FarCalculatorComponent from "./FarCalculatorComponentClient";
 import { i18nData, type Locale } from "./data";
 
@@ -14,9 +14,7 @@ export async function generateMetadata({
   return {
     title,
     description: d.subtitle,
-    alternates: {
-      languages: languageAlternates("/tool/far-calculator"),
-    },
+    alternates: pageAlternates(locale, "/tool/far-calculator"),
     openGraph: {
       title,
       description: d.subtitle,

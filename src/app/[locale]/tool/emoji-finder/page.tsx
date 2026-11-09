@@ -1,4 +1,4 @@
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 import EmojiFinder from "./EmojiFinderClient";
 import { data, type Locale } from "./data";
 
@@ -14,9 +14,7 @@ export async function generateMetadata({
   return {
     title,
     description: d.subtitle,
-    alternates: {
-      languages: languageAlternates("/tool/emoji-finder"),
-    },
+    alternates: pageAlternates(locale, "/tool/emoji-finder"),
     openGraph: {
       title,
       description: d.subtitle,

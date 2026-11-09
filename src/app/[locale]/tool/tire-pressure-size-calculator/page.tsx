@@ -1,4 +1,4 @@
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 import TirePressureSizeCalculator from "./TirePressureSizeCalculatorClient";
 import { data, type Locale } from "./data";
 
@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title,
     description: d.subtitle,
-    alternates: { languages: languageAlternates("/tool/tire-pressure-size-calculator") },
+    alternates: pageAlternates(locale, "/tool/tire-pressure-size-calculator"),
     openGraph: { title, description: d.subtitle, url: `${SITE_URL}/${locale}/tool/tire-pressure-size-calculator` },
   };
 }

@@ -31,6 +31,19 @@ export function languageAlternates(path = "") {
   };
 }
 
+/**
+ * Per-page alternates: a self-referencing canonical URL (this page's own
+ * locale URL) plus hreflang alternates for every locale. A canonical on each
+ * page tells search engines which URL is the preferred one, so locale-less or
+ * otherwise duplicated URLs consolidate onto the locale-prefixed page.
+ */
+export function pageAlternates(locale: string, path = "") {
+  return {
+    canonical: `${SITE_URL}/${locale}${path}`,
+    languages: languageAlternates(path),
+  };
+}
+
 /** BreadcrumbList JSON-LD for search-result breadcrumb trails. */
 export function breadcrumbJsonLd(items: { name: string; url: string }[]) {
   return {

@@ -1,4 +1,4 @@
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 import TravelDestinationRoulette from "./TravelDestinationRouletteClient";
 import { data, type Locale } from "./data";
 
@@ -14,9 +14,7 @@ export async function generateMetadata({
   return {
     title,
     description: d.subtitle,
-    alternates: {
-      languages: languageAlternates("/tool/travel-destination-roulette"),
-    },
+    alternates: pageAlternates(locale, "/tool/travel-destination-roulette"),
     openGraph: {
       title,
       description: d.subtitle,

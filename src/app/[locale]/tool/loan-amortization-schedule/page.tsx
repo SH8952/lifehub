@@ -1,7 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Card, CardContent } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 import LoanAmortizationScheduleClient from "./LoanAmortizationScheduleClient";
 import { i18n, type Locale } from "./data";
 
@@ -17,9 +17,7 @@ export async function generateMetadata({
   return {
     title,
     description: d.subtitle,
-    alternates: {
-      languages: languageAlternates("/tool/loan-amortization-schedule"),
-    },
+    alternates: pageAlternates(locale, "/tool/loan-amortization-schedule"),
     openGraph: {
       title,
       description: d.subtitle,

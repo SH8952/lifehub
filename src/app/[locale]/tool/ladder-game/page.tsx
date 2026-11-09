@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageAlternates } from "@/lib/seo";
 import Link from "next/link";
 import LadderGameClient from "./LadderGameClient";
 import { i18n, type Locale } from "./data";
@@ -14,6 +15,7 @@ export async function generateMetadata({
   return {
     title: d.title,
     description: d.subtitle,
+    alternates: pageAlternates(locale, "/tool/ladder-game"),
   };
 }
 

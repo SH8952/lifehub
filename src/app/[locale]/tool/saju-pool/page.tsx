@@ -1,7 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Card, CardContent } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 import SajuPoolClient from "./SajuPoolClient";
 import { type Locale } from "./data";
 
@@ -201,9 +201,7 @@ export async function generateMetadata({
   return {
     title,
     description: d.subtitle,
-    alternates: {
-      languages: languageAlternates("/tool/saju-pool"),
-    },
+    alternates: pageAlternates(locale, "/tool/saju-pool"),
     openGraph: {
       title,
       description: d.subtitle,

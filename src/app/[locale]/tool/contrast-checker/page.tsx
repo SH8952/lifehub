@@ -1,4 +1,4 @@
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 import ContrastChecker from "./ContrastCheckerClient";
 import { data, type Locale } from "./data";
 
@@ -14,9 +14,7 @@ export async function generateMetadata({
   return {
     title,
     description: d.subtitle,
-    alternates: {
-      languages: languageAlternates("/tool/contrast-checker"),
-    },
+    alternates: pageAlternates(locale, "/tool/contrast-checker"),
     openGraph: {
       title,
       description: d.subtitle,

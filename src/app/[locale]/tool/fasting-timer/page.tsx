@@ -1,4 +1,4 @@
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 import FastingTimer from "./FastingTimerClient";
 import { i18nData, type Locale } from "./data";
 
@@ -14,9 +14,7 @@ export async function generateMetadata({
   return {
     title,
     description: d.subtitle,
-    alternates: {
-      languages: languageAlternates("/tool/fasting-timer"),
-    },
+    alternates: pageAlternates(locale, "/tool/fasting-timer"),
     openGraph: {
       title,
       description: d.subtitle,

@@ -1,7 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Card, CardContent } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 
 type Locale = "ko" | "en" | "ja" | "es";
 
@@ -24,9 +24,7 @@ export async function generateMetadata({
   return {
     title,
     description: m.description,
-    alternates: {
-      languages: languageAlternates("/tool/fortune-cookie"),
-    },
+    alternates: pageAlternates(locale, "/tool/fortune-cookie"),
     openGraph: {
       title,
       description: m.description,

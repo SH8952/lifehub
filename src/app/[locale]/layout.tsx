@@ -4,7 +4,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing, type Locale } from "@/i18n/routing";
-import { SITE_URL, languageAlternates, ogLocale } from "@/lib/seo";
+import { SITE_URL, pageAlternates, ogLocale } from "@/lib/seo";
 import LanguageDropdown from "@/components/LanguageDropdown";
 import { VisitorCounter } from "@/components/visitor-counter";
 import "@/app/globals.css";
@@ -71,9 +71,7 @@ export async function generateMetadata({
       template: `%s | LifeHub`,
     },
     description: meta.description,
-    alternates: {
-      languages: languageAlternates(),
-    },
+    alternates: pageAlternates(locale),
     openGraph: {
       title: meta.title,
       description: meta.description,

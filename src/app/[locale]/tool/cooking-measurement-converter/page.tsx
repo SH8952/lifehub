@@ -1,4 +1,4 @@
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 import CookingMeasurementConverter from "./CookingMeasurementConverterClient";
 import { data, type Locale } from "./data";
 
@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title,
     description: d.subtitle,
-    alternates: { languages: languageAlternates("/tool/cooking-measurement-converter") },
+    alternates: pageAlternates(locale, "/tool/cooking-measurement-converter"),
     openGraph: { title, description: d.subtitle, url: `${SITE_URL}/${locale}/tool/cooking-measurement-converter` },
   };
 }

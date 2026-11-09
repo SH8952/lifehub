@@ -1,4 +1,4 @@
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 import SeverancePayCalculator from "./SeverancePayCalculatorClient";
 import { data, type Locale } from "./data";
 
@@ -14,9 +14,7 @@ export async function generateMetadata({
   return {
     title,
     description: d.subtitle,
-    alternates: {
-      languages: languageAlternates("/tool/severance-pay-calculator"),
-    },
+    alternates: pageAlternates(locale, "/tool/severance-pay-calculator"),
     openGraph: {
       title,
       description: d.subtitle,

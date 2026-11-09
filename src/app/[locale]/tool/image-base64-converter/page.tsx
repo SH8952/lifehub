@@ -1,4 +1,4 @@
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 import ImageBase64Converter from "./ImageBase64ConverterClient";
 import { data, type Locale } from "./data";
 
@@ -14,9 +14,7 @@ export async function generateMetadata({
   return {
     title,
     description: d.subtitle,
-    alternates: {
-      languages: languageAlternates("/tool/image-base64-converter"),
-    },
+    alternates: pageAlternates(locale, "/tool/image-base64-converter"),
     openGraph: {
       title,
       description: d.subtitle,

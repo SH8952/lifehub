@@ -1,4 +1,4 @@
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 import AgeCalculator from "./AgeCalculatorClient";
 import { i18nData, type Locale } from "./data";
 
@@ -14,9 +14,7 @@ export async function generateMetadata({
   return {
     title,
     description: d.whyAge,
-    alternates: {
-      languages: languageAlternates("/tool/age-calculator"),
-    },
+    alternates: pageAlternates(locale, "/tool/age-calculator"),
     openGraph: {
       title,
       description: d.whyAge,

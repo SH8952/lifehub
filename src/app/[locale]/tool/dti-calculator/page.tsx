@@ -1,7 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Card, CardContent } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 import DtiCalculatorClient from "./DtiCalculatorClient";
 import { i18n, type Locale } from "./data";
 
@@ -16,7 +16,7 @@ export async function generateMetadata({
   return {
     title: d.title,
     description: d.subtitle,
-    alternates: { languages: languageAlternates("/tool/dti-calculator") },
+    alternates: pageAlternates(locale, "/tool/dti-calculator"),
     openGraph: { title: d.title, description: d.subtitle, url: `${SITE_URL}/${locale}/tool/dti-calculator` },
   };
 }

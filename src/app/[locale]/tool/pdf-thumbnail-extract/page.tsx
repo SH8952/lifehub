@@ -1,4 +1,4 @@
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 import PdfThumbnailExtract from "./PdfThumbnailExtractClient";
 import { data, type Locale } from "./data";
 
@@ -14,9 +14,7 @@ export async function generateMetadata({
   return {
     title,
     description: d.subtitle,
-    alternates: {
-      languages: languageAlternates("/tool/pdf-thumbnail-extract"),
-    },
+    alternates: pageAlternates(locale, "/tool/pdf-thumbnail-extract"),
     openGraph: {
       title,
       description: d.subtitle,

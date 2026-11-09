@@ -1,4 +1,4 @@
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 import CssGradientGenerator from "./CssGradientGeneratorClient";
 import { data, type Locale } from "./data";
 
@@ -14,9 +14,7 @@ export async function generateMetadata({
   return {
     title,
     description: d.subtitle,
-    alternates: {
-      languages: languageAlternates("/tool/css-gradient-generator"),
-    },
+    alternates: pageAlternates(locale, "/tool/css-gradient-generator"),
     openGraph: {
       title,
       description: d.subtitle,

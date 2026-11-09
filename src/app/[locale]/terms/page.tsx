@@ -1,5 +1,5 @@
 import { setRequestLocale } from "next-intl/server";
-import { SITE_URL, languageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
 
 type Locale = "ko" | "en" | "ja" | "es";
 
@@ -34,9 +34,7 @@ export async function generateMetadata({
   return {
     title,
     description: m.description,
-    alternates: {
-      languages: languageAlternates("/terms"),
-    },
+    alternates: pageAlternates(locale, "/terms"),
     openGraph: {
       title,
       description: m.description,

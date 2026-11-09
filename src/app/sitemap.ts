@@ -252,7 +252,14 @@ const TOOL_IDS = [
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
 
-  for (const locale of routing.locales) {
+  // 한국어(주 사용 언어)를 사이트맵 맨 앞에 두어 검색엔진이 한국어 페이지부터
+  // 발견·크롤링하도록 함. 나머지 언어는 routing.locales 순서를 따름.
+  const orderedLocales = [
+    "ko",
+    ...routing.locales.filter((l) => l !== "ko"),
+  ] as const;
+
+  for (const locale of orderedLocales) {
     entries.push({
       url: `${SITE_URL}/${locale}`,
       changeFrequency: "weekly",
