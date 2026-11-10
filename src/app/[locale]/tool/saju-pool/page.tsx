@@ -4,6 +4,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import SajuPoolClient from "./SajuPoolClient";
 import { type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 interface FAQ {
   q: string;
@@ -223,6 +224,8 @@ export default async function SajuPoolPage({
   const d = data[lang] ?? data.ko;
 
   return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="saju-pool" />
     <div className="mx-auto max-w-3xl px-4 py-12">
       <h1 className="text-3xl font-bold tracking-tight">{d.title}</h1>
       <p className="mt-2 text-muted-foreground">{d.subtitle}</p>
@@ -290,5 +293,6 @@ export default async function SajuPoolPage({
         </a>
       </div>
     </div>
+    </>
   );
 }

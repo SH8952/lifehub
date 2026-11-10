@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import RandomTeamDivider from "./RandomTeamDividerClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function RandomTeamDividerPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <RandomTeamDivider initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="random-team-divider" />
+      <RandomTeamDivider initialLocale={locale as Locale} />
+    </>
+  );
 }

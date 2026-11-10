@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import ImageMemeMaker from "./ImageMemeMakerClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function ImageMemeMakerPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <ImageMemeMaker initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="image-meme-maker" />
+      <ImageMemeMaker initialLocale={locale as Locale} />
+    </>
+  );
 }

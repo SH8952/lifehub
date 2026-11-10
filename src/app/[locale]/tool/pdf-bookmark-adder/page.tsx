@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import PdfBookmarkAdder from "./PdfBookmarkAdderClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function PdfBookmarkAdderPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <PdfBookmarkAdder initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="pdf-bookmark-adder" />
+      <PdfBookmarkAdder initialLocale={locale as Locale} />
+    </>
+  );
 }

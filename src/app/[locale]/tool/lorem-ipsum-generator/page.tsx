@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import LoremIpsumGenerator from "./LoremIpsumGeneratorClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function LoremIpsumGeneratorPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <LoremIpsumGenerator initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="lorem-ipsum-generator" />
+      <LoremIpsumGenerator initialLocale={locale as Locale} />
+    </>
+  );
 }

@@ -52,5 +52,10 @@
     "terms": "Terms of Service",
     "about": "About",
     "contact": "Contact"
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "description": "The address may have changed or the page may no longer exist. Head home or pick a category below to find the tool you need.",
+    "home": "Home"
   }
 }

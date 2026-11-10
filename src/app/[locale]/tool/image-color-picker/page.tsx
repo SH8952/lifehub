@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import ImageColorPicker from "./ImageColorPickerClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function ImageColorPickerPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <ImageColorPicker initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="image-color-picker" />
+      <ImageColorPicker initialLocale={locale as Locale} />
+    </>
+  );
 }

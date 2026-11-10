@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import RoleAssignmentRoulette from "./RoleAssignmentRouletteClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function RoleAssignmentRoulettePage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <RoleAssignmentRoulette initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="role-assignment-roulette" />
+      <RoleAssignmentRoulette initialLocale={locale as Locale} />
+    </>
+  );
 }

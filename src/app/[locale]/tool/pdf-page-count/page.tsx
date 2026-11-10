@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import PdfPageCount from "./PdfPageCountClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function PdfPageCountPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <PdfPageCount initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="pdf-page-count" />
+      <PdfPageCount initialLocale={locale as Locale} />
+    </>
+  );
 }

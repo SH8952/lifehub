@@ -1,7 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { categories } from "../../page";
-import { SITE_URL, pageAlternates } from "@/lib/seo";
+import { SITE_URL, pageAlternates, breadcrumbJsonLd } from "@/lib/seo";
 import { Card, CardContent } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
 import { categoryToolsMap } from "@/lib/tools-data";
@@ -98,8 +98,18 @@ export default async function CategoryPage({
     baseTools.length > 0 ? (dayOfYear * rotateStep) % baseTools.length : 0;
   const tools = [...baseTools.slice(rotateBy), ...baseTools.slice(0, rotateBy)];
 
+  // 탐색경로(BreadcrumbList) 구조화 데이터: LifeHub › 카테고리
+  const breadcrumbs = breadcrumbJsonLd([
+    { name: "LifeHub", url: `${SITE_URL}/${locale}` },
+    { name: category[nameKey], url: `${SITE_URL}/${locale}/category/${id}` },
+  ]);
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
+      />
       <div className="mb-8">
         <p className="mb-2 text-sm font-semibold text-muted-foreground uppercase tracking-wider">
           {t("categories")}

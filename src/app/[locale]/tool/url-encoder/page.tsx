@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import UrlEncoder from "./UrlEncoderClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function UrlEncoderPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <UrlEncoder initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="url-encoder" />
+      <UrlEncoder initialLocale={locale as Locale} />
+    </>
+  );
 }

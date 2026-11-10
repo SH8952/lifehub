@@ -2,6 +2,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Card, CardContent } from "@/components/ui/card";
 import SecondLoanCalculator from "@/components/second-loan-calculator";
 import { SITE_URL, pageAlternates } from "@/lib/seo";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 type Locale = "ko" | "en" | "ja" | "es";
 
@@ -353,6 +354,8 @@ export default async function SecondLoanPage({
   const d = data[lang] ?? data.ko;
 
   return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="2nd-loan" />
     <div className="mx-auto max-w-3xl px-4 py-12">
       <h1 className="text-3xl font-bold tracking-tight">{d.title}</h1>
       <p className="mt-2 text-muted-foreground">{d.subtitle}</p>
@@ -412,5 +415,6 @@ export default async function SecondLoanPage({
 
       <p className="mt-8 text-sm text-muted-foreground">{d.footer}</p>
     </div>
+    </>
   );
 }

@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import CaffeineIntakeTracker from "./CaffeineIntakeTrackerClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function CaffeineIntakeTrackerPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <CaffeineIntakeTracker initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="caffeine-intake-tracker" />
+      <CaffeineIntakeTracker initialLocale={locale as Locale} />
+    </>
+  );
 }

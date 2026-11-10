@@ -4,6 +4,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import HashGeneratorClient from "./HashGeneratorClient";
 import { i18n, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -39,6 +40,8 @@ export default async function HashGeneratorPage({
   const d = i18n(lang);
 
   return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="hash-generator" />
     <div className="mx-auto max-w-3xl px-4 py-12">
       <h1 className="text-3xl font-bold tracking-tight">{d.title}</h1>
       <p className="mt-2 text-muted-foreground">{d.subtitle}</p>
@@ -105,5 +108,6 @@ export default async function HashGeneratorPage({
         </a>
       </div>
     </div>
+    </>
   );
 }

@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import TextToPdf from "./TextToPdfClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function TextToPdfPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <TextToPdf initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="text-to-pdf" />
+      <TextToPdf initialLocale={locale as Locale} />
+    </>
+  );
 }

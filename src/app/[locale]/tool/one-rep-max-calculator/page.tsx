@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import OneRepMaxCalculator from "./OneRepMaxCalculatorClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -17,5 +18,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function OneRepMaxCalculatorPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  return <OneRepMaxCalculator initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="one-rep-max-calculator" />
+      <OneRepMaxCalculator initialLocale={locale as Locale} />
+    </>
+  );
 }

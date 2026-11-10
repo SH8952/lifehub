@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import PdfPasswordProtect from "./PdfPasswordProtectClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function PdfPasswordProtectPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <PdfPasswordProtect initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="pdf-password-protect" />
+      <PdfPasswordProtect initialLocale={locale as Locale} />
+    </>
+  );
 }

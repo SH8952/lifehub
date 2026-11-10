@@ -52,5 +52,10 @@
     "terms": "Términos de Servicio",
     "about": "Acerca de",
     "contact": "Contacto"
+  },
+  "NotFound": {
+    "title": "Página no encontrada",
+    "description": "Es posible que la dirección haya cambiado o que la página ya no exista. Vuelve al inicio o elige una categoría para encontrar la herramienta que necesitas.",
+    "home": "Inicio"
   }
 }

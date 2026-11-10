@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import YearEndTaxRefundEstimator from "./YearEndTaxRefundEstimatorClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function YearEndTaxRefundEstimatorPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <YearEndTaxRefundEstimator initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="year-end-tax-refund-estimator" />
+      <YearEndTaxRefundEstimator initialLocale={locale as Locale} />
+    </>
+  );
 }

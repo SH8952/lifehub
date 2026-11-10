@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import CapitalGainsTaxEstimator from "./CapitalGainsTaxEstimatorClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function CapitalGainsTaxEstimatorPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <CapitalGainsTaxEstimator initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="capital-gains-tax-estimator" />
+      <CapitalGainsTaxEstimator initialLocale={locale as Locale} />
+    </>
+  );
 }

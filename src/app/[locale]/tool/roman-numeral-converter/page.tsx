@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import RomanNumeralConverter from "./RomanNumeralConverterClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function RomanNumeralConverterPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <RomanNumeralConverter initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="roman-numeral-converter" />
+      <RomanNumeralConverter initialLocale={locale as Locale} />
+    </>
+  );
 }

@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import CreditScoreChecklist from "./CreditScoreChecklistClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function CreditScoreChecklistPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <CreditScoreChecklist initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="credit-score-checklist" />
+      <CreditScoreChecklist initialLocale={locale as Locale} />
+    </>
+  );
 }

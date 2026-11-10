@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import MorseCodeConverter from "./MorseCodeConverterClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function MorseCodeConverterPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <MorseCodeConverter initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="morse-code-converter" />
+      <MorseCodeConverter initialLocale={locale as Locale} />
+    </>
+  );
 }

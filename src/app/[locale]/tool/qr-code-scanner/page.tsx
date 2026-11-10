@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import QrCodeScanner from "./QrCodeScannerClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function QrCodeScannerPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <QrCodeScanner initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="qr-code-scanner" />
+      <QrCodeScanner initialLocale={locale as Locale} />
+    </>
+  );
 }

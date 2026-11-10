@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import CssUnitConverter from "./CssUnitConverterClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function CssUnitConverterPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <CssUnitConverter initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="css-unit-converter" />
+      <CssUnitConverter initialLocale={locale as Locale} />
+    </>
+  );
 }

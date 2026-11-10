@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import ImageSharpen from "./ImageSharpenClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function ImageSharpenPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <ImageSharpen initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="image-sharpen" />
+      <ImageSharpen initialLocale={locale as Locale} />
+    </>
+  );
 }

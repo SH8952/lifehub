@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import WordFrequency from "./WordFrequencyClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function WordFrequencyPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <WordFrequency initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="word-frequency" />
+      <WordFrequency initialLocale={locale as Locale} />
+    </>
+  );
 }

@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import TravelDestinationRoulette from "./TravelDestinationRouletteClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function TravelDestinationRoulettePage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <TravelDestinationRoulette initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="travel-destination-roulette" />
+      <TravelDestinationRoulette initialLocale={locale as Locale} />
+    </>
+  );
 }

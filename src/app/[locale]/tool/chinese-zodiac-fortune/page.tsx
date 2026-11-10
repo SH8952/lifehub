@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import ChineseZodiacFortune from "./ChineseZodiacFortuneClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function ChineseZodiacFortunePage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <ChineseZodiacFortune initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="chinese-zodiac-fortune" />
+      <ChineseZodiacFortune initialLocale={locale as Locale} />
+    </>
+  );
 }

@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import ConstructionCostComponent from "./ConstructionCostComponentClient";
 import { i18nData, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function ConstructionCostPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <ConstructionCostComponent initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="construction-cost" />
+      <ConstructionCostComponent initialLocale={locale as Locale} />
+    </>
+  );
 }

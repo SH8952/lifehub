@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import SeverancePayCalculator from "./SeverancePayCalculatorClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function SeverancePayCalculatorPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <SeverancePayCalculator initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="severance-pay-calculator" />
+      <SeverancePayCalculator initialLocale={locale as Locale} />
+    </>
+  );
 }

@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import BalanceGameMatch from "./BalanceGameMatchClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function BalanceGameMatchPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <BalanceGameMatch initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="balance-game-match" />
+      <BalanceGameMatch initialLocale={locale as Locale} />
+    </>
+  );
 }

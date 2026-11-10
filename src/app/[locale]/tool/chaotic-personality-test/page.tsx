@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import ChaoticPersonalityTest from "./ChaoticPersonalityTestClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -17,5 +18,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function ChaoticPersonalityTestPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  return <ChaoticPersonalityTest initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="chaotic-personality-test" />
+      <ChaoticPersonalityTest initialLocale={locale as Locale} />
+    </>
+  );
 }

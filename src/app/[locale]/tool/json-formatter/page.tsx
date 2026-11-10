@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import JsonFormatter from "./JsonFormatterClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function JsonFormatterPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <JsonFormatter initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="json-formatter" />
+      <JsonFormatter initialLocale={locale as Locale} />
+    </>
+  );
 }

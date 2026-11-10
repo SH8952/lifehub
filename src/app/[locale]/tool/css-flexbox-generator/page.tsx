@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import CssFlexboxGenerator from "./CssFlexboxGeneratorClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function CssFlexboxGeneratorPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <CssFlexboxGenerator initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="css-flexbox-generator" />
+      <CssFlexboxGenerator initialLocale={locale as Locale} />
+    </>
+  );
 }

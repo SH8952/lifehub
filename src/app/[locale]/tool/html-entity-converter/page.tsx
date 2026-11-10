@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import HtmlEntityConverter from "./HtmlEntityConverterClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function HtmlEntityConverterPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <HtmlEntityConverter initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="html-entity-converter" />
+      <HtmlEntityConverter initialLocale={locale as Locale} />
+    </>
+  );
 }

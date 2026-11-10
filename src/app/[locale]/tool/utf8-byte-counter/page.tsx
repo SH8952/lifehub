@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import Utf8ByteCounter from "./Utf8ByteCounterClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function Utf8ByteCounterPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <Utf8ByteCounter initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="utf8-byte-counter" />
+      <Utf8ByteCounter initialLocale={locale as Locale} />
+    </>
+  );
 }

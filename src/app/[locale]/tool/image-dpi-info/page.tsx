@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import ImageDpiInfo from "./ImageDpiInfoClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function ImageDpiInfoPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <ImageDpiInfo initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="image-dpi-info" />
+      <ImageDpiInfo initialLocale={locale as Locale} />
+    </>
+  );
 }

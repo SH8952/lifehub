@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import ADHDChecklist from "./ADHDChecklistClient";
 import { i18nData, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function ADHDChecklistPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <ADHDChecklist initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="adhd-checklist" />
+      <ADHDChecklist initialLocale={locale as Locale} />
+    </>
+  );
 }

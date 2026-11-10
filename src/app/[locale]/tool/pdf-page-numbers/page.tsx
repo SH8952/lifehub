@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import PdfPageNumbers from "./PdfPageNumbersClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function PdfPageNumbersPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <PdfPageNumbers initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="pdf-page-numbers" />
+      <PdfPageNumbers initialLocale={locale as Locale} />
+    </>
+  );
 }

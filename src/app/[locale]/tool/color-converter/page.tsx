@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import ColorConverter from "./ColorConverterClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function ColorConverterPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <ColorConverter initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="color-converter" />
+      <ColorConverter initialLocale={locale as Locale} />
+    </>
+  );
 }

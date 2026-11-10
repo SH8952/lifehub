@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import DailyQuoteGenerator from "./DailyQuoteGeneratorClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function DailyQuoteGeneratorPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <DailyQuoteGenerator initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="daily-quote-generator" />
+      <DailyQuoteGenerator initialLocale={locale as Locale} />
+    </>
+  );
 }

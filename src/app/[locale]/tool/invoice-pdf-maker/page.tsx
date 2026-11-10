@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import InvoicePdfMaker from "./InvoicePdfMakerClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function InvoicePdfMakerPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <InvoicePdfMaker initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="invoice-pdf-maker" />
+      <InvoicePdfMaker initialLocale={locale as Locale} />
+    </>
+  );
 }

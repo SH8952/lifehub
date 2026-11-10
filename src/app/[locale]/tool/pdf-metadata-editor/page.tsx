@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import PdfMetadataEditor from "./PdfMetadataEditorClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function PdfMetadataEditorPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <PdfMetadataEditor initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="pdf-metadata-editor" />
+      <PdfMetadataEditor initialLocale={locale as Locale} />
+    </>
+  );
 }

@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import { zodiacData, type Zodiac, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 const pageMeta: Record<Locale, { title: string; description: string }> = {
   ko: { title: "오늘의 운세", description: "오늘의 별자리 운세를 확인하세요" },
@@ -195,6 +196,8 @@ export default async function DailyFortunePage({
   const todayIndex = getTodayZodiacIndex();
 
   return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="daily-fortune" />
     <div className="mx-auto max-w-3xl px-4 py-12">
       <h1 className="text-3xl font-bold tracking-tight">{d.title}</h1>
       <p className="mt-2 text-muted-foreground">{d.subtitle}</p>
@@ -320,5 +323,6 @@ export default async function DailyFortunePage({
         </a>
       </div>
     </div>
+    </>
   );
 }

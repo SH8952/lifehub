@@ -2,6 +2,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Card, CardContent } from "@/components/ui/card";
 import FixedDepositInterest from "@/components/fixed-deposit-interest";
 import { SITE_URL, pageAlternates } from "@/lib/seo";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 type Locale = "ko" | "en" | "ja" | "es";
 
@@ -234,6 +235,8 @@ export default async function FixedDepositPage({
   const d = data[lang] ?? data.ko;
 
   return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="fixed-deposit-interest" />
     <div className="mx-auto max-w-3xl px-4 py-12">
       <h1 className="text-3xl font-bold tracking-tight">{d.title}</h1>
       <p className="mt-2 text-muted-foreground">{d.subtitle}</p>
@@ -293,5 +296,6 @@ export default async function FixedDepositPage({
 
       <p className="mt-8 text-sm text-muted-foreground">{d.footer}</p>
     </div>
+    </>
   );
 }

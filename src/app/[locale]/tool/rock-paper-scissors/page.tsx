@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import RockPaperScissors from "./RockPaperScissorsClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function RockPaperScissorsPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <RockPaperScissors initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="rock-paper-scissors" />
+      <RockPaperScissors initialLocale={locale as Locale} />
+    </>
+  );
 }

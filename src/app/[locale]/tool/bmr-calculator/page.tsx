@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import BmrCalculator from "./BmrCalculatorClient";
 import { i18nData, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function BmrCalculatorPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <BmrCalculator initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="bmr-calculator" />
+      <BmrCalculator initialLocale={locale as Locale} />
+    </>
+  );
 }

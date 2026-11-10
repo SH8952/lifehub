@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import PercentageCalculator from "./PercentageCalculatorClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function PercentageCalculatorPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <PercentageCalculator initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="percentage-calculator" />
+      <PercentageCalculator initialLocale={locale as Locale} />
+    </>
+  );
 }

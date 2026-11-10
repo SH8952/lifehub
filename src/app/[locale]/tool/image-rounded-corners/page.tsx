@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import ImageRoundedCorners from "./ImageRoundedCornersClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function ImageRoundedCornersPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <ImageRoundedCorners initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="image-rounded-corners" />
+      <ImageRoundedCorners initialLocale={locale as Locale} />
+    </>
+  );
 }

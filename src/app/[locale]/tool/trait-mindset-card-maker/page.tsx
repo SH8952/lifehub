@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import TraitMindsetCardMaker from "./TraitMindsetCardMakerClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -17,5 +18,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function TraitMindsetCardMakerPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  return <TraitMindsetCardMaker initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="trait-mindset-card-maker" />
+      <TraitMindsetCardMaker initialLocale={locale as Locale} />
+    </>
+  );
 }

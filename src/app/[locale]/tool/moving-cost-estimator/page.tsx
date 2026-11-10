@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import MovingCostEstimator from "./MovingCostEstimatorClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -17,5 +18,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function MovingCostEstimatorPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  return <MovingCostEstimator initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="moving-cost-estimator" />
+      <MovingCostEstimator initialLocale={locale as Locale} />
+    </>
+  );
 }

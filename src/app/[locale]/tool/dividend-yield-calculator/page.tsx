@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import DividendYieldCalculator from "./DividendYieldCalculatorClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function DividendYieldCalculatorPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <DividendYieldCalculator initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="dividend-yield-calculator" />
+      <DividendYieldCalculator initialLocale={locale as Locale} />
+    </>
+  );
 }

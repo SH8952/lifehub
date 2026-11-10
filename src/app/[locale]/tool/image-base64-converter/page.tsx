@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import ImageBase64Converter from "./ImageBase64ConverterClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function ImageBase64ConverterPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <ImageBase64Converter initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="image-base64-converter" />
+      <ImageBase64Converter initialLocale={locale as Locale} />
+    </>
+  );
 }

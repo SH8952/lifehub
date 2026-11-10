@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import SalaryRaiseCalculator from "./SalaryRaiseCalculatorClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function SalaryRaiseCalculatorPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <SalaryRaiseCalculator initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="salary-raise-calculator" />
+      <SalaryRaiseCalculator initialLocale={locale as Locale} />
+    </>
+  );
 }

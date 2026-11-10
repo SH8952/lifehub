@@ -334,6 +334,15 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-11-10 — 도구·카테고리 페이지 탐색경로(BreadcrumbList) 연결 + 사이트 전용 404 화면 (구글 SEO 기본 가이드 점검 후속)
+
+- 배경: 구글 SEO 기본 가이드와 대조한 결과, `src/lib/seo.ts`에 `breadcrumbJsonLd()`가 만들어져 있었지만 호출하는 곳이 한 군데도 없었고, 사이트 전용 404 화면도 없었다. 사용자 요청("1,2,3번 바로 진행"), 색인 요청과 무관한 작업.
+- **탐색경로**: 새 서버 컴포넌트 `src/components/ToolBreadcrumbJsonLd.tsx`(이름·카테고리는 `tools-data.ts`와 홈의 `categories`를 기준으로, 클라이언트 JS 증가 없음). 도구 225개의 `page.tsx`에 `<ToolBreadcrumbJsonLd locale toolId>`를 추가(기존 반환 JSX를 프래그먼트로 감싸고 맨 앞에 한 줄 삽입, 본문·들여쓰기·기존 JSON-LD는 그대로). 형식: `LifeHub › 카테고리 › 도구`. 카테고리 페이지(`category/[id]/page.tsx`)에는 `LifeHub › 카테고리`를 직접 추가.
+- **404 화면**: `src/app/[locale]/not-found.tsx`(홈 + 7개 카테고리 바로가기, ko/en/ja/es) 신규, `src/app/[locale]/[...rest]/page.tsx`(없는 주소를 404 화면으로 보내는 캐치올) 신규. `src/i18n/messages/{ko,en,ja,es}.json`에 `NotFound` 네임스페이스 추가(기존 키 변경 없음). 상태 코드는 404 유지.
+- 검증: `tsc --noEmit` 0 오류. tools-data 도구 id 225개와 도구 폴더 225개가 정확히 일치(누락·중복 0). 사본 폴더(webpack 모드 dev)에서 55개 도구 페이지(들여쓰기 변환이 달랐던 30개 전부 + 무작위 25개)가 모두 200이고 BreadcrumbList가 출력됨. 예: `/ko/tool/bmi` → LifeHub › 생활·건강 › BMI(비만도) 계산기. 카테고리 페이지 200, 없는 도구·없는 주소·언어 없는 주소가 모두 404 + 전용 화면(ko/en/ja 문구 확인). 서버 종료 확인.
+- 참고(기존 이슈, 이번에 건드리지 않음): 카테고리 페이지 제목이 `생활·건강 | LifeHub | LifeHub`처럼 사이트명이 두 번 붙는다(메타데이터 제목에 이미 `| LifeHub`가 있는데 레이아웃 템플릿이 한 번 더 붙임).
+- 백업: `_backups/breadcrumb-404_20261110_062207` (src 전체 + PROJECT_RECORD.md)
+
 ## 2026-11-09 (1) — 서치 콘솔 첫 보고서 분석 후 canonical 추가·사이트맵 한국어 우선·색인 요청 목록 생성 (사용자 요청: "3,2번 진행")
 
 - 서치 콘솔 첫 업데이트(보고서 11/6): 색인됨 332 · 발견됨-미색인 629(한 번도 크롤링 안 됨) · 크롤링됨-미색인 11 · 리디렉션 15.

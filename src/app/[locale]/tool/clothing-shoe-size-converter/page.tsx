@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import ClothingShoeSizeConverter from "./ClothingShoeSizeConverterClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -17,5 +18,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function ClothingShoeSizeConverterPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  return <ClothingShoeSizeConverter initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="clothing-shoe-size-converter" />
+      <ClothingShoeSizeConverter initialLocale={locale as Locale} />
+    </>
+  );
 }

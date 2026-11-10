@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import SpecialCharactersList from "./SpecialCharactersListClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function SpecialCharactersListPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <SpecialCharactersList initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="special-characters-list" />
+      <SpecialCharactersList initialLocale={locale as Locale} />
+    </>
+  );
 }

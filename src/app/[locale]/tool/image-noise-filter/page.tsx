@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import ImageNoiseFilter from "./ImageNoiseFilterClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function ImageNoiseFilterPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <ImageNoiseFilter initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="image-noise-filter" />
+      <ImageNoiseFilter initialLocale={locale as Locale} />
+    </>
+  );
 }

@@ -3,6 +3,7 @@ import { pageAlternates } from "@/lib/seo";
 import Link from "next/link";
 import LadderGameClient from "./LadderGameClient";
 import { i18n, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -52,6 +53,8 @@ export default async function LadderGamePage({
   };
 
   return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="ladder-game" />
     <div className="mx-auto max-w-3xl px-4 py-8">
       <script
         type="application/ld+json"
@@ -94,5 +97,6 @@ export default async function LadderGamePage({
         </Link>
       </div>
     </div>
+    </>
   );
 }

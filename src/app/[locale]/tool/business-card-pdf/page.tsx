@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import BusinessCardPdf from "./BusinessCardPdfClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function BusinessCardPdfPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <BusinessCardPdf initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="business-card-pdf" />
+      <BusinessCardPdf initialLocale={locale as Locale} />
+    </>
+  );
 }

@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import TextDiff from "./TextDiffClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function TextDiffPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <TextDiff initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="text-diff" />
+      <TextDiff initialLocale={locale as Locale} />
+    </>
+  );
 }

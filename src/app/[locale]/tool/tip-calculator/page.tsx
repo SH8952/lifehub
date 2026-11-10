@@ -4,6 +4,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import TipCalculatorClient from "./TipCalculatorClient";
 import { i18n, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -38,6 +39,8 @@ export default async function TipCalculatorPage({
   const d = i18n(lang);
 
   return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="tip-calculator" />
     <div className="mx-auto max-w-3xl px-4 py-12">
       <h1 className="text-3xl font-bold tracking-tight">{d.title}</h1>
       <p className="mt-2 text-muted-foreground">{d.subtitle}</p>
@@ -104,5 +107,6 @@ export default async function TipCalculatorPage({
         </a>
       </div>
     </div>
+    </>
   );
 }

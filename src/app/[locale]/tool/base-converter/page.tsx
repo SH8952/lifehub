@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import BaseConverter from "./BaseConverterClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function BaseConverterPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <BaseConverter initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="base-converter" />
+      <BaseConverter initialLocale={locale as Locale} />
+    </>
+  );
 }

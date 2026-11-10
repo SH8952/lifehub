@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import WorldTimeConverter from "./WorldTimeConverterClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function WorldTimeConverterPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <WorldTimeConverter initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="world-time-converter" />
+      <WorldTimeConverter initialLocale={locale as Locale} />
+    </>
+  );
 }

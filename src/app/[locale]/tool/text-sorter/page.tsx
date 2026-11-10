@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import TextSorter from "./TextSorterClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function TextSorterPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <TextSorter initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="text-sorter" />
+      <TextSorter initialLocale={locale as Locale} />
+    </>
+  );
 }

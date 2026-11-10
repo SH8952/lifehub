@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import ColorOfTheDay from "./ColorOfTheDayClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function ColorOfTheDayPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <ColorOfTheDay initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="color-of-the-day" />
+      <ColorOfTheDay initialLocale={locale as Locale} />
+    </>
+  );
 }

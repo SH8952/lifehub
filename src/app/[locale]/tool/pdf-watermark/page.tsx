@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import PdfWatermark from "./PdfWatermarkClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function PdfWatermarkPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <PdfWatermark initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="pdf-watermark" />
+      <PdfWatermark initialLocale={locale as Locale} />
+    </>
+  );
 }

@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import FastingTimer from "./FastingTimerClient";
 import { i18nData, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function FastingPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <FastingTimer initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="fasting-timer" />
+      <FastingTimer initialLocale={locale as Locale} />
+    </>
+  );
 }

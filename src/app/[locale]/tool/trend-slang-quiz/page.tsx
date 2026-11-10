@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import TrendSlangQuiz from "./TrendSlangQuizClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function TrendSlangQuizPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <TrendSlangQuiz initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="trend-slang-quiz" />
+      <TrendSlangQuiz initialLocale={locale as Locale} />
+    </>
+  );
 }

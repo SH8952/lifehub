@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import ImageCollageMaker from "./ImageCollageMakerClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function ImageCollageMakerPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <ImageCollageMaker initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="image-collage-maker" />
+      <ImageCollageMaker initialLocale={locale as Locale} />
+    </>
+  );
 }

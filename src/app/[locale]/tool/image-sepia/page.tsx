@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import ImageSepia from "./ImageSepiaClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function ImageSepiaPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <ImageSepia initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="image-sepia" />
+      <ImageSepia initialLocale={locale as Locale} />
+    </>
+  );
 }

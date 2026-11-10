@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import MarkdownToPdf from "./MarkdownToPdfClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function MarkdownToPdfPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <MarkdownToPdf initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="markdown-to-pdf" />
+      <MarkdownToPdf initialLocale={locale as Locale} />
+    </>
+  );
 }

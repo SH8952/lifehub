@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import PdfCombinePreview from "./PdfCombinePreviewClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function PdfCombinePreviewPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <PdfCombinePreview initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="pdf-combine-preview" />
+      <PdfCombinePreview initialLocale={locale as Locale} />
+    </>
+  );
 }

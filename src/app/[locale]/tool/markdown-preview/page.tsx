@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import MarkdownPreview from "./MarkdownPreviewClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function MarkdownPreviewPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <MarkdownPreview initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="markdown-preview" />
+      <MarkdownPreview initialLocale={locale as Locale} />
+    </>
+  );
 }

@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import MosquitoSound from "./MosquitoSoundClient";
 import { i18nData, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function MosquitoSoundPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <MosquitoSound initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="mosquito-sound" />
+      <MosquitoSound initialLocale={locale as Locale} />
+    </>
+  );
 }

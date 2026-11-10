@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import QuitSmokingSavings from "./QuitSmokingSavingsClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function QuitSmokingSavingsPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <QuitSmokingSavings initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="quit-smoking-savings" />
+      <QuitSmokingSavings initialLocale={locale as Locale} />
+    </>
+  );
 }

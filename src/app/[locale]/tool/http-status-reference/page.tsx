@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import HttpStatusReference from "./HttpStatusReferenceClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function HttpStatusReferencePage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <HttpStatusReference initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="http-status-reference" />
+      <HttpStatusReference initialLocale={locale as Locale} />
+    </>
+  );
 }

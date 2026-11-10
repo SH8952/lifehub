@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import CodeDiffChecker from "./CodeDiffCheckerClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function CodeDiffCheckerPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <CodeDiffChecker initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="code-diff-checker" />
+      <CodeDiffChecker initialLocale={locale as Locale} />
+    </>
+  );
 }

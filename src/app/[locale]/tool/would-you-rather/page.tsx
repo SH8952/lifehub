@@ -1,6 +1,7 @@
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import WouldYouRather from "./WouldYouRatherClient";
 import { data, type Locale } from "./data";
+import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 
 export async function generateMetadata({
   params,
@@ -29,5 +30,10 @@ export default async function WouldYouRatherPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <WouldYouRather initialLocale={locale as Locale} />;
+  return (
+    <>
+      <ToolBreadcrumbJsonLd locale={locale} toolId="would-you-rather" />
+      <WouldYouRather initialLocale={locale as Locale} />
+    </>
+  );
 }
