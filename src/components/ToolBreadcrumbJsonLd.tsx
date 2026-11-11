@@ -1,6 +1,7 @@
 import { SITE_URL, breadcrumbJsonLd } from "@/lib/seo";
 import { allTools } from "@/lib/tools-data";
 import { categories } from "@/app/[locale]/page";
+import { BackLink } from "@/components/back-link";
 
 // 도구 상세 페이지의 탐색경로(BreadcrumbList) JSON-LD.
 // 검색결과에 "LifeHub › 카테고리 › 도구" 경로가 표시되도록 구조화 데이터를 내보낸다.
@@ -43,11 +44,20 @@ export default function ToolBreadcrumbJsonLd({
   });
 
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify(breadcrumbJsonLd(items)),
-      }}
-    />
+    <>
+      {/* 도구 페이지 상단의 뒤로가기: 소속 카테고리 목록으로 (헤더 로고와 같은 왼쪽 선에 맞춤) */}
+      <div className="mx-auto -mb-6 max-w-6xl px-4 pt-5">
+        <BackLink
+          to={category ? "category" : "home"}
+          categoryId={category?.id}
+        />
+      </div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd(items)),
+        }}
+      />
+    </>
   );
 }

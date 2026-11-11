@@ -1,4 +1,8 @@
 {
+  "BackNav": {
+    "toHome": "← Back to Home",
+    "toCategory": "← Back to Tools"
+  },
   "Home": {
     "title": "All the Utilities You Use Daily, in One Place",
     "subtitle": "Calculators, checklists, conversion tools — run everything directly in your browser.",

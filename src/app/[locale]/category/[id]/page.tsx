@@ -5,6 +5,7 @@ import { SITE_URL, pageAlternates, breadcrumbJsonLd } from "@/lib/seo";
 import { Card, CardContent } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
 import { categoryToolsMap } from "@/lib/tools-data";
+import { BackLink } from "@/components/back-link";
 
 // 날짜별 도구 순서 순환(홈페이지 "오늘의 도구"와 같은 방식, UTC 기준 하루 단위).
 // 정적 생성 페이지이므로 1시간마다 재계산되도록 revalidate를 둡니다.
@@ -106,6 +107,7 @@ export default async function CategoryPage({
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">
+      <BackLink to="home" className="mb-4" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}

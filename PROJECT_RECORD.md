@@ -334,6 +334,17 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-11-12 — 상위 페이지로 돌아가는 뒤로가기 버튼 추가 (ExifLens 방식, 4개 언어)
+
+- 배경: 사용자 요청. ExifLens의 뒤로가기 버튼(페이지 상단, 고정된 상위 페이지로 이동)을 lifehub에도 적용.
+- 신규 `src/components/back-link.tsx`(`<BackLink to="home|category" categoryId />`): 브라우저 기록이 아니라 고정된 상위 페이지로 이동. 문구는 `src/i18n/messages/{ko,en,ja,es}.json`의 새 `BackNav`(toHome·toCategory).
+- 도구 페이지 225개: 각 페이지를 수정하지 않고 모든 도구 페이지가 이미 쓰는 `ToolBreadcrumbJsonLd.tsx` 한 곳에서 출력. 해당 도구가 속한 카테고리 목록(`/category/<id>`)으로 "← 도구 목록으로"(도구를 못 찾으면 출력 안 함 — 기존 동작 유지). 헤더 로고와 같은 왼쪽 선(max-w-6xl)에 맞춤.
+- 카테고리 페이지·소개·문의·개인정보·약관: 본문 첫 줄에 "← 홈으로". 홈 화면은 제외. 기존에 하단에 "← 홈으로"가 있던 4개 도구(ladder-game·tarot-card·balance-game·random-picker)는 그대로 둠.
+- 색인 영향 없음(주소·canonical·JSON-LD 변경 없음, 링크 한 줄 추가).
+- 검증: tsc 0 오류, 변경 파일 eslint 무경고, 4개 언어 JSON 유효. 이 작업 환경은 맥용 SWC 가 없어 build·dev 실행 불가 → 푸시 후 실사이트 확인 예정.
+- 상태: 코드 수정 완료, 커밋·푸시 전.
+- 백업: `_backups/lifehub_backup_20261111_150617_뒤로가기_사전`. 롤백: `git revert <이번 커밋>`.
+
 ## 2026-11-10 — 도구·카테고리 페이지 탐색경로(BreadcrumbList) 연결 + 사이트 전용 404 화면 (구글 SEO 기본 가이드 점검 후속)
 
 - 배경: 구글 SEO 기본 가이드와 대조한 결과, `src/lib/seo.ts`에 `breadcrumbJsonLd()`가 만들어져 있었지만 호출하는 곳이 한 군데도 없었고, 사이트 전용 404 화면도 없었다. 사용자 요청("1,2,3번 바로 진행"), 색인 요청과 무관한 작업.

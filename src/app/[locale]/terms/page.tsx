@@ -1,5 +1,6 @@
 import { setRequestLocale } from "next-intl/server";
 import { SITE_URL, pageAlternates } from "@/lib/seo";
+import { BackLink } from "@/components/back-link";
 
 type Locale = "ko" | "en" | "ja" | "es";
 
@@ -262,6 +263,7 @@ export default async function TermsPage({
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
+      <BackLink to="home" className="mb-4" />
       <h1 className="text-3xl font-bold tracking-tight">{c.title}</h1>
       <p className="mt-2 text-muted-foreground">{c.subtitle}</p>
       <p className="mt-1 text-xs text-muted-foreground">{c.lastUpdated}</p>

@@ -1,4 +1,8 @@
 {
+  "BackNav": {
+    "toHome": "← Volver al inicio",
+    "toCategory": "← Volver a Herramientas"
+  },
   "Home": {
     "title": "Todas las Utilidades que Usas a Diario, en un Solo Lugar",
     "subtitle": "Calculadoras, listas de verificación, herramientas de conversión: ejecútalo todo directamente en tu navegador.",
