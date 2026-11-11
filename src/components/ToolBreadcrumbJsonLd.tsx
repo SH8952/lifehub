@@ -45,19 +45,20 @@ export default function ToolBreadcrumbJsonLd({
 
   return (
     <>
-      {/* 도구 페이지 상단의 뒤로가기: 소속 카테고리 목록으로 (헤더 로고와 같은 왼쪽 선에 맞춤) */}
-      <div className="mx-auto -mb-6 max-w-6xl px-4 pt-5">
-        <BackLink
-          to={category ? "category" : "home"}
-          categoryId={category?.id}
-        />
-      </div>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(breadcrumbJsonLd(items)),
         }}
       />
+      {/* 도구 페이지 상단의 뒤로가기: 소속 카테고리 목록으로.
+          바로 뒤따르는 본문 컨테이너(max-w-2xl~5xl)와 같은 너비로 맞춰 제목의 왼쪽 선과 정렬된다(globals.css의 .tool-back 규칙). */}
+      <div className="tool-back mx-auto -mb-6 max-w-6xl px-4 pt-5">
+        <BackLink
+          to={category ? "category" : "home"}
+          categoryId={category?.id}
+        />
+      </div>
     </>
   );
 }

@@ -1,6 +1,5 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Card, CardContent } from "@/components/ui/card";
-import { buttonVariants } from "@/components/ui/button";
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import TojungFortuneClient from "./TojungFortuneClient";
 import { i18n, type Locale } from "./data";
@@ -103,11 +102,6 @@ export default async function TojungFortunePage({
       <p className="mt-8 text-sm text-muted-foreground">{d.disclaimer}</p>
       <p className="mt-4 text-sm text-muted-foreground">{d.footer}</p>
 
-      <div className="mt-8">
-        <a href={`/${locale}`} className={buttonVariants({ variant: "ghost", size: "sm" })}>
-          &larr; {t("back")}
-        </a>
-      </div>
     </div>
     </>
   );

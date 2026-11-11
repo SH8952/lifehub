@@ -317,11 +317,6 @@ export default async function DailyFortunePage({
       <p className="mt-8 text-sm text-muted-foreground">{d.disclaimer}</p>
       <p className="mt-4 text-sm text-muted-foreground">{d.footer}</p>
 
-      <div className="mt-8">
-        <a href={`/${locale}`} className={buttonVariants({ variant: "ghost", size: "sm" })}>
-          &larr; {t("back")}
-        </a>
-      </div>
     </div>
     </>
   );

@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { categories } from "../../page";
 import { SITE_URL, pageAlternates, breadcrumbJsonLd } from "@/lib/seo";
 import { Card, CardContent } from "@/components/ui/card";
-import { buttonVariants } from "@/components/ui/button";
 import { categoryToolsMap } from "@/lib/tools-data";
 import { BackLink } from "@/components/back-link";
 
@@ -144,11 +143,6 @@ export default async function CategoryPage({
         ))}
       </div>
 
-      <div className="mt-8">
-        <a href={`/${locale}`} className={buttonVariants({ variant: "ghost", size: "sm" })}>
-          &larr; {t("back")}
-        </a>
-      </div>
     </div>
   );
 }

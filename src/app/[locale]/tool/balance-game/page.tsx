@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { pageAlternates } from "@/lib/seo";
-import Link from "next/link";
 import BalanceGameClient from "./BalanceGameClient";
 import { i18n, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
@@ -91,11 +90,6 @@ export default async function BalanceGamePage({
 
       <footer className="mt-6 border-t pt-4 text-xs text-gray-400">{d.footer}</footer>
 
-      <div className="mt-6">
-        <Link href={`/${lang}`} className="text-sm text-blue-600 hover:underline">
-          ← {lang === "ko" ? "홈으로" : lang === "ja" ? "ホームへ" : lang === "es" ? "Inicio" : "Back to home"}
-        </Link>
-      </div>
     </div>
     </>
   );

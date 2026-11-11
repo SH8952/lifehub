@@ -334,6 +334,17 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-11-12 (2) — 뒤로가기 버튼 후속 정리: 옛 링크 제거(A안) + 제목 왼쪽 선 정렬 (ExifLens 기준)
+
+- 배경: 사용자 요청. 새 뒤로가기 버튼과 옛 하단 "← 돌아가기/← 홈으로"가 한 페이지에 겹쳐 보이고, 새 버튼이 제목보다 왼쪽(로고 선)에 떠 있었음. "ExifLens가 모든 구현의 기준 — 동일하게 맞춰달라".
+- 옛 링크 제거: 카테고리 페이지 1곳, 도구 페이지 26곳(`&larr; {t("back")}` 하단 블록 22곳, 하드코딩 "← 홈으로" 4곳[ladder-game·tarot-card·balance-game·random-picker]) + 별자리 도구(`ZodiacFinderClient`)의 `backHref` 속성. 그로 인해 안 쓰게 된 `buttonVariants`/`next/link` import 정리.
+- 정렬: 새 링크는 공용 `ToolBreadcrumbJsonLd.tsx` 한 곳에서 출력하되 `tool-back` 클래스를 붙이고, `globals.css`에 `.tool-back:has(+ .max-w-2xl|3xl|4xl|5xl)` 규칙을 추가해 바로 뒤따르는 본문 컨테이너와 같은 너비로 맞춤 → 도구마다 컨테이너 폭이 달라도(2xl 36 / 3xl 99 / 4xl 73 / 5xl 17) 제목 왼쪽 선과 일치. 일치하는 컨테이너가 없으면 기존(max-w-6xl) 유지. JSON-LD script를 링크 앞으로 옮겨 링크가 컨테이너 바로 앞에 오도록 함(별자리 도구는 자체 script가 있어 breadcrumb 위치를 그 뒤로 이동).
+- 도구 225개 파일 개별 수정 대신 공용 컴포넌트 1곳 + CSS 4줄 방식 선택(수정 범위·부작용 최소화). 정적 점검: 225개 전부 `mx-auto max-w-* px-4` 컨테이너를 가지며, 222개는 링크 바로 뒤가 그 컨테이너, 나머지 3개(monthly-cost·word-practice·zodiac-finder)도 구조상 동일 확인.
+- 색인 영향 없음(주소·canonical·JSON-LD 내용 변경 없음). 사용하지 않게 된 번역 키 `Category.back`/`Tools.back`은 남겨둠(롤백 용이).
+- 검증: tsc 0 오류, 변경 파일 eslint 무경고. build·dev 실행은 이 환경 불가 → 사용자 localhost 확인 후 푸시.
+- 상태: 코드 수정 완료, 커밋·푸시 전.
+- 백업: `_backups/lifehub_backup_20261111_152104_뒤로가기정리_사전`. 롤백: `git revert <이번 커밋>`.
+
 ## 2026-11-12 — 상위 페이지로 돌아가는 뒤로가기 버튼 추가 (ExifLens 방식, 4개 언어)
 
 - 배경: 사용자 요청. ExifLens의 뒤로가기 버튼(페이지 상단, 고정된 상위 페이지로 이동)을 lifehub에도 적용.
@@ -342,7 +353,7 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 - 카테고리 페이지·소개·문의·개인정보·약관: 본문 첫 줄에 "← 홈으로". 홈 화면은 제외. 기존에 하단에 "← 홈으로"가 있던 4개 도구(ladder-game·tarot-card·balance-game·random-picker)는 그대로 둠.
 - 색인 영향 없음(주소·canonical·JSON-LD 변경 없음, 링크 한 줄 추가).
 - 검증: tsc 0 오류, 변경 파일 eslint 무경고, 4개 언어 JSON 유효. 이 작업 환경은 맥용 SWC 가 없어 build·dev 실행 불가 → 푸시 후 실사이트 확인 예정.
-- 상태: 코드 수정 완료, 커밋·푸시 전.
+- 상태: 푸시·배포 완료(b54109b), 실사이트 확인 완료(한국어·영어, 도구/카테고리/소개·문의·개인정보·약관). 후속 정리는 아래 "2026-11-12 (2)" 참조.
 - 백업: `_backups/lifehub_backup_20261111_150617_뒤로가기_사전`. 롤백: `git revert <이번 커밋>`.
 
 ## 2026-11-10 — 도구·카테고리 페이지 탐색경로(BreadcrumbList) 연결 + 사이트 전용 404 화면 (구글 SEO 기본 가이드 점검 후속)

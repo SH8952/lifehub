@@ -37,7 +37,6 @@ interface ZodiacFinderClientProps {
     back: string;
   };
   faq: Array<{ q: string; a: string }>;
-  backHref: string;
 }
 
 const ELEMENT_NAMES: Record<Locale, Record<string, string>> = {
@@ -103,7 +102,6 @@ export default function ZodiacFinderClient({
   locale,
   labels,
   faq,
-  backHref,
 }: ZodiacFinderClientProps) {
   const [selectedMonth, setSelectedMonth] = useState<number | null>(null);
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
@@ -297,11 +295,6 @@ export default function ZodiacFinderClient({
       <p className="mt-8 text-sm text-muted-foreground">{labels.disclaimer}</p>
       <p className="mt-4 text-sm text-muted-foreground">{labels.footer}</p>
 
-      <div className="mt-8">
-        <a href={backHref} className={buttonVariants({ variant: "ghost", size: "sm" })}>
-          {"←"} {labels.back}
-        </a>
-      </div>
     </div>
   );
 }

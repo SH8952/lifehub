@@ -246,7 +246,6 @@ export default async function ZodiacFinderPage({
 
   return (
     <>
-      <ToolBreadcrumbJsonLd locale={locale} toolId="zodiac-finder" />
     <>
       <script
         type="application/ld+json"
@@ -262,12 +261,12 @@ export default async function ZodiacFinderPage({
           }),
         }}
       />
+      <ToolBreadcrumbJsonLd locale={locale} toolId="zodiac-finder" />
       <ZodiacFinderClient
         signs={signs}
         locale={lang}
         labels={labels}
         faq={d.faq}
-        backHref={`/${locale}`}
       />
     </>
     </>
