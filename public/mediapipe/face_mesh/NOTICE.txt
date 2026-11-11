@@ -1,0 +1,3 @@
+MediaPipe Face Mesh (npm package @mediapipe/face_mesh 0.4.1633559619)
+License: Apache License 2.0 (https://www.apache.org/licenses/LICENSE-2.0)
+Self-hosted copy used by the "나의 관상 보기 / Face Reading" tool. Runs entirely in the visitor's browser; no images are uploaded.

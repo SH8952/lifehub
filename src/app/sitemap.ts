@@ -213,6 +213,7 @@ const TOOL_IDS = [
   "daily-fortune",
   "tojung-fortune",
   "zodiac-finder",
+  "face-reading",
   "compatibility",
   "fortune-cookie",
   "balance-game-match",

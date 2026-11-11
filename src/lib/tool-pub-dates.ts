@@ -192,6 +192,7 @@ export const toolPubDates: Record<string, string> = {
   "daily-fortune": "2026-09-28T16:14:29+00:00",
   "tojung-fortune": "2026-09-25T11:33:10+09:00",
   "zodiac-finder": "2026-09-28T16:14:29+00:00",
+  "face-reading": "2026-11-12T09:00:00+09:00",
   "compatibility": "2026-09-26T11:18:00+09:00",
   "fortune-cookie": "2026-09-28T16:14:29+00:00",
   "balance-game-match": "2026-10-30T13:38:27+00:00",

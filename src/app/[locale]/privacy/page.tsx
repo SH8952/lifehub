@@ -48,11 +48,15 @@ const content: Record<Locale, PageContent> = {
   ko: {
     title: "개인정보처리방침",
     subtitle: "LifeHub가 어떤 정보를 다루는지 안내합니다",
-    lastUpdated: "최종 수정일: 2026년 9월 29일",
+    lastUpdated: "최종 수정일: 2026년 11월 12일",
     sections: [
       {
         heading: "기본 원칙",
         body: "LifeHub는 회원가입이나 로그인 없이 이용할 수 있는 서비스입니다.\n\n제공하는 대부분의 계산기·변환 도구는 입력하신 정보를 서버로 전송하지 않고 사용자의 브라우저 안에서만 계산이 이루어집니다. 즉 나이, 키와 몸무게, 재무 정보 등 도구에 입력하는 값은 LifeHub 서버에 저장되거나 전송되지 않습니다.",
+      },
+      {
+        heading: "얼굴 사진을 사용하는 도구",
+        body: "일부 도구(예: 나의 관상 보기)는 사용자가 직접 올리거나 카메라로 촬영한 얼굴 사진을 분석합니다. 이 사진은 사용자 기기의 브라우저 안에서만 처리되며 LifeHub 서버나 외부 서버로 전송·저장되지 않습니다. 카메라는 사용자가 허용한 경우에만 사용되고, 분석이 끝나거나 결과 화면을 닫으면 사진은 사라집니다.",
       },
       {
         heading: "자동으로 수집되는 정보",
@@ -91,11 +95,15 @@ const content: Record<Locale, PageContent> = {
   en: {
     title: "Privacy Policy",
     subtitle: "How LifeHub handles information",
-    lastUpdated: "Last updated: September 29, 2026",
+    lastUpdated: "Last updated: November 12, 2026",
     sections: [
       {
         heading: "Basic Principles",
         body: 'LifeHub can be used without creating an account or signing in.\n\nMost of the calculators and conversion tools we provide perform their calculations entirely within your browser — the values you enter (such as age, height and weight, or financial figures) are never sent to or stored on our servers.',
+      },
+      {
+        heading: "Tools That Use Face Photos",
+        body: "Some tools (for example, Face Reading) analyze a face photo that you upload or take with your camera. The photo is processed only inside your browser on your own device and is never sent to or stored on LifeHub servers or any external server. The camera is used only if you allow it, and the photo is discarded when you close the result or start over.",
       },
       {
         heading: "Information Collected Automatically",
@@ -134,11 +142,15 @@ const content: Record<Locale, PageContent> = {
   ja: {
     title: "プライバシーポリシー",
     subtitle: "LifeHubがどのような情報を扱うかについてご案内します",
-    lastUpdated: "最終更新日: 2026年9月29日",
+    lastUpdated: "最終更新日: 2026年11月12日",
     sections: [
       {
         heading: "基本方針",
         body: "LifeHubは会員登録やログインなしでご利用いただけるサービスです。\n\n提供している大部分の計算機・変換ツールは、入力された情報をサーバーに送信せず、お使いのブラウザ内でのみ計算が行われます。つまり、年齢、身長・体重、財務情報などツールに入力する値は、LifeHubのサーバーに保存・送信されることはありません。",
+      },
+      {
+        heading: "顔写真を使用するツール",
+        body: "一部のツール（例：私の観相を見る）では、ご自身でアップロードした、またはカメラで撮影した顔写真を分析します。この写真はお使いの端末のブラウザ内だけで処理され、LifeHubのサーバーや外部サーバーへ送信・保存されることはありません。カメラはご本人が許可した場合にのみ使用され、結果画面を閉じるかやり直すと写真は破棄されます。",
       },
       {
         heading: "自動的に収集される情報",
@@ -177,11 +189,15 @@ const content: Record<Locale, PageContent> = {
   es: {
     title: "Política de Privacidad",
     subtitle: "Cómo maneja LifeHub la información",
-    lastUpdated: "Última actualización: 29 de septiembre de 2026",
+    lastUpdated: "Última actualización: 12 de noviembre de 2026",
     sections: [
       {
         heading: "Principios básicos",
         body: "LifeHub se puede utilizar sin necesidad de crear una cuenta ni iniciar sesión.\n\nLa mayoría de las calculadoras y herramientas de conversión que ofrecemos realizan sus cálculos completamente dentro de tu navegador: los valores que introduces (como edad, altura y peso, o datos financieros) nunca se envían ni se almacenan en nuestros servidores.",
+      },
+      {
+        heading: "Herramientas que usan fotos del rostro",
+        body: "Algunas herramientas (por ejemplo, Lectura de rostro) analizan una foto de tu cara que subes o haces con la cámara. La foto se procesa únicamente dentro de tu navegador, en tu propio dispositivo, y nunca se envía ni se almacena en los servidores de LifeHub ni en ningún servidor externo. La cámara solo se usa si lo permites, y la foto se descarta al cerrar el resultado o empezar de nuevo.",
       },
       {
         heading: "Información recopilada automáticamente",

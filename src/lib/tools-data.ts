@@ -1068,6 +1068,17 @@ export const categoryToolsMap: Record<string, ToolInfo[]> = {
       descriptionEs: "Encuentra tu signo zodiacal por fecha de nacimiento (con elemento y personalidad)",
     },
     {
+      id: "face-reading",
+      name: "나의 관상 보기",
+      nameEn: "Face Reading",
+      nameJa: "私の観相を見る",
+      nameEs: "Lectura de rostro",
+      description: "정면 얼굴 사진이나 카메라 촬영으로 얼굴형·눈·코·입을 풀이하는 관상 (사진은 기기 안에서만 분석)",
+      descriptionEn: "Read your face shape, eyes, nose and mouth from a front-facing photo or camera shot (analyzed only on your device)",
+      descriptionJa: "正面の顔写真やカメラ撮影から顔型・目・鼻・口を読み解く観相（写真は端末内だけで分析）",
+      descriptionEs: "Interpreta la forma de tu cara, ojos, nariz y boca con una foto de frente o de la cámara (se analiza solo en tu dispositivo)",
+    },
+    {
       id: "compatibility",
       name: "궁합 풀이",
       nameEn: "Compatibility Reading",
