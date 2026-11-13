@@ -345,7 +345,8 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 - 검증: `tsc --noEmit` 통과, 변경 파일 eslint 통과(경고 0). 격리 복사본에서 `next dev`(webpack) — 도구 페이지 20개(5종×4언어)·카테고리 페이지 4개 모두 200, iframe 주소 `?lang=` 정상, 카테고리 목록·홈 카드·사이트맵(카테고리 4 + 도구 20 URL)·BreadcrumbList(LifeHub › 미니 게임 › 게임명) 확인, 개발 서버 로그에 오류 없음. 헤드리스 브라우저로 5종×4언어를 iframe 안에서 실행: 스크립트 오류 0, 글꼴 2종 `/games/fonts/`에서 로드, 외부 요청 0, 부모 페이지 주소 접근 정상.
 - 알아둘 점: 처음 계획한 "공통 소리 모듈 하나로 통합"은 게임마다 자체 완결형(소리 포함)을 유지하는 방식으로 바꿨습니다(코드 안전·기존 완료 판정 유지). 게임 페이지(`/games/*.html`)는 `noindex`이고 색인 대상은 lifehub 도구 페이지입니다.
 - 색인 요청 후속: 신규 URL 24개(게임 5종×4언어 20 + 카테고리 4) 색인 요청 목록 추가 예정.
-- 상태: 사용자 확인 후 푸시 진행(1회성 푸시 스크립트 실행으로 커밋·배포, 결과는 푸시 후 갱신).
+- 상태: 푸시 완료(커밋 2993091, 2026-11-13, 원격 main과 일치). Vercel 자동 배포는 사용자가 라이브 페이지로 확인.
+- 색인 요청 목록: `lifehub-색인요청목록.html`을 갱신 — 신규 24개(ko→en→ja→es, 카테고리 → 게임 5종)를 맨 앞 1~3일차에 두고 기존 628개를 순서 그대로 이어 붙여 총 652개·66묶음. 공용 생성기 `gsc-index-list-builder.py`의 lifehub 카테고리 순서에 `mini-games` 추가(백업 `_backups/gsc-helper_20261113_120951_pre-minigames-1113`).
 - 백업: `_backups/minigames-integration_20261113_080535`(PROJECT_RECORD.md·next.config.ts·package.json·public·src). 롤백: 추가한 파일·폴더 삭제 후 수정 파일을 `git checkout`.
 
 ## 2026-11-13 — Vercel 사용량 최적화 1단계: 전체 페이지를 캐시되는 정적(ISR) 페이지로 전환 (`setRequestLocale`)
@@ -355,7 +356,7 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 - 검증(격리 환경에서 실제 빌드): `next build` 정상, 958개 페이지 정적 생성. 동적(ƒ)으로 남은 것은 `/[locale]/[...rest]`(404 처리)와 `/api/visitor-count`뿐. `next start`로 확인한 결과 `/ko`·`/en`·카테고리 `s-maxage=3600`(1시간 재생성), 도구·소개 `s-maxage=31536000`, `x-nextjs-cache: HIT`, 언어별 `<html lang>` 정상.
 - 기대 효과: 방문·크롤러 요청마다 서버 함수가 실행되던 구조가 CDN 캐시 응답으로 바뀌어 CPU·함수 호출이 줄어듦. 화면·주소·canonical·JSON-LD 변경 없음(색인 영향 없음).
 - 참고: 최근 30일 프로젝트별 사용량은 lifehub 비중이 작음(ISR Reads 0.0%, FOT 1.0%, CPU 6.2%) — 트래픽이 늘어도 문제가 되지 않도록 한 예방 조치. 사용량 대부분은 exiflens·flydronemap(→ 후속 단계에서 처리).
-- 상태: 푸시·배포 완료(커밋 해시는 푸시 후 갱신).
+- 상태: 푸시·배포 완료(df0f23c). 실사이트 확인: 홈(`/ko`)이 PRERENDER(정적) 응답으로 전환.
 - 백업: `_backups/lifehub_backup_20261113_053251_setrequestlocale-before`. 롤백: `git revert <이번 커밋>`.
 
 ## 2026-11-12 (3) — 신규 도구 "나의 관상 보기"(face-reading) 추가: 사진 업로드 + 카메라 촬영, 기기 안 분석 (사용자 요청)
