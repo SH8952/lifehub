@@ -1,0 +1,868 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>사천성</title>
+<style>
+  @font-face { font-family: "Gaegu"; font-style: normal; font-weight: 400; font-display: swap; src: url("/games/fonts/gaegu-400.woff2") format("woff2"); }
+  @font-face { font-family: "Gaegu"; font-style: normal; font-weight: 700; font-display: swap; src: url("/games/fonts/gaegu-700.woff2") format("woff2"); }
+</style>
+<style>
+  /* Layout concept: a doodled tile-matching table. Ink-outlined ivory tiles on a themed backdrop, timer bar on top, helper buttons at the bottom. */
+  :root {
+    --bg: #fdfdfb; --ink: #1c2331; --muted: #6a7282; --hit: #e5484d; --ok: #3fae5a; --mid: #f2a516;
+    --font-hand: "Gaegu", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14171f; --ink: #e8ebf2; --muted: #98a1b3; --hit: #ff6b70; --ok: #4cc26a; --mid: #ffc247;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14171f; --ink: #e8ebf2; --muted: #98a1b3; --hit: #ff6b70; --ok: #4cc26a; --mid: #ffc247;
+    color-scheme: dark;
+  }
+
+  html, body { height: 100%; }
+  html { overscroll-behavior: none; }
+  body {
+    margin: 0; overflow: hidden; background: var(--bg); color: var(--ink);
+    font-family: var(--font-hand); overscroll-behavior: none;
+    -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  #stage {
+    position: relative; width: 100%; max-width: 480px; height: 100%;
+    margin: 0 auto; touch-action: none; overflow: hidden; background: var(--bg);
+    border-left: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+    border-right: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  }
+  canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+  .gutter { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+  #top { position: absolute; inset: 0 0 auto 0; z-index: 3; pointer-events: none; }
+  #hud { display: flex; justify-content: space-between; align-items: flex-start; padding-top: 12px; font-weight: 700; line-height: 1.05; }
+  #hud .nums { font-size: 32px; font-variant-numeric: tabular-nums; }
+  #hud .sub { font-size: 20px; font-weight: 400; margin-top: 2px; }
+  #hud .right { text-align: right; font-size: 18px; font-weight: 400; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+  #hud .btns { display: flex; gap: 8px; }
+  #pauseBtn, #soundBtn {
+    pointer-events: auto; font: inherit; font-size: 18px; color: var(--ink); background: color-mix(in srgb, var(--bg) 70%, transparent);
+    border: 2px solid var(--ink); border-radius: 999px; padding: 2px 14px; cursor: pointer;
+  }
+  #soundBtn[aria-pressed="false"] { color: var(--muted); border-color: var(--muted); }
+  #timerWrap { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+  #timer { flex: 1; height: 16px; border: 2px solid var(--ink); border-radius: 999px; overflow: hidden; background: color-mix(in srgb, var(--bg) 60%, transparent); }
+  #timerFill { height: 100%; width: 100%; background: var(--ok); border-radius: 999px; transition: background .2s; }
+  #timerFill.mid { background: var(--mid); }
+  #timerFill.low { background: var(--hit); }
+  #timerNum { min-width: 52px; text-align: right; font-size: 24px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  #timerWrap.hot #timer { animation: hotPulse .5s ease-in-out infinite alternate; }
+  #timerWrap.hot #timerNum { color: var(--hit); }
+  @keyframes hotPulse { from { transform: scaleY(1); } to { transform: scaleY(1.35); } }
+
+  #toast {
+    position: absolute; left: 0; right: 0; top: 30%; text-align: center; pointer-events: none; z-index: 4;
+    font-size: 34px; padding: 0 12px; word-break: keep-all; font-weight: 700; color: var(--ink); opacity: 0; transform: scale(.9);
+    transition: opacity .25s, transform .25s; text-shadow: 0 3px 0 var(--hit), 0 0 8px var(--bg), 0 0 3px var(--bg);
+  }
+  #toast.show { opacity: 1; transform: scale(1); }
+
+  #bar {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; display: flex; gap: 8px; align-items: center;
+    padding-top: 8px; padding-bottom: max(10px, env(safe-area-inset-bottom, 0px));
+    background: color-mix(in srgb, var(--bg) 82%, transparent); border-top: 2px solid var(--ink);
+  }
+  #bar .gap { flex: 1; }
+  .tb {
+    font: inherit; font-size: 22px; font-weight: 700; color: var(--ink); background: var(--bg); cursor: pointer;
+    border: 2px solid var(--ink); border-radius: 12px; padding: 6px 14px; min-width: 76px; line-height: 1.05; touch-action: none;
+  }
+  .tb small { display: block; font-size: 14px; font-weight: 400; color: var(--muted); }
+  .tb:disabled { opacity: .35; cursor: default; }
+  #left { text-align: right; font-size: 30px; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
+  #left small { display: block; font-size: 15px; font-weight: 400; color: var(--muted); margin-top: 2px; }
+
+  #panel {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 2; pointer-events: none;
+    background: color-mix(in srgb, var(--bg) 45%, transparent);
+  }
+  #panel[hidden] { display: none; }
+  .card {
+    width: min(100%, 340px); box-sizing: border-box; text-align: center; pointer-events: auto;
+    background: var(--bg); border: 2px solid var(--ink); border-radius: 18px;
+    box-shadow: 5px 5px 0 var(--ink); padding: 22px 20px 20px;
+  }
+  .card h1 { margin: 0 0 6px; font-size: 40px; line-height: 1.05; text-wrap: balance; }
+  .card p { word-break: keep-all; margin: 6px 0; font-size: 20px; line-height: 1.3; color: var(--muted); text-wrap: balance; }
+  .card .big { font-size: 46px; font-weight: 700; color: var(--ink); line-height: 1; margin: 10px 0 4px; font-variant-numeric: tabular-nums; }
+  .card .row { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px 18px; font-size: 20px; color: var(--ink); margin: 6px 0 2px; }
+  .card .badge { display: inline-block; margin-top: 4px; padding: 0 12px; border: 2px solid var(--hit); color: var(--hit); border-radius: 999px; font-weight: 700; font-size: 20px; transform: rotate(-3deg); }
+  .btn {
+    margin-top: 16px; width: 100%; font: inherit; font-size: 28px; font-weight: 700; cursor: pointer;
+    color: var(--bg); background: var(--ink); border: 2px solid var(--ink); border-radius: 14px; padding: 8px 12px;
+  }
+  .btn:disabled { opacity: .35; cursor: default; }
+  .btn.sub { margin-top: 10px; font-size: 22px; color: var(--ink); background: transparent; }
+  .btn:focus-visible, .tb:focus-visible, #pauseBtn:focus-visible, #soundBtn:focus-visible { outline: 3px solid var(--hit); outline-offset: 2px; }
+  .hint { word-break: keep-all; font-size: 17px; color: var(--muted); margin-top: 12px; line-height: 1.3; }
+  @media (prefers-reduced-motion: reduce) { #toast { transition: none; } #timerWrap.hot #timer { animation: none; } }
+  html[lang="ja"] * { word-break: normal !important; line-break: strict; }
+  html:not([lang="ko"]) #soundBtn, html:not([lang="ko"]) #pauseBtn { white-space: nowrap; font-size: 15px; padding: 2px 10px; }
+  html:not([lang="ko"]) #hud .sub { font-size: 17px; white-space: nowrap; }
+  html:not([lang="ko"]) #tCoins { white-space: nowrap; }
+  html:not([lang="ko"]) .tb span { white-space: nowrap; }
+  html:not([lang="ko"]) .tb { font-size: 18px; }
+</style>
+
+</head>
+<body>
+<div id="stage">
+  <canvas id="cv" data-a="aria-label:canvasLabel"></canvas>
+  <div id="top">
+    <div id="hud" class="gutter">
+      <div>
+        <div class="nums"><span id="tStage"></span></div>
+        <div class="sub"><span data-i="scoreL"></span> <span id="tScore">0</span></div>
+      </div>
+      <div class="right"><span><span data-i="bestL"></span> <span id="tBest">0</span><span data-i="unit"></span></span><div class="btns"><button id="soundBtn" type="button" aria-pressed="true"></button><button id="pauseBtn" type="button" hidden data-i="pause"></button></div></div>
+    </div>
+    <div id="timerWrap" class="gutter"><div id="timer" data-a="aria-label:timeLeft"><div id="timerFill"></div></div><span id="timerNum">0</span></div>
+  </div>
+  <div id="toast" aria-live="polite"></div>
+  <div id="bar" class="gutter">
+    <button class="tb" id="hintBtn" type="button"><span data-i="hint"></span><small></small></button>
+    <button class="tb" id="shufBtn" type="button"><span data-i="shuffle"></span><small></small></button>
+    <div class="gap"></div>
+    <div id="left"><span id="tLeft">0</span><small data-i="leftPairs"></small></div>
+  </div>
+  <div id="panel" class="gutter"><div class="card" id="card"></div></div>
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  /* ---------- 문구: 나중에 다국어(ko/en/ja/es)로 확장하기 쉽게 한곳에 모음 ---------- */
+  const TT = {
+    ko: {
+    title: "사천성",
+    readyDesc: "같은 그림 두 개를 골라 길을 이어 없애세요. 전부 없애면 다음 판!",
+    readyHint: "길은 꺾임 2번까지, 다른 타일에 막히면 안 돼요\n바깥 테두리로 돌아가는 길도 돼요\n빨리 이을수록 콤보 점수가 쌓여요\n시간이 줄어들면 음악이 빨라져요",
+    start: "시작", retry: "다시 도전", resume: "계속하기", paused: "잠깐 멈춤",
+    overTitle: "시간이 끝났어요!", unit: "점", stageWord: "판", best: "최고", newBest: "새 기록!",
+    leftPairs: "남은 쌍", sec: "초",
+    clear: "클리어!", stuck: "막혔어요! 섞는 중", combo: n => `콤보 ×${n}`, bonus: n => `보너스 +${n}`,
+    share: "점수 공유", shareCopied: "문구를 복사했어요", shareFail: "복사하지 못했어요",
+    shareText: (st, sc) => `사천성에서 ${st}판까지 ${sc}점! 도전해 보세요`,
+    themes: ["종이마당", "연못", "노을", "밤하늘", "벚꽃"],
+    ranks: [[2, "몸풀기 단계예요"], [4, "눈이 빠른 편이에요"], [7, "꽤 빠른 눈썰미예요"], [11, "타일 도사예요"], [Infinity, "전설의 타일 장인이에요"]],
+      canvasLabel: "사천성 게임 화면", sndOn: "소리 켜짐", sndOff: "소리 꺼짐", pause: "멈춤", bestL: "최고", scoreL: "점수",
+      stageLabel: n => n + "판", hint: "힌트", shuffle: "섞기", timeLeft: "남은 시간"
+    },
+    en: {
+      title: "Tile Connect",
+      readyDesc: "Pick two matching pictures and link them with a path to clear them. Clear them all for the next stage!",
+      readyHint: "A path can bend up to 2 times and can't cross other tiles\nPaths around the outer edge also work\nLink fast to build combo points\nThe music speeds up as time runs low",
+      start: "Start", retry: "Try again", resume: "Resume", paused: "Paused",
+      overTitle: "Time's up!", unit: " pts", best: "Best", newBest: "New record!",
+      leftPairs: "Pairs left", sec: "s",
+      clear: "Clear!", stuck: "No moves! Shuffling", combo: n => `Combo ×${n}`, bonus: n => `Bonus +${n}`,
+      share: "Share score", shareCopied: "Copied to clipboard", shareFail: "Couldn't copy",
+      shareText: (st, sc) => `Reached stage ${st} with ${sc} pts in Tile Connect! Give it a try`,
+      themes: ["Paper Yard", "Pond", "Sunset", "Night Sky", "Cherry Blossom"],
+      ranks: [[2, "Just warming up"], [4, "Pretty sharp eyes"], [7, "Quite quick eyes"], [11, "A tile master"], [Infinity, "A legendary tile artisan"]],
+      canvasLabel: "Tile Connect game screen", sndOn: "Sound on", sndOff: "Sound off", pause: "Pause", bestL: "Best", scoreL: "Score",
+      stageLabel: n => "Stage " + n, hint: "Hint", shuffle: "Shuffle", timeLeft: "Time left"
+    },
+    ja: {
+      title: "四川省",
+      readyDesc: "同じ絵を2つ選んで道でつなぎ、消そう。全部消せば次の面へ！",
+      readyHint: "道は2回まで曲がれる。ほかのタイルにふさがれてはダメ\n外側のふちをまわる道もOK\n早くつなぐほどコンボ得点が増える\n時間が減ると音楽が速くなる",
+      start: "スタート", retry: "もう一度", resume: "再開", paused: "一時停止中",
+      overTitle: "時間切れ！", unit: "点", best: "ベスト", newBest: "新記録！",
+      leftPairs: "残りペア", sec: "秒",
+      clear: "クリア！", stuck: "手詰まり！シャッフル中", combo: n => `コンボ ×${n}`, bonus: n => `ボーナス +${n}`,
+      share: "スコアを共有", shareCopied: "コピーしました", shareFail: "コピーできませんでした",
+      shareText: (st, sc) => `四川省で${st}面まで${sc}点！挑戦してみて`,
+      themes: ["紙の庭", "池", "夕焼け", "夜空", "桜"],
+      ranks: [[2, "ウォーミングアップ中"], [4, "目が速いほう"], [7, "かなりの観察眼"], [11, "タイル仙人"], [Infinity, "伝説のタイル職人"]],
+      canvasLabel: "四川省 ゲーム画面", sndOn: "音 ON", sndOff: "音 OFF", pause: "一時停止", bestL: "ベスト", scoreL: "スコア",
+      stageLabel: n => n + "面", hint: "ヒント", shuffle: "シャッフル", timeLeft: "残り時間"
+    },
+    es: {
+      title: "Conecta Fichas",
+      readyDesc: "Elige dos imágenes iguales y únelas con un camino para eliminarlas. ¡Elimina todas para pasar de nivel!",
+      readyHint: "El camino puede girar hasta 2 veces y no cruzar otras fichas\nTambién vale rodear por el borde exterior\nCuanto más rápido unas, más puntos de combo\nLa música se acelera cuando queda poco tiempo",
+      start: "Empezar", retry: "Reintentar", resume: "Continuar", paused: "En pausa",
+      overTitle: "¡Se acabó el tiempo!", unit: " pts", best: "Récord", newBest: "¡Nuevo récord!",
+      leftPairs: "Pares restantes", sec: "s",
+      clear: "¡Completado!", stuck: "¡Sin jugadas! Mezclando", combo: n => `Combo ×${n}`, bonus: n => `Bonus +${n}`,
+      share: "Compartir puntos", shareCopied: "Texto copiado", shareFail: "No se pudo copiar",
+      shareText: (st, sc) => `¡Llegué al nivel ${st} con ${sc} pts en Conecta Fichas! Atrévete a jugar`,
+      themes: ["Patio de papel", "Estanque", "Atardecer", "Cielo nocturno", "Cerezos"],
+      ranks: [[2, "Entrando en calor"], [4, "Buena vista"], [7, "Vista muy rápida"], [11, "Maestro de fichas"], [Infinity, "Un artesano legendario"]],
+      canvasLabel: "Pantalla del juego Conecta Fichas", sndOn: "Sonido sí", sndOff: "Sonido no", pause: "Pausa", bestL: "Récord", scoreL: "Puntos",
+      stageLabel: n => "Nivel " + n, hint: "Pista", shuffle: "Mezclar", timeLeft: "Tiempo restante"
+    }
+  };
+  const LANG = (() => { try { const l = new URLSearchParams(location.search).get("lang"); if (l === "ko" || l === "en" || l === "ja" || l === "es") return l; } catch (e) {} return "ko"; })();
+  const T = TT[LANG] || TT.ko;
+  (function applyStatic() {
+    const d = document;
+    d.documentElement.lang = LANG;
+    d.title = T.title.replace(/\n/g, " ");
+    d.querySelectorAll("[data-i]").forEach(el => { const v = T[el.getAttribute("data-i")]; if (typeof v === "string") el.textContent = v; });
+    d.querySelectorAll("[data-a]").forEach(el => { const p = el.getAttribute("data-a").split(":"); if (T[p[1]]) el.setAttribute(p[0], T[p[1]]); });
+    const s = d.getElementById("tStage"); if (s) s.textContent = T.stageLabel(1);
+  })();
+
+
+  /* ---------- 설정값(한곳에 모음) ---------- */
+  const CFG = {
+    sizes: [[6, 8], [7, 8], [8, 8], [8, 9], [8, 10]],        // [열, 행] — 판이 올라갈수록 커짐(타일 수는 항상 짝수)
+    typesBase: 8, typesPerStage: 2, typesMax: 24,            // 그림 종류 수
+    secPair0: 3.8, secPairDec: 0.2, secPairMin: 2.5, timeBase: 8,   // 제한시간 = 쌍 수 × 쌍당 초 + 기본
+    matchBonus: 0.4,                                         // 짝을 맞출 때마다 늘어나는 시간(초)
+    comboWin: 2.5, hints: 3, shuffles: 2,
+    warnMin: 15, warnMax: 30,                                // 이 시간(초) 안으로 남으면 음악이 빨라지기 시작
+    bpmCalm: 100, bpmMax: 168                                // 평소 박자 → 가장 급할 때 박자
+  };
+
+  const $ = id => document.getElementById(id);
+  const cv = $("cv"), ctx = cv.getContext("2d");
+  const card = $("card"), panel = $("panel");
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const rnd = (a, b) => a + Math.random() * (b - a);
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const mod = (v, m) => ((v % m) + m) % m;
+  const nl = s => s.replace(/\n/g, "<br>");
+
+  /* ---------- 저장 ---------- */
+  const KEY = "tile-link-best", MUTE_KEY = "tile-link-muted";
+  let best = 0;
+  try { best = parseInt(localStorage.getItem(KEY), 10) || 0; } catch (e) {}
+  const saveBest = () => { try { localStorage.setItem(KEY, String(best)); } catch (e) {} };
+
+  /* ---------- 색상(라이트/다크 + 판마다 바뀌는 배경 테마) ---------- */
+  const C = { ink: "#1c2331", hit: "#e5484d" };
+  function readColors() {
+    const s = getComputedStyle(document.documentElement);
+    C.ink = s.getPropertyValue("--ink").trim() || "#1c2331";
+    C.hit = s.getPropertyValue("--hit").trim() || "#e5484d";
+    C.muted = s.getPropertyValue("--muted").trim() || "#888";
+  }
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", readColors);
+  new MutationObserver(readColors).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  const isDark = () => {
+    const a = document.documentElement.getAttribute("data-theme");
+    return a === "dark" || (a !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
+  };
+  /* 테마: 종이마당 → 연못 → 노을 → 밤하늘 → 벚꽃 → 반복 */
+  const THEMES = [
+    { deco: "dots",   L: ["#fbf7ec", "#efe6cf"], D: ["#1b1f2a", "#11141c"] },
+    { deco: "ripple", L: ["#d7f1ee", "#a9dcd8"], D: ["#0e2a30", "#0a1c22"] },
+    { deco: "sun",    L: ["#ffd6b0", "#f6a8a0"], D: ["#3a1f3d", "#1f1230"] },
+    { deco: "stars",  L: ["#b9c7f5", "#dfe5ff"], D: ["#0a1030", "#1b2556"] },
+    { deco: "petals", L: ["#ffe3ec", "#fff6f8"], D: ["#2d1a2a", "#1a1020"] }
+  ];
+  const themeOf = st => THEMES[mod(st - 1, THEMES.length)];
+  const TINK = "#1c2331";                       // 타일 그림은 배경과 관계없이 항상 진한 잉크 외곽선
+  const SYM = ["#e5484d", "#2b7de0", "#2fa66a", "#f2a516"];
+
+  /* ================= 소리: 합성(음원 파일 없음) ================= */
+  const midi = m => 440 * Math.pow(2, (m - 69) / 12);
+
+  /* ================= 소리 합성 (어떤 AudioContext에서도 동작: 실시간/오프라인 검증 겸용) ================= */
+  const noiseCache = new WeakMap();
+  function noiseBuf(ac) {
+    let b = noiseCache.get(ac);
+    if (!b) {
+      b = ac.createBuffer(1, ac.sampleRate, ac.sampleRate);
+      const d = b.getChannelData(0);
+      for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+      noiseCache.set(ac, b);
+    }
+    return b;
+  }
+  function env(g, t, a, peak, d) {
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(Math.max(peak, 0.0002), t + a);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + a + d);
+  }
+  function tone(ac, dest, o) {
+    const osc = ac.createOscillator(), g = ac.createGain();
+    osc.type = o.type || "sine";
+    osc.frequency.setValueAtTime(o.f, o.t);
+    if (o.f2) osc.frequency.exponentialRampToValueAtTime(o.f2, o.t + o.dur);
+    const a = o.a || 0.006;
+    env(g, o.t, a, o.vol, Math.max(o.dur - a, 0.01));
+    let out = osc;
+    if (o.lp) { const f = ac.createBiquadFilter(); f.type = "lowpass"; f.frequency.value = o.lp; osc.connect(f); out = f; }
+    out.connect(g); g.connect(dest);
+    if (o.wob) {                                    // 떨림(질퍽한 질감)
+      const l = ac.createOscillator(), lg = ac.createGain();
+      l.frequency.value = o.wob; lg.gain.value = o.wobDepth || o.f * 0.35;
+      l.connect(lg); lg.connect(osc.frequency); l.start(o.t); l.stop(o.t + o.dur + 0.05);
+    }
+    osc.start(o.t); osc.stop(o.t + o.dur + 0.05);
+  }
+  function noise(ac, dest, o) {
+    const src = ac.createBufferSource(), f = ac.createBiquadFilter(), g = ac.createGain();
+    src.buffer = noiseBuf(ac); src.loop = true;
+    f.type = o.type || "bandpass"; f.Q.value = o.q || 1;
+    f.frequency.setValueAtTime(o.f, o.t);
+    if (o.f2) f.frequency.exponentialRampToValueAtTime(o.f2, o.t + o.dur);
+    const a = o.a || 0.004;
+    env(g, o.t, a, o.vol, Math.max(o.dur - a, 0.01));
+    src.connect(f); f.connect(g); g.connect(dest);
+    src.start(o.t, Math.random() * 0.5); src.stop(o.t + o.dur + 0.05);
+  }
+  const kick = (ac, d, t, v) => { tone(ac, d, { t, f: 160, f2: 42, dur: 0.17, vol: v }); noise(ac, d, { t, dur: 0.02, vol: v * 0.2, type: "highpass", f: 3000 }); };
+  const snare = (ac, d, t, v) => { noise(ac, d, { t, dur: 0.14, vol: v, type: "bandpass", f: 1900, q: 0.8 }); tone(ac, d, { t, type: "triangle", f: 230, f2: 150, dur: 0.09, vol: v * 0.6 }); };
+
+  const SFX = {
+    select(ac, d, t) { tone(ac, d, { t, type: "triangle", f: 660, f2: 880, dur: 0.07, vol: 0.14 }); },
+    nope(ac, d, t) { tone(ac, d, { t, type: "square", f: 190, f2: 130, dur: 0.14, vol: 0.08, lp: 700 }); },
+    match(ac, d, t, n) {
+      const step = [0, 2, 4, 7, 9, 12, 14, 16, 19][clamp((n || 1) - 1, 0, 8)], f = midi(72 + step);
+      tone(ac, d, { t, type: "triangle", f, dur: 0.16, vol: 0.17 });
+      tone(ac, d, { t: t + 0.07, type: "triangle", f: f * 1.5, dur: 0.2, vol: 0.15 });
+      noise(ac, d, { t, dur: 0.05, vol: 0.05, type: "highpass", f: 5000 });
+    },
+    shuffle(ac, d, t) { noise(ac, d, { t, dur: 0.45, vol: 0.14, type: "bandpass", f: 600, f2: 3000, q: 0.8 }); tone(ac, d, { t: t + 0.3, type: "triangle", f: 440, f2: 880, dur: 0.15, vol: 0.1 }); },
+    hint(ac, d, t) { [784, 1047].forEach((f, i) => tone(ac, d, { t: t + i * 0.08, type: "sine", f, dur: 0.2, vol: 0.15 })); },
+    tick(ac, d, t, hi) { tone(ac, d, { t, type: "square", f: hi ? 1500 : 1100, dur: 0.04, vol: hi ? 0.09 : 0.06, lp: 3000 }); noise(ac, d, { t, dur: 0.02, vol: 0.05, type: "highpass", f: 4000 }); },
+    clear(ac, d, t) { [523, 659, 784, 1047, 1319].forEach((f, i) => tone(ac, d, { t: t + i * 0.08, type: "triangle", f, dur: 0.2, vol: 0.17 })); },
+    lose(ac, d, t) { [392, 330, 262, 196].forEach((f, i) => tone(ac, d, { t: t + i * 0.16, type: "sawtooth", f, dur: 0.3, vol: 0.14, lp: 900 })); }
+  };
+
+  let ac = null, master = null, sfxBus = null, bgmBus = null, muted = false;
+  try { muted = localStorage.getItem(MUTE_KEY) === "1"; } catch (e) {}
+  function audioInit() {
+    try {
+      if (!ac) {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (!Ctx) return false;
+        ac = new Ctx();
+        const comp = ac.createDynamicsCompressor();
+        master = ac.createGain(); sfxBus = ac.createGain(); bgmBus = ac.createGain();
+        sfxBus.gain.value = 0.8; bgmBus.gain.value = 0.5;
+        sfxBus.connect(master); bgmBus.connect(master); master.connect(comp); comp.connect(ac.destination);
+        applyMute();
+      }
+      if (ac.state === "suspended") ac.resume();
+      return true;
+    } catch (e) { ac = null; return false; }
+  }
+  const applyMute = () => { if (master) master.gain.value = muted ? 0 : 0.9; };
+  function paintSound() {
+    const b = $("soundBtn");
+    b.textContent = muted ? T.sndOff : T.sndOn;
+    b.setAttribute("aria-pressed", muted ? "false" : "true");
+  }
+  const sfx = (name, arg) => { if (ac && sfxBus) SFX[name](ac, sfxBus, ac.currentTime + 0.01, arg); };
+
+  /* 배경음악: 16분음표 한 칸씩 예약. 남은 시간이 줄면 S.ten(0~1)이 올라가 박자가 빨라지고 악기가 늘며 단조로 바뀜 */
+  const bpmOf = ten => CFG.bpmCalm + (CFG.bpmMax - CFG.bpmCalm) * Math.pow(clamp(ten, 0, 1), 0.85);
+  const CALM = [{ r: 36, t: [60, 64, 67] }, { r: 33, t: [57, 60, 64] }, { r: 41, t: [57, 60, 65] }, { r: 31, t: [59, 62, 67] }];     // C Am F G
+  const TENSE = [{ r: 33, t: [57, 60, 64] }, { r: 41, t: [57, 60, 65] }, { r: 38, t: [62, 65, 69] }, { r: 40, t: [56, 59, 64] }];    // Am F Dm E
+  const ARP = [0, 1, 2, 1, 2, 1, 0, 1];
+  const S = { timer: null, run: null, next: 0, step: 0, bar: 0, ten: 0, log: null };
+  function playStep(ac, dest, t, si, bi, sd, k) {
+    const ch = (k > 0.45 ? TENSE : CALM)[bi % 4];
+    // 하이햇
+    if (k < 0.35) { if (si % 2 === 0) noise(ac, dest, { t, dur: 0.03, vol: 0.035, type: "highpass", f: 7500 }); }
+    else noise(ac, dest, { t, dur: si % 2 ? 0.02 : 0.03, vol: si % 2 ? 0.03 : 0.05, type: "highpass", f: 7500 });
+    if (k > 0.7 && si % 4 === 2) noise(ac, dest, { t, dur: 0.1, vol: 0.05, type: "highpass", f: 6500 });
+    // 킥 / 스네어
+    if (si === 0 || si === 8 || (k > 0.5 && (si === 4 || si === 12))) kick(ac, dest, t, 0.28 + 0.12 * k);
+    if (k > 0.2 && (si === 4 || si === 12)) snare(ac, dest, t, 0.09 + 0.1 * k);
+    // 베이스
+    const calm = k < 0.3;
+    if (calm ? (si === 0 || si === 8) : (si === 0 || si === 3 || si === 6 || si === 8 || si === 11 || si === 14))
+      tone(ac, dest, { t, type: calm ? "triangle" : "sawtooth", f: midi(ch.r), dur: sd * (calm ? 6 : 2.2), vol: calm ? 0.2 : 0.11, lp: calm ? 500 : 800 });
+    // 화음
+    if (calm) { if (si === 0) ch.t.forEach(m => tone(ac, dest, { t, type: "triangle", f: midi(m), dur: sd * 14, vol: 0.04, a: 0.05 })); }
+    else if (si === 0 || si === 6 || si === 10) ch.t.forEach(m => tone(ac, dest, { t, type: "square", f: midi(m), dur: sd * 2.5, vol: 0.025, lp: 1800 }));
+    // 멜로디(분산화음)
+    const every = k < 0.25 ? 4 : 2;
+    if (si % every === 0) {
+      const note = ch.t[ARP[(Math.floor(si / every) + bi) % ARP.length] % 3] + 12 + (k > 0.6 && si % 4 === 2 ? 12 : 0);
+      if (calm) tone(ac, dest, { t, type: "triangle", f: midi(note), dur: sd * 3, vol: 0.09 });
+      else tone(ac, dest, { t, type: "square", f: midi(note), dur: sd * 1.6, vol: 0.045, lp: 2500 });
+    }
+    // 아주 급할 때 경고음
+    if (k > 0.85 && si % 4 === 0) tone(ac, dest, { t, type: "sine", f: 1760, dur: 0.05, vol: 0.035 });
+  }
+  function bgmTick() {
+    if (!ac || !S.run) return;
+    while (S.next < ac.currentTime + 0.3) {
+      const bpm = bpmOf(S.ten), sd = 15 / bpm;
+      if (S.log) S.log.push({ t: S.next, bpm, ten: S.ten });
+      playStep(ac, S.run, S.next, S.step % 16, S.bar, sd, S.ten);
+      S.next += sd; S.step++; if (S.step % 16 === 0) S.bar++;
+    }
+  }
+  function bgmStart(fresh) {
+    if (!ac) return;
+    bgmStop();
+    if (fresh) { S.step = 0; S.bar = 0; }
+    S.run = ac.createGain(); S.run.connect(bgmBus);
+    S.next = ac.currentTime + 0.08;
+    bgmTick(); S.timer = setInterval(bgmTick, 50);
+  }
+  function bgmStop() {
+    clearInterval(S.timer); S.timer = null;
+    if (S.run && ac) {
+      const g = S.run; S.run = null;
+      try { g.gain.cancelScheduledValues(ac.currentTime); g.gain.setValueAtTime(g.gain.value, ac.currentTime); g.gain.linearRampToValueAtTime(0, ac.currentTime + 0.1); } catch (e) {}
+      setTimeout(() => { try { g.disconnect(); } catch (e) {} }, 400);
+    }
+  }
+
+  /* ================= 게임 상태 ================= */
+  let state = "ready";                      // ready | play | pause | over
+  let phase = "play";                       // play | shuffle | banner
+  let stage = 1, score = 0, newBestFlag = false;
+  let cols = 6, rows = 8, grid = [];        // grid[r][c], 바깥 한 칸은 항상 비어 있음(바깥 길용)
+  let remain = 0, timeLeft = 0, timeTotal = 1, hints = 0, shufs = 0;
+  let combo = 0, lastMatch = -99, clock = 0, phaseT = 0, lastSec = 99, shufDone = false, stuckCool = 0;
+  let sel = null, hintPair = null;
+  let fx = [], pathFx = [], parts = [], floats = [], shakeT = {};
+  let VW = 390, VH = 780, dpr = 1, ts = 40, gx = 0, gy = 0;
+
+  /* ---------- 화면 크기 / 배치 ---------- */
+  function layout() {
+    const r = $("stage").getBoundingClientRect();
+    dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+    VW = r.width; VH = r.height;
+    cv.width = Math.round(VW * dpr); cv.height = Math.round(VH * dpr);
+    const top = $("top").getBoundingClientRect().bottom - r.top + 8;
+    const bot = $("bar").getBoundingClientRect().top - r.top - 8;
+    const availH = Math.max(120, bot - top);
+    ts = Math.floor(Math.min((VW - 12) / (cols + 0.3), availH / (rows + 0.8), 64));
+    gx = (VW - cols * ts) / 2; gy = top + (availH - rows * ts) / 2;
+  }
+  addEventListener("resize", layout);
+
+  /* ================= 길 찾기: 꺾임 2번 이하, 사이에 다른 타일이 없어야 함 ================= */
+  const newGrid = () => Array.from({ length: rows + 2 }, () => new Array(cols + 2).fill(0));
+  function clearSeg(r1, c1, r2, c2) {          // 두 칸 사이(양 끝 제외)가 모두 비었는지
+    if (r1 === r2) { const a = Math.min(c1, c2), b = Math.max(c1, c2); for (let c = a + 1; c < b; c++) if (grid[r1][c]) return false; return true; }
+    if (c1 === c2) { const a = Math.min(r1, r2), b = Math.max(r1, r2); for (let r = a + 1; r < b; r++) if (grid[r][c1]) return false; return true; }
+    return false;
+  }
+  function findPath(r1, c1, r2, c2) {
+    if (r1 === r2 && c1 === c2) return null;
+    if ((r1 === r2 || c1 === c2) && clearSeg(r1, c1, r2, c2)) return [[r1, c1], [r2, c2]];
+    for (const [kr, kc] of [[r1, c2], [r2, c1]]) {                                  // 꺾임 1번
+      if (grid[kr][kc] === 0 && clearSeg(r1, c1, kr, kc) && clearSeg(kr, kc, r2, c2)) return [[r1, c1], [kr, kc], [r2, c2]];
+    }
+    for (let c = 0; c <= cols + 1; c++) {                                           // 꺾임 2번: 가로로 먼저
+      if (c === c1 || c === c2 || grid[r1][c] !== 0 || grid[r2][c] !== 0) continue;
+      if (clearSeg(r1, c1, r1, c) && clearSeg(r1, c, r2, c) && clearSeg(r2, c, r2, c2)) return [[r1, c1], [r1, c], [r2, c], [r2, c2]];
+    }
+    for (let r = 0; r <= rows + 1; r++) {                                           // 꺾임 2번: 세로로 먼저
+      if (r === r1 || r === r2 || grid[r][c1] !== 0 || grid[r][c2] !== 0) continue;
+      if (clearSeg(r1, c1, r, c1) && clearSeg(r, c1, r, c2) && clearSeg(r, c2, r2, c2)) return [[r1, c1], [r, c1], [r, c2], [r2, c2]];
+    }
+    return null;
+  }
+  function findMove() {                        // 이을 수 있는 짝 하나 찾기(없으면 null)
+    const by = {};
+    for (let r = 1; r <= rows; r++) for (let c = 1; c <= cols; c++) { const t = grid[r][c]; if (t) (by[t] || (by[t] = [])).push([r, c]); }
+    for (const t in by) {
+      const L = by[t];
+      for (let i = 0; i < L.length; i++) for (let j = i + 1; j < L.length; j++) {
+        const p = findPath(L[i][0], L[i][1], L[j][0], L[j][1]);
+        if (p) return { a: L[i], b: L[j], path: p };
+      }
+    }
+    return null;
+  }
+
+  /* ================= 판 만들기 ================= */
+  const typesFor = st => Math.min(CFG.typesMax, CFG.typesBase + CFG.typesPerStage * (st - 1));
+  function fillBoard(typeList) {               // typeList(길이 = 타일 수)를 격자에 무작위로 깔기
+    const cells = [];
+    for (let r = 1; r <= rows; r++) for (let c = 1; c <= cols; c++) cells.push([r, c]);
+    const a = typeList.slice();
+    for (let i = a.length - 1; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; [a[i], a[j]] = [a[j], a[i]]; }
+    grid = newGrid();
+    cells.forEach(([r, c], i) => { grid[r][c] = a[i]; });
+  }
+  function buildStage() {
+    const [cc, rr] = CFG.sizes[Math.min(stage - 1, CFG.sizes.length - 1)];
+    cols = cc; rows = rr;
+    const pairs = cols * rows / 2, types = Math.min(typesFor(stage), pairs);
+    const base = Math.floor(pairs / types), extra = pairs - base * types;
+    const ids = Array.from({ length: types }, (_, i) => i + 1);
+    for (let i = ids.length - 1; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; [ids[i], ids[j]] = [ids[j], ids[i]]; }
+    const list = [];
+    ids.forEach((id, i) => { const n = base + (i < extra ? 1 : 0); for (let k = 0; k < n * 2; k++) list.push(id); });
+    for (let tries = 0; tries < 80; tries++) { fillBoard(list); if (findMove()) break; }
+    remain = cols * rows;
+    const secPair = Math.max(CFG.secPairMin, CFG.secPair0 - CFG.secPairDec * (stage - 1));
+    timeTotal = Math.round(pairs * secPair + CFG.timeBase); timeLeft = timeTotal;
+  }
+  function newStage(first) {
+    buildStage();
+    hints = CFG.hints; shufs = CFG.shuffles; combo = 0; lastMatch = -99; sel = null; hintPair = null;
+    fx = []; pathFx = []; parts = []; floats = []; shakeT = {}; phase = "play"; phaseT = 0; lastSec = 99; stuckCool = 0;
+    layout(); paintHud(true);
+    if (!first) toast(T.stageLabel(stage) + " · " + T.themes[mod(stage - 1, T.themes.length)], 1500);
+  }
+  /* 섞기: 남은 타일의 그림만 빈 칸 없이 자리를 바꿈. 반드시 이을 수 있는 짝이 생기도록 반복 */
+  function reshuffleNow() {
+    const cells = [], types = [];
+    for (let r = 1; r <= rows; r++) for (let c = 1; c <= cols; c++) if (grid[r][c]) { cells.push([r, c]); types.push(grid[r][c]); }
+    let ok = false;
+    for (let tries = 0; tries < 400 && !ok; tries++) {
+      for (let i = types.length - 1; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; [types[i], types[j]] = [types[j], types[i]]; }
+      cells.forEach(([r, c], i) => { grid[r][c] = types[i]; });
+      ok = !!findMove();
+    }
+    return ok;
+  }
+  function startShuffle(auto) {
+    phase = "shuffle"; phaseT = 0; shufDone = false; sel = null; hintPair = null;
+    sfx("shuffle"); if (auto) toast(T.stuck, 1200);
+  }
+
+  /* ================= 짝 맞추기 ================= */
+  const cellPx = (r, c) => ({ x: gx + (c - 0.5) * ts, y: gy + (r - 0.5) * ts });
+  function sparkle(x, y, n, col) {
+    if (reduceMotion) return;
+    for (let i = 0; i < n; i++) { const a = rnd(0, 6.28), v = rnd(40, 150); parts.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 30, age: 0, life: rnd(0.35, 0.7), r: rnd(1.6, 3.4), col }); }
+  }
+  function doMatch(a, b, path) {
+    const ta = grid[a[0]][a[1]];
+    grid[a[0]][a[1]] = 0; grid[b[0]][b[1]] = 0; remain -= 2;
+    combo = (combo > 0 && clock - lastMatch <= CFG.comboWin) ? combo + 1 : 1; lastMatch = clock;
+    const pts = Math.round(10 * (1 + 0.25 * Math.min(combo - 1, 8)));
+    score += pts; if (score > best) { best = score; newBestFlag = true; }
+    timeLeft = Math.min(timeTotal, timeLeft + CFG.matchBonus);
+    fx.push({ r: a[0], c: a[1], t: ta, age: 0 }, { r: b[0], c: b[1], t: ta, age: 0 });
+    pathFx.push({ path, age: 0 });
+    const pa = cellPx(a[0], a[1]), pb = cellPx(b[0], b[1]);
+    sparkle(pa.x, pa.y, 10, SYM[symColor(ta)]); sparkle(pb.x, pb.y, 10, SYM[symColor(ta)]);
+    floats.push({ x: (pa.x + pb.x) / 2, y: (pa.y + pb.y) / 2 - 8, text: "+" + pts, age: 0 });
+    if (combo >= 2) floats.push({ x: (pa.x + pb.x) / 2, y: (pa.y + pb.y) / 2 - 34, text: T.combo(combo), age: 0, big: true });
+    sfx("match", combo);
+    sel = null; hintPair = null;
+    if (remain <= 0) stageClear();
+    else if (!findMove()) startShuffle(true);
+    paintHud(true);
+  }
+  function stageClear() {
+    const bonus = Math.round(timeLeft) * 5 + stage * 50;
+    score += bonus; if (score > best) { best = score; newBestFlag = true; }
+    phase = "banner"; phaseT = 0; sfx("clear");
+    toast(T.clear + " " + T.bonus(bonus), 1700);
+    paintHud(true);
+  }
+  function pick(r, c) {
+    if (state !== "play" || phase !== "play" || !grid[r] || !grid[r][c]) return;
+    if (sel && sel[0] === r && sel[1] === c) { sel = null; sfx("tick"); return; }
+    if (!sel) { sel = [r, c]; sfx("select"); return; }
+    if (grid[sel[0]][sel[1]] !== grid[r][c]) { sel = [r, c]; sfx("select"); return; }    // 다른 그림이면 선택을 옮김
+    const path = findPath(sel[0], sel[1], r, c);
+    if (path) doMatch(sel, [r, c], path);
+    else { shakeT[sel[0] * 100 + sel[1]] = 0.35; shakeT[r * 100 + c] = 0.35; sel = null; sfx("nope"); }
+  }
+  function useHint() {
+    if (state !== "play" || phase !== "play" || hints <= 0) return false;
+    const m = findMove(); if (!m) return false;
+    hints--; hintPair = { a: m.a, b: m.b, t: 2.4 }; sel = null; sfx("hint"); paintBar(true);
+    return true;
+  }
+  function useShuffle() {
+    if (state !== "play" || phase !== "play" || shufs <= 0) return false;
+    shufs--; startShuffle(false); paintBar(true);
+    return true;
+  }
+
+  /* ================= 상태 전환 ================= */
+  function showPanel(html) { card.innerHTML = html; panel.hidden = false; }
+  function hidePanel() { panel.hidden = true; }
+  function toast(msg, ms) {
+    const el = $("toast"); el.textContent = msg; el.classList.add("show");
+    clearTimeout(toast.h); toast.h = setTimeout(() => el.classList.remove("show"), ms || 1100);
+  }
+  function showReady() {
+    state = "ready"; $("pauseBtn").hidden = true;
+    showPanel(`<h1>${nl(T.title)}</h1><p>${T.readyDesc}</p><button class="btn" id="go" type="button">${T.start}</button><div class="hint">${nl(T.readyHint)}</div>`);
+    $("go").onclick = startGame;
+  }
+  function showOver() {
+    const rank = T.ranks.find(r => stage < r[0])[1];
+    showPanel(`<h1>${T.overTitle}</h1>
+      <div class="big">${score}<span style="font-size:24px"> ${T.unit}</span></div>
+      ${newBestFlag ? `<span class="badge">${T.newBest}</span>` : ""}
+      <p>${rank}</p>
+      <div class="row"><span>${T.stageLabel(stage)}</span><span>${T.leftPairs} ${remain / 2}</span><span>${T.best} ${best}${T.unit}</span></div>
+      <button class="btn" id="go" type="button" disabled>${T.retry}</button>
+      <button class="btn sub" id="share" type="button">${T.share}</button>`);
+    const b = $("go"); b.onclick = startGame; $("share").onclick = shareScore;
+    setTimeout(() => { b.disabled = false; }, 500);
+  }
+  async function shareScore() {
+    const text = T.shareText(stage, score);
+    const url = (() => { let h = location.href; try { if (window.parent !== window) h = window.parent.location.href; } catch (e) {} return /^https?:/.test(h) ? h.split("#")[0] : ""; })();
+    try { if (navigator.share) { await navigator.share(url ? { title: T.title, text, url } : { title: T.title, text }); return; } }
+    catch (e) { if (e && e.name === "AbortError") return; }
+    const full = url ? text + "\n" + url : text;
+    let ok = false;
+    try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(full); ok = true; } } catch (e) {}
+    if (!ok) {
+      try {
+        const ta = document.createElement("textarea"); ta.value = full; ta.setAttribute("readonly", "");
+        ta.style.cssText = "position:fixed;left:-9999px;top:0;opacity:0"; document.body.appendChild(ta); ta.select();
+        ok = document.execCommand("copy"); ta.remove();
+      } catch (e) {}
+    }
+    toast(ok ? T.shareCopied : T.shareFail);
+  }
+  function setPause(on) {
+    if (on && state === "play") {
+      state = "pause"; bgmStop();
+      showPanel(`<h1>${T.paused}</h1><button class="btn" id="go" type="button">${T.resume}</button>`);
+      $("go").onclick = () => { hidePanel(); state = "play"; last = performance.now(); if (audioInit()) bgmStart(false); };
+    }
+  }
+  function begin() {                       // 소리 없이 게임 상태만 시작(검증용으로도 사용)
+    stage = 1; score = 0; newBestFlag = false; S.ten = 0; clock = 0;
+    newStage(true); state = "play"; hidePanel(); $("pauseBtn").hidden = false; last = performance.now();
+  }
+  function startGame() { begin(); if (audioInit()) bgmStart(true); }
+  function die() {
+    state = "over"; $("pauseBtn").hidden = true; sel = null; hintPair = null;
+    bgmStop(); sfx("lose");
+    if (score > best) { best = score; newBestFlag = true; }
+    if (newBestFlag) saveBest();
+    paintHud(true);
+    setTimeout(() => { if (state === "over") showOver(); }, 900);
+  }
+
+  /* ================= 입력 ================= */
+  const stageEl = $("stage");
+  stageEl.addEventListener("pointerdown", e => {
+    if (e.target.closest("button")) return;
+    if (state !== "play" || phase !== "play") return;
+    const r = stageEl.getBoundingClientRect();
+    const px = e.clientX - r.left, py = e.clientY - r.top;
+    const c = Math.floor((px - gx) / ts) + 1, rr = Math.floor((py - gy) / ts) + 1;
+    if (c >= 1 && c <= cols && rr >= 1 && rr <= rows) pick(rr, c);
+  });
+  stageEl.addEventListener("touchmove", e => e.preventDefault(), { passive: false });
+  stageEl.addEventListener("contextmenu", e => e.preventDefault());
+  $("hintBtn").addEventListener("click", useHint);
+  $("shufBtn").addEventListener("click", useShuffle);
+  addEventListener("keydown", e => {
+    const k = e.key;
+    if (k === "Escape" && state === "play") setPause(true);
+    else if ((k === " " || k === "Enter") && state !== "play") {
+      const b = card.querySelector(".btn");
+      if (b && !b.disabled) { e.preventDefault(); b.click(); }
+    }
+  });
+  document.addEventListener("visibilitychange", () => { if (document.hidden && state === "play") setPause(true); });
+  $("pauseBtn").addEventListener("click", () => setPause(true));
+  $("soundBtn").addEventListener("click", () => {
+    audioInit(); muted = !muted; applyMute(); paintSound();
+    try { localStorage.setItem(MUTE_KEY, muted ? "1" : "0"); } catch (e) {}
+  });
+
+  /* ================= 갱신 ================= */
+  function update(dt) {
+    if (state === "play") {
+      let tenTarget = 0;
+      if (phase === "play") {
+        clock += dt; timeLeft -= dt;
+        const warn = clamp(timeTotal * 0.25, CFG.warnMin, CFG.warnMax);
+        tenTarget = clamp(1 - timeLeft / warn, 0, 1);
+        const sec = Math.ceil(timeLeft);
+        if (sec !== lastSec) { if (sec <= 10 && sec > 0 && sec < lastSec) sfx("tick", sec <= 5); lastSec = sec; }
+        if (combo > 0 && clock - lastMatch > CFG.comboWin) combo = 0;
+        if (hintPair) { hintPair.t -= dt; if (hintPair.t <= 0) hintPair = null; }
+        stuckCool = Math.max(0, stuckCool - dt);
+        if (remain > 0 && stuckCool <= 0) { stuckCool = 0.3; if (!findMove()) startShuffle(true); }   // 막힘 안전장치
+        if (timeLeft <= 0) { timeLeft = 0; die(); }
+      } else if (phase === "shuffle") {
+        phaseT += dt;
+        if (!shufDone && phaseT >= 0.25) { shufDone = true; reshuffleNow(); }
+        if (phaseT >= 0.5 || phaseT > 2) { if (!shufDone) reshuffleNow(); phase = "play"; phaseT = 0; }
+      } else if (phase === "banner") {
+        phaseT += dt;
+        if (phaseT > 1.8) { stage++; newStage(false); }
+      }
+      S.ten += (tenTarget - S.ten) * Math.min(1, dt * 2.5);
+      paintHud(); paintBar();
+    }
+    for (const k in shakeT) { shakeT[k] -= dt; if (shakeT[k] <= 0) delete shakeT[k]; }
+    for (let i = fx.length - 1; i >= 0; i--) { fx[i].age += dt; if (fx[i].age > 0.32) fx.splice(i, 1); }
+    for (let i = pathFx.length - 1; i >= 0; i--) { pathFx[i].age += dt; if (pathFx[i].age > 0.4) pathFx.splice(i, 1); }
+    for (let i = parts.length - 1; i >= 0; i--) { const q = parts[i]; q.age += dt; q.vy += 360 * dt; q.x += q.vx * dt; q.y += q.vy * dt; if (q.age > q.life) parts.splice(i, 1); }
+    for (let i = floats.length - 1; i >= 0; i--) { floats[i].age += dt; if (floats[i].age > 1) floats.splice(i, 1); }
+  }
+
+  /* ---------- HUD / 버튼 ---------- */
+  let hudCache = "", barCache = "";
+  function paintHud(force) {
+    const sec = Math.max(0, Math.ceil(timeLeft)), frac = clamp(timeLeft / timeTotal, 0, 1);
+    const key = [stage, score, Math.max(best, score), sec, Math.round(frac * 200), S.ten > 0.01].join("|");
+    if (!force && key === hudCache) return;
+    hudCache = key;
+    $("tStage").textContent = T.stageLabel(stage);
+    $("tScore").textContent = score;
+    $("tBest").textContent = Math.max(best, score);
+    $("timerNum").textContent = sec + T.sec;
+    const f = $("timerFill"); f.style.width = (frac * 100) + "%";
+    f.className = frac > 0.35 ? "" : frac > 0.15 ? "mid" : "low";
+    $("timerWrap").classList.toggle("hot", S.ten > 0.01 && state === "play");
+    $("tLeft").textContent = Math.ceil(remain / 2);
+  }
+  function paintBar(force) {
+    const can = state === "play" && phase === "play";
+    const key = [can, hints, shufs].join("|");
+    if (!force && key === barCache) return;
+    barCache = key;
+    $("hintBtn").disabled = !can || hints <= 0; $("hintBtn").querySelector("small").textContent = "×" + hints;
+    $("shufBtn").disabled = !can || shufs <= 0; $("shufBtn").querySelector("small").textContent = "×" + shufs;
+  }
+
+  /* ================= 그리기 ================= */
+  const symColor = t => { const k = t - 1; return k < 12 ? k % 4 : (k % 4 + 1) % 4; };
+  function shapePath(k, r) {
+    ctx.beginPath();
+    switch (k) {
+      case 0: ctx.arc(0, 0, r, 0, 6.2832); break;
+      case 1: ctx.roundRect(-r * 0.9, -r * 0.9, r * 1.8, r * 1.8, r * 0.25); break;
+      case 2: ctx.moveTo(0, -r * 1.05); ctx.lineTo(r, r * 0.8); ctx.lineTo(-r, r * 0.8); ctx.closePath(); break;
+      case 3: ctx.moveTo(0, -r * 1.1); ctx.lineTo(r * 0.85, 0); ctx.lineTo(0, r * 1.1); ctx.lineTo(-r * 0.85, 0); ctx.closePath(); break;
+      case 4: for (let i = 0; i < 10; i++) { const a = -1.5708 + i * 0.62832, rr = i % 2 ? r * 0.45 : r * 1.08; ctx[i ? "lineTo" : "moveTo"](Math.cos(a) * rr, Math.sin(a) * rr); } ctx.closePath(); break;
+      case 5: ctx.moveTo(0, r * 0.9); ctx.bezierCurveTo(-r * 1.3, r * 0.1, -r * 0.9, -r * 0.9, 0, -r * 0.35); ctx.bezierCurveTo(r * 0.9, -r * 0.9, r * 1.3, r * 0.1, 0, r * 0.9); ctx.closePath(); break;
+      case 6: ctx.arc(0, 0, r, -1.15, 1.15, true); ctx.arc(r * 0.62, 0, r * 0.934, 1.79, 4.49, false); ctx.closePath(); break;
+      case 7: ctx.moveTo(0, -r * 1.1); ctx.bezierCurveTo(r * 0.5, -r * 0.4, r * 0.85, r * 0.1, r * 0.85, r * 0.35); ctx.arc(0, r * 0.35, r * 0.85, 0, Math.PI, false); ctx.bezierCurveTo(-r * 0.85, r * 0.1, -r * 0.5, -r * 0.4, 0, -r * 1.1); ctx.closePath(); break;
+      case 8: { const w = r * 0.38; [[-w, -r], [w, -r], [w, -w], [r, -w], [r, w], [w, w], [w, r], [-w, r], [-w, w], [-r, w], [-r, -w], [-w, -w]].forEach((p, i) => ctx[i ? "lineTo" : "moveTo"](p[0], p[1])); ctx.closePath(); break; }
+      case 9: for (let i = 0; i < 6; i++) { const a = i * 1.0472; ctx[i ? "lineTo" : "moveTo"](Math.cos(a) * r * 1.05, Math.sin(a) * r * 1.05); } ctx.closePath(); break;
+      case 10: ctx.arc(0, 0, r, 0, 6.2832); ctx.moveTo(r * 0.42, 0); ctx.arc(0, 0, r * 0.42, 0, 6.2832, true); break;
+      default: [[0.2, -1.1], [-0.7, 0.15], [-0.05, 0.15], [-0.25, 1.1], [0.75, -0.2], [0.1, -0.2]].forEach((p, i) => ctx[i ? "lineTo" : "moveTo"](p[0] * r, p[1] * r)); ctx.closePath();
+    }
+  }
+  function drawTile(x, y, s, t, o) {
+    o = o || {};
+    const pad = Math.max(2, s * 0.05), w = s - pad * 2, depth = Math.max(3, s * 0.08), rad = w * 0.2;
+    const cx = x + s / 2, cy = y + s / 2;
+    ctx.save();
+    if (o.alpha != null) ctx.globalAlpha = o.alpha;
+    ctx.translate(cx, cy); ctx.scale((o.sx == null ? 1 : o.sx) * (o.scale || 1), o.scale || 1); ctx.translate(-cx, -cy);
+    if (o.glow) { ctx.shadowColor = o.glow; ctx.shadowBlur = o.glowBlur || 14; }
+    ctx.lineJoin = "round"; ctx.lineWidth = 2; ctx.strokeStyle = TINK;
+    ctx.fillStyle = "#cfc7b2"; ctx.beginPath(); ctx.roundRect(x + pad, y + pad + depth, w, w, rad); ctx.fill(); ctx.stroke();
+    ctx.shadowBlur = 0;
+    ctx.fillStyle = o.sel ? "#fff1a8" : "#fffdf5"; ctx.beginPath(); ctx.roundRect(x + pad, y + pad, w, w, rad); ctx.fill();
+    ctx.lineWidth = o.sel ? 3.2 : 2; ctx.strokeStyle = o.sel ? "#e5484d" : TINK; ctx.stroke();
+    ctx.translate(cx, y + pad + w / 2);
+    const k = t - 1, r = w * 0.3;
+    shapePath(k < 12 ? k : k - 12, r);
+    ctx.fillStyle = SYM[symColor(t)]; ctx.fill(k % 12 === 10 ? "evenodd" : "nonzero");
+    ctx.lineWidth = 1.8; ctx.strokeStyle = TINK; ctx.stroke();
+    ctx.restore();
+  }
+  const DECO_SEED = Array.from({ length: 40 }, (_, i) => ({ x: (i * 0.6180339) % 1, y: (i * 0.7548776) % 1, s: 0.5 + ((i * 0.3819) % 1) }));
+  function drawBg(tm) {
+    const th = themeOf(stage), pal = isDark() ? th.D : th.L;
+    const g = ctx.createLinearGradient(0, 0, 0, VH); g.addColorStop(0, pal[0]); g.addColorStop(1, pal[1]);
+    ctx.fillStyle = g; ctx.fillRect(0, 0, VW, VH);
+    const dk = isDark();
+    ctx.save();
+    if (th.deco === "dots") {
+      ctx.fillStyle = dk ? "#ffffff" : "#8a7a50"; ctx.globalAlpha = 0.09;
+      for (let y = 20; y < VH; y += 28) for (let x = 14 + ((y / 28) % 2) * 14; x < VW; x += 28) { ctx.beginPath(); ctx.arc(x, y, 1.6, 0, 6.3); ctx.fill(); }
+    } else if (th.deco === "ripple") {
+      ctx.strokeStyle = dk ? "#7fd6cf" : "#ffffff"; ctx.lineWidth = 2;
+      for (let i = 0; i < 5; i++) { const s = DECO_SEED[i], k = ((tm * 0.25 + s.s) % 1); ctx.globalAlpha = (1 - k) * 0.45; ctx.beginPath(); ctx.ellipse(s.x * VW, s.y * VH, 12 + k * 60, 5 + k * 24, 0, 0, 6.3); ctx.stroke(); }
+      ctx.globalAlpha = dk ? 0.35 : 0.45; ctx.fillStyle = dk ? "#2e8a63" : "#6cc08a";
+      for (let i = 5; i < 11; i++) { const s = DECO_SEED[i]; ctx.beginPath(); ctx.ellipse(s.x * VW, s.y * VH, 16 * s.s, 7 * s.s, 0, 0, 6.3); ctx.fill(); }
+    } else if (th.deco === "sun") {
+      ctx.globalAlpha = dk ? 0.35 : 0.5; ctx.fillStyle = dk ? "#ff9d6e" : "#fff2c4";
+      ctx.beginPath(); ctx.arc(VW * 0.5, VH * 0.62, VW * 0.34, 0, 6.3); ctx.fill();
+      ctx.globalAlpha = dk ? 0.18 : 0.25; ctx.fillStyle = dk ? "#ff6f91" : "#ffffff";
+      for (let i = 0; i < 4; i++) ctx.fillRect(0, VH * (0.74 + i * 0.05), VW, 3 + i);
+    } else if (th.deco === "stars") {
+      ctx.fillStyle = dk ? "#ffffff" : "#6c7cc9";
+      for (let i = 0; i < 40; i++) { const s = DECO_SEED[i]; ctx.globalAlpha = (dk ? 0.35 : 0.22) + 0.35 * Math.abs(Math.sin(tm * (0.6 + s.s) + i)); ctx.beginPath(); ctx.arc(s.x * VW, s.y * VH, 1 + s.s * 1.3, 0, 6.3); ctx.fill(); }
+    } else if (th.deco === "petals") {
+      ctx.fillStyle = dk ? "#ff9fc0" : "#ffb3cb";
+      for (let i = 0; i < 16; i++) { const s = DECO_SEED[i], y = mod(s.y * VH + tm * (18 + s.s * 22), VH + 20) - 10, x = s.x * VW + Math.sin(tm * 0.8 + i) * 16; ctx.globalAlpha = dk ? 0.5 : 0.7; ctx.beginPath(); ctx.ellipse(x, y, 6 * s.s, 3.4 * s.s, tm * 0.5 + i, 0, 6.3); ctx.fill(); }
+    }
+    ctx.restore();
+  }
+  function drawGrid(tm) {
+    let sx = 1;
+    if (phase === "shuffle") sx = Math.max(0.04, Math.abs(Math.cos(clamp(phaseT / 0.5, 0, 1) * Math.PI)));
+    for (let r = 1; r <= rows; r++) for (let c = 1; c <= cols; c++) {
+      const t = grid[r][c]; if (!t) continue;
+      const o = { sx };
+      const key = r * 100 + c;
+      let x = gx + (c - 1) * ts, y = gy + (r - 1) * ts;
+      if (shakeT[key] > 0) x += Math.sin(shakeT[key] * 70) * 3 * (shakeT[key] / 0.35);
+      if (sel && sel[0] === r && sel[1] === c) { o.sel = true; y -= 4; o.glow = "#ffd23f"; }
+      if (hintPair && ((hintPair.a[0] === r && hintPair.a[1] === c) || (hintPair.b[0] === r && hintPair.b[1] === c))) { o.glow = "#3fa7ff"; o.glowBlur = 10 + 10 * Math.abs(Math.sin(tm * 6)); y -= 2 + 2 * Math.abs(Math.sin(tm * 6)); }
+      drawTile(x, y, ts, t, o);
+    }
+    for (const f of fx) {                                           // 사라지는 타일
+      const k = f.age / 0.32;
+      drawTile(gx + (f.c - 1) * ts, gy + (f.r - 1) * ts, ts, f.t, { alpha: 1 - k, scale: 1 + 0.3 * k });
+    }
+    for (const pf of pathFx) {                                      // 연결선
+      const k = pf.age / 0.4;
+      ctx.save(); ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.globalAlpha = 1 - k;
+      ctx.beginPath(); pf.path.forEach(([r, c], i) => { const p = cellPx(r, c); ctx[i ? "lineTo" : "moveTo"](p.x, p.y); });
+      ctx.strokeStyle = "#e5484d"; ctx.lineWidth = Math.max(4, ts * 0.12); ctx.stroke();
+      ctx.strokeStyle = "#fff"; ctx.lineWidth = Math.max(1.6, ts * 0.04); ctx.stroke();
+      ctx.restore();
+    }
+    for (const q of parts) { ctx.globalAlpha = Math.max(0, 1 - q.age / q.life); ctx.fillStyle = q.col; ctx.beginPath(); ctx.arc(q.x, q.y, q.r, 0, 6.3); ctx.fill(); }
+    ctx.globalAlpha = 1;
+    for (const f of floats) {
+      ctx.globalAlpha = Math.max(0, 1 - f.age); ctx.font = `700 ${f.big ? 26 : 20}px "Gaegu","Apple SD Gothic Neo","Noto Sans KR","Hiragino Sans","Yu Gothic","Meiryo",sans-serif`; ctx.textAlign = "center";
+      ctx.lineWidth = 4; ctx.strokeStyle = "#fffdf5"; ctx.strokeText(f.text, f.x, f.y - f.age * 30);
+      ctx.fillStyle = f.big ? "#e5484d" : TINK; ctx.fillText(f.text, f.x, f.y - f.age * 30);
+    }
+    ctx.globalAlpha = 1;
+  }
+  function drawTension(tm) {                                       // 시간이 임박하면 화면 가장자리가 붉게 깜빡임
+    if (S.ten < 0.05 || state !== "play") return;
+    const a = S.ten * (0.22 + 0.16 * Math.sin(tm * (4 + 8 * S.ten)));
+    const g = ctx.createRadialGradient(VW / 2, VH / 2, Math.min(VW, VH) * 0.35, VW / 2, VH / 2, Math.max(VW, VH) * 0.75);
+    g.addColorStop(0, "rgba(229,72,77,0)"); g.addColorStop(1, `rgba(229,72,77,${clamp(a, 0, 0.5)})`);
+    ctx.fillStyle = g; ctx.fillRect(0, 0, VW, VH);
+  }
+  function render(tm) {
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    drawBg(tm); drawGrid(tm); drawTension(tm);
+  }
+
+  /* ================= 메인 루프 ================= */
+  let last = performance.now(), errOnce = false;
+  function frame(now) {
+    requestAnimationFrame(frame);                                  // 오류가 나도 루프가 끊기지 않게 먼저 예약
+    const dt = Math.min(0.05, (now - last) / 1000 || 0.016); last = now;
+    try { if (state !== "pause") update(dt); render(now / 1000); }
+    catch (e) { if (!errOnce) { errOnce = true; console.error(e); } }
+  }
+
+  /* ---------- 시작 ---------- */
+  readColors(); newStage(true); paintSound(); showReady(); layout();
+  requestAnimationFrame(frame);
+})();
+</script>
+
+</body>
+</html>

@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
 import { SITE_URL } from "@/lib/seo";
 
-const CATEGORY_IDS = ["life-health", "finance", "fun-entertainment", "image-media", "document-pdf", "dev-it", "utility"];
+const CATEGORY_IDS = ["life-health", "finance", "fun-entertainment", "mini-games", "image-media", "document-pdf", "dev-it", "utility"];
 
 const STATIC_PAGES = ["about", "contact", "privacy", "terms"];
 
@@ -220,6 +220,11 @@ const TOOL_IDS = [
   "trend-slang-quiz",
   "chaotic-personality-test",
   "trait-mindset-card-maker",
+  "poop-dodge",
+  "open-run",
+  "cannon-hill",
+  "tile-connect",
+  "water-balloon-battle",
   "image-compressor",
   "image-resizer",
   "image-rotate-filter",

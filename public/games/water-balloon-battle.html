@@ -1,0 +1,1409 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>크레이지 아케이드</title>
+<style>
+  @font-face { font-family: "Gaegu"; font-style: normal; font-weight: 400; font-display: swap; src: url("/games/fonts/gaegu-400.woff2") format("woff2"); }
+  @font-face { font-family: "Gaegu"; font-style: normal; font-weight: 700; font-display: swap; src: url("/games/fonts/gaegu-700.woff2") format("woff2"); }
+</style>
+<style>
+  /* Layout concept: a doodled arena. Themed backdrop + ink-outlined board in the middle, HUD on top, joystick and balloon button at the bottom. */
+  :root {
+    --bg: #fdfdfb; --ink: #1c2331; --muted: #6a7282; --hit: #e5484d; --ok: #3fae5a; --mid: #f2a516; --water: #2b7de0;
+    --font-hand: "Gaegu", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14171f; --ink: #e8ebf2; --muted: #98a1b3; --hit: #ff6b70; --ok: #4cc26a; --mid: #ffc247; --water: #5aa2ff;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14171f; --ink: #e8ebf2; --muted: #98a1b3; --hit: #ff6b70; --ok: #4cc26a; --mid: #ffc247; --water: #5aa2ff;
+    color-scheme: dark;
+  }
+
+  html, body { height: 100%; }
+  html { overscroll-behavior: none; }
+  body {
+    margin: 0; overflow: hidden; background: var(--bg); color: var(--ink);
+    font-family: var(--font-hand); overscroll-behavior: none;
+    -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  #stage {
+    position: relative; width: 100%; max-width: 480px; height: 100%;
+    margin: 0 auto; touch-action: none; overflow: hidden; background: var(--bg);
+    border-left: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+    border-right: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  }
+  canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+  .gutter { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+  #top { position: absolute; inset: 0 0 auto 0; z-index: 3; pointer-events: none; }
+  #hud { display: flex; justify-content: space-between; align-items: flex-start; padding-top: 10px; font-weight: 700; line-height: 1.05; }
+  #hud .nums { font-size: 30px; font-variant-numeric: tabular-nums; }
+  #hud .sub { font-size: 20px; font-weight: 400; margin-top: 2px; }
+  #hud .right { text-align: right; font-size: 18px; font-weight: 400; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+  #hud .btns { display: flex; gap: 8px; }
+  #pauseBtn, #soundBtn {
+    pointer-events: auto; font: inherit; font-size: 18px; color: var(--ink); background: color-mix(in srgb, var(--bg) 70%, transparent);
+    border: 2px solid var(--ink); border-radius: 999px; padding: 2px 14px; cursor: pointer;
+  }
+  #soundBtn[aria-pressed="false"] { color: var(--muted); border-color: var(--muted); }
+  #timerWrap { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+  #timer { flex: 1; height: 14px; border: 2px solid var(--ink); border-radius: 999px; overflow: hidden; background: color-mix(in srgb, var(--bg) 60%, transparent); }
+  #timerFill { height: 100%; width: 100%; background: var(--ok); border-radius: 999px; transition: background .2s; }
+  #timerFill.mid { background: var(--mid); }
+  #timerFill.low { background: var(--hit); }
+  #timerNum { min-width: 56px; text-align: right; font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  #timerWrap.hot #timer { animation: hotPulse .5s ease-in-out infinite alternate; }
+  #timerWrap.hot #timerNum { color: var(--hit); }
+  @keyframes hotPulse { from { transform: scaleY(1); } to { transform: scaleY(1.35); } }
+
+  #toast {
+    position: absolute; left: 0; right: 0; top: 24%; text-align: center; pointer-events: none; z-index: 4;
+    font-size: 32px; padding: 0 12px; word-break: keep-all; font-weight: 700; color: var(--ink); opacity: 0; transform: scale(.9);
+    transition: opacity .25s, transform .25s; text-shadow: 0 3px 0 var(--hit), 0 0 8px var(--bg), 0 0 3px var(--bg);
+  }
+  #toast.show { opacity: 1; transform: scale(1); }
+
+  #stats {
+    position: absolute; left: 0; right: 0; z-index: 1; bottom: var(--ctl-h, 150px); display: flex; gap: 6px; align-items: center;
+    padding-top: 4px; padding-bottom: 4px; font-size: 16px; line-height: 1; white-space: nowrap;
+    background: color-mix(in srgb, var(--bg) 82%, transparent); border-top: 2px solid var(--ink);
+  }
+  #stats .chips { display: flex; gap: 5px; flex-wrap: nowrap; flex: 1; min-width: 0; overflow: hidden; }
+  .chip { display: inline-flex; align-items: center; gap: 3px; padding: 2px 6px 2px 5px; border: 2px solid var(--ink); border-radius: 999px; background: var(--bg); font-weight: 700; }
+  .chip i { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--ink); display: inline-block; }
+  .chip.off { opacity: .35; }
+
+  #ctl {
+    position: absolute; left: 0; right: 0; bottom: 0; height: var(--ctl-h, 150px); z-index: 2; display: flex; align-items: stretch;
+    padding-bottom: max(8px, env(safe-area-inset-bottom, 0px)); box-sizing: border-box;
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+  }
+  #joy { position: relative; flex: 1.35; touch-action: none; }
+  #joyBase {
+    position: absolute; width: 104px; height: 104px; margin: -52px 0 0 -52px; left: 30%; top: 50%; border-radius: 50%;
+    border: 3px solid var(--ink); background: color-mix(in srgb, var(--ink) 7%, transparent); opacity: .55; transition: opacity .15s; pointer-events: none;
+  }
+  #joy.on #joyBase { opacity: .95; }
+  #joyKnob {
+    position: absolute; left: 50%; top: 50%; width: 48px; height: 48px; margin: -24px 0 0 -24px; border-radius: 50%;
+    background: var(--ink); opacity: .85; pointer-events: none;
+  }
+  #joyHint { position: absolute; left: 0; right: 0; bottom: 2px; text-align: center; font-size: 15px; color: var(--muted); pointer-events: none; }
+  #bombZone { flex: 1; display: flex; align-items: center; justify-content: center; }
+  #bombBtn {
+    font: inherit; font-size: 26px; font-weight: 700; width: 96px; height: 96px; border-radius: 50%; cursor: pointer; touch-action: none; line-height: 1.05;
+    color: #fff; background: var(--water); border: 3px solid var(--ink); box-shadow: 4px 4px 0 var(--ink);
+    transition: transform .06s, box-shadow .06s;
+  }
+  #bombBtn small { display: block; font-size: 15px; font-weight: 400; opacity: .9; }
+  #bombBtn.down { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+  #bombBtn.needle { background: #a35cf0; }
+  #bombBtn:disabled { opacity: .4; }
+
+  #panel {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 5; pointer-events: none;
+    background: color-mix(in srgb, var(--bg) 45%, transparent);
+  }
+  #panel[hidden] { display: none; }
+  .card {
+    width: min(100%, 340px); box-sizing: border-box; text-align: center; pointer-events: auto;
+    background: var(--bg); border: 2px solid var(--ink); border-radius: 18px;
+    box-shadow: 5px 5px 0 var(--ink); padding: 22px 20px 20px;
+  }
+  .card h1 { margin: 0 0 6px; font-size: 40px; line-height: 1.05; text-wrap: balance; }
+  .card p { word-break: keep-all; margin: 6px 0; font-size: 20px; line-height: 1.3; color: var(--muted); text-wrap: balance; }
+  .card .big { font-size: 46px; font-weight: 700; color: var(--ink); line-height: 1; margin: 10px 0 4px; font-variant-numeric: tabular-nums; }
+  .card .row { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px 18px; font-size: 20px; color: var(--ink); margin: 6px 0 2px; }
+  .card .badge { display: inline-block; margin-top: 4px; padding: 0 12px; border: 2px solid var(--hit); color: var(--hit); border-radius: 999px; font-weight: 700; font-size: 20px; transform: rotate(-3deg); }
+  .btn {
+    margin-top: 16px; width: 100%; font: inherit; font-size: 28px; font-weight: 700; cursor: pointer;
+    color: var(--bg); background: var(--ink); border: 2px solid var(--ink); border-radius: 14px; padding: 8px 12px;
+  }
+  .btn:disabled { opacity: .35; cursor: default; }
+  .btn.sub { margin-top: 10px; font-size: 22px; color: var(--ink); background: transparent; }
+  .btn:focus-visible, #bombBtn:focus-visible, #pauseBtn:focus-visible, #soundBtn:focus-visible { outline: 3px solid var(--hit); outline-offset: 2px; }
+  .hint { word-break: keep-all; font-size: 17px; color: var(--muted); margin-top: 12px; line-height: 1.3; }
+  @media (max-height: 700px) { :root { --ctl-h: 132px; } #bombBtn { width: 84px; height: 84px; font-size: 24px; } #joyBase { width: 92px; height: 92px; margin: -46px 0 0 -46px; } #hud .nums { font-size: 26px; } }
+  @media (prefers-reduced-motion: reduce) { #toast { transition: none; } #timerWrap.hot #timer { animation: none; } }
+  html[lang="ja"] * { word-break: normal !important; line-break: strict; }
+  html:not([lang="ko"]) #soundBtn, html:not([lang="ko"]) #pauseBtn { white-space: nowrap; font-size: 15px; padding: 2px 10px; }
+  html:not([lang="ko"]) #hud .sub { font-size: 17px; white-space: nowrap; }
+  html:not([lang="ko"]) #tCoins { white-space: nowrap; }
+  html:not([lang="ko"]) .chip { font-size: 12px; padding: 2px 5px 2px 4px; gap: 2px; }
+  html:not([lang="ko"]) .chip i { width: 7px; height: 7px; }
+  html:not([lang="ko"]) #stats .chips { gap: 3px; }
+  .chips.many { gap: 3px; }
+  .chips.many .chip { font-size: 11px; padding: 2px 4px 2px 3px; gap: 2px; border-width: 1.5px; }
+  .chips.many .chip i { width: 6px; height: 6px; border-width: 1px; }
+  html:not([lang="ko"]) #joyHint { font-size: 12px; white-space: nowrap; }
+</style>
+
+</head>
+<body>
+<div id="stage">
+  <canvas id="cv" data-a="aria-label:canvasLabel"></canvas>
+  <div id="top">
+    <div id="hud" class="gutter">
+      <div>
+        <div class="nums"><span id="tStage"></span></div>
+        <div class="sub"><span data-i="scoreL"></span> <span id="tScore">0</span> · <span data-i="foesHud"></span> <span id="tFoes">1</span></div>
+      </div>
+      <div class="right"><span><span data-i="bestL"></span> <span id="tBest">0</span><span data-i="unit"></span></span><div class="btns"><button id="soundBtn" type="button" aria-pressed="true"></button><button id="pauseBtn" type="button" hidden data-i="pause"></button></div></div>
+    </div>
+    <div id="timerWrap" class="gutter"><div id="timer" data-a="aria-label:timeLeft"><div id="timerFill"></div></div><span id="timerNum">0</span></div>
+  </div>
+  <div id="toast" aria-live="polite"></div>
+  <div id="stats" class="gutter"><div class="chips" id="chips"></div></div>
+  <div id="ctl">
+    <div id="joy"><div id="joyBase"><div id="joyKnob"></div></div><div id="joyHint" data-i="joyHint"></div></div>
+    <div id="bombZone"><button id="bombBtn" type="button"></button></div>
+  </div>
+  <div id="panel" class="gutter"><div class="card" id="card"></div></div>
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  /* ---------- 문구: 나중에 다국어(ko/en/ja/es)로 확장하기 쉽게 한곳에 모음 ---------- */
+  const TT = {
+    ko: {
+    title: "크레이지 아케이드",
+    readyDesc: "물풍선으로 상자를 부수고 상대를 물방울에 가두세요. 마지막까지 살아남으면 다음 판!",
+    readyHint: "물줄기에 맞으면 물방울에 갇혀요 (5초 안에 못 나오면 탈락)\n갇힌 상대에게 닿으면 물방울이 터져요\n바늘이 있으면 풍선 버튼으로 탈출!\n시간이 끝나면 바깥부터 막혀요\n(키보드: 방향키·WASD + 스페이스)",
+    start: "시작", retry: "다시 도전", resume: "계속하기", paused: "잠깐 멈춤",
+    overTitle: "물방울에 갇혔어요!", overTitleSd: "벽에 막혔어요!", unit: "점", stageWord: "판", best: "최고", newBest: "새 기록!",
+    foes: "남은 상대", sec: "초", sudden: "막힘!", suddenToast: "서든데스! 바깥부터 막혀요",
+    go: "시작!", clear: "클리어!", trapped: "갇혔다!", pop: "펑!", bonus: n => `보너스 +${n}`,
+    chips: { bal: "풍선", pow: "물줄기", spd: "속도", nee: "바늘", shd: "보호막" },
+    bombLabel: "풍선", bombSub: "놓기", needleLabel: "바늘", needleSub: "탈출!",
+    share: "점수 공유", shareCopied: "문구를 복사했어요", shareFail: "복사하지 못했어요",
+    shareText: (st, sc) => `크레이지 아케이드에서 ${st}판까지 ${sc}점! 도전해 보세요`,
+    themes: ["잔디밭", "사막", "바닷가", "눈밭", "밤놀이터"],
+    ranks: [[2, "몸풀기 단계예요"], [4, "물풍선 좀 던져 본 솜씨예요"], [7, "꽤 능숙한 물풍선 파이터예요"], [11, "물풍선 달인이에요"], [Infinity, "전설의 물풍선 대장이에요"]],
+      canvasLabel: "크레이지 아케이드 게임 화면", sndOn: "소리 켜짐", sndOff: "소리 꺼짐", pause: "멈춤", bestL: "최고", scoreL: "점수",
+      stageLabel: n => n + "판", foesHud: "상대", joyHint: "여기를 누르고 밀어서 이동", timeLeft: "남은 시간"
+    },
+    en: {
+      title: "Water Balloon\nBattle",
+      readyDesc: "Blow up boxes with water balloons and trap your rivals in bubbles. Outlast them to reach the next stage!",
+      readyHint: "Get hit by water and you're trapped in a bubble (out if you can't escape in 5 sec)\nTouch a trapped rival to pop their bubble\nWith a needle, use the balloon button to escape!\nWhen time runs out, walls close in from the edge\n(Keyboard: arrows/WASD + Space)",
+      start: "Start", retry: "Try again", resume: "Resume", paused: "Paused",
+      overTitle: "You got bubbled!", overTitleSd: "Walled in!", unit: " pts", best: "Best", newBest: "New record!",
+      foes: "Rivals left", sec: "s", sudden: "Walled!", suddenToast: "Sudden death! Walls close in from the edge",
+      go: "Go!", clear: "Clear!", trapped: "Trapped!", pop: "Pop!", bonus: n => `Bonus +${n}`,
+      chips: { bal: "Balloon", pow: "Range", spd: "Speed", nee: "Needle", shd: "Shield" },
+      bombLabel: "Balloon", bombSub: "Place", needleLabel: "Needle", needleSub: "Escape!",
+      share: "Share score", shareCopied: "Copied to clipboard", shareFail: "Couldn't copy",
+      shareText: (st, sc) => `Reached stage ${st} with ${sc} pts in Water Balloon Battle! Give it a try`,
+      themes: ["Meadow", "Desert", "Beach", "Snowfield", "Night Playground"],
+      ranks: [[2, "Just warming up"], [4, "You've thrown a few balloons"], [7, "A pretty skilled balloon fighter"], [11, "A balloon master"], [Infinity, "The legendary balloon boss"]],
+      canvasLabel: "Water Balloon Battle game screen", sndOn: "Sound on", sndOff: "Sound off", pause: "Pause", bestL: "Best", scoreL: "Score",
+      stageLabel: n => "Stage " + n, foesHud: "Rivals", joyHint: "Slide here to move", timeLeft: "Time left"
+    },
+    ja: {
+      title: "水風船バトル",
+      readyDesc: "水風船で箱をこわして、相手を水玉にとじこめよう。最後まで生き残れば次の面へ！",
+      readyHint: "水に当たると水玉にとじこめられる（5秒以内に出られないと脱落）\nとじこめられた相手にさわると水玉がはじける\n針があれば風船ボタンで脱出！\n時間切れになると外側からふさがれる\n（キーボード：方向キー・WASD＋スペース）",
+      start: "スタート", retry: "もう一度", resume: "再開", paused: "一時停止中",
+      overTitle: "水玉にとじこめられた！", overTitleSd: "壁にふさがれた！", unit: "点", best: "ベスト", newBest: "新記録！",
+      foes: "残りの相手", sec: "秒", sudden: "ふさがれ！", suddenToast: "サドンデス！外側からふさがれるよ",
+      go: "スタート！", clear: "クリア！", trapped: "とじこめられた！", pop: "パン！", bonus: n => `ボーナス +${n}`,
+      chips: { bal: "風船", pow: "水流", spd: "速度", nee: "針", shd: "バリア" },
+      bombLabel: "風船", bombSub: "置く", needleLabel: "針", needleSub: "脱出！",
+      share: "スコアを共有", shareCopied: "コピーしました", shareFail: "コピーできませんでした",
+      shareText: (st, sc) => `水風船バトルで${st}面まで${sc}点！挑戦してみて`,
+      themes: ["芝生", "砂漠", "海辺", "雪原", "夜の遊び場"],
+      ranks: [[2, "ウォーミングアップ中"], [4, "水風船を投げ慣れてきた"], [7, "かなりの腕前の水風船ファイター"], [11, "水風船の達人"], [Infinity, "伝説の水風船ボス"]],
+      canvasLabel: "水風船バトル ゲーム画面", sndOn: "音 ON", sndOff: "音 OFF", pause: "一時停止", bestL: "ベスト", scoreL: "スコア",
+      stageLabel: n => n + "面", foesHud: "相手", joyHint: "ここをスライドして移動", timeLeft: "残り時間"
+    },
+    es: {
+      title: "Batalla de\nGlobos de Agua",
+      readyDesc: "Revienta cajas con globos de agua y atrapa a tus rivales en burbujas. ¡Sobrevive hasta el final para pasar de nivel!",
+      readyHint: "Si te da el agua, quedas atrapado en una burbuja (eliminado si no escapas en 5 s)\nToca a un rival atrapado para reventar su burbuja\n¡Con una aguja, escapa con el botón de globo!\nCuando se acaba el tiempo, los muros avanzan desde el borde\n(Teclado: flechas/WASD + Espacio)",
+      start: "Empezar", retry: "Reintentar", resume: "Continuar", paused: "En pausa",
+      overTitle: "¡Te atrapó la burbuja!", overTitleSd: "¡Te encerró el muro!", unit: " pts", best: "Récord", newBest: "¡Nuevo récord!",
+      foes: "Rivales restantes", sec: "s", sudden: "¡Muro!", suddenToast: "¡Muerte súbita! Los muros avanzan desde el borde",
+      go: "¡Ya!", clear: "¡Completado!", trapped: "¡Atrapado!", pop: "¡Pum!", bonus: n => `Bonus +${n}`,
+      chips: { bal: "Globos", pow: "Alcance", spd: "Veloc.", nee: "Aguja", shd: "Escudo" },
+      bombLabel: "Globo", bombSub: "Poner", needleLabel: "Aguja", needleSub: "¡Escapa!",
+      share: "Compartir puntos", shareCopied: "Texto copiado", shareFail: "No se pudo copiar",
+      shareText: (st, sc) => `¡Llegué al nivel ${st} con ${sc} pts en Batalla de Globos de Agua! Atrévete a jugar`,
+      themes: ["Césped", "Desierto", "Playa", "Nieve", "Parque nocturno"],
+      ranks: [[2, "Entrando en calor"], [4, "Ya lanzaste algunos globos"], [7, "Un luchador de globos bastante hábil"], [11, "Maestro de los globos"], [Infinity, "El legendario jefe de los globos"]],
+      canvasLabel: "Pantalla del juego Batalla de Globos de Agua", sndOn: "Sonido sí", sndOff: "Sonido no", pause: "Pausa", bestL: "Récord", scoreL: "Puntos",
+      stageLabel: n => "Nivel " + n, foesHud: "Rivales", joyHint: "Desliza aquí para moverte", timeLeft: "Tiempo restante"
+    }
+  };
+  const LANG = (() => { try { const l = new URLSearchParams(location.search).get("lang"); if (l === "ko" || l === "en" || l === "ja" || l === "es") return l; } catch (e) {} return "ko"; })();
+  const T = TT[LANG] || TT.ko;
+  (function applyStatic() {
+    const d = document;
+    d.documentElement.lang = LANG;
+    d.title = T.title.replace(/\n/g, " ");
+    d.querySelectorAll("[data-i]").forEach(el => { const v = T[el.getAttribute("data-i")]; if (typeof v === "string") el.textContent = v; });
+    d.querySelectorAll("[data-a]").forEach(el => { const p = el.getAttribute("data-a").split(":"); if (T[p[1]]) el.setAttribute(p[0], T[p[1]]); });
+    const s = d.getElementById("tStage"); if (s) s.textContent = T.stageLabel(1);
+    d.getElementById("bombBtn").innerHTML = T.bombLabel + "<small>" + T.bombSub + "</small>";
+  })();
+
+
+  /* ---------- 설정값(한곳에 모음) ---------- */
+  const CFG = {
+    cols: 9, rows: 11,
+    fuse: 2.4, waterT: 0.45, trapT: 5.0, trapSpeed: 0.28,        // 풍선 터지기까지 / 물줄기 지속 / 갇혀 있는 시간 / 갇힌 동안 속도 비율
+    baseSpeed: 3.2, speedStep: 0.42, hs: 0.34,                    // 칸/초, 속도 아이템 1개당 증가량, 몸 반크기(칸)
+    maxBal: 6, maxPow: 7, maxSpd: 5, maxNeedle: 3,
+    startBal: 1, startPow: 1, startSpd: 0, startNeedle: 1,
+    stageTime: 100, introT: 2.4, clearT: 1.8, lostT: 1.1,
+    dropChance: 0.28, dropW: { bal: 28, pow: 28, spd: 20, nee: 12, shd: 12 },
+    sdInterval: 0.32, sdWarn: 0.8,                                // 서든데스: 칸이 막히는 간격 / 막히기 전 경고 시간
+    boxBase: 0.5, boxPerStage: 0.03, boxMax: 0.72,
+    scoreBox: 5, scoreItem: 10, scoreKill: 100, scoreClear: 200, scoreStage: 50, scoreTime: 2,
+    bpmCalm: 112, bpmMax: 172                                     // 평소 박자 → 가장 급할 때 박자
+  };
+  const ROWS = CFG.rows, COLS = CFG.cols;
+  const enemiesFor = st => st <= 2 ? 1 : st <= 5 ? 2 : 3;
+  function aiParams(st) {                                         // 판이 올라갈수록 빠르고 정확하고 공격적
+    const s = Math.min(st, 12);
+    return {
+      think: Math.max(0.09, 0.3 - 0.02 * s), speedMul: Math.min(1, 0.8 + 0.025 * s),
+      fleeAt: Math.min(2.4, 0.95 + 0.12 * s),                       // 터지기까지 이 시간(초) 이하로 남아야 피하기 시작: 낮은 판은 늦게 피해서 가끔 맞음
+      chain: st >= 3,                                               // 연쇄 폭발까지 미리 계산하는지
+      mistake: Math.max(0.01, 0.1 - 0.012 * s),                     // 도망칠 길을 확인하지 않고 풍선을 놓을 확률
+      hunt: Math.min(0.9, 0.2 + 0.08 * s), bombCool: Math.max(0.5, 1.4 - 0.08 * s), itemRange: 4 + Math.round(s * 0.6),
+      needleChance: st >= 4 ? 0.3 : 0
+    };
+  }
+
+  const $ = id => document.getElementById(id);
+  const cv = $("cv"), ctx = cv.getContext("2d");
+  const card = $("card"), panel = $("panel");
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const rnd = (a, b) => a + Math.random() * (b - a);
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const mod = (v, m) => ((v % m) + m) % m;
+  const nl = s => s.replace(/\n/g, "<br>");
+
+  /* ---------- 저장 ---------- */
+  const KEY = "water-balloon-best", MUTE_KEY = "water-balloon-muted";
+  let best = 0;
+  try { best = parseInt(localStorage.getItem(KEY), 10) || 0; } catch (e) {}
+  const saveBest = () => { try { localStorage.setItem(KEY, String(best)); } catch (e) {} };
+
+  /* ---------- 색상(라이트/다크 + 판마다 바뀌는 배경 테마) ---------- */
+  const C = { ink: "#1c2331", hit: "#e5484d", muted: "#888" };
+  function readColors() {
+    const s = getComputedStyle(document.documentElement);
+    C.ink = s.getPropertyValue("--ink").trim() || "#1c2331";
+    C.hit = s.getPropertyValue("--hit").trim() || "#e5484d";
+    C.muted = s.getPropertyValue("--muted").trim() || "#888";
+  }
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", readColors);
+  new MutationObserver(readColors).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  const isDark = () => {
+    const a = document.documentElement.getAttribute("data-theme");
+    return a === "dark" || (a !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
+  };
+  const hex2 = h => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
+  const mixc = (a, b, t) => { const A = hex2(a), B = hex2(b); return "#" + A.map((v, i) => Math.round(v + (B[i] - v) * t).toString(16).padStart(2, "0")).join(""); };
+  /* 테마: 잔디밭 → 사막 → 바닷가 → 눈밭 → 밤놀이터 → 반복 */
+  const THEMES = [
+    { deco: "dots",   L: ["#e9f6d8", "#cfe9b0"], D: ["#16231a", "#0f1a12"], f1: "#bfe39c", f2: "#b0d98a", wall: "#98a3b8", box: "#e0a458" },
+    { deco: "sun",    L: ["#ffe9c4", "#f6c98f"], D: ["#2e2114", "#1d140c"], f1: "#f6e6b4", f2: "#edd69a", wall: "#a68a7c", box: "#d9894a" },
+    { deco: "ripple", L: ["#d7f1ee", "#a9dcd8"], D: ["#0e2a30", "#0a1c22"], f1: "#d4f1f5", f2: "#c0e7ee", wall: "#7fa6c8", box: "#f2a56a" },
+    { deco: "snow",   L: ["#e9f1ff", "#c9d9f5"], D: ["#101a2c", "#0a1220"], f1: "#f6f9fd", f2: "#e4edf8", wall: "#9db3d1", box: "#9fd0f0" },
+    { deco: "stars",  L: ["#c9c4f5", "#e6defa"], D: ["#0a1030", "#1b2556"], f1: "#ddd8f8", f2: "#cfc9f2", wall: "#8a79c4", box: "#f0b24a" }
+  ];
+  const themeOf = st => THEMES[mod(st - 1, THEMES.length)];
+  let palKey = "", PAL = null;
+  function palette() {                                            // 현재 판·라이트/다크에 맞는 색 묶음(바뀔 때만 다시 계산)
+    const dk = isDark(), key = stage + (dk ? "d" : "l");
+    if (key === palKey) return PAL;
+    palKey = key; const th = themeOf(stage), bgp = dk ? th.D : th.L, K = "#0c0f16";
+    PAL = {
+      th, bg: bgp,
+      f1: dk ? mixc(th.f1, K, 0.62) : th.f1, f2: dk ? mixc(th.f2, K, 0.62) : th.f2,
+      wall: dk ? mixc(th.wall, K, 0.3) : th.wall, wallTop: dk ? mixc(th.wall, "#ffffff", 0.12) : mixc(th.wall, "#ffffff", 0.35),
+      wallD: mixc(th.wall, K, 0.4), box: dk ? mixc(th.box, K, 0.15) : th.box, boxD: mixc(th.box, K, 0.35), boxL: mixc(th.box, "#ffffff", 0.35),
+      sdWall: dk ? "#4a2630" : "#c8707a", dk
+    };
+    return PAL;
+  }
+  const TINK = "#1c2331";                                         // 캐릭터/물건은 배경과 관계없이 항상 진한 잉크 외곽선
+
+  /* ================= 소리: 합성(음원 파일 없음) ================= */
+  const midi = m => 440 * Math.pow(2, (m - 69) / 12);
+
+  /* ================= 소리 합성 (어떤 AudioContext에서도 동작: 실시간/오프라인 검증 겸용) ================= */
+  const noiseCache = new WeakMap();
+  function noiseBuf(ac) {
+    let b = noiseCache.get(ac);
+    if (!b) {
+      b = ac.createBuffer(1, ac.sampleRate, ac.sampleRate);
+      const d = b.getChannelData(0);
+      for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+      noiseCache.set(ac, b);
+    }
+    return b;
+  }
+  function env(g, t, a, peak, d) {
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(Math.max(peak, 0.0002), t + a);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + a + d);
+  }
+  function tone(ac, dest, o) {
+    const osc = ac.createOscillator(), g = ac.createGain();
+    osc.type = o.type || "sine";
+    osc.frequency.setValueAtTime(o.f, o.t);
+    if (o.f2) osc.frequency.exponentialRampToValueAtTime(o.f2, o.t + o.dur);
+    const a = o.a || 0.006;
+    env(g, o.t, a, o.vol, Math.max(o.dur - a, 0.01));
+    let out = osc;
+    if (o.lp) { const f = ac.createBiquadFilter(); f.type = "lowpass"; f.frequency.value = o.lp; osc.connect(f); out = f; }
+    out.connect(g); g.connect(dest);
+    if (o.wob) {                                    // 떨림(질퍽한 질감)
+      const l = ac.createOscillator(), lg = ac.createGain();
+      l.frequency.value = o.wob; lg.gain.value = o.wobDepth || o.f * 0.35;
+      l.connect(lg); lg.connect(osc.frequency); l.start(o.t); l.stop(o.t + o.dur + 0.05);
+    }
+    osc.start(o.t); osc.stop(o.t + o.dur + 0.05);
+  }
+  function noise(ac, dest, o) {
+    const src = ac.createBufferSource(), f = ac.createBiquadFilter(), g = ac.createGain();
+    src.buffer = noiseBuf(ac); src.loop = true;
+    f.type = o.type || "bandpass"; f.Q.value = o.q || 1;
+    f.frequency.setValueAtTime(o.f, o.t);
+    if (o.f2) f.frequency.exponentialRampToValueAtTime(o.f2, o.t + o.dur);
+    const a = o.a || 0.004;
+    env(g, o.t, a, o.vol, Math.max(o.dur - a, 0.01));
+    src.connect(f); f.connect(g); g.connect(dest);
+    src.start(o.t, Math.random() * 0.5); src.stop(o.t + o.dur + 0.05);
+  }
+  const kick = (ac, d, t, v) => { tone(ac, d, { t, f: 160, f2: 42, dur: 0.17, vol: v }); noise(ac, d, { t, dur: 0.02, vol: v * 0.2, type: "highpass", f: 3000 }); };
+  const snare = (ac, d, t, v) => { noise(ac, d, { t, dur: 0.14, vol: v, type: "bandpass", f: 1900, q: 0.8 }); tone(ac, d, { t, type: "triangle", f: 230, f2: 150, dur: 0.09, vol: v * 0.6 }); };
+
+  const SFX = {
+    place(ac, d, t) { tone(ac, d, { t, type: "sine", f: 240, f2: 520, dur: 0.1, vol: 0.18 }); noise(ac, d, { t, dur: 0.04, vol: 0.04, type: "highpass", f: 4500 }); },
+    boom(ac, d, t) {
+      noise(ac, d, { t, dur: 0.45, vol: 0.3, type: "lowpass", f: 2400, f2: 160, q: 0.7 });
+      tone(ac, d, { t, f: 150, f2: 38, dur: 0.34, vol: 0.34 });
+      noise(ac, d, { t, dur: 0.07, vol: 0.12, type: "highpass", f: 3500 });
+    },
+    box(ac, d, t) { noise(ac, d, { t, dur: 0.1, vol: 0.13, type: "bandpass", f: 900, q: 1.2 }); },
+    trap(ac, d, t) { tone(ac, d, { t, type: "sine", f: 380, f2: 1100, dur: 0.32, vol: 0.2, wob: 18, wobDepth: 60 }); },
+    pop(ac, d, t) { noise(ac, d, { t, dur: 0.12, vol: 0.2, type: "highpass", f: 2500 }); tone(ac, d, { t, type: "triangle", f: 900, f2: 200, dur: 0.2, vol: 0.17 }); },
+    item(ac, d, t) { [659, 784, 988].forEach((f, i) => tone(ac, d, { t: t + i * 0.06, type: "triangle", f, dur: 0.14, vol: 0.14 })); },
+    needle(ac, d, t) { noise(ac, d, { t, dur: 0.2, vol: 0.12, type: "bandpass", f: 1500, f2: 4500, q: 1 }); tone(ac, d, { t: t + 0.1, type: "sine", f: 1568, dur: 0.22, vol: 0.15 }); },
+    shield(ac, d, t) { tone(ac, d, { t, type: "square", f: 1200, f2: 700, dur: 0.12, vol: 0.07, lp: 3000 }); tone(ac, d, { t: t + 0.05, type: "sine", f: 1800, dur: 0.16, vol: 0.1 }); },
+    beep(ac, d, t, hi) { tone(ac, d, { t, type: "square", f: hi ? 1046 : 523, dur: hi ? 0.32 : 0.12, vol: 0.1, lp: 2800 }); },
+    tick(ac, d, t, hi) { tone(ac, d, { t, type: "square", f: hi ? 1500 : 1100, dur: 0.04, vol: hi ? 0.09 : 0.06, lp: 3000 }); noise(ac, d, { t, dur: 0.02, vol: 0.05, type: "highpass", f: 4000 }); },
+    thud(ac, d, t) { tone(ac, d, { t, f: 95, f2: 50, dur: 0.2, vol: 0.2 }); noise(ac, d, { t, dur: 0.08, vol: 0.06, type: "lowpass", f: 800 }); },
+    siren(ac, d, t) { [0, 0.22, 0.44].forEach((o, i) => tone(ac, d, { t: t + o, type: "sawtooth", f: i % 2 ? 520 : 740, dur: 0.2, vol: 0.09, lp: 1800 })); },
+    clear(ac, d, t) { [523, 659, 784, 1047, 1319].forEach((f, i) => tone(ac, d, { t: t + i * 0.08, type: "triangle", f, dur: 0.2, vol: 0.17 })); },
+    lose(ac, d, t) { [392, 330, 262, 196].forEach((f, i) => tone(ac, d, { t: t + i * 0.16, type: "sawtooth", f, dur: 0.3, vol: 0.14, lp: 900 })); }
+  };
+
+  let ac = null, master = null, sfxBus = null, bgmBus = null, muted = false;
+  try { muted = localStorage.getItem(MUTE_KEY) === "1"; } catch (e) {}
+  function audioInit() {
+    try {
+      if (!ac) {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (!Ctx) return false;
+        ac = new Ctx();
+        const comp = ac.createDynamicsCompressor();
+        master = ac.createGain(); sfxBus = ac.createGain(); bgmBus = ac.createGain();
+        sfxBus.gain.value = 0.8; bgmBus.gain.value = 0.5;
+        sfxBus.connect(master); bgmBus.connect(master); master.connect(comp); comp.connect(ac.destination);
+        applyMute();
+      }
+      if (ac.state === "suspended") ac.resume();
+      return true;
+    } catch (e) { ac = null; return false; }
+  }
+  const applyMute = () => { if (master) master.gain.value = muted ? 0 : 0.9; };
+  function paintSound() {
+    const b = $("soundBtn");
+    b.textContent = muted ? T.sndOff : T.sndOn;
+    b.setAttribute("aria-pressed", muted ? "false" : "true");
+  }
+  const sfx = (name, arg) => { if (ac && sfxBus) SFX[name](ac, sfxBus, ac.currentTime + 0.01, arg); };
+
+  /* 배경음악: 16분음표 한 칸씩 예약. 긴장도 S.ten(0~1)이 올라가면 박자가 빨라지고 악기가 늘며 단조로 바뀜 */
+  const bpmOf = ten => CFG.bpmCalm + (CFG.bpmMax - CFG.bpmCalm) * Math.pow(clamp(ten, 0, 1), 0.85);
+  const CALM = [{ r: 36, t: [60, 64, 67] }, { r: 31, t: [59, 62, 67] }, { r: 33, t: [57, 60, 64] }, { r: 29, t: [57, 60, 65] }];     // C G Am F
+  const TENSE = [{ r: 33, t: [57, 60, 64] }, { r: 29, t: [57, 60, 65] }, { r: 36, t: [60, 64, 67] }, { r: 40, t: [56, 59, 64] }];    // Am F C E
+  const ARP = [0, 2, 1, 2, 0, 1, 2, 1];
+  const S = { timer: null, run: null, next: 0, step: 0, bar: 0, ten: 0, log: null };
+  function playStep(ac, dest, t, si, bi, sd, k) {
+    const ch = (k > 0.45 ? TENSE : CALM)[bi % 4];
+    if (k < 0.35) { if (si % 2 === 0) noise(ac, dest, { t, dur: 0.03, vol: 0.035, type: "highpass", f: 7500 }); }
+    else noise(ac, dest, { t, dur: si % 2 ? 0.02 : 0.03, vol: si % 2 ? 0.03 : 0.05, type: "highpass", f: 7500 });
+    if (k > 0.7 && si % 4 === 2) noise(ac, dest, { t, dur: 0.1, vol: 0.05, type: "highpass", f: 6500 });
+    if (si === 0 || si === 8 || (k > 0.5 && (si === 4 || si === 12))) kick(ac, dest, t, 0.26 + 0.12 * k);
+    if (k > 0.2 && (si === 4 || si === 12)) snare(ac, dest, t, 0.08 + 0.1 * k);
+    const calm = k < 0.3;
+    // 통통 튀는 베이스(옴-파): 박 앞, 뒤박 번갈아
+    if (calm ? (si === 0 || si === 6 || si === 8 || si === 14) : (si === 0 || si === 3 || si === 6 || si === 8 || si === 11 || si === 14))
+      tone(ac, dest, { t, type: calm ? "triangle" : "sawtooth", f: midi(ch.r + (si === 6 || si === 14 ? 7 : 0)), dur: sd * (calm ? 2.6 : 2), vol: calm ? 0.19 : 0.1, lp: calm ? 500 : 800 });
+    if (calm) { if (si === 4 || si === 12) ch.t.forEach(m => tone(ac, dest, { t, type: "triangle", f: midi(m), dur: sd * 2, vol: 0.035, a: 0.01 })); }
+    else if (si === 0 || si === 6 || si === 10) ch.t.forEach(m => tone(ac, dest, { t, type: "square", f: midi(m), dur: sd * 2.5, vol: 0.024, lp: 1800 }));
+    const every = k < 0.25 ? 2 : 2;
+    if (si % every === 0) {
+      const note = ch.t[ARP[(si / every + bi) % ARP.length] % 3] + 12 + (k > 0.6 && si % 4 === 2 ? 12 : 0);
+      if (calm) tone(ac, dest, { t, type: "triangle", f: midi(note), dur: sd * 1.4, vol: 0.085 });
+      else tone(ac, dest, { t, type: "square", f: midi(note), dur: sd * 1.4, vol: 0.042, lp: 2500 });
+    }
+    if (k > 0.85 && si % 4 === 0) tone(ac, dest, { t, type: "sine", f: 1760, dur: 0.05, vol: 0.035 });
+  }
+  function bgmTick() {
+    if (!ac || !S.run) return;
+    while (S.next < ac.currentTime + 0.3) {
+      const bpm = bpmOf(S.ten), sd = 15 / bpm;
+      if (S.log) S.log.push({ t: S.next, bpm, ten: S.ten });
+      playStep(ac, S.run, S.next, S.step % 16, S.bar, sd, S.ten);
+      S.next += sd; S.step++; if (S.step % 16 === 0) S.bar++;
+    }
+  }
+  function bgmStart(fresh) {
+    if (!ac) return;
+    bgmStop();
+    if (fresh) { S.step = 0; S.bar = 0; }
+    S.run = ac.createGain(); S.run.connect(bgmBus);
+    S.next = ac.currentTime + 0.08;
+    bgmTick(); S.timer = setInterval(bgmTick, 50);
+  }
+  function bgmStop() {
+    clearInterval(S.timer); S.timer = null;
+    if (S.run && ac) {
+      const g = S.run; S.run = null;
+      try { g.gain.cancelScheduledValues(ac.currentTime); g.gain.setValueAtTime(g.gain.value, ac.currentTime); g.gain.linearRampToValueAtTime(0, ac.currentTime + 0.1); } catch (e) {}
+      setTimeout(() => { try { g.disconnect(); } catch (e) {} }, 400);
+    }
+  }
+
+  /* ================= 게임 상태 ================= */
+  let state = "ready";                      // ready | play | pause | over
+  let phase = "intro";                      // intro | play | clear | lost
+  let stage = 1, score = 0, newBestFlag = false, overBySd = false;
+  let g = [], itemG = [], water = [], waterBy = [], doom = [], sdWall = [];   // g: 0 바닥, 1 벽, 2 상자
+  let ents = [], player = null, balloons = [], splashes = [], parts = [], floats = [];
+  let clock = 0, phaseT = 0, timeLeft = CFG.stageTime, sd = null, boomFrame = 0, shakeT = 0, lastSecTick = 99, introN = 4;
+  let nextId = 1;
+  let VW = 390, VH = 780, dpr = 1, ts = 40, gx = 0, gy = 0;
+  const DIRS = [[-1, 0], [0, 1], [1, 0], [0, -1]];                // 위, 오른쪽, 아래, 왼쪽 (행, 열)
+  const ENT_COLORS = ["#3fa7ff", "#e5484d", "#2fa66a", "#a35cf0", "#f2a516"];
+
+  /* ---------- 화면 크기 / 배치 ---------- */
+  function layout() {
+    const r = $("stage").getBoundingClientRect();
+    dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+    VW = r.width; VH = r.height;
+    cv.width = Math.round(VW * dpr); cv.height = Math.round(VH * dpr);
+    const top = $("top").getBoundingClientRect().bottom - r.top + 8;
+    const bot = $("stats").getBoundingClientRect().top - r.top - 8;
+    const availH = Math.max(120, bot - top);
+    ts = Math.floor(Math.min((VW - 16) / COLS, availH / ROWS, 60));
+    gx = Math.round((VW - COLS * ts) / 2); gy = Math.round(top + (availH - ROWS * ts) / 2);
+  }
+  addEventListener("resize", layout);
+
+  /* ================= 판 만들기 ================= */
+  const inb = (r, c) => r >= 0 && c >= 0 && r < ROWS && c < COLS;
+  const grid2 = v => Array.from({ length: ROWS }, () => new Array(COLS).fill(v));
+  const CORNERS = [[0, 0], [0, COLS - 1], [ROWS - 1, 0], [ROWS - 1, COLS - 1]];
+  function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+  function buildMap(st) {
+    g = grid2(0); itemG = grid2(null); water = grid2(0); waterBy = grid2(0); doom = grid2(Infinity); sdWall = grid2(false);
+    for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) if (r % 2 === 1 && c % 2 === 1) g[r][c] = 1;
+    const safe = new Set();
+    for (const [r0, c0] of CORNERS) {                              // 네 모서리는 항상 비워 둠(ㄱ자 5칸)
+      const dr = r0 === 0 ? 1 : -1, dc = c0 === 0 ? 1 : -1;
+      [[0, 0], [dr, 0], [2 * dr, 0], [0, dc], [0, 2 * dc]].forEach(([a, b]) => safe.add((r0 + a) * COLS + (c0 + b)));
+    }
+    const dens = Math.min(CFG.boxMax, CFG.boxBase + CFG.boxPerStage * (st - 1));
+    for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++)
+      if (g[r][c] === 0 && !safe.has(r * COLS + c) && Math.random() < dens) g[r][c] = 2;
+  }
+  function makeEnt(human, color, acc, r, c) {
+    return {
+      id: nextId++, human, color, acc, x: c + 0.5, y: r + 0.5, dir: 2, alive: true, trapped: 0, invuln: 0,
+      bal: CFG.startBal, pow: CFG.startPow, spd: CFG.startSpd, needle: human ? CFG.startNeedle : 0, shield: false,
+      placed: 0, moving: false, ai: null, walkT: 0
+    };
+  }
+  function makeAI(st) {
+    return { p: aiParams(st), t: rnd(0.1, 0.5), path: [], lastBomb: -99, mode: "box", modeT: 0, px: 0, py: 0, stuckT: 0 };
+  }
+  function startStage() {
+    buildMap(stage);
+    balloons = []; splashes = []; parts = []; floats = []; sd = null; shakeT = 0;
+    timeLeft = CFG.stageTime; lastSecTick = 99;
+    const cs = shuffle(CORNERS.slice()), n = enemiesFor(stage);
+    ents = [makeEnt(true, ENT_COLORS[0], 0, cs[0][0], cs[0][1])];
+    player = ents[0];
+    for (let i = 0; i < n; i++) {
+      const e = makeEnt(false, ENT_COLORS[1 + i], i, cs[1 + i][0], cs[1 + i][1]);
+      e.ai = makeAI(stage);
+      if (Math.random() < e.ai.p.needleChance) e.needle = 1;
+      ents.push(e);
+    }
+    phase = "intro"; phaseT = 0; introN = 4; Dnow = null; DnowNaive = null;
+    hudCache = ""; statCache = "";
+    paintHud(true); paintStats(true); paintBomb(true);
+  }
+
+  /* ================= 칸·충돌 ================= */
+  const balloonAt = (r, c) => { for (const b of balloons) if (b.r === r && b.c === c) return b; return null; };
+  function solidFor(e, r, c) {
+    if (!inb(r, c) || g[r][c] !== 0) return true;
+    const b = balloonAt(r, c);
+    return !!(b && !b.passers.has(e.id));
+  }
+  function hit(e, nx, ny) {
+    const HS = CFG.hs;
+    const c0 = Math.floor(nx - HS), c1 = Math.floor(nx + HS - 1e-9), r0 = Math.floor(ny - HS), r1 = Math.floor(ny + HS - 1e-9);
+    for (let r = r0; r <= r1; r++) for (let c = c0; c <= c1; c++) if (solidFor(e, r, c)) return true;
+    return false;
+  }
+  function tryMove(e, dx, dy) {
+    const nx = e.x + dx, ny = e.y + dy;
+    if (!hit(e, nx, ny)) { e.x = nx; e.y = ny; return; }
+    const HS = CFG.hs, amt = Math.abs(dx) + Math.abs(dy);
+    if (dx !== 0) {
+      const s = Math.sign(dx), rc = Math.floor(e.y), tc = Math.floor(e.x + s * HS + dx);
+      if (!solidFor(e, rc, tc)) {                                 // 가운데 줄은 비어 있음 → 모서리를 돌아가도록 살짝 미끄러짐
+        const sl = clamp(rc + 0.5 - e.y, -amt, amt);
+        if (sl !== 0 && !hit(e, e.x, e.y + sl)) e.y += sl;
+        if (!hit(e, e.x + dx, e.y)) e.x += dx;
+      } else {
+        const wx = s > 0 ? tc - HS - 1e-4 : tc + 1 + HS + 1e-4;
+        if ((s > 0 ? wx > e.x : wx < e.x) && !hit(e, wx, e.y)) e.x = wx;
+      }
+    } else {
+      const s = Math.sign(dy), cc = Math.floor(e.x), tr = Math.floor(e.y + s * HS + dy);
+      if (!solidFor(e, tr, cc)) {
+        const sl = clamp(cc + 0.5 - e.x, -amt, amt);
+        if (sl !== 0 && !hit(e, e.x + sl, e.y)) e.x += sl;
+        if (!hit(e, e.x, e.y + dy)) e.y += dy;
+      } else {
+        const wy = s > 0 ? tr - HS - 1e-4 : tr + 1 + HS + 1e-4;
+        if ((s > 0 ? wy > e.y : wy < e.y) && !hit(e, e.x, wy)) e.y = wy;
+      }
+    }
+  }
+  const speedOf = e => (CFG.baseSpeed + CFG.speedStep * e.spd) * (e.trapped > 0 ? CFG.trapSpeed : 1) * (e.ai ? e.ai.p.speedMul : 1);
+  function moveEnt(e, dx, dy, dt, limit) {
+    e.moving = false;
+    if (!dx && !dy) return;
+    e.dir = dy < 0 ? 0 : dx > 0 ? 1 : dy > 0 ? 2 : 3;
+    let total = speedOf(e) * dt; if (limit != null) total = Math.min(total, limit);
+    if (total <= 0) return;
+    const n = Math.max(1, Math.ceil(total / 0.12)), step = total / n, sx = e.x, sy = e.y;
+    for (let i = 0; i < n; i++) tryMove(e, dx * step, dy * step);
+    e.moving = Math.abs(e.x - sx) + Math.abs(e.y - sy) > 1e-4;
+    if (e.moving) e.walkT += dt;
+  }
+  const overlapsCell = (f, r, c) => Math.abs(f.x - (c + 0.5)) < 0.5 + CFG.hs - 1e-6 && Math.abs(f.y - (r + 0.5)) < 0.5 + CFG.hs - 1e-6;
+
+  /* ================= 풍선·물줄기·아이템·갇힘 ================= */
+  function placeBalloon(e) {
+    if (!e.alive || e.trapped > 0 || e.placed >= e.bal) return false;
+    const r = Math.floor(e.y), c = Math.floor(e.x);
+    if (!inb(r, c) || g[r][c] !== 0 || balloonAt(r, c)) return false;
+    const b = { r, c, owner: e, pow: e.pow, t: CFG.fuse, passers: new Set(), done: false };
+    for (const f of ents) if (f.alive && overlapsCell(f, r, c)) b.passers.add(f.id);
+    balloons.push(b); e.placed++; sfx("place"); Dnow = null; DnowNaive = null;
+    return true;
+  }
+  /* 풍선 하나가 만드는 십자 범위. 벽에서 멈추고, 상자는 포함하고 멈추고, 다른 풍선도 포함하고 멈춤 */
+  function rayCells(r, c, pow, at) {
+    const out = [[r, c, "c"]];
+    for (let d = 0; d < 4; d++) {
+      const [dr, dc] = DIRS[d], list = [];
+      for (let k = 1; k <= pow; k++) {
+        const nr = r + dr * k, nc = c + dc * k;
+        if (!inb(nr, nc) || g[nr][nc] === 1) break;
+        list.push([nr, nc]);
+        if (g[nr][nc] === 2 || (at && at.has(nr * COLS + nc))) break;
+      }
+      list.forEach(([nr, nc], i) => out.push([nr, nc, i < list.length - 1 ? (d % 2 ? "h" : "v") : ["u", "r", "d", "l"][d]]));
+    }
+    return out;
+  }
+  function detonate(first) {
+    const queue = [first], boxes = [];
+    while (queue.length) {
+      const x = queue.pop();
+      if (x.done) continue;
+      x.done = true; balloons.splice(balloons.indexOf(x), 1); x.owner.placed = Math.max(0, x.owner.placed - 1);
+      const at = new Map(balloons.map(b => [b.r * COLS + b.c, b]));
+      for (const [r, c, kind] of rayCells(x.r, x.c, x.pow, at)) {
+        water[r][c] = CFG.waterT; waterBy[r][c] = x.owner.id; splashes.push({ r, c, kind, age: 0 });
+        if (g[r][c] === 2) boxes.push([r, c, x.owner]);
+        const o = at.get(r * COLS + c);
+        if (o && o !== x && !o.done) queue.push(o);
+      }
+      if (boomFrame++ === 0) sfx("boom");
+      shakeT = Math.max(shakeT, 0.18);
+    }
+    let broke = false;
+    for (const [r, c, owner] of boxes) if (g[r][c] === 2) { destroyBox(r, c, owner); broke = true; }
+    if (broke) sfx("box");
+    Dnow = null; DnowNaive = null;
+  }
+  function pickDrop() {
+    let t = Math.random() * Object.values(CFG.dropW).reduce((a, b) => a + b, 0);
+    for (const k in CFG.dropW) { t -= CFG.dropW[k]; if (t <= 0) return k; }
+    return "bal";
+  }
+  function destroyBox(r, c, owner) {
+    g[r][c] = 0;
+    const px = c + 0.5, py = r + 0.5;
+    for (let i = 0; i < 7; i++) parts.push({ x: px, y: py, vx: rnd(-3, 3), vy: rnd(-4, -0.5), age: 0, life: rnd(0.35, 0.6), col: i % 2 ? "#b97a34" : "#e0a458", r: rnd(2, 4.5), cell: true });
+    if (owner && owner.human) { score += CFG.scoreBox; }
+    if (Math.random() < CFG.dropChance) itemG[r][c] = { type: pickDrop(), t: 0 };
+  }
+  function applyItem(e, type) {
+    if (type === "bal") e.bal = Math.min(CFG.maxBal, e.bal + 1);
+    else if (type === "pow") e.pow = Math.min(CFG.maxPow, e.pow + 1);
+    else if (type === "spd") e.spd = Math.min(CFG.maxSpd, e.spd + 1);
+    else if (type === "nee") e.needle = Math.min(CFG.maxNeedle, e.needle + 1);
+    else if (type === "shd") e.shield = true;
+  }
+  function hitEnt(e) {                                            // 물줄기에 맞음
+    if (!e.alive || e.trapped > 0 || e.invuln > 0) return;
+    if (e.shield) { e.shield = false; e.invuln = 1.2; sfx("shield"); ring(e); return; }
+    e.trapped = CFG.trapT; e.ai && (e.ai.path = []);
+    sfx("trap"); if (e.human) float(e.x, e.y - 0.6, T.trapped, true);
+  }
+  function freeNeedle(e) {
+    if (!e.alive || e.trapped <= 0 || e.needle <= 0) return false;
+    e.needle--; e.trapped = 0; e.invuln = 1.5; sfx("needle"); ring(e);
+    return true;
+  }
+  function kill(e) {
+    if (!e.alive) return;
+    e.alive = false; e.trapped = 0;
+    for (let i = 0; i < 12; i++) parts.push({ x: e.x, y: e.y, vx: rnd(-4, 4), vy: rnd(-5, -1), age: 0, life: rnd(0.4, 0.8), col: i % 3 ? "#8fd0ff" : e.color, r: rnd(2.5, 5), cell: true });
+    sfx("pop");
+    if (!e.human && player && player.alive) { score += CFG.scoreKill; float(e.x, e.y - 0.5, "+" + CFG.scoreKill, true); }
+  }
+  function ring(e) { for (let i = 0; i < 10; i++) { const a = i * 0.628; parts.push({ x: e.x + Math.cos(a) * 0.4, y: e.y + Math.sin(a) * 0.4, vx: Math.cos(a) * 2, vy: Math.sin(a) * 2 - 1, age: 0, life: 0.45, col: "#fff", r: 3, cell: true }); } }
+  function float(x, y, text, big) { floats.push({ x, y, text, big, age: 0 }); }
+
+  /* ================= 위험 지도(AI와 안전 판단용) ================= */
+  let Dnow = null, DnowNaive = null;
+  function computeDanger(extra, noChain) {
+    const D = grid2(Infinity);
+    const bl = balloons.map(b => ({ r: b.r, c: b.c, pow: b.pow, t: b.t }));
+    if (extra) bl.push({ r: extra.r, c: extra.c, pow: extra.pow, t: extra.t });
+    const at = new Map(bl.map(b => [b.r * COLS + b.c, b]));
+    const cells = bl.map(b => rayCells(b.r, b.c, b.pow, at));
+    for (let it = 0; it <= (noChain ? -1 : bl.length); it++) {   // 연쇄 폭발: 먼저 터지는 풍선이 닿는 풍선도 같이 터짐
+      let ch = false;
+      for (let i = 0; i < bl.length; i++) for (const [r, c] of cells[i]) {
+        const o = at.get(r * COLS + c);
+        if (o && o !== bl[i] && bl[i].t < o.t - 1e-6) { o.t = bl[i].t; ch = true; }
+      }
+      if (!ch) break;
+    }
+    bl.forEach((b, i) => { for (const [r, c] of cells[i]) if (b.t < D[r][c]) D[r][c] = b.t; });
+    for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) if (water[r][c] > 0) D[r][c] = 0;
+    return D;
+  }
+  /* strict: 위험한 칸(곧 터질 칸)과 곧 막힐 칸은 아예 지나가지 않음(일반 이동용). 탈출할 때만 터지기 전에 스치는 것을 허용 */
+  const blockedAt = (D, r, c, t, strict) => {
+    const d = D[r][c];
+    if (d < Infinity && (strict || (t > d - 0.1 && t < d + 0.55))) return true;
+    const m = doom[r][c]; return m < Infinity && (strict ? m < 6 : t > m - 0.35);
+  };
+  const safeCell = (D, r, c) => D[r][c] === Infinity && doom[r][c] > 4;
+
+  /* ================= AI ================= */
+  function bfs(e, D, goalFn, maxD, cellT, strict) {
+    const sr = Math.floor(e.y), sc = Math.floor(e.x);
+    const prev = new Int16Array(ROWS * COLS).fill(-2); prev[sr * COLS + sc] = -1;
+    const q = [[sr, sc, 0]], dirs = shuffle(DIRS.slice());
+    for (let qi = 0; qi < q.length; qi++) {
+      const [r, c, d] = q[qi]; if (d >= maxD) continue;
+      for (const [dr, dc] of dirs) {
+        const nr = r + dr, nc = c + dc;
+        if (!inb(nr, nc)) continue;
+        const k = nr * COLS + nc; if (prev[k] !== -2) continue;
+        if (g[nr][nc] !== 0) continue;
+        const b = balloonAt(nr, nc); if (b && !b.passers.has(e.id)) continue;
+        const t = (d + 1) * cellT + 0.12;
+        if (blockedAt(D, nr, nc, t, strict)) continue;
+        prev[k] = r * COLS + c;
+        if (goalFn(nr, nc, d + 1)) {
+          const path = []; let cur = k;
+          while (cur !== sr * COLS + sc) { path.push([Math.floor(cur / COLS), cur % COLS]); cur = prev[cur]; }
+          return path.reverse();
+        }
+        q.push([nr, nc, d + 1]);
+      }
+    }
+    return null;
+  }
+  const foesOf = e => ents.filter(f => f !== e && f.alive);
+  /* (r,c)에 풍선을 놓으면 무엇이 맞는지 점수화: 상자 1점, 상대 3~4점 */
+  function bombValue(e, r, c, pow) {
+    let v = 0;
+    const foes = foesOf(e).filter(f => f.trapped <= 0);
+    for (const f of foes) if (Math.floor(f.y) === r && Math.floor(f.x) === c) v += f.human ? 4 : 3;
+    for (const [dr, dc] of DIRS) for (let k = 1; k <= pow; k++) {
+      const nr = r + dr * k, nc = c + dc * k;
+      if (!inb(nr, nc) || g[nr][nc] === 1) break;
+      if (g[nr][nc] === 2) { v += 1; break; }
+      if (balloonAt(nr, nc)) break;
+      for (const f of foes) if (Math.floor(f.y) === nr && Math.floor(f.x) === nc) v += f.human ? 4 : 3;
+    }
+    return v;
+  }
+  function canEscape(e, r, c, pow, cellT) {
+    const D2 = computeDanger({ r, c, pow, t: CFG.fuse });
+    return bfs(e, D2, (rr, cc) => safeCell(D2, rr, cc), 14, cellT);
+  }
+  function aiThink(e, dt) {
+    const A = e.ai;
+    A.t -= dt; A.modeT -= dt;
+    if (!e.moving && A.path.length && e.trapped <= 0) A.stuckT += dt; else A.stuckT = 0;
+    if (A.t <= 0) { A.t = A.p.think * rnd(0.8, 1.2); aiDecide(e); }
+    if (e.trapped > 0 || !A.path.length) return [0, 0, null];
+    let [r, c] = A.path[0], dx = c + 0.5 - e.x, dy = r + 0.5 - e.y;
+    if (Math.abs(dx) < 0.02 && Math.abs(dy) < 0.02) {
+      A.path.shift();
+      if (!A.path.length) return [0, 0, null];
+      [r, c] = A.path[0]; dx = c + 0.5 - e.x; dy = r + 0.5 - e.y;
+    }
+    return Math.abs(dx) >= Math.abs(dy) ? [Math.sign(dx), 0, Math.abs(dx)] : [0, Math.sign(dy), Math.abs(dy)];
+  }
+  function aiDecide(e) {
+    const A = e.ai, D = A.p.chain ? (Dnow || (Dnow = computeDanger(null))) : (DnowNaive || (DnowNaive = computeDanger(null, true)));
+    const cr = Math.floor(e.y), cc = Math.floor(e.x);
+    if (!inb(cr, cc)) return;
+    const cellT = 1 / speedOf(e);
+    if (e.trapped > 0) {                                           // 갇힘: 바늘이 있으면 곧 탈출
+      A.path = [];
+      if (e.needle > 0 && e.trapped < CFG.trapT - 0.35) freeNeedle(e);
+      return;
+    }
+    // 1) 위험하면 안전한 곳으로 (예상 못 한 위험은 판 낮을수록 잠깐 머뭇거림)
+    const dHere = Math.min(D[cr][cc], doom[cr][cc] < 3.5 ? doom[cr][cc] : Infinity);
+    if (dHere < Infinity) {
+      if (dHere > A.p.fleeAt) { A.path = []; return; }            // 아직 여유가 있다고 느끼면 잠깐 가만히 있음(판이 낮을수록 늦게 피함)
+      const p = bfs(e, D, (r, c) => safeCell(D, r, c), 16, cellT);
+      if (p) A.path = p;
+      else {                                                       // 길이 없으면 그나마 늦게 터지는 이웃 칸으로
+        let bestN = null, bestD = -1;
+        for (const [dr, dc] of shuffle(DIRS.slice())) {
+          const nr = cr + dr, nc = cc + dc;
+          if (!inb(nr, nc) || g[nr][nc] !== 0) continue;
+          const b = balloonAt(nr, nc); if (b && !b.passers.has(e.id)) continue;
+          const d = Math.min(D[nr][nc], 99);
+          if (d > bestD) { bestD = d; bestN = [nr, nc]; }
+        }
+        A.path = bestN ? [bestN] : [];
+      }
+      return;
+    }
+    // 2) 갇힌 상대가 있으면 달려가 터뜨리기
+    let best = null;
+    for (const f of foesOf(e)) if (f.trapped > 0) {
+      const fr = Math.floor(f.y), fc = Math.floor(f.x);
+      if (fr === cr && fc === cc) { A.path = [[fr, fc]]; return; }
+      const p = bfs(e, D, (r, c) => r === fr && c === fc, 12, cellT, true);
+      if (p && p.length * cellT < f.trapped - 0.25 && (!best || p.length < best.length)) best = p;
+    }
+    if (best) { A.path = best; return; }
+    // 3) 지금 여기에 풍선을 놓을까
+    if (e.placed < e.bal && !balloonAt(cr, cc) && clock - A.lastBomb > A.p.bombCool) {
+      const bv = bombValue(e, cr, cc, e.pow);
+      if (bv >= 1) {
+        const ok = Math.random() < A.p.mistake || canEscape(e, cr, cc, e.pow, cellT);
+        if (ok && placeBalloon(e)) {
+          A.lastBomb = clock; Dnow = null; DnowNaive = null; DnowNaive = null;
+          const D2 = computeDanger(null);
+          A.path = bfs(e, D2, (r, c) => safeCell(D2, r, c), 16, cellT) || [];
+          return;
+        }
+      }
+    }
+    // 4) 아이템 줍기
+    const ip = bfs(e, D, (r, c) => itemG[r][c] && safeCell(D, r, c), A.p.itemRange, cellT, true);
+    if (ip) { A.path = ip; return; }
+    // 5) 상자를 부수러 가거나 상대를 쫓기
+    if (A.modeT <= 0) { A.mode = Math.random() < A.p.hunt ? "hunt" : "box"; A.modeT = rnd(3, 7); }
+    const canB = e.placed < e.bal;
+    const tryHunt = () => {
+      const foes = foesOf(e).filter(f => f.trapped <= 0);
+      foes.sort((a, b) => (Math.hypot(a.x - e.x, a.y - e.y) * (a.human ? 0.7 : 1)) - (Math.hypot(b.x - e.x, b.y - e.y) * (b.human ? 0.7 : 1)));
+      const tgt = foes[0];
+      if (!tgt) return false;
+      const hp = bfs(e, D, (r, c) => safeCell(D, r, c) && bombValue(e, r, c, e.pow) >= 3, 14, cellT, true);
+      if (hp) { A.path = hp; return true; }
+      const tr = Math.floor(tgt.y), tc = Math.floor(tgt.x);
+      const cp = bfs(e, D, (r, c) => safeCell(D, r, c) && Math.abs(r - tr) + Math.abs(c - tc) <= 2, 14, cellT, true);
+      if (cp) { A.path = cp; return true; }
+      return false;
+    };
+    const tryBox = () => {
+      const bp = bfs(e, D, (r, c) => safeCell(D, r, c) && bombValue(e, r, c, e.pow) >= 1, 16, cellT, true);
+      if (bp) { A.path = bp; return true; }
+      return false;
+    };
+    if (canB) {                                                    // 상자가 더 없으면 자연스럽게 상대를 쫓음
+      if (A.mode === "hunt") { if (tryHunt() || tryBox()) return; }
+      else if (tryBox() || tryHunt()) return;
+    }
+    // 6) 할 일이 없으면 가까운 안전한 곳으로 어슬렁
+    const wp = bfs(e, D, (r, c, d) => d >= 2 && safeCell(D, r, c) && Math.random() < 0.5, 5, cellT, true);
+    A.path = wp || [];
+  }
+  /* AI가 길이 막혀 한참 제자리일 때: 경로를 비우고 바로 다시 생각 */
+  function aiUnstick(e) { const A = e.ai; A.path = []; A.t = 0; A.stuckT = 0; }
+
+  /* ================= 서든데스: 시간이 끝나면 바깥부터 한 칸씩 막힘 ================= */
+  function makeSpiral() {
+    const out = []; let top = 0, bot = ROWS - 1, left = 0, right = COLS - 1;
+    while (top <= bot && left <= right) {
+      for (let c = left; c <= right; c++) out.push([top, c]); top++;
+      for (let r = top; r <= bot; r++) out.push([r, right]); right--;
+      if (top <= bot) { for (let c = right; c >= left; c--) out.push([bot, c]); bot--; }
+      if (left <= right) { for (let r = bot; r >= top; r--) out.push([r, left]); left++; }
+    }
+    return out;
+  }
+  function startSD() {
+    const order = makeSpiral().filter(([r, c]) => g[r][c] !== 1);
+    const idx = grid2(-1); order.forEach(([r, c], i) => { idx[r][c] = i; });
+    sd = { t: 0, order, idx, cursor: 0 };
+    sfx("siren"); toast(T.suddenToast, 2000);
+  }
+  function wallify(r, c) {
+    for (const e of ents) if (e.alive && Math.floor(e.y) === r && Math.floor(e.x) === c) { e.trapped = 0; kill(e); }
+    const b = balloonAt(r, c); if (b) { balloons.splice(balloons.indexOf(b), 1); b.owner.placed = Math.max(0, b.owner.placed - 1); }
+    g[r][c] = 1; sdWall[r][c] = true; itemG[r][c] = null; doom[r][c] = Infinity;
+    for (let i = 0; i < 5; i++) parts.push({ x: c + 0.5, y: r + 0.5, vx: rnd(-2, 2), vy: rnd(-3, -0.5), age: 0, life: 0.5, col: "#8a8f9c", r: rnd(2, 4), cell: true });
+    sfx("thud"); Dnow = null; DnowNaive = null;
+  }
+  function updateSD(dt) {
+    sd.t += dt;
+    while (sd.cursor < sd.order.length && sd.t >= CFG.sdWarn + sd.cursor * CFG.sdInterval) { const [r, c] = sd.order[sd.cursor++]; wallify(r, c); }
+    for (let i = sd.cursor; i < sd.order.length; i++) { const [r, c] = sd.order[i]; doom[r][c] = CFG.sdWarn + i * CFG.sdInterval - sd.t; }
+  }
+
+  /* ================= 한 프레임 진행(플레이 중) ================= */
+  const inputState = { dx: 0, dy: 0, bomb: false };
+  function stepPlay(dt) {
+    clock += dt; boomFrame = 0;
+    if (!sd) { timeLeft -= dt; if (timeLeft <= 0) { timeLeft = 0; startSD(); } }
+    else updateSD(dt);
+    Dnow = computeDanger(null); DnowNaive = null;
+    // 1) 이동과 행동
+    for (const e of ents) {
+      if (!e.alive) continue;
+      if (e.invuln > 0) e.invuln -= dt;
+      let dx = 0, dy = 0, lim = null;
+      if (e.ai) {
+        [dx, dy, lim] = aiThink(e, dt);
+        if (e.ai.stuckT > 1.2) aiUnstick(e);
+      } else { dx = inputState.dx; dy = inputState.dy; }
+      moveEnt(e, dx, dy, dt, lim);
+    }
+    if (inputState.bomb) { inputState.bomb = false; if (player.alive) { if (player.trapped > 0) freeNeedle(player); else placeBalloon(player); } }
+    // 2) 풍선: 시간이 다 되면 폭발, 풍선 위에서 벗어난 캐릭터는 이제 풍선을 막힌 칸으로 취급
+    for (const b of balloons.slice()) {
+      b.t -= dt;
+      for (const id of b.passers) { const f = ents.find(z => z.id === id); if (!f || !f.alive || !overlapsCell(f, b.r, b.c)) b.passers.delete(id); }
+      if (b.t <= 0 && !b.done) detonate(b);
+    }
+    // 3) 물줄기가 남은 시간
+    for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) if (water[r][c] > 0) water[r][c] = Math.max(0, water[r][c] - dt);
+    // 4) 물줄기에 맞은 캐릭터는 물방울에 갇힘
+    for (const e of ents) if (e.alive && e.trapped <= 0) { const r = Math.floor(e.y), c = Math.floor(e.x); if (inb(r, c) && water[r][c] > 0) hitEnt(e); }
+    // 5) 아이템 줍기
+    for (const e of ents) if (e.alive && e.trapped <= 0) {
+      const r = Math.floor(e.y), c = Math.floor(e.x), it = inb(r, c) && itemG[r][c];
+      if (it) { itemG[r][c] = null; applyItem(e, it.type); if (e.human) { score += CFG.scoreItem; sfx("item"); float(e.x, e.y - 0.5, "+" + CFG.scoreItem, false); } }
+    }
+    // 6) 갇힌 시간이 지나거나 다른 캐릭터가 닿으면 터짐(탈락)
+    for (const e of ents) if (e.alive && e.trapped > 0) {
+      e.trapped -= dt;
+      let touched = e.trapped <= 0;
+      if (!touched) for (const f of ents) if (f !== e && f.alive && f.trapped <= 0 && Math.hypot(f.x - e.x, f.y - e.y) < 0.62) { touched = true; break; }
+      if (touched) kill(e);
+    }
+    // 7) 결과 판정
+    if (!player.alive) { phase = "lost"; phaseT = 0; overBySd = !!sd; bgmStop(); sfx("lose"); }
+    else if (!ents.some(f => !f.human && f.alive)) stageClear();
+    // 8) 긴장도(음악·화면)
+    let tg = sd ? 1 : clamp(1 - timeLeft / 30, 0, 1) * 0.9;
+    if (player.alive && player.trapped > 0) tg = Math.max(tg, 0.55);
+    S.ten += (tg - S.ten) * Math.min(1, dt * 2.5);
+    const sec = Math.ceil(timeLeft);
+    if (!sd && sec !== lastSecTick) { if (sec <= 10 && sec > 0 && sec < lastSecTick) sfx("tick", sec <= 5); lastSecTick = sec; }
+  }
+  function stageClear() {
+    phase = "clear"; phaseT = 0;
+    const bonus = CFG.scoreClear + stage * CFG.scoreStage + Math.floor(timeLeft) * CFG.scoreTime;
+    score += bonus; sfx("clear");
+    toast(T.clear + "  " + T.bonus(bonus), 1600);
+  }
+
+  /* ================= 상태 전환 ================= */
+  function showPanel(html) { card.innerHTML = html; panel.hidden = false; }
+  function hidePanel() { panel.hidden = true; }
+  function toast(msg, ms) {
+    const el = $("toast"); el.textContent = msg; el.classList.add("show");
+    clearTimeout(toast.h); toast.h = setTimeout(() => el.classList.remove("show"), ms || 1100);
+  }
+  function showReady() {
+    state = "ready"; $("pauseBtn").hidden = true;
+    showPanel(`<h1>${nl(T.title)}</h1><p>${T.readyDesc}</p><button class="btn" id="go" type="button">${T.start}</button><div class="hint">${nl(T.readyHint)}</div>`);
+    $("go").onclick = startGame;
+  }
+  function showOver() {
+    const rank = T.ranks.find(r => stage < r[0])[1];
+    showPanel(`<h1>${overBySd ? T.overTitleSd : T.overTitle}</h1>
+      <div class="big">${score}<span style="font-size:24px"> ${T.unit}</span></div>
+      ${newBestFlag ? `<span class="badge">${T.newBest}</span>` : ""}
+      <p>${rank}</p>
+      <div class="row"><span>${T.stageLabel(stage)}</span><span>${T.best} ${best}${T.unit}</span></div>
+      <button class="btn" id="go" type="button" disabled>${T.retry}</button>
+      <button class="btn sub" id="share" type="button">${T.share}</button>`);
+    const b = $("go"); b.onclick = startGame; $("share").onclick = shareScore;
+    setTimeout(() => { b.disabled = false; }, 500);
+  }
+  async function shareScore() {
+    const text = T.shareText(stage, score);
+    const url = (() => { let h = location.href; try { if (window.parent !== window) h = window.parent.location.href; } catch (e) {} return /^https?:/.test(h) ? h.split("#")[0] : ""; })();
+    try { if (navigator.share) { await navigator.share(url ? { title: T.title, text, url } : { title: T.title, text }); return; } }
+    catch (e) { if (e && e.name === "AbortError") return; }
+    const full = url ? text + "\n" + url : text;
+    let ok = false;
+    try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(full); ok = true; } } catch (e) {}
+    if (!ok) {
+      try {
+        const ta = document.createElement("textarea"); ta.value = full; ta.setAttribute("readonly", "");
+        ta.style.cssText = "position:fixed;left:-9999px;top:0;opacity:0"; document.body.appendChild(ta); ta.select();
+        ok = document.execCommand("copy"); ta.remove();
+      } catch (e) {}
+    }
+    toast(ok ? T.shareCopied : T.shareFail);
+  }
+  function setPause(on) {
+    if (on && state === "play") {
+      state = "pause"; bgmStop(); resetInput();
+      showPanel(`<h1>${T.paused}</h1><button class="btn" id="go" type="button">${T.resume}</button>`);
+      $("go").onclick = () => { hidePanel(); state = "play"; last = performance.now(); if (audioInit()) bgmStart(false); };
+    }
+  }
+  function begin() {                       // 소리 없이 게임 상태만 시작(검증용으로도 사용)
+    stage = 1; score = 0; newBestFlag = false; overBySd = false; S.ten = 0; clock = 0;
+    resetInput(); startStage(); state = "play"; hidePanel(); $("pauseBtn").hidden = false; last = performance.now();
+  }
+  function startGame() { begin(); if (audioInit()) bgmStart(true); }
+  function die() {
+    state = "over"; $("pauseBtn").hidden = true; resetInput(); bgmStop();
+    if (score > best) { best = score; newBestFlag = true; }
+    if (newBestFlag) saveBest();
+    paintHud(true);
+    setTimeout(() => { if (state === "over") showOver(); }, 250);
+  }
+
+  /* ================= 입력: 왼쪽 조이스틱 / 오른쪽 풍선 버튼 / 키보드 ================= */
+  const joyEl = $("joy"), joyBase = $("joyBase"), joyKnob = $("joyKnob"), bombBtn = $("bombBtn");
+  const joy = { id: null, ox: 0, oy: 0, axis: null }, keys = [];
+  const JOY = { R: 44, dead: 6, follow: 34, hyst: 1.1 };   // 조이스틱 반응: 무반응 구간(px), 기준점이 손가락을 따라오기 시작하는 거리(px), 방향 전환 여유폭
+  function joyDir(clientX, clientY) {
+    const r = joyEl.getBoundingClientRect();
+    let vx = clientX - (r.left + joy.ox), vy = clientY - (r.top + joy.oy), m = Math.hypot(vx, vy);
+    if (m > JOY.follow) {                                       // 기준점이 손가락을 따라와서, 반대 방향으로 바꿀 때 조금만 움직여도 됨
+      const f = (m - JOY.follow) / m;
+      joy.ox = clamp(joy.ox + vx * f, 54, Math.max(54, r.width - 54)); joy.oy = clamp(joy.oy + vy * f, 54, Math.max(54, r.height - 54));
+      joyBase.style.left = joy.ox + "px"; joyBase.style.top = joy.oy + "px";
+      vx = clientX - (r.left + joy.ox); vy = clientY - (r.top + joy.oy); m = Math.hypot(vx, vy);
+    }
+    const kd = JOY.R / JOY.follow, kk = m * kd > JOY.R ? JOY.R / (m * kd) : 1;
+    joyKnob.style.transform = `translate(${vx * kd * kk}px, ${vy * kd * kk}px)`;
+    if (m < JOY.dead) { inputState.dx = 0; inputState.dy = 0; joy.axis = null; return; }
+    const ax = Math.abs(vx), ay = Math.abs(vy);
+    if (!joy.axis || (joy.axis === "x" && ay > ax * JOY.hyst) || (joy.axis === "y" && ax > ay * JOY.hyst)) joy.axis = ax >= ay ? "x" : "y";
+    if (joy.axis === "x") { inputState.dx = Math.sign(vx); inputState.dy = 0; } else { inputState.dy = Math.sign(vy); inputState.dx = 0; }
+  }
+  function joyEnd() {
+    joy.id = null; joy.axis = null; joyEl.classList.remove("on");
+    joyBase.style.left = ""; joyBase.style.top = ""; joyKnob.style.transform = "";
+    applyKeys();
+  }
+  joyEl.addEventListener("pointerdown", e => {
+    if (joy.id !== null) return;
+    e.preventDefault(); joy.id = e.pointerId;
+    try { joyEl.setPointerCapture(e.pointerId); } catch (er) {}
+    const r = joyEl.getBoundingClientRect();
+    joy.ox = clamp(e.clientX - r.left, 54, Math.max(54, r.width - 54)); joy.oy = clamp(e.clientY - r.top, 54, Math.max(54, r.height - 54));
+    joyBase.style.left = joy.ox + "px"; joyBase.style.top = joy.oy + "px"; joyEl.classList.add("on");
+    joyDir(e.clientX, e.clientY);
+  });
+  joyEl.addEventListener("pointermove", e => { if (e.pointerId === joy.id) joyDir(e.clientX, e.clientY); });
+  joyEl.addEventListener("pointerup", e => { if (e.pointerId === joy.id) joyEnd(); });
+  joyEl.addEventListener("pointercancel", e => { if (e.pointerId === joy.id) joyEnd(); });
+  joyEl.addEventListener("lostpointercapture", e => { if (e.pointerId === joy.id) joyEnd(); });
+  bombBtn.addEventListener("pointerdown", e => { e.preventDefault(); inputState.bomb = true; bombBtn.classList.add("down"); });
+  ["pointerup", "pointercancel", "pointerleave"].forEach(n => bombBtn.addEventListener(n, () => bombBtn.classList.remove("down")));
+  function applyKeys() {
+    if (joy.id !== null) return;
+    const k = keys.length ? keys[keys.length - 1] : null;
+    inputState.dx = k === "L" ? -1 : k === "R" ? 1 : 0; inputState.dy = k === "U" ? -1 : k === "D" ? 1 : 0;
+  }
+  function resetInput() {
+    keys.length = 0; inputState.dx = 0; inputState.dy = 0; inputState.bomb = false;
+    if (joy.id !== null) joyEnd(); bombBtn.classList.remove("down");
+  }
+  const KEYMAP = { ArrowUp: "U", KeyW: "U", ArrowDown: "D", KeyS: "D", ArrowLeft: "L", KeyA: "L", ArrowRight: "R", KeyD: "R" };
+  addEventListener("keydown", e => {
+    const code = e.code, kd = KEYMAP[code];
+    if (kd) {
+      e.preventDefault();
+      if (state === "play" && !keys.includes(kd)) { keys.push(kd); applyKeys(); }
+    } else if (code === "Escape" && state === "play") setPause(true);
+    else if (code === "Space" || code === "Enter" || code === "KeyZ" || code === "KeyX") {
+      if (state === "play") { e.preventDefault(); if (!e.repeat) inputState.bomb = true; }
+      else if (code === "Space" || code === "Enter") {
+        const b = card.querySelector(".btn");
+        if (b && !b.disabled) { e.preventDefault(); b.click(); }
+      }
+    }
+  });
+  addEventListener("keyup", e => {
+    const kd = KEYMAP[e.code]; if (!kd) return;
+    const i = keys.indexOf(kd); if (i >= 0) keys.splice(i, 1);
+    applyKeys();
+  });
+  addEventListener("blur", () => { if (state === "play") setPause(true); else resetInput(); });
+  $("stage").addEventListener("touchmove", e => e.preventDefault(), { passive: false });
+  $("stage").addEventListener("contextmenu", e => e.preventDefault());
+  document.addEventListener("visibilitychange", () => { if (document.hidden && state === "play") setPause(true); });
+  $("pauseBtn").addEventListener("click", () => setPause(true));
+  $("soundBtn").addEventListener("click", () => {
+    audioInit(); muted = !muted; applyMute(); paintSound();
+    try { localStorage.setItem(MUTE_KEY, muted ? "1" : "0"); } catch (e) {}
+  });
+
+  /* ================= 갱신 ================= */
+  let goT = 0;
+  function update(dt) {
+    if (state === "play") {
+      if (phase === "intro") {
+        phaseT += dt;
+        const left = CFG.introT - phaseT, n = left > CFG.introT * 2 / 3 ? 3 : left > CFG.introT / 3 ? 2 : 1;
+        if (n !== introN) { introN = n; sfx("beep", false); }
+        if (phaseT >= CFG.introT) { phase = "play"; phaseT = 0; goT = 0.7; sfx("beep", true); }
+        S.ten += (0 - S.ten) * Math.min(1, dt * 2);
+      } else if (phase === "play") stepPlay(dt);
+      else if (phase === "clear") { phaseT += dt; S.ten += (0 - S.ten) * Math.min(1, dt * 2); if (phaseT > CFG.clearT) { stage++; startStage(); } }
+      else if (phase === "lost") { phaseT += dt; if (phaseT > CFG.lostT) die(); }
+      if (goT > 0) goT -= dt;
+      paintHud(); paintStats(); paintBomb();
+    }
+    shakeT = Math.max(0, shakeT - dt);
+    for (let i = splashes.length - 1; i >= 0; i--) { splashes[i].age += dt; if (splashes[i].age > CFG.waterT) splashes.splice(i, 1); }
+    for (let i = parts.length - 1; i >= 0; i--) { const q = parts[i]; q.age += dt; q.vy += 12 * dt; q.x += q.vx * dt; q.y += q.vy * dt; if (q.age > q.life) parts.splice(i, 1); }
+    for (let i = floats.length - 1; i >= 0; i--) { floats[i].age += dt; if (floats[i].age > 1) floats.splice(i, 1); }
+  }
+
+  /* ---------- HUD / 버튼 ---------- */
+  let hudCache = "", statCache = "", bombCache = "";
+  function paintHud(force) {
+    const sec = Math.max(0, Math.ceil(timeLeft)), frac = clamp(timeLeft / CFG.stageTime, 0, 1);
+    const key = [stage, score, Math.max(best, score), sec, Math.round(frac * 200), !!sd, S.ten > 0.01].join("|");
+    if (!force && key === hudCache) return;
+    hudCache = key;
+    $("tStage").textContent = T.stageLabel(stage);
+    $("tScore").textContent = score;
+    $("tBest").textContent = Math.max(best, score);
+    $("timerNum").textContent = sd ? T.sudden : sec + T.sec;
+    const f = $("timerFill"); f.style.width = (frac * 100) + "%";
+    f.className = frac > 0.35 ? "" : frac > 0.15 ? "mid" : "low";
+    $("timerWrap").classList.toggle("hot", (!!sd || S.ten > 0.3) && state === "play");
+  }
+  const CHIP_COL = { bal: "#3fa7ff", pow: "#ff7a4d", spd: "#3fc46a", nee: "#a35cf0", shd: "#f2a516" };
+  function paintStats(force) {
+    if (!player) return;
+    const foes = ents.filter(e => !e.human && e.alive).length;
+    const key = [player.bal, player.pow, player.spd, player.needle, player.shield, foes, ents.length - 1].join("|");
+    if (!force && key === statCache) return;
+    statCache = key;
+    const chip = (k, v, off) => `<span class="chip${off ? " off" : ""}"><i style="background:${CHIP_COL[k]}"></i>${T.chips[k]} <b>${v}</b></span>`;
+    $("chips").classList.toggle("many", !!player.shield); $("chips").innerHTML = chip("bal", player.bal) + chip("pow", player.pow) + chip("spd", player.spd) + chip("nee", player.needle, player.needle <= 0) + (player.shield ? chip("shd", "ON") : "");
+    $("tFoes").textContent = foes;
+  }
+  function paintBomb(force) {
+    if (!player) return;
+    const nd = player.trapped > 0 && player.needle > 0, key = nd + "|" + (player.placed >= player.bal);
+    if (!force && key === bombCache) return;
+    bombCache = key;
+    bombBtn.classList.toggle("needle", nd);
+    bombBtn.style.opacity = !nd && player.placed >= player.bal ? "0.55" : "";
+    bombBtn.innerHTML = nd ? `${T.needleLabel}<small>${T.needleSub}</small>` : `${T.bombLabel}<small>${T.bombSub}</small>`;
+  }
+
+  /* ================= 그리기 ================= */
+  const FONT = '"Gaegu","Apple SD Gothic Neo","Noto Sans KR","Hiragino Sans","Yu Gothic","Meiryo",sans-serif';
+  const DECO_SEED = Array.from({ length: 40 }, (_, i) => ({ x: (i * 0.6180339) % 1, y: (i * 0.7548776) % 1, s: 0.5 + ((i * 0.3819) % 1) }));
+  function drawBg(tm, P) {
+    const gr = ctx.createLinearGradient(0, 0, 0, VH); gr.addColorStop(0, P.bg[0]); gr.addColorStop(1, P.bg[1]);
+    ctx.fillStyle = gr; ctx.fillRect(0, 0, VW, VH);
+    const dk = P.dk, deco = P.th.deco;
+    ctx.save();
+    if (deco === "dots") {
+      ctx.fillStyle = dk ? "#ffffff" : "#6f8a4a"; ctx.globalAlpha = 0.1;
+      for (let y = 20; y < VH; y += 28) for (let x = 14 + ((y / 28) % 2) * 14; x < VW; x += 28) { ctx.beginPath(); ctx.arc(x, y, 1.6, 0, 6.3); ctx.fill(); }
+    } else if (deco === "ripple") {
+      ctx.strokeStyle = dk ? "#7fd6cf" : "#ffffff"; ctx.lineWidth = 2;
+      for (let i = 0; i < 5; i++) { const s = DECO_SEED[i], k = ((tm * 0.25 + s.s) % 1); ctx.globalAlpha = (1 - k) * 0.45; ctx.beginPath(); ctx.ellipse(s.x * VW, s.y * VH, 12 + k * 60, 5 + k * 24, 0, 0, 6.3); ctx.stroke(); }
+    } else if (deco === "sun") {
+      ctx.globalAlpha = dk ? 0.3 : 0.5; ctx.fillStyle = dk ? "#ff9d6e" : "#fff2c4";
+      ctx.beginPath(); ctx.arc(VW * 0.5, VH * 0.62, VW * 0.34, 0, 6.3); ctx.fill();
+      ctx.globalAlpha = dk ? 0.16 : 0.25; ctx.fillStyle = dk ? "#ff6f91" : "#ffffff";
+      for (let i = 0; i < 4; i++) ctx.fillRect(0, VH * (0.74 + i * 0.05), VW, 3 + i);
+    } else if (deco === "stars") {
+      ctx.fillStyle = dk ? "#ffffff" : "#6c7cc9";
+      for (let i = 0; i < 40; i++) { const s = DECO_SEED[i]; ctx.globalAlpha = (dk ? 0.35 : 0.22) + 0.35 * Math.abs(Math.sin(tm * (0.6 + s.s) + i)); ctx.beginPath(); ctx.arc(s.x * VW, s.y * VH, 1 + s.s * 1.3, 0, 6.3); ctx.fill(); }
+    } else if (deco === "snow") {
+      ctx.fillStyle = dk ? "#dfe9ff" : "#ffffff";
+      for (let i = 0; i < 22; i++) { const s = DECO_SEED[i], y = mod(s.y * VH + tm * (14 + s.s * 20), VH + 20) - 10, x = s.x * VW + Math.sin(tm * 0.7 + i) * 14; ctx.globalAlpha = dk ? 0.55 : 0.95; ctx.beginPath(); ctx.arc(x, y, 1.8 + s.s * 2, 0, 6.3); ctx.fill(); }
+    }
+    ctx.restore();
+  }
+  const cpx = (r, c) => ({ x: gx + c * ts, y: gy + r * ts });
+  function drawWall(x, y, P, sdw) {
+    const pad = ts * 0.04, w = ts - pad * 2, d = ts * 0.13;
+    ctx.lineJoin = "round"; ctx.lineWidth = 2; ctx.strokeStyle = TINK;
+    ctx.fillStyle = sdw ? mixc(P.sdWall, "#000000", 0.3) : P.wallD; ctx.beginPath(); ctx.roundRect(x + pad, y + pad, w, w, ts * 0.12); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = sdw ? P.sdWall : P.wall; ctx.beginPath(); ctx.roundRect(x + pad, y + pad, w, w - d, ts * 0.12); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = sdw ? mixc(P.sdWall, "#ffffff", 0.3) : P.wallTop; ctx.globalAlpha = 0.7; ctx.beginPath(); ctx.roundRect(x + pad + ts * 0.08, y + pad + ts * 0.07, w - ts * 0.16, ts * 0.12, ts * 0.05); ctx.fill(); ctx.globalAlpha = 1;
+    ctx.fillStyle = TINK; ctx.globalAlpha = 0.5;
+    [[0.28, 0.5], [0.72, 0.5]].forEach(([a, b]) => { ctx.beginPath(); ctx.arc(x + ts * a, y + ts * b, ts * 0.04, 0, 6.3); ctx.fill(); });
+    ctx.globalAlpha = 1;
+    if (sdw) { ctx.strokeStyle = TINK; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x + ts * 0.3, y + ts * 0.25); ctx.lineTo(x + ts * 0.7, y + ts * 0.65); ctx.moveTo(x + ts * 0.7, y + ts * 0.25); ctx.lineTo(x + ts * 0.3, y + ts * 0.65); ctx.stroke(); }
+  }
+  function drawBox(x, y, P) {
+    const pad = ts * 0.06, w = ts - pad * 2, d = ts * 0.12;
+    ctx.lineJoin = "round"; ctx.lineWidth = 2; ctx.strokeStyle = TINK;
+    ctx.fillStyle = P.boxD; ctx.beginPath(); ctx.roundRect(x + pad, y + pad, w, w, ts * 0.1); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = P.box; ctx.beginPath(); ctx.roundRect(x + pad, y + pad, w, w - d, ts * 0.1); ctx.fill(); ctx.stroke();
+    ctx.strokeStyle = P.boxD; ctx.lineWidth = Math.max(2, ts * 0.07);
+    ctx.beginPath(); ctx.moveTo(x + pad + w * 0.18, y + pad + (w - d) * 0.5); ctx.lineTo(x + pad + w * 0.82, y + pad + (w - d) * 0.5);
+    ctx.moveTo(x + pad + w * 0.5, y + pad + (w - d) * 0.2); ctx.lineTo(x + pad + w * 0.5, y + pad + (w - d) * 0.8); ctx.stroke();
+    ctx.fillStyle = P.boxL; ctx.globalAlpha = 0.8; ctx.beginPath(); ctx.roundRect(x + pad + ts * 0.07, y + pad + ts * 0.06, w * 0.4, ts * 0.07, ts * 0.03); ctx.fill(); ctx.globalAlpha = 1;
+  }
+  const ITEM_COL = { bal: "#8fd0ff", pow: "#ffab8a", spd: "#9be58f", nee: "#d6b3ff", shd: "#ffe08a" };
+  function drawItem(type, cx, cy, tm, seed) {
+    const bob = Math.sin(tm * 4 + seed) * ts * 0.04, r = ts * 0.31, y = cy + bob;
+    ctx.save(); ctx.translate(cx, y); ctx.lineJoin = "round"; ctx.lineCap = "round";
+    ctx.fillStyle = "rgba(0,0,0,.18)"; ctx.beginPath(); ctx.ellipse(0, r * 1.05 - bob, r * 0.8, r * 0.28, 0, 0, 6.3); ctx.fill();
+    ctx.fillStyle = ITEM_COL[type]; ctx.strokeStyle = TINK; ctx.lineWidth = 2.2; ctx.beginPath(); ctx.arc(0, 0, r, 0, 6.3); ctx.fill(); ctx.stroke();
+    ctx.lineWidth = 2; ctx.fillStyle = "#fff";
+    if (type === "bal") { ctx.fillStyle = "#3fa7ff"; ctx.beginPath(); ctx.ellipse(0, -r * 0.1, r * 0.42, r * 0.5, 0, 0, 6.3); ctx.fill(); ctx.stroke(); ctx.beginPath(); ctx.moveTo(0, r * 0.4); ctx.lineTo(r * 0.15, r * 0.7); ctx.stroke(); }
+    else if (type === "pow") { ctx.fillStyle = "#ff5d3a"; ctx.beginPath(); ctx.moveTo(0, -r * 0.72); ctx.bezierCurveTo(r * 0.7, -r * 0.1, r * 0.6, r * 0.6, 0, r * 0.62); ctx.bezierCurveTo(-r * 0.6, r * 0.6, -r * 0.7, -r * 0.1, 0, -r * 0.72); ctx.fill(); ctx.stroke(); }
+    else if (type === "spd") { ctx.strokeStyle = TINK; ctx.lineWidth = 3; for (const o of [-0.3, 0.12]) { ctx.beginPath(); ctx.moveTo(r * o - r * 0.12, -r * 0.45); ctx.lineTo(r * o + r * 0.3, 0); ctx.lineTo(r * o - r * 0.12, r * 0.45); ctx.stroke(); } }
+    else if (type === "nee") { ctx.strokeStyle = TINK; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(-r * 0.5, r * 0.5); ctx.lineTo(r * 0.38, -r * 0.38); ctx.stroke(); ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.arc(r * 0.5, -r * 0.5, r * 0.2, 0, 6.3); ctx.fill(); ctx.lineWidth = 2; ctx.stroke(); }
+    else { ctx.fillStyle = "#f2a516"; ctx.beginPath(); ctx.moveTo(-r * 0.5, -r * 0.5); ctx.lineTo(r * 0.5, -r * 0.5); ctx.lineTo(r * 0.5, r * 0.1); ctx.quadraticCurveTo(r * 0.45, r * 0.55, 0, r * 0.72); ctx.quadraticCurveTo(-r * 0.45, r * 0.55, -r * 0.5, r * 0.1); ctx.closePath(); ctx.fill(); ctx.stroke(); }
+    ctx.restore();
+  }
+  function drawBalloon(b, tm) {
+    const { x, y } = cpx(b.r, b.c), cx = x + ts / 2, cy = y + ts / 2;
+    const ph = CFG.fuse - b.t, s = 1 + 0.07 * Math.sin(tm * (6 + ph * 5)), r = ts * 0.34 * s;
+    ctx.save(); ctx.translate(cx, cy + ts * 0.03); ctx.lineJoin = "round";
+    ctx.fillStyle = "rgba(0,0,0,.2)"; ctx.beginPath(); ctx.ellipse(0, r * 0.95, r * 0.8, r * 0.26, 0, 0, 6.3); ctx.fill();
+    ctx.fillStyle = b.owner.color; ctx.strokeStyle = TINK; ctx.lineWidth = 2.4;
+    ctx.beginPath(); ctx.ellipse(0, 0, r, r * 1.04, 0, 0, 6.3); ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(-r * 0.12, r * 1.0); ctx.lineTo(0, r * 1.22); ctx.lineTo(r * 0.12, r * 1.0); ctx.closePath(); ctx.fill(); ctx.stroke();
+    if (b.t < 0.7 && Math.floor(tm * 16) % 2 === 0) { ctx.fillStyle = "rgba(255,255,255,.7)"; ctx.beginPath(); ctx.ellipse(0, 0, r, r * 1.04, 0, 0, 6.3); ctx.fill(); }
+    ctx.fillStyle = "rgba(255,255,255,.7)"; ctx.beginPath(); ctx.ellipse(-r * 0.38, -r * 0.4, r * 0.2, r * 0.3, -0.5, 0, 6.3); ctx.fill();
+    ctx.restore();
+  }
+  function splashShape(sp) {
+    const { x, y } = cpx(sp.r, sp.c), th = ts * 0.64, cy = y + ts / 2, cx = x + ts / 2, k = sp.kind, rad = th / 2;
+    ctx.beginPath();
+    if (k === "c") { ctx.rect(x - 1, cy - th / 2, ts + 2, th); ctx.rect(cx - th / 2, y - 1, th, ts + 2); }
+    else if (k === "h") ctx.rect(x - 1, cy - th / 2, ts + 2, th);
+    else if (k === "v") ctx.rect(cx - th / 2, y - 1, th, ts + 2);
+    else if (k === "l") ctx.roundRect(x, cy - th / 2, ts + 1, th, [rad, 0, 0, rad]);
+    else if (k === "r") ctx.roundRect(x - 1, cy - th / 2, ts + 1, th, [0, rad, rad, 0]);
+    else if (k === "u") ctx.roundRect(cx - th / 2, y, th, ts + 1, [rad, rad, 0, 0]);
+    else ctx.roundRect(cx - th / 2, y - 1, th, ts + 1, [0, 0, rad, rad]);
+  }
+  function drawSplashes(tm) {
+    if (!splashes.length) return;
+    ctx.save(); ctx.lineJoin = "round";
+    const al = sp => sp.age < 0.06 ? sp.age / 0.06 : sp.age > CFG.waterT - 0.14 ? clamp((CFG.waterT - sp.age) / 0.14, 0, 1) : 1;
+    ctx.strokeStyle = TINK; ctx.lineWidth = 5;
+    for (const sp of splashes) { ctx.globalAlpha = al(sp); splashShape(sp); ctx.stroke(); }
+    ctx.fillStyle = "#6fd0ff";
+    for (const sp of splashes) { ctx.globalAlpha = al(sp); splashShape(sp); ctx.fill(); }
+    ctx.strokeStyle = "rgba(255,255,255,.75)"; ctx.lineWidth = Math.max(2, ts * 0.06);
+    for (const sp of splashes) {
+      ctx.globalAlpha = al(sp); const { x, y } = cpx(sp.r, sp.c), cx = x + ts / 2, cy = y + ts / 2, k = sp.kind;
+      ctx.beginPath();
+      if (k === "h" || k === "l" || k === "r" || k === "c") { ctx.moveTo(x + ts * 0.12, cy - ts * 0.12); ctx.lineTo(x + ts * 0.88, cy - ts * 0.12); }
+      if (k === "v" || k === "u" || k === "d" || k === "c") { ctx.moveTo(cx - ts * 0.12, y + ts * 0.12); ctx.lineTo(cx - ts * 0.12, y + ts * 0.88); }
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+  function accessory(e, R, tm) {
+    ctx.lineJoin = "round"; ctx.lineWidth = 2; ctx.strokeStyle = TINK;
+    if (e.human) {                                                // 모자
+      ctx.fillStyle = "#ffd23f"; ctx.beginPath(); ctx.arc(0, -R * 0.5, R * 0.82, Math.PI * 1.08, Math.PI * 1.92); ctx.closePath(); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.roundRect(-R * 0.12, -R * 1.45, R * 0.24, R * 0.3, R * 0.1); ctx.fill(); ctx.stroke();
+    } else if (e.acc === 0) {                                     // 귀
+      ctx.fillStyle = e.color; for (const s of [-1, 1]) { ctx.beginPath(); ctx.arc(s * R * 0.7, -R * 0.82, R * 0.3, 0, 6.3); ctx.fill(); ctx.stroke(); }
+    } else if (e.acc === 1) {                                     // 더듬이
+      ctx.beginPath(); ctx.moveTo(0, -R * 0.95); ctx.lineTo(R * 0.12, -R * 1.5); ctx.stroke(); ctx.fillStyle = "#ffd23f"; ctx.beginPath(); ctx.arc(R * 0.12, -R * 1.55, R * 0.2, 0, 6.3); ctx.fill(); ctx.stroke();
+    } else {                                                      // 뿔
+      ctx.fillStyle = "#fff"; for (const s of [-1, 1]) { ctx.beginPath(); ctx.moveTo(s * R * 0.35, -R * 0.85); ctx.lineTo(s * R * 0.75, -R * 1.45); ctx.lineTo(s * R * 0.78, -R * 0.62); ctx.closePath(); ctx.fill(); ctx.stroke(); }
+    }
+  }
+  function drawEnt(e, tm) {
+    const px = gx + e.x * ts, bob = e.moving ? Math.sin(e.walkT * 16) * ts * 0.03 : Math.sin(tm * 3 + e.id) * ts * 0.01;
+    const R = ts * 0.36, trap = e.trapped > 0;
+    let py = gy + e.y * ts;
+    if (trap) py += Math.sin(tm * 3 + e.id) * ts * 0.05 - ts * 0.04;
+    ctx.save();
+    if (e.invuln > 0 && Math.floor(tm * 16) % 2 === 0) ctx.globalAlpha = 0.45;
+    ctx.fillStyle = "rgba(0,0,0,.2)"; ctx.beginPath(); ctx.ellipse(px, gy + e.y * ts + R * 0.95, R * 0.85, R * 0.3, 0, 0, 6.3); ctx.fill();
+    ctx.translate(px, py + bob);
+    if (trap) ctx.scale(0.82, 0.82);
+    ctx.lineJoin = "round"; ctx.lineWidth = 2.4; ctx.strokeStyle = TINK;
+    accessory(e, R, tm);
+    ctx.fillStyle = e.color; ctx.beginPath(); ctx.arc(0, 0, R, 0, 6.3); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = "rgba(255,255,255,.28)"; ctx.beginPath(); ctx.ellipse(-R * 0.3, -R * 0.45, R * 0.32, R * 0.2, -0.5, 0, 6.3); ctx.fill();
+    const dv = [[0, -1], [1, 0], [0, 1], [-1, 0]][e.dir];
+    ctx.lineWidth = 1.6;
+    for (const s of [-1, 1]) {
+      const ex = s * R * 0.36 + dv[0] * R * 0.1, ey = -R * 0.08 + dv[1] * R * 0.1;
+      ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.ellipse(ex, ey, R * 0.24, R * 0.28, 0, 0, 6.3); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = TINK; ctx.beginPath(); ctx.arc(ex + dv[0] * R * 0.09, ey + dv[1] * R * 0.1, R * 0.12, 0, 6.3); ctx.fill();
+    }
+    ctx.beginPath(); if (trap) { ctx.arc(0, R * 0.5, R * 0.14, 0, 6.3); } else { ctx.arc(0, R * 0.34, R * 0.2, 0.15, Math.PI - 0.15); } ctx.stroke();
+    ctx.restore();
+    if (trap) {                                                    // 물방울 + 남은 시간 고리
+      const br = ts * 0.58, left = e.trapped / CFG.trapT, low = e.trapped < 1.5;
+      ctx.save(); ctx.translate(px, py);
+      ctx.fillStyle = "rgba(143,208,255,.45)"; ctx.strokeStyle = TINK; ctx.lineWidth = 2.4; ctx.beginPath(); ctx.arc(0, 0, br, 0, 6.3); ctx.fill(); ctx.stroke();
+      ctx.strokeStyle = "rgba(255,255,255,.85)"; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(0, 0, br * 0.78, Math.PI * 1.1, Math.PI * 1.45); ctx.stroke();
+      ctx.strokeStyle = low && Math.floor(tm * 10) % 2 === 0 ? "#fff" : (low ? "#e5484d" : "#2b7de0"); ctx.lineWidth = 4;
+      ctx.beginPath(); ctx.arc(0, 0, br + 4, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * left); ctx.stroke();
+      ctx.restore();
+    }
+    if (e.shield) {
+      ctx.save(); ctx.translate(px, py); ctx.rotate(tm * 2); ctx.strokeStyle = "#f2a516"; ctx.lineWidth = 3; ctx.setLineDash([6, 5]);
+      ctx.beginPath(); ctx.arc(0, 0, R * 1.35, 0, 6.3); ctx.stroke(); ctx.restore();
+    }
+    if (e.human) {                                                 // 내 캐릭터 표시(머리 위 삼각형)
+      const y = py - ts * 0.62 + Math.sin(tm * 5) * 2;
+      ctx.save(); ctx.fillStyle = "#fff"; ctx.strokeStyle = TINK; ctx.lineWidth = 2; ctx.lineJoin = "round";
+      ctx.beginPath(); ctx.moveTo(px - ts * 0.13, y - ts * 0.15); ctx.lineTo(px + ts * 0.13, y - ts * 0.15); ctx.lineTo(px, y); ctx.closePath(); ctx.fill(); ctx.stroke(); ctx.restore();
+    }
+  }
+  function drawBoard(tm, P) {
+    const bw = COLS * ts, bh = ROWS * ts;
+    ctx.save();
+    ctx.fillStyle = P.f1; ctx.strokeStyle = C.ink; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.roundRect(gx - 4, gy - 4, bw + 8, bh + 8, 10); ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.roundRect(gx, gy, bw, bh, 4); ctx.clip();
+    for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) { ctx.fillStyle = (r + c) % 2 ? P.f2 : P.f1; ctx.fillRect(gx + c * ts, gy + r * ts, ts + 0.5, ts + 0.5); }
+    if (sd) {                                                      // 곧 막힐 칸 경고
+      for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
+        const m = doom[r][c];
+        if (g[r][c] !== 1 && m < 1.4) { ctx.fillStyle = `rgba(229,72,77,${0.25 + 0.3 * Math.abs(Math.sin(tm * 12))})`; ctx.fillRect(gx + c * ts, gy + r * ts, ts, ts); }
+      }
+    }
+    ctx.restore();
+    for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
+      const { x, y } = cpx(r, c);
+      if (g[r][c] === 1) drawWall(x, y, P, sdWall[r][c]);
+      else if (g[r][c] === 2) drawBox(x, y, P);
+      else if (itemG[r][c]) drawItem(itemG[r][c].type, x + ts / 2, y + ts / 2, tm, r * 7 + c);
+    }
+    for (const b of balloons) drawBalloon(b, tm);
+    drawSplashes(tm);
+    for (const e of ents.slice().sort((a, b) => a.y - b.y)) if (e.alive) drawEnt(e, tm);
+    for (const q of parts) {
+      ctx.globalAlpha = Math.max(0, 1 - q.age / q.life); ctx.fillStyle = q.col; ctx.beginPath();
+      ctx.arc(gx + q.x * ts, gy + q.y * ts, q.r, 0, 6.3); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    for (const f of floats) {
+      ctx.globalAlpha = Math.max(0, 1 - f.age); ctx.font = `700 ${f.big ? 26 : 20}px ${FONT}`; ctx.textAlign = "center";
+      const fx = gx + f.x * ts, fy = gy + f.y * ts - f.age * 30;
+      ctx.lineWidth = 4; ctx.strokeStyle = "#fffdf5"; ctx.strokeText(f.text, fx, fy);
+      ctx.fillStyle = f.big ? "#e5484d" : TINK; ctx.fillText(f.text, fx, fy);
+    }
+    ctx.globalAlpha = 1;
+  }
+  function bigText(text, x, y, size, fill) {
+    ctx.save(); ctx.font = `700 ${size}px ${FONT}`; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.lineJoin = "round";
+    ctx.lineWidth = Math.max(5, size * 0.12); ctx.strokeStyle = TINK; ctx.strokeText(text, x, y);
+    ctx.fillStyle = fill || "#fff"; ctx.fillText(text, x, y); ctx.restore();
+  }
+  function drawOverlay(tm, P) {
+    const cx = gx + COLS * ts / 2, cy = gy + ROWS * ts / 2;
+    if (state !== "play" && state !== "pause") return;
+    if (phase === "intro") {
+      bigText(`${T.stageLabel(stage)} · ${T.themes[mod(stage - 1, T.themes.length)]}`, cx, cy - ts * 2.3, Math.min(34, ts * 0.85), "#ffd23f");
+      const n = introN, k = (CFG.introT / 3 - ((CFG.introT - phaseT) % (CFG.introT / 3))) / (CFG.introT / 3);
+      ctx.save(); ctx.globalAlpha = clamp(1.3 - k * 0.6, 0.3, 1); bigText(String(n), cx, cy, ts * 3.2 * (1 + (1 - k) * 0.15)); ctx.restore();
+    } else if (goT > 0) { ctx.save(); ctx.globalAlpha = clamp(goT / 0.4, 0, 1); bigText(T.go, cx, cy, ts * 1.9, "#ffd23f"); ctx.restore(); }
+    else if (phase === "clear") bigText(T.clear, cx, cy, ts * 2.2, "#ffd23f");
+    else if (phase === "lost") bigText(overBySd ? T.sudden : T.pop, cx, cy, ts * 2, "#ff8a8a");
+  }
+  function drawTension(tm) {                                       // 급해지면 화면 가장자리가 붉게 깜빡임
+    if (S.ten < 0.05 || state !== "play") return;
+    const a = S.ten * (0.2 + 0.14 * Math.sin(tm * (4 + 8 * S.ten)));
+    const gr = ctx.createRadialGradient(VW / 2, VH / 2, Math.min(VW, VH) * 0.35, VW / 2, VH / 2, Math.max(VW, VH) * 0.75);
+    gr.addColorStop(0, "rgba(229,72,77,0)"); gr.addColorStop(1, `rgba(229,72,77,${clamp(a, 0, 0.45)})`);
+    ctx.fillStyle = gr; ctx.fillRect(0, 0, VW, VH);
+  }
+  function render(tm) {
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const P = palette();
+    drawBg(tm, P);
+    ctx.save();
+    if (shakeT > 0 && !reduceMotion) ctx.translate(rnd(-1, 1) * shakeT * 14, rnd(-1, 1) * shakeT * 14);
+    drawBoard(tm, P);
+    ctx.restore();
+    drawOverlay(tm, P); drawTension(tm);
+  }
+
+  /* ================= 메인 루프 ================= */
+  let last = performance.now(), errOnce = false;
+  function frame(now) {
+    requestAnimationFrame(frame);                                  // 오류가 나도 루프가 끊기지 않게 먼저 예약
+    const dt = Math.min(0.05, (now - last) / 1000 || 0.016); last = now;
+    try { if (state !== "pause") update(dt); render(now / 1000); }
+    catch (e) { if (!errOnce) { errOnce = true; console.error(e); } }
+  }
+
+  /* ---------- 시작 ---------- */
+  readColors(); startStage(); paintSound(); showReady(); layout();
+  requestAnimationFrame(frame);
+})();
+</script>
+
+</body>
+</html>

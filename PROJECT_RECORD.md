@@ -334,6 +334,20 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-11-13 (2) — 신규 카테고리 "미니 게임" + 게임 5종 통합 (사용자 요청)
+
+- 사용자 요청: 미니 게임 5종(막대기 인간 똥피하기·오픈 런·캐논 힐·사천성·크레이지 아케이드)을 lifehub에 한 번에 통합. 카테고리는 「미니 게임」으로 지정, 나머지는 위임.
+- 구조: 게임 본체는 `public/games/<slug>.html`(자체 완결형 캔버스 게임, `?lang=ko|en|ja|es`로 표시 언어 선택, `noindex`)이고, 도구 페이지 `src/app/[locale]/tool/<slug>/page.tsx`가 같은 출처 iframe(`GameFrame`)으로 불러옵니다. 게임 아래에 소개·조작 방법·요령·FAQ·다른 미니 게임·안내 문구를 둡니다(폰 비율 상자 최대 440px, 가운데 정렬).
+- 슬러그: `poop-dodge`, `open-run`, `cannon-hill`, `tile-connect`, `water-balloon-battle`. 이름(ko/en/ja/es): 막대기 인간 똥피하기 / Stickman Poop Dodge / 棒人間のうんち避け / Esquiva la Caca del Monigote, 오픈 런 / Open Run / オープンラン / Open Run, 캐논 힐 / Cannon Hill / キャノンヒル / Cannon Hill, 사천성 / Tile Connect / 四川省 / Conecta Fichas, 크레이지 아케이드 / Water Balloon Battle / 水風船バトル / Batalla de Globos de Agua.
+- 추가 파일: `public/games/*.html` 5개 + `public/games/fonts/gaegu-400.woff2`·`gaegu-700.woff2`(사용 글자만 담은 부분 글꼴, 구글 폰트 대신 자체 호스팅 — 게임 문구를 바꾸면 다시 만들어야 함), `src/components/mini-game/GameFrame.tsx`, `src/components/mini-game/MiniGamePage.tsx`, `src/lib/mini-games-data.ts`(4개 언어 문구), 페이지 5개.
+- 수정 파일: `src/lib/tools-data.ts`(카테고리 `mini-games` + 5종, 4개 언어 이름·설명), `src/app/[locale]/page.tsx`(카테고리 카드 `Gamepad2` 아이콘·🎮, fun-entertainment 다음 순서), `src/app/sitemap.ts`(카테고리 1 + 도구 5), `src/lib/tool-pub-dates.ts`(5종, 2026-11-13), `src/i18n/messages/{ko,en,ja,es}.json`(소개 문구 "7개 분야" → "8개 분야" + 「미니 게임」 추가).
+- 게임 쪽 처리: 번역 객체를 `{ko,en,ja,es}`로 확장하고 정적 문구는 `data-i`/`data-a`로 채움, 판 표기는 `stageLabel(n)`, 소리 버튼 문구·단위·공유 문구까지 4개 언어. 공유 주소는 게임이 들어 있는 lifehub 페이지 주소를 사용. 비한국어에서 줄바꿈·넘침이 생기던 HUD·버튼·칩은 CSS로 정리(5칩 상태 포함).
+- 검증: `tsc --noEmit` 통과, 변경 파일 eslint 통과(경고 0). 격리 복사본에서 `next dev`(webpack) — 도구 페이지 20개(5종×4언어)·카테고리 페이지 4개 모두 200, iframe 주소 `?lang=` 정상, 카테고리 목록·홈 카드·사이트맵(카테고리 4 + 도구 20 URL)·BreadcrumbList(LifeHub › 미니 게임 › 게임명) 확인, 개발 서버 로그에 오류 없음. 헤드리스 브라우저로 5종×4언어를 iframe 안에서 실행: 스크립트 오류 0, 글꼴 2종 `/games/fonts/`에서 로드, 외부 요청 0, 부모 페이지 주소 접근 정상.
+- 알아둘 점: 처음 계획한 "공통 소리 모듈 하나로 통합"은 게임마다 자체 완결형(소리 포함)을 유지하는 방식으로 바꿨습니다(코드 안전·기존 완료 판정 유지). 게임 페이지(`/games/*.html`)는 `noindex`이고 색인 대상은 lifehub 도구 페이지입니다.
+- 색인 요청 후속: 신규 URL 24개(게임 5종×4언어 20 + 카테고리 4) 색인 요청 목록 추가 예정.
+- 상태: 사용자 확인 후 푸시 진행(1회성 푸시 스크립트 실행으로 커밋·배포, 결과는 푸시 후 갱신).
+- 백업: `_backups/minigames-integration_20261113_080535`(PROJECT_RECORD.md·next.config.ts·package.json·public·src). 롤백: 추가한 파일·폴더 삭제 후 수정 파일을 `git checkout`.
+
 ## 2026-11-13 — Vercel 사용량 최적화 1단계: 전체 페이지를 캐시되는 정적(ISR) 페이지로 전환 (`setRequestLocale`)
 
 - 배경: Vercel Hobby 사용량 초과(Fluid Active CPU 4h39m/4h, ISR Reads 816K/1M, Fast Origin Transfer 7.84GB/10GB) 대응. 조사 결과 lifehub는 `src/app/[locale]/layout.tsx`에 `setRequestLocale(locale)`이 빠져 있어, next-intl이 요청 헤더로 언어를 읽는 바람에 모든 페이지(홈·카테고리·도구·소개)가 캐시되지 않는 동적 페이지(`private, no-store`)로 동작하고 있었음(ExifLens·FlyDroneMap·firelic 레이아웃에는 이미 있음).
