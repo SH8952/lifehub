@@ -334,6 +334,16 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-11-13 — Vercel 사용량 최적화 1단계: 전체 페이지를 캐시되는 정적(ISR) 페이지로 전환 (`setRequestLocale`)
+
+- 배경: Vercel Hobby 사용량 초과(Fluid Active CPU 4h39m/4h, ISR Reads 816K/1M, Fast Origin Transfer 7.84GB/10GB) 대응. 조사 결과 lifehub는 `src/app/[locale]/layout.tsx`에 `setRequestLocale(locale)`이 빠져 있어, next-intl이 요청 헤더로 언어를 읽는 바람에 모든 페이지(홈·카테고리·도구·소개)가 캐시되지 않는 동적 페이지(`private, no-store`)로 동작하고 있었음(ExifLens·FlyDroneMap·firelic 레이아웃에는 이미 있음).
+- 수정: 레이아웃 1곳에 import 1개 + `setRequestLocale(locale);` 1줄 추가(`getMessages()` 호출 전). 다른 파일 변경 없음.
+- 검증(격리 환경에서 실제 빌드): `next build` 정상, 958개 페이지 정적 생성. 동적(ƒ)으로 남은 것은 `/[locale]/[...rest]`(404 처리)와 `/api/visitor-count`뿐. `next start`로 확인한 결과 `/ko`·`/en`·카테고리 `s-maxage=3600`(1시간 재생성), 도구·소개 `s-maxage=31536000`, `x-nextjs-cache: HIT`, 언어별 `<html lang>` 정상.
+- 기대 효과: 방문·크롤러 요청마다 서버 함수가 실행되던 구조가 CDN 캐시 응답으로 바뀌어 CPU·함수 호출이 줄어듦. 화면·주소·canonical·JSON-LD 변경 없음(색인 영향 없음).
+- 참고: 최근 30일 프로젝트별 사용량은 lifehub 비중이 작음(ISR Reads 0.0%, FOT 1.0%, CPU 6.2%) — 트래픽이 늘어도 문제가 되지 않도록 한 예방 조치. 사용량 대부분은 exiflens·flydronemap(→ 후속 단계에서 처리).
+- 상태: 푸시·배포 완료(커밋 해시는 푸시 후 갱신).
+- 백업: `_backups/lifehub_backup_20261113_053251_setrequestlocale-before`. 롤백: `git revert <이번 커밋>`.
+
 ## 2026-11-12 (3) — 신규 도구 "나의 관상 보기"(face-reading) 추가: 사진 업로드 + 카메라 촬영, 기기 안 분석 (사용자 요청)
 
 - 사용자 요청: 관상 보기 기능. 이미 찍어 둔 얼굴 사진으로도, 카메라 권한을 받아 바로 촬영해서도 볼 수 있게.

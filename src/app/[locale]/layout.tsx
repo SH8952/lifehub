@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages, getTranslations } from "next-intl/server";
+import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing, type Locale } from "@/i18n/routing";
 import { SITE_URL, pageAlternates, ogLocale } from "@/lib/seo";
@@ -97,6 +97,7 @@ export default async function RootLayout({
 }) {
   const { locale } = await params;
   if (!routing.locales.includes(locale as any)) notFound();
+  setRequestLocale(locale);
   const messages = await getMessages();
   const tFooter = await getTranslations("Footer");
   return (
