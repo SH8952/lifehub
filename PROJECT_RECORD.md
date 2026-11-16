@@ -334,6 +334,17 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-11-16 (2) — `/llms.txt` 추가 (PageSpeed Insights "에이전트형 브라우징" 지적 대응)
+
+- 배경: 재측정 보고서의 에이전트형 브라우징 2/3 — "llms.txt가 권장사항을 준수하지 않음(가져올 수 없음: Timed out fetching resource)". 사이트에 llms.txt가 없었음(형제 3개 사이트에도 없음).
+- 추가: `src/app/llms.txt/route.ts`(정적 생성, 하루 1회 재생성). llmstxt.org 형식의 마크다운 — H1 `# LifeHub` → 인용문 요약 → `## Languages`·`## Categories`·카테고리별 도구 목록·`## Optional`(소개·정책·사이트맵·RSS).
+- 도구 목록은 `tools-data.ts`에서 만들어지므로 도구·카테고리를 추가하면 자동 반영(새 카테고리의 영어 이름만 route 파일의 `CATEGORY_LABELS`에 추가). 주소는 `SITE_URL` 기준이라 도메인을 바꿔도 따라감.
+- 언어: 본문은 영어, 링크는 영어 페이지(`/en/...`). 머리말에 `/ko/`(기본)·`/ja/`·`/es/`로 접두사만 바꾸면 같은 페이지라고 안내.
+- 기존 파일 변경 없음(새 파일 1개). 미들웨어는 점이 들어간 경로를 건너뛰므로 sitemap.xml·rss.xml처럼 그대로 응답.
+- 검증: `tsc --noEmit`·eslint 통과. 격리 복사본 `next dev`에서 `/llms.txt` 200, `text/plain; charset=utf-8`, 38.6KB, H1 1개, 링크 249개 모두 형식 정상(도구 231개 중복 없음·설명 누락 없음, 카테고리 8개), 도구 id 231개 모두 페이지 존재. `/ko`·`/rss.xml`·`/sitemap.xml`·`/robots.txt` 200 유지.
+- 상태: 로컬 검증 완료, 푸시 대기. 푸시 후 PageSpeed Insights 재측정으로 에이전트형 브라우징 항목 확인 필요.
+- 백업: `_backups/llms-txt_20261116_144106`. 롤백: `src/app/llms.txt` 폴더 삭제 또는 `git revert <이번 커밋>`.
+
 ## 2026-11-16 — PageSpeed Insights 지적 대응: 홈 접근성 4건 수정 + 애드센스 스크립트 지연 로딩 (사용자 요청)
 
 - 배경: 사용자가 보낸 PageSpeed Insights 모바일 보고서(2026-11-16, `https://lifehub-weld.vercel.app/` → `/ko`) — 성능 86, 접근성 94, 권장사항 100, 검색엔진 최적화 100. FCP 3.1초·LCP 3.1초·TBT 50ms·CLS 0.
@@ -346,7 +357,7 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 - 조치하지 않은 항목: 캐시 수명(구글 광고 서버 설정), 레거시 자바스크립트 14KiB(`browserslist`는 이미 최신 브라우저 — Next.js 내장 폴리필로 추정). 렌더링 차단 CSS(13.9KiB, 예상 150ms)는 `experimental.inlineCss` 후보로 남김(격리 빌드 검증 후 결정).
 - 참고: 측정 주소가 `/`라서 `/ko` 리디렉션 시간이 FCP·LCP에 포함됨 — 재측정은 `/ko`로.
 - 검증: `tsc --noEmit` 통과, 변경 파일 eslint 통과. 격리 복사본 `next dev`로 홈 4개 언어 200 — 제목 h1 1개 + h2 16개(순서 건너뜀 없음), 카테고리 카드 h2 8개, 문제 클래스(`text-white/80`·`text-muted-foreground/80`) 0건. 임시 게시자 ID로 띄워 광고 스크립트가 `lazyOnload`로 내려가고 head에 script·preload가 없음을 확인(홈·도구 페이지).
-- 상태: 로컬 검증 완료, 푸시 대기(1회성 푸시 스크립트). 푸시 후 PageSpeed Insights `/ko` 재측정으로 점수 확인 필요.
+- 상태: 푸시 완료(커밋 fb95d8b, 2026-11-16). 사용자 재측정(PageSpeed Insights 모바일, 2026-11-16 23:37): 성능 86 → 100, 접근성 94 → 100, 권장사항 100, 검색엔진 최적화 100. FCP 3.1초 → 0.9초, LCP 3.1초 → 0.9초, TBT 50ms → 30ms, Speed Index 4.2초 → 2.6초, CLS 0. 성능이 100이라 렌더링 차단 CSS 인라인(`experimental.inlineCss`)은 진행하지 않음(실험 기능의 위험 대비 얻을 것이 없음).
 - 백업: `_backups/a11y-adsense-lazy_20261116_143203`. 롤백: 두 파일을 백업본으로 되돌리거나 `git revert <이번 커밋>`.
 
 ## 2026-11-13 (2) — 신규 카테고리 "미니 게임" + 게임 5종 통합 (사용자 요청)
