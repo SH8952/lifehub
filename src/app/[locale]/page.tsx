@@ -1,6 +1,6 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { webApplicationJsonLd } from "@/lib/seo";
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import ToolSearch, { type SearchableTool } from "@/components/ToolSearch";
 import {
   HeartPulse,
@@ -246,7 +246,7 @@ export default async function Home({
 
             <a
               href="#categories"
-              className="text-sm font-medium text-primary underline-offset-4 hover:underline"
+              className="text-sm font-medium text-amber-700 underline-offset-4 hover:underline"
             >
               {t("ctaPrimary")} →
             </a>
@@ -271,7 +271,7 @@ export default async function Home({
                   ✨ {t("todaysPickBadge")}
                 </span>
                 <p className="mt-1 truncate font-semibold">{featuredTool[nameKey]}</p>
-                <p className="mt-0.5 text-sm text-white/80 line-clamp-1">
+                <p className="mt-0.5 text-sm text-primary-foreground/80 line-clamp-1">
                   {featuredTool[descKey]}
                 </p>
               </div>
@@ -347,13 +347,17 @@ export default async function Home({
                       })()}
                     </span>
                     <div className="flex-1">
-                      <CardTitle className="text-base sm:text-lg group-hover:text-primary transition-colors">
+                      {/* 접근성: h1 다음에 h3가 바로 오지 않도록 h2로 출력(모양은 CardTitle과 동일) */}
+                      <h2
+                        data-slot="card-title"
+                        className="font-semibold text-base sm:text-lg group-hover:text-primary transition-colors"
+                      >
                         {cat[nameKey]}
-                      </CardTitle>
+                      </h2>
                       <p className="text-xs sm:text-sm text-muted-foreground mt-1 line-clamp-2 sm:line-clamp-none">
                         {cat[descKey]}
                       </p>
-                      <p className="text-xs text-muted-foreground/80 mt-2 line-clamp-1">
+                      <p className="text-xs text-muted-foreground mt-2 line-clamp-1">
                         {previewNames.join(" · ")}
                       </p>
                       <div className="mt-3 h-1 w-full overflow-hidden rounded-full bg-muted">

@@ -334,6 +334,21 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-11-16 — PageSpeed Insights 지적 대응: 홈 접근성 4건 수정 + 애드센스 스크립트 지연 로딩 (사용자 요청)
+
+- 배경: 사용자가 보낸 PageSpeed Insights 모바일 보고서(2026-11-16, `https://lifehub-weld.vercel.app/` → `/ko`) — 성능 86, 접근성 94, 권장사항 100, 검색엔진 최적화 100. FCP 3.1초·LCP 3.1초·TBT 50ms·CLS 0.
+- 접근성(모두 `src/app/[locale]/page.tsx`, 대비율은 계산값·기준 4.5:1):
+  - 히어로 "카테고리 보기 →" 링크: `text-primary`(약 2.1:1) → `text-amber-700`(약 4.9:1).
+  - 오늘의 추천 카드 설명: 앰버 배경 위 `text-white/80`(약 1.8:1) → `text-primary-foreground/80`(약 5.7:1).
+  - 카테고리 카드 도구 미리보기 줄: `text-muted-foreground/80`(약 3.2:1) → `text-muted-foreground`(약 4.7:1).
+  - 제목 순서(h1 다음 h3): 카테고리 카드 제목을 `CardTitle`(h3) 대신 같은 클래스의 `h2`로 출력. `card.tsx`는 건드리지 않음(다른 페이지 영향 없음).
+- 성능(`src/app/[locale]/layout.tsx`): 애드센스 스크립트 `strategy="afterInteractive"` → `"lazyOnload"`(페이지 로딩이 끝난 뒤 로드). 사용하지 않는 자바스크립트 211KiB 중 152KiB가 애드센스였음.
+- 조치하지 않은 항목: 캐시 수명(구글 광고 서버 설정), 레거시 자바스크립트 14KiB(`browserslist`는 이미 최신 브라우저 — Next.js 내장 폴리필로 추정). 렌더링 차단 CSS(13.9KiB, 예상 150ms)는 `experimental.inlineCss` 후보로 남김(격리 빌드 검증 후 결정).
+- 참고: 측정 주소가 `/`라서 `/ko` 리디렉션 시간이 FCP·LCP에 포함됨 — 재측정은 `/ko`로.
+- 검증: `tsc --noEmit` 통과, 변경 파일 eslint 통과. 격리 복사본 `next dev`로 홈 4개 언어 200 — 제목 h1 1개 + h2 16개(순서 건너뜀 없음), 카테고리 카드 h2 8개, 문제 클래스(`text-white/80`·`text-muted-foreground/80`) 0건. 임시 게시자 ID로 띄워 광고 스크립트가 `lazyOnload`로 내려가고 head에 script·preload가 없음을 확인(홈·도구 페이지).
+- 상태: 로컬 검증 완료, 푸시 대기(1회성 푸시 스크립트). 푸시 후 PageSpeed Insights `/ko` 재측정으로 점수 확인 필요.
+- 백업: `_backups/a11y-adsense-lazy_20261116_143203`. 롤백: 두 파일을 백업본으로 되돌리거나 `git revert <이번 커밋>`.
+
 ## 2026-11-13 (2) — 신규 카테고리 "미니 게임" + 게임 5종 통합 (사용자 요청)
 
 - 사용자 요청: 미니 게임 5종(막대기 인간 똥피하기·오픈 런·캐논 힐·사천성·크레이지 아케이드)을 lifehub에 한 번에 통합. 카테고리는 「미니 게임」으로 지정, 나머지는 위임.

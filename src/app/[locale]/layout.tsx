@@ -103,12 +103,13 @@ export default async function RootLayout({
   return (
     <html lang={locale} className="scroll-smooth">
       <head>
+        {/* 성능: 광고 스크립트는 페이지 로딩이 끝난 뒤 불러온다(초기 로딩과 경쟁하지 않도록, 2026-11-16) */}
         {ADSENSE_CLIENT_ID ? (
           <Script
             async
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}`}
             crossOrigin="anonymous"
-            strategy="afterInteractive"
+            strategy="lazyOnload"
           />
         ) : null}
       </head>
