@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { marked } from "marked";
 import { Card, CardContent } from "@/components/ui/card";
+import { demoteH1ToH2, DEMOTED_H1_PROSE_CLASS } from "@/lib/demoteH1";
 import { data, type Locale } from "./data";
 
 export default function MarkdownPreview({ initialLocale }: { initialLocale: Locale }) {
@@ -12,7 +13,7 @@ export default function MarkdownPreview({ initialLocale }: { initialLocale: Loca
   const d = data[locale];
 
   const [markdown, setMarkdown] = useState(d.placeholder);
-  const html = marked.parse(markdown, { async: false }) as string;
+  const html = demoteH1ToH2(marked.parse(markdown, { async: false }) as string);
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
@@ -50,7 +51,7 @@ export default function MarkdownPreview({ initialLocale }: { initialLocale: Loca
             <div>
               <label className="mb-1 block text-sm font-medium">{d.previewLabel}</label>
               <div
-                className="prose prose-sm h-96 max-w-none overflow-y-auto rounded-md border bg-white p-3"
+                className={`prose prose-sm h-96 max-w-none overflow-y-auto rounded-md border bg-white p-3 ${DEMOTED_H1_PROSE_CLASS}`}
                 dangerouslySetInnerHTML={{ __html: html }}
               />
             </div>

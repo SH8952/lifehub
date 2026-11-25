@@ -334,6 +334,19 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-11-26 — 네이버 서치어드바이저 사이트 진단 "<H1> 요소가 2개 이상 발견" 수정 (사용자 요청)
+
+- 지적: `https://lifehub-weld.vercel.app/es/tool/markdown-to-pdf` 1건(2026-11-23 갱신). 그래프상 11월 23일에 처음 1건 발생.
+- 원인: 미리보기 칸이 기본 예시 문서의 `# 제목`을 `<h1>`로 그려서, 페이지 제목 `<h1>`과 합쳐 2개가 됨. 4개 언어(ko·en·ja·es) 모두 같은 구조이며 네이버가 에스파냐어 페이지부터 수집한 것. 같은 구조의 도구 2개(markdown-preview, html-to-pdf)도 같은 상태라 함께 수정(사용자 확인 "3개 도구 모두").
+- 수정: 새 파일 `src/lib/demoteH1.ts`(`<h1>` → `<h2 data-demoted-h1>` 변환 + 원래 h1 모양을 유지하는 클래스). 
+  - markdown-to-pdf·markdown-preview: 미리보기 HTML에 적용하고 `prose-sm` h1 값(글자 2.14285714em·굵기 800·아래 여백 0.8em·줄높이 1.2·위 여백 0)을 그대로 지정해 화면·PDF 모양 유지.
+  - html-to-pdf: 기본 예시 상태일 때만 변환. 이 미리보기는 prose 스타일이 없고 Tailwind 기본 스타일이 h1·h2를 똑같이 초기화(font-size·font-weight inherit)하므로 모양 동일. 사용자가 직접 입력한 HTML은 그대로 렌더(사용자 `<style>`의 h1 규칙이 깨지지 않도록).
+- 검증: `tsc --noEmit`·eslint 통과. 격리 복사본 `next dev`에서 3개 도구 × 4개 언어 = 12개 페이지 모두 `<h1>` 1개(수정 전 2개). 컴파일된 CSS에 h1 동일 값 규칙 5개 포함 확인, 개발 서버 로그에 오류 없음.
+- 변경 파일: `src/lib/demoteH1.ts`(신규), `MarkdownToPdfClient.tsx`, `MarkdownPreviewClient.tsx`, `HtmlToPdfClient.tsx`, `PROJECT_RECORD.md`.
+- 상태: 로컬 검증 완료, 푸시 대기(`lifehub_push_h1_fix.command`). 푸시 후 네이버 서치어드바이저에서 해당 URL 재수집 요청(웹마스터 도구 > 요청 > 웹페이지 수집) 또는 다음 수집을 기다리면 진단 목록에서 사라질 예정.
+- 백업: `_backups/h1-duplicate-fix_20261125_225619`. 롤백: `git revert <이번 커밋>`.
+- 참고(이번 범위 밖): html-to-pdf의 기본 예시 문구(`DEFAULT_HTML`)가 모든 언어에서 한국어로 고정되어 있음(`data.ts`의 언어별 `htmlPlaceholder`는 입력칸 안내 문구로만 사용). 필요하면 별도 요청 시 정리.
+
 ## 2026-11-16 (2) — `/llms.txt` 추가 (PageSpeed Insights "에이전트형 브라우징" 지적 대응)
 
 - 배경: 재측정 보고서의 에이전트형 브라우징 2/3 — "llms.txt가 권장사항을 준수하지 않음(가져올 수 없음: Timed out fetching resource)". 사이트에 llms.txt가 없었음(형제 3개 사이트에도 없음).
@@ -342,7 +355,7 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 - 언어: 본문은 영어, 링크는 영어 페이지(`/en/...`). 머리말에 `/ko/`(기본)·`/ja/`·`/es/`로 접두사만 바꾸면 같은 페이지라고 안내.
 - 기존 파일 변경 없음(새 파일 1개). 미들웨어는 점이 들어간 경로를 건너뛰므로 sitemap.xml·rss.xml처럼 그대로 응답.
 - 검증: `tsc --noEmit`·eslint 통과. 격리 복사본 `next dev`에서 `/llms.txt` 200, `text/plain; charset=utf-8`, 38.6KB, H1 1개, 링크 249개 모두 형식 정상(도구 231개 중복 없음·설명 누락 없음, 카테고리 8개), 도구 id 231개 모두 페이지 존재. `/ko`·`/rss.xml`·`/sitemap.xml`·`/robots.txt` 200 유지.
-- 상태: 로컬 검증 완료, 푸시 대기. 푸시 후 PageSpeed Insights 재측정으로 에이전트형 브라우징 항목 확인 필요.
+- 상태: 푸시 완료(커밋 62b4b86), 실사이트 확인 완료 — `/llms.txt` 200, PageSpeed 재측정 성능 99·접근성 100·권장사항 100·검색엔진 최적화 100·에이전트형 브라우징 3/3(푸시 직후 2분 안의 측정은 캐시가 비어 76으로 낮게 나왔으나 코드 문제 아님, 4분 뒤 99).
 - 백업: `_backups/llms-txt_20261116_144106`. 롤백: `src/app/llms.txt` 폴더 삭제 또는 `git revert <이번 커밋>`.
 
 ## 2026-11-16 — PageSpeed Insights 지적 대응: 홈 접근성 4건 수정 + 애드센스 스크립트 지연 로딩 (사용자 요청)

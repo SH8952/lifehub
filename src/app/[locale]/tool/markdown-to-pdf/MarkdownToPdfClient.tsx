@@ -6,6 +6,7 @@ import { marked } from "marked";
 import { Card, CardContent } from "@/components/ui/card";
 import { Download, Loader2 } from "lucide-react";
 import { exportElementToPdf, basicSanitizeHtml, type PdfPageFormat } from "@/lib/pdfExport";
+import { demoteH1ToH2, DEMOTED_H1_PROSE_CLASS } from "@/lib/demoteH1";
 import { data, type Locale } from "./data";
 
 export default function MarkdownToPdf({ initialLocale }: { initialLocale: Locale }) {
@@ -19,7 +20,7 @@ export default function MarkdownToPdf({ initialLocale }: { initialLocale: Locale
 
   const previewRef = useRef<HTMLDivElement>(null);
 
-  const html = basicSanitizeHtml(marked.parse(markdown, { async: false }) as string);
+  const html = demoteH1ToH2(basicSanitizeHtml(marked.parse(markdown, { async: false }) as string));
 
   const handleDownload = async () => {
     if (!previewRef.current) return;
@@ -70,7 +71,7 @@ export default function MarkdownToPdf({ initialLocale }: { initialLocale: Locale
             <p className="mb-2 text-sm font-semibold text-muted-foreground">{d.previewLabel}</p>
             <div
               ref={previewRef}
-              className="prose prose-sm h-96 max-w-none overflow-auto rounded-md border bg-white p-4"
+              className={`prose prose-sm h-96 max-w-none overflow-auto rounded-md border bg-white p-4 ${DEMOTED_H1_PROSE_CLASS}`}
               dangerouslySetInnerHTML={{ __html: html }}
             />
           </CardContent>

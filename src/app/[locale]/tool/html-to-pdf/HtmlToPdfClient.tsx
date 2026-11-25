@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Download, Loader2 } from "lucide-react";
 import { exportElementToPdf, basicSanitizeHtml, type PdfPageFormat } from "@/lib/pdfExport";
+import { demoteH1ToH2 } from "@/lib/demoteH1";
 import { data, type Locale } from "./data";
 
 const DEFAULT_HTML = `<h1>제목을 입력하세요</h1>\n<p>여기에 본문 내용을 작성합니다.</p>\n<ul>\n  <li>목록 항목 1</li>\n  <li>목록 항목 2</li>\n</ul>`;
@@ -19,7 +20,9 @@ export default function HtmlToPdf({ initialLocale }: { initialLocale: Locale }) 
   const [isGenerating, setIsGenerating] = useState(false);
 
   const previewRef = useRef<HTMLDivElement>(null);
-  const safeHtml = basicSanitizeHtml(html);
+  // 기본 예시 상태일 때만 h1 -> h2 로 바꿉니다(페이지 h1 중복 방지). 사용자가 직접 입력한 HTML 은 그대로 렌더합니다.
+  // 미리보기 영역은 prose 스타일이 없어 h1·h2 모양이 같으므로(Tailwind preflight) 화면·PDF 결과는 달라지지 않습니다.
+  const safeHtml = html === DEFAULT_HTML ? demoteH1ToH2(basicSanitizeHtml(html)) : basicSanitizeHtml(html);
 
   const handleDownload = async () => {
     if (!previewRef.current) return;
