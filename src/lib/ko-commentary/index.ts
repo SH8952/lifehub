@@ -9,4 +9,9 @@ export const koCommentaryLoaders: Record<string, Loader> = {
   "salary-net-calculator": () => import("./tools/salary-net-calculator"),
   "loan-amortization-schedule": () => import("./tools/loan-amortization-schedule"),
   "compound-interest-calculator": () => import("./tools/compound-interest-calculator"),
+  "savings-maturity-calculator": () => import("./tools/savings-maturity-calculator"),
+  "vat-calculator": () => import("./tools/vat-calculator"),
+  "deposit-rent-converter": () => import("./tools/deposit-rent-converter"),
+  "car-loan-calculator": () => import("./tools/car-loan-calculator"),
+  "dti-calculator": () => import("./tools/dti-calculator"),
 };

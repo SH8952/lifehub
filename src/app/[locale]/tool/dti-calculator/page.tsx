@@ -5,6 +5,7 @@ import DtiCalculatorClient from "./DtiCalculatorClient";
 import { i18n, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 import RelatedTools from "@/components/RelatedTools";
+import KoCommentary from "@/components/KoCommentary";
 
 export async function generateMetadata({
   params,
@@ -95,6 +96,7 @@ export default async function DtiCalculatorPage({
       <p className="mt-4 text-sm text-muted-foreground">{d.footer}</p>
 
     </div>
+      <KoCommentary locale={locale} toolId="dti-calculator" />
       <RelatedTools locale={locale} toolId="dti-calculator" />
     </>
   );

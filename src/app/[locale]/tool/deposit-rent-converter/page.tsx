@@ -5,6 +5,7 @@ import DepositRentConverterClient from "./DepositRentConverterClient";
 import { i18n, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 import RelatedTools from "@/components/RelatedTools";
+import KoCommentary from "@/components/KoCommentary";
 
 export async function generateMetadata({
   params,
@@ -103,6 +104,7 @@ export default async function DepositRentConverterPage({
       <p className="mt-4 text-sm text-muted-foreground">{d.footer}</p>
 
     </div>
+      <KoCommentary locale={locale} toolId="deposit-rent-converter" />
       <RelatedTools locale={locale} toolId="deposit-rent-converter" />
     </>
   );
