@@ -1,0 +1,12 @@
+// 도구 id → 한국어 해설 데이터 로더 (필요한 도구 것만 지연 로드).
+// 새 도구 해설을 만들면 여기에 한 줄을 추가한다.
+import type { Commentary } from "./types";
+
+type Loader = () => Promise<{ default: Commentary }>;
+
+export const koCommentaryLoaders: Record<string, Loader> = {
+  "severance-pay-calculator": () => import("./tools/severance-pay-calculator"),
+  "salary-net-calculator": () => import("./tools/salary-net-calculator"),
+  "loan-amortization-schedule": () => import("./tools/loan-amortization-schedule"),
+  "compound-interest-calculator": () => import("./tools/compound-interest-calculator"),
+};

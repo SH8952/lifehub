@@ -5,6 +5,7 @@ import SalaryNetCalculatorClient from "./SalaryNetCalculatorClient";
 import { i18n, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 import RelatedTools from "@/components/RelatedTools";
+import KoCommentary from "@/components/KoCommentary";
 
 export async function generateMetadata({
   params,
@@ -103,6 +104,7 @@ export default async function SalaryNetCalculatorPage({
       <p className="mt-4 text-sm text-muted-foreground">{d.footer}</p>
 
     </div>
+      <KoCommentary locale={locale} toolId="salary-net-calculator" />
       <RelatedTools locale={locale} toolId="salary-net-calculator" />
     </>
   );

@@ -3,6 +3,7 @@ import SeverancePayCalculator from "./SeverancePayCalculatorClient";
 import { data, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 import RelatedTools from "@/components/RelatedTools";
+import KoCommentary from "@/components/KoCommentary";
 
 export async function generateMetadata({
   params,
@@ -35,6 +36,7 @@ export default async function SeverancePayCalculatorPage({
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="severance-pay-calculator" />
       <SeverancePayCalculator initialLocale={locale as Locale} />
+      <KoCommentary locale={locale} toolId="severance-pay-calculator" />
       <RelatedTools locale={locale} toolId="severance-pay-calculator" />
     </>
   );
