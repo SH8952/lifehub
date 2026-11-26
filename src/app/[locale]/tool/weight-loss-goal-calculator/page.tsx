@@ -3,6 +3,7 @@ import WeightLossGoalCalculator from "./WeightLossGoalCalculatorClient";
 import { data, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 import RelatedTools from "@/components/RelatedTools";
+import KoCommentary from "@/components/KoCommentary";
 
 export async function generateMetadata({
   params,
@@ -36,6 +37,7 @@ export default async function WeightLossGoalCalculatorPage({
       <ToolBreadcrumbJsonLd locale={locale} toolId="weight-loss-goal-calculator" />
       <WeightLossGoalCalculator initialLocale={locale as Locale} />
       <RelatedTools locale={locale} toolId="weight-loss-goal-calculator" />
+      <KoCommentary locale={locale} toolId="weight-loss-goal-calculator" />
     </>
   );
 }

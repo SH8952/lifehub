@@ -23,4 +23,8 @@ export const koCommentaryLoaders: Record<string, Loader> = {
   "bmi": () => import("./tools/bmi"),
   "bmr-calculator": () => import("./tools/bmr-calculator"),
   "tdee": () => import("./tools/tdee"),
+  "ovulation": () => import("./tools/ovulation"),
+  "pregnancy-week-calculator": () => import("./tools/pregnancy-week-calculator"),
+  "moving-cost-estimator": () => import("./tools/moving-cost-estimator"),
+  "weight-loss-goal-calculator": () => import("./tools/weight-loss-goal-calculator"),
 };

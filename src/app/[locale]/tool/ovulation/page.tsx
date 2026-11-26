@@ -3,6 +3,7 @@ import OvulationCalculator from "./OvulationCalculatorClient";
 import { i18nData, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 import RelatedTools from "@/components/RelatedTools";
+import KoCommentary from "@/components/KoCommentary";
 
 export async function generateMetadata({
   params,
@@ -35,6 +36,7 @@ export default async function OvulationPage({
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="ovulation" />
       <OvulationCalculator initialLocale={locale as Locale} />
+      <KoCommentary locale={locale} toolId="ovulation" />
       <RelatedTools locale={locale} toolId="ovulation" />
     </>
   );

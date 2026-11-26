@@ -3,6 +3,7 @@ import PregnancyWeekCalculator from "./PregnancyWeekCalculatorClient";
 import { data, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 import RelatedTools from "@/components/RelatedTools";
+import KoCommentary from "@/components/KoCommentary";
 
 export async function generateMetadata({
   params,
@@ -35,6 +36,7 @@ export default async function PregnancyWeekCalculatorPage({
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="pregnancy-week-calculator" />
       <PregnancyWeekCalculator initialLocale={locale as Locale} />
+      <KoCommentary locale={locale} toolId="pregnancy-week-calculator" />
       <RelatedTools locale={locale} toolId="pregnancy-week-calculator" />
     </>
   );

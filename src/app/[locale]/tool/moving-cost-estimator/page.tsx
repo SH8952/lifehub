@@ -3,6 +3,7 @@ import MovingCostEstimator from "./MovingCostEstimatorClient";
 import { data, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 import RelatedTools from "@/components/RelatedTools";
+import KoCommentary from "@/components/KoCommentary";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -23,6 +24,7 @@ export default async function MovingCostEstimatorPage({ params }: { params: Prom
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="moving-cost-estimator" />
       <MovingCostEstimator initialLocale={locale as Locale} />
+      <KoCommentary locale={locale} toolId="moving-cost-estimator" />
       <RelatedTools locale={locale} toolId="moving-cost-estimator" />
     </>
   );
