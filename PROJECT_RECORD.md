@@ -334,6 +334,17 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-11-27 (3) — 한국어 오가닉 트래픽 준비 ② 한국어 해설 보강 1차 · 묶음 8(이미지·PDF 6개)
+
+- 범위: 이미지 압축기, 이미지 크기 조절기, 이미지 포맷 변환기, PDF 분할/병합, PDF 압축기, 이미지→PDF 변환기 6개(ko 전용, en·ja·es 변경 없음). 1차 40개 중 38개 완료, 남은 2개(qr-code-generator, password-generator).
+- 내용 원칙: 도구 코드의 실제 동작만 서술하고 모든 섹션 제목을 `forceTitle`로 고정(계산기용 공통 제목 회피). 숫자는 코드로 산출: 해상도 프리셋·비율 고정 예(4000×3000 → 50% 2000×1500 등), 이미지→PDF 배치 크기(A4 595.28×841.89pt, 여백 28pt≈9.88mm, 4000×3000 → 190.2×142.7mm 등), PDF 압축 단계별 픽셀·dpi(1.5/1.1/0.8배 = 108/79.2/57.6dpi, JPEG 85/60/40%), 페이지 범위 파서 동작(`1-3,5,7-9`, `9-12`, `5,1,5`, `3-1`, `1-3;5` 등).
+- 도구 특성(해설에 반영, 참고): ① PDF 압축은 모든 페이지를 JPEG로 래스터화해 글자 선택·검색·링크가 사라지고(도구 경고문에도 명시) 글자 위주 PDF는 오히려 커질 수 있음. ② PDF 분할은 선택 페이지를 한 개의 extracted.pdf로 모으며 페이지 오름차순·중복 제거, 구분자는 쉼표만 인식. ③ 이미지→PDF는 A4 세로 고정이며 순서 변경 기능이 없음(삭제만). ④ 캔버스 재저장이라 EXIF 등 메타데이터가 결과에 포함되지 않음.
+- 발견(코드 변경 없음, 사용자 확인 필요): 이미지 압축기에서 출력 형식을 JPEG로 선택하고 투명 PNG를 올리면 투명 영역이 흰색이 아니라 검게 나올 수 있음(캔버스 JPEG 저장 시 투명 → 검정). 이미지 포맷 변환기와 이미지→PDF는 JPEG 저장 전에 흰 배경을 깔아 문제 없음. 해설에는 "투명 PNG → JPEG는 포맷 변환기 사용"으로 반영. 수정안: 압축기도 JPEG 저장 시 흰 배경을 먼저 채우기(변환기와 동일 방식, 소규모 변경).
+- 검증: `tsc --noEmit`·eslint 통과. 격리 복사본 `next dev --webpack`에서 6개 ko 페이지 h1 1개·지정 제목 표시, en 페이지에 해설 없음 확인.
+- 변경 파일: 신규 `src/lib/ko-commentary/tools/{image-compressor,image-resizer,image-format-converter,pdf-merge-split,pdf-compress,images-to-pdf}.ts`, 수정 `src/lib/ko-commentary/index.ts`, 도구 `page.tsx` 6개, `PROJECT_RECORD.md`.
+- 백업: `_backups/ko-commentary-batch8_150929`(작업 시작 시 생성). 롤백: `git revert <이번 커밋>`.
+- 상태: 푸시 대기.
+
 ## 2026-11-27 (2) — 한국어 오가닉 트래픽 준비 ② 한국어 해설 보강 1차 · 묶음 7(운세·성격 3개)
 
 - 범위: 오늘의 운세, 토정비결 신년운세, MBTI 간이 테스트 3개(ko 전용, en·ja·es 변경 없음). 1차 40개 중 32개 완료, 남은 8개(이미지·PDF 6, 개발 2).
@@ -343,7 +354,7 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 - 검증: `tsc --noEmit`·eslint 통과. 격리 복사본 `next dev --webpack`에서 3개 ko 페이지 h1 1개·모든 해설 제목이 지정 제목으로 표시, en 페이지에 해설 없음 확인.
 - 변경 파일: 신규 `src/lib/ko-commentary/tools/{daily-fortune,tojung-fortune,mbti-simple-test}.ts`, 수정 `src/lib/ko-commentary/{index,types}.ts`, `src/components/KoCommentary.tsx`, 도구 `page.tsx` 3개, `PROJECT_RECORD.md`.
 - 백업: `_backups/ko-commentary-batch7_pre_150608`(작업 전 HEAD 상태). 롤백: `git revert <이번 커밋>`.
-- 상태: 푸시 대기.
+- 상태: 푸시 완료(커밋 108065b).
 
 ## 2026-11-27 (1) — 한국어 오가닉 트래픽 준비 ② 한국어 해설 보강 1차 · 묶음 6(유틸 7개)
 

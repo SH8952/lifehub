@@ -3,6 +3,7 @@ import PdfCompress from "./PdfCompressClient";
 import { data, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 import RelatedTools from "@/components/RelatedTools";
+import KoCommentary from "@/components/KoCommentary";
 
 export async function generateMetadata({
   params,
@@ -36,6 +37,7 @@ export default async function PdfCompressPage({
       <ToolBreadcrumbJsonLd locale={locale} toolId="pdf-compress" />
       <PdfCompress initialLocale={locale as Locale} />
       <RelatedTools locale={locale} toolId="pdf-compress" />
+      <KoCommentary locale={locale} toolId="pdf-compress" />
     </>
   );
 }

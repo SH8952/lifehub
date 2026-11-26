@@ -37,4 +37,10 @@ export const koCommentaryLoaders: Record<string, Loader> = {
   "daily-fortune": () => import("./tools/daily-fortune"),
   "tojung-fortune": () => import("./tools/tojung-fortune"),
   "mbti-simple-test": () => import("./tools/mbti-simple-test"),
+  "image-compressor": () => import("./tools/image-compressor"),
+  "image-resizer": () => import("./tools/image-resizer"),
+  "image-format-converter": () => import("./tools/image-format-converter"),
+  "pdf-merge-split": () => import("./tools/pdf-merge-split"),
+  "pdf-compress": () => import("./tools/pdf-compress"),
+  "images-to-pdf": () => import("./tools/images-to-pdf"),
 };

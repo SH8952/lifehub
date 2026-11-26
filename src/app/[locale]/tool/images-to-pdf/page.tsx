@@ -3,6 +3,7 @@ import ImagesToPdf from "./ImagesToPdfClient";
 import { data, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 import RelatedTools from "@/components/RelatedTools";
+import KoCommentary from "@/components/KoCommentary";
 
 export async function generateMetadata({
   params,
@@ -35,6 +36,7 @@ export default async function ImagesToPdfPage({
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="images-to-pdf" />
       <ImagesToPdf initialLocale={locale as Locale} />
+      <KoCommentary locale={locale} toolId="images-to-pdf" />
       <RelatedTools locale={locale} toolId="images-to-pdf" />
     </>
   );

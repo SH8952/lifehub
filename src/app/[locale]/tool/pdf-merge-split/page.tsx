@@ -3,6 +3,7 @@ import PdfMergeSplit from "./PdfMergeSplitClient";
 import { data, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 import RelatedTools from "@/components/RelatedTools";
+import KoCommentary from "@/components/KoCommentary";
 
 export async function generateMetadata({
   params,
@@ -35,6 +36,7 @@ export default async function PdfMergeSplitPage({
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="pdf-merge-split" />
       <PdfMergeSplit initialLocale={locale as Locale} />
+      <KoCommentary locale={locale} toolId="pdf-merge-split" />
       <RelatedTools locale={locale} toolId="pdf-merge-split" />
     </>
   );

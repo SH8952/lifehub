@@ -3,6 +3,7 @@ import ImageFormatConverter from "./ImageFormatConverterClient";
 import { data, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 import RelatedTools from "@/components/RelatedTools";
+import KoCommentary from "@/components/KoCommentary";
 
 export async function generateMetadata({
   params,
@@ -35,6 +36,7 @@ export default async function ImageFormatConverterPage({
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="image-format-converter" />
       <ImageFormatConverter initialLocale={locale as Locale} />
+      <KoCommentary locale={locale} toolId="image-format-converter" />
       <RelatedTools locale={locale} toolId="image-format-converter" />
     </>
   );
