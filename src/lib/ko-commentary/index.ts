@@ -27,4 +27,11 @@ export const koCommentaryLoaders: Record<string, Loader> = {
   "pregnancy-week-calculator": () => import("./tools/pregnancy-week-calculator"),
   "moving-cost-estimator": () => import("./tools/moving-cost-estimator"),
   "weight-loss-goal-calculator": () => import("./tools/weight-loss-goal-calculator"),
+  "date-diff-calculator": () => import("./tools/date-diff-calculator"),
+  "sns-character-counter": () => import("./tools/sns-character-counter"),
+  "percentage-calculator": () => import("./tools/percentage-calculator"),
+  "unit-converter": () => import("./tools/unit-converter"),
+  "weekday-finder": () => import("./tools/weekday-finder"),
+  "text-stats": () => import("./tools/text-stats"),
+  "wallpaper-flooring-calculator": () => import("./tools/wallpaper-flooring-calculator"),
 };

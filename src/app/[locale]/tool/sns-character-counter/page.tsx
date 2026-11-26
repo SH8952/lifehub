@@ -3,6 +3,7 @@ import SnsCharacterCounter from "./SnsCharacterCounterClient";
 import { data, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 import RelatedTools from "@/components/RelatedTools";
+import KoCommentary from "@/components/KoCommentary";
 
 export async function generateMetadata({
   params,
@@ -35,6 +36,7 @@ export default async function SnsCharacterCounterPage({
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="sns-character-counter" />
       <SnsCharacterCounter initialLocale={locale as Locale} />
+      <KoCommentary locale={locale} toolId="sns-character-counter" />
       <RelatedTools locale={locale} toolId="sns-character-counter" />
     </>
   );

@@ -3,6 +3,7 @@ import WallpaperFlooringCalculator from "./WallpaperFlooringCalculatorClient";
 import { data, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 import RelatedTools from "@/components/RelatedTools";
+import KoCommentary from "@/components/KoCommentary";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -23,6 +24,7 @@ export default async function WallpaperFlooringCalculatorPage({ params }: { para
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="wallpaper-flooring-calculator" />
       <WallpaperFlooringCalculator initialLocale={locale as Locale} />
+      <KoCommentary locale={locale} toolId="wallpaper-flooring-calculator" />
       <RelatedTools locale={locale} toolId="wallpaper-flooring-calculator" />
     </>
   );

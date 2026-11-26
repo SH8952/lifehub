@@ -3,6 +3,7 @@ import DateDiffCalculator from "./DateDiffCalculatorClient";
 import { data, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 import RelatedTools from "@/components/RelatedTools";
+import KoCommentary from "@/components/KoCommentary";
 
 export async function generateMetadata({
   params,
@@ -36,6 +37,7 @@ export default async function DateDiffCalculatorPage({
       <ToolBreadcrumbJsonLd locale={locale} toolId="date-diff-calculator" />
       <DateDiffCalculator initialLocale={locale as Locale} />
       <RelatedTools locale={locale} toolId="date-diff-calculator" />
+      <KoCommentary locale={locale} toolId="date-diff-calculator" />
     </>
   );
 }

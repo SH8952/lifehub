@@ -3,6 +3,7 @@ import WeekdayFinder from "./WeekdayFinderClient";
 import { data, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 import RelatedTools from "@/components/RelatedTools";
+import KoCommentary from "@/components/KoCommentary";
 
 export async function generateMetadata({
   params,
@@ -35,6 +36,7 @@ export default async function WeekdayFinderPage({
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="weekday-finder" />
       <WeekdayFinder initialLocale={locale as Locale} />
+      <KoCommentary locale={locale} toolId="weekday-finder" />
       <RelatedTools locale={locale} toolId="weekday-finder" />
     </>
   );
