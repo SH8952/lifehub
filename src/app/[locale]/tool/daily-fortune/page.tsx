@@ -1,10 +1,10 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Card, CardContent } from "@/components/ui/card";
-import { buttonVariants } from "@/components/ui/button";
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import { zodiacData, type Zodiac, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 import RelatedTools from "@/components/RelatedTools";
+import ZodiacFortune from "./ZodiacFortune";
 import KoCommentary from "@/components/KoCommentary";
 
 const pageMeta: Record<Locale, { title: string; description: string }> = {
@@ -244,55 +244,18 @@ export default async function DailyFortunePage({
         </Card>
       </div>
 
-      <div className="mt-8 grid grid-cols-4 gap-2 sm:grid-cols-6 lg:grid-cols-12">
-        {zodiacData[lang].map((z, i) => (
-          <div
-            key={i}
-            className="flex flex-col items-center gap-1 rounded-lg border p-3 text-center"
-          >
-            <span className="text-2xl">{z.emoji}</span>
-            <span className="text-xs font-medium">{z.sign}</span>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-8 flex justify-center">
-        <a
-          href="#fortune-result"
-          className={buttonVariants({ size: "lg" })}
-        >
-          {d.showFortune}
-        </a>
-      </div>
-
-      <div id="fortune-result" className="mt-12">
-        <h2 className="mb-4 text-xl font-semibold">{d.result}</h2>
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center gap-4">
-              <span className="text-5xl">{zodiacData[lang][todayIndex].emoji}</span>
-              <div className="flex-1">
-                <p className="text-lg font-semibold">{zodiacData[lang][todayIndex].sign}</p>
-                <p className="mt-1 text-base leading-relaxed">{zodiacData[lang][todayIndex].fortune}</p>
-              </div>
-            </div>
-            <div className="mt-4 grid grid-cols-3 gap-4 text-center">
-              <div>
-                <p className="text-xs text-muted-foreground">{d.luckyColor}</p>
-                <p className="font-semibold">{zodiacData[lang][todayIndex].luckyColor}</p>
-              </div>
-              <div>
-                <p className="text-xs text-muted-foreground">{d.luckyItem}</p>
-                <p className="font-semibold">{zodiacData[lang][todayIndex].luckyItem}</p>
-              </div>
-              <div>
-                <p className="text-xs text-muted-foreground">{d.caution}</p>
-                <p className="font-semibold text-amber-600">{zodiacData[lang][todayIndex].caution}</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      <ZodiacFortune
+        zodiacs={zodiacData[lang] ?? zodiacData.ko}
+        initialIndex={todayIndex}
+        labels={{
+          selectZodiac: d.selectZodiac,
+          all: d.all,
+          result: d.result,
+          luckyColor: d.luckyColor,
+          luckyItem: d.luckyItem,
+          caution: d.caution,
+        }}
+      />
 
       <section className="mt-12">
         <h2 className="mb-4 text-xl font-semibold">{d.whyFortune}</h2>

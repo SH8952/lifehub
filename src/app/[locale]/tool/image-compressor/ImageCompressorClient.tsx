@@ -57,9 +57,15 @@ export default function ImageCompressor({ initialLocale }: { initialLocale: Loca
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(imgEl, 0, 0);
 
     const mime = format === "keep" ? (originalType || "image/jpeg") : format;
+    // JPEG는 투명을 표현하지 못해 투명 영역이 검게 저장되므로, 먼저 흰 배경을 깐다
+    if (mime === "image/jpeg") {
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+    ctx.drawImage(imgEl, 0, 0);
+
     canvas.toBlob(
       (blob) => {
         if (!blob) return;

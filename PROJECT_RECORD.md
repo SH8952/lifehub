@@ -334,6 +334,17 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-11-27 (4) — 도구 오류 3건 수정 (묶음 6~8 작업 중 발견, 사용자 승인: "A는 무조건 오류 없이 정상 작동하도록 수정")
+
+- ① 날짜 계산기: '년·개월·일' 환산이 월말 시작일에서 음수 일수를 표시하던 문제(예: 2026-01-31 → 2026-03-01이 "1개월 -2일"). 계산 로직을 `calc.ts`로 분리해 "시작일 + 개월 수(해당 월에 날짜가 없으면 말일 보정) → 종료일까지 남은 일수" 방식으로 변경. 총 일수 계산은 그대로. 검증: 기존 예시 12건 결과 동일(월말 사례만 "1개월 1일" 등으로 정정), 2020~2031년 무작위 4,000쌍에서 음수·12개월 초과·역산 불일치 0건.
+- ② 이미지 압축기: JPEG 출력 시 투명 PNG의 투명 영역이 검게 저장되던 문제. JPEG 저장일 때 흰 배경을 먼저 깔도록 변경(이미지 포맷 변환기와 동일 방식). 검증: 브라우저(Chromium)에서 투명 영역 픽셀이 수정 전 (0,1,6) 검정 → 수정 후 (252,255,255) 흰색으로 확인.
+- ③ 오늘의 운세: FAQ가 설명하던 별자리 선택 기능이 실제로 없던 문제. 새 클라이언트 컴포넌트 `ZodiacFortune.tsx` 추가 — '전체' + 12개 별자리 버튼, 기본 선택은 날짜 기반 별자리(기존과 같은 식), 선택한 별자리 카드 또는 12개 전체 카드 표시(4개 언어 공통, 기존 문구 키 사용). 정적 생성으로 서버 날짜가 오래될 수 있는 문제는 마운트 시 브라우저 날짜로 기본 별자리를 보정해 해결(사용자가 직접 고른 뒤에는 바꾸지 않음). 기존 12개 아이콘 격자와 "오늘의 운세 보기" 앵커 버튼은 선택 버튼으로 대체. 검증: 브라우저에서 초기 보정(서버값 0 → 날짜 11/27 → 궁수자리), 염소자리·양자리 선택, 전체 12카드, 에러 0건 확인. 4개 언어 SSR에서 버튼 13개·선택 1개·h1 1개 확인.
+- 해설 반영: date-diff-calculator 해설의 월말 주의 문구를 새 계산 방식에 맞게, daily-fortune 해설을 선택 기능에 맞게 수정.
+- 검증: `tsc --noEmit`·eslint 통과.
+- 변경 파일: 신규 `daily-fortune/ZodiacFortune.tsx`, `date-diff-calculator/calc.ts`; 수정 `daily-fortune/page.tsx`, `date-diff-calculator/DateDiffCalculatorClient.tsx`, `image-compressor/ImageCompressorClient.tsx`, `src/lib/ko-commentary/tools/{date-diff-calculator,daily-fortune}.ts`, `PROJECT_RECORD.md`.
+- 백업: `_backups/tool-fixes-1127_153030`. 롤백: `git revert <이번 커밋>`.
+- 상태: 푸시 대기.
+
 ## 2026-11-27 (3) — 한국어 오가닉 트래픽 준비 ② 한국어 해설 보강 1차 · 묶음 8(이미지·PDF 6개)
 
 - 범위: 이미지 압축기, 이미지 크기 조절기, 이미지 포맷 변환기, PDF 분할/병합, PDF 압축기, 이미지→PDF 변환기 6개(ko 전용, en·ja·es 변경 없음). 1차 40개 중 38개 완료, 남은 2개(qr-code-generator, password-generator).
@@ -343,7 +354,7 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 - 검증: `tsc --noEmit`·eslint 통과. 격리 복사본 `next dev --webpack`에서 6개 ko 페이지 h1 1개·지정 제목 표시, en 페이지에 해설 없음 확인.
 - 변경 파일: 신규 `src/lib/ko-commentary/tools/{image-compressor,image-resizer,image-format-converter,pdf-merge-split,pdf-compress,images-to-pdf}.ts`, 수정 `src/lib/ko-commentary/index.ts`, 도구 `page.tsx` 6개, `PROJECT_RECORD.md`.
 - 백업: `_backups/ko-commentary-batch8_150929`(작업 시작 시 생성). 롤백: `git revert <이번 커밋>`.
-- 상태: 푸시 대기.
+- 상태: 푸시 완료.
 
 ## 2026-11-27 (2) — 한국어 오가닉 트래픽 준비 ② 한국어 해설 보강 1차 · 묶음 7(운세·성격 3개)
 

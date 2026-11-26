@@ -4,26 +4,11 @@ import { useTranslations } from "next-intl";
 import { useState, useMemo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { data, type Locale } from "./data";
+import { diffYMD } from "./calc";
 
 function toYMD(dt: Date) {
   const pad = (n: number) => String(n).padStart(2, "0");
   return `${dt.getFullYear()}-${pad(dt.getMonth() + 1)}-${pad(dt.getDate())}`;
-}
-
-function diffYMD(start: Date, end: Date) {
-  let y = end.getFullYear() - start.getFullYear();
-  let m = end.getMonth() - start.getMonth();
-  let dd = end.getDate() - start.getDate();
-  if (dd < 0) {
-    m -= 1;
-    const prevMonth = new Date(end.getFullYear(), end.getMonth(), 0);
-    dd += prevMonth.getDate();
-  }
-  if (m < 0) {
-    y -= 1;
-    m += 12;
-  }
-  return { y, m, dd };
 }
 
 export default function DateDiffCalculator({ initialLocale }: { initialLocale: Locale }) {
