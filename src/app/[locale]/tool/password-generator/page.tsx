@@ -5,6 +5,7 @@ import PasswordGeneratorClient from "./PasswordGeneratorClient";
 import { i18n, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 import RelatedTools from "@/components/RelatedTools";
+import KoCommentary from "@/components/KoCommentary";
 
 export async function generateMetadata({
   params,
@@ -104,6 +105,7 @@ export default async function PasswordGeneratorPage({
 
     </div>
       <RelatedTools locale={locale} toolId="password-generator" />
+      <KoCommentary locale={locale} toolId="password-generator" />
     </>
   );
 }

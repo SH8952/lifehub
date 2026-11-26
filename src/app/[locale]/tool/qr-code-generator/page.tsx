@@ -5,6 +5,7 @@ import QrCodeGeneratorClient from "./QrCodeGeneratorClient";
 import { i18n, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 import RelatedTools from "@/components/RelatedTools";
+import KoCommentary from "@/components/KoCommentary";
 
 export async function generateMetadata({
   params,
@@ -103,6 +104,7 @@ export default async function QrCodeGeneratorPage({
       <p className="mt-4 text-sm text-muted-foreground">{d.footer}</p>
 
     </div>
+      <KoCommentary locale={locale} toolId="qr-code-generator" />
       <RelatedTools locale={locale} toolId="qr-code-generator" />
     </>
   );

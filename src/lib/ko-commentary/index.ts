@@ -43,4 +43,6 @@ export const koCommentaryLoaders: Record<string, Loader> = {
   "pdf-merge-split": () => import("./tools/pdf-merge-split"),
   "pdf-compress": () => import("./tools/pdf-compress"),
   "images-to-pdf": () => import("./tools/images-to-pdf"),
+  "qr-code-generator": () => import("./tools/qr-code-generator"),
+  "password-generator": () => import("./tools/password-generator"),
 };
