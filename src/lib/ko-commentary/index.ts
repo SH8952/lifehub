@@ -34,4 +34,7 @@ export const koCommentaryLoaders: Record<string, Loader> = {
   "weekday-finder": () => import("./tools/weekday-finder"),
   "text-stats": () => import("./tools/text-stats"),
   "wallpaper-flooring-calculator": () => import("./tools/wallpaper-flooring-calculator"),
+  "daily-fortune": () => import("./tools/daily-fortune"),
+  "tojung-fortune": () => import("./tools/tojung-fortune"),
+  "mbti-simple-test": () => import("./tools/mbti-simple-test"),
 };

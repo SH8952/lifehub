@@ -6,6 +6,8 @@ export interface Section {
   kind: SectionKind;
   /** 도구 맞춤 제목(선택). 없으면 종류별 제목 후보 중에서 고른다. */
   title?: string;
+  /** true면 title을 항상 사용한다(계산기가 아닌 도구 등 공통 제목 후보가 어울리지 않을 때). */
+  forceTitle?: boolean;
   paras?: string[];
   items?: { t?: string; d: string }[];
   rows?: [string, string][];

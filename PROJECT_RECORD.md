@@ -334,6 +334,17 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-11-27 (2) — 한국어 오가닉 트래픽 준비 ② 한국어 해설 보강 1차 · 묶음 7(운세·성격 3개)
+
+- 범위: 오늘의 운세, 토정비결 신년운세, MBTI 간이 테스트 3개(ko 전용, en·ja·es 변경 없음). 1차 40개 중 32개 완료, 남은 8개(이미지·PDF 6, 개발 2).
+- 인프라 변경(소폭): `Section`에 선택 필드 `forceTitle`을 추가하고 `KoCommentary.tsx`에서 `s.title && (s.forceTitle || r() < 0.6)`로 사용. 계산기가 아닌 도구에서 공통 제목 후보("오차가 생기는 이유" 등)가 어울리지 않아 제목을 항상 쓰도록 하기 위함. 기존 도구는 `forceTitle`이 없어 난수 순서·표시가 그대로(age-calculator h2 구성 변화 없음 확인).
+- 내용 원칙: 실제 동작에 맞춰 서술. ① 오늘의 운세는 날짜(연도×372+월×31+일 mod 12)로 12개 별자리 중 하나의 카드를 보여 주는 구조이며 사용자가 별자리를 고르는 기능이 없음을 명시하고, 12개 별자리의 행운의 색·물품·주의사항을 한 표로 제공(데이터는 도구 데이터 그대로, 별자리 기간은 일반 양력 구분). ② 토정비결은 양력 생년월일 → 일간 오행(목화토금수)과 (연+월+일) mod 12 분위기 단어로 구성되며 전통 토정비결 원문이 아닌 간이 방식임을 명시, 예시 숫자는 도구 로직 코드로 산출. ③ MBTI는 8문항(축당 2문항), 동점은 E·S·T·J로 계산됨을 명시(무작위 응답 시 ESTJ 약 31.6%, INFP 약 0.4%).
+- 발견(코드 변경 없음, 사용자 확인 필요): ① 오늘의 운세 — 별자리 선택 기능이 없는데 ko FAQ 문구("전체 운세… 원하는 별자리를 선택하면")와 `selectZodiac` 문구가 선택 UI를 전제함(문구와 실제 불일치). 또한 페이지가 정적 생성(`generateStaticParams`)이라 서버 날짜 기반 별자리가 빌드 시점 값으로 고정될 가능성이 있음(다음 날 오전 라이브 페이지에서 확인 필요, 해설은 이 가능성과 무관하게 서술). ② 토정비결 — 제목은 "2026"이지만 계산은 생년월일만 사용(해설에 명시), 소개 문구의 "64괘" 표기는 도구 원문 그대로 유지.
+- 검증: `tsc --noEmit`·eslint 통과. 격리 복사본 `next dev --webpack`에서 3개 ko 페이지 h1 1개·모든 해설 제목이 지정 제목으로 표시, en 페이지에 해설 없음 확인.
+- 변경 파일: 신규 `src/lib/ko-commentary/tools/{daily-fortune,tojung-fortune,mbti-simple-test}.ts`, 수정 `src/lib/ko-commentary/{index,types}.ts`, `src/components/KoCommentary.tsx`, 도구 `page.tsx` 3개, `PROJECT_RECORD.md`.
+- 백업: `_backups/ko-commentary-batch7_pre_150608`(작업 전 HEAD 상태). 롤백: `git revert <이번 커밋>`.
+- 상태: 푸시 대기.
+
 ## 2026-11-27 (1) — 한국어 오가닉 트래픽 준비 ② 한국어 해설 보강 1차 · 묶음 6(유틸 7개)
 
 - 범위: 날짜 계산기(D-Day), SNS 글자수 제한 체커, 퍼센트 계산기, 단위 변환기, 요일 계산기, 텍스트 통계, 도배·장판 필요량 계산기 7개(ko 전용, en·ja·es 변경 없음). 1차 40개 중 29개 완료(금융 14 + 생활·건강 8 + 유틸 7), 남은 11개(운세·성격 3, 이미지·PDF 6, 개발 2).
@@ -343,7 +354,7 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 - 검증: `tsc --noEmit`·eslint 통과. 격리 복사본 `next dev --webpack`에서 7개 ko 페이지 h1 1개·h2 7개·해설 본문 표시 확인, 도구별 h2 구성 다름, en 페이지(단위 변환기·텍스트 통계)에 해설 없음 확인.
 - 변경 파일: 신규 `src/lib/ko-commentary/tools/{date-diff-calculator,sns-character-counter,percentage-calculator,unit-converter,weekday-finder,text-stats,wallpaper-flooring-calculator}.ts`, 수정 `src/lib/ko-commentary/index.ts`, 도구 `page.tsx` 7개, `PROJECT_RECORD.md`.
 - 백업: `_backups/ko-commentary-batch6_*`(작업 시작 시 생성). 롤백: `git revert <이번 커밋>`.
-- 상태: 푸시 대기.
+- 상태: 푸시 완료(커밋 4b06f3f).
 
 ## 2026-11-26 (8) — 한국어 오가닉 트래픽 준비 ② 한국어 해설 보강 1차 · 묶음 5(생활·건강 4개)
 

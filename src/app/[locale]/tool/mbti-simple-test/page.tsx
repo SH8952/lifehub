@@ -3,6 +3,7 @@ import MbtiSimpleTest from "./MbtiSimpleTestClient";
 import { data, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 import RelatedTools from "@/components/RelatedTools";
+import KoCommentary from "@/components/KoCommentary";
 
 export async function generateMetadata({
   params,
@@ -36,6 +37,7 @@ export default async function MbtiSimpleTestPage({
       <ToolBreadcrumbJsonLd locale={locale} toolId="mbti-simple-test" />
       <MbtiSimpleTest initialLocale={locale as Locale} />
       <RelatedTools locale={locale} toolId="mbti-simple-test" />
+      <KoCommentary locale={locale} toolId="mbti-simple-test" />
     </>
   );
 }

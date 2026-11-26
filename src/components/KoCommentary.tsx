@@ -67,7 +67,7 @@ function Strong({ t }: { t?: string }) {
 function SectionView({ s, toolId, idx }: { s: Section; toolId: string; idx: number }) {
   const r = mulberry32(hash32(`kc|${toolId}|${s.kind}|${idx}`));
   const variants = HEADINGS[s.kind];
-  const useCustom = s.title && r() < 0.6;
+  const useCustom = s.title && (s.forceTitle || r() < 0.6);
   const heading = useCustom ? (s.title as string) : variants[Math.floor(r() * variants.length)];
   const h2Cls = r() < 0.5 ? "text-xl font-semibold" : "text-lg font-bold";
   const paraForm = (["plain", "callout", "lead"] as const)[Math.floor(r() * 3)];
