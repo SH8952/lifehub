@@ -2,6 +2,7 @@ import { SITE_URL, pageAlternates } from "@/lib/seo";
 import HtmlEntityConverter from "./HtmlEntityConverterClient";
 import { data, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
+import RelatedTools from "@/components/RelatedTools";
 
 export async function generateMetadata({
   params,
@@ -34,6 +35,7 @@ export default async function HtmlEntityConverterPage({
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="html-entity-converter" />
       <HtmlEntityConverter initialLocale={locale as Locale} />
+      <RelatedTools locale={locale} toolId="html-entity-converter" />
     </>
   );
 }

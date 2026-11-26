@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
 import { SITE_URL } from "@/lib/seo";
+import { categoryToolsMap } from "@/lib/tools-data";
+import { toolLastmod } from "@/lib/tool-lastmod";
 
 const CATEGORY_IDS = ["life-health", "finance", "fun-entertainment", "mini-games", "image-media", "document-pdf", "dev-it", "utility"];
 
@@ -255,6 +257,16 @@ const TOOL_IDS = [
   "tire-pressure-size-calculator",
 ];
 
+// lastmod: 실제로 내용이 바뀐 날짜만 반영한다(빌드 시각이 아님).
+// 도구 = 해당 도구 폴더의 마지막 변경일, 카테고리 = 소속 도구 중 가장 최근 날짜, 홈 = 전체 중 가장 최근 날짜.
+function latest(dates: (string | undefined)[]): string | undefined {
+  const valid = dates.filter((d): d is string => Boolean(d));
+  return valid.length ? valid.reduce((a, b) => (a > b ? a : b)) : undefined;
+}
+const HOME_LASTMOD = latest(Object.values(toolLastmod));
+const categoryLastmod = (categoryId: string) =>
+  latest((categoryToolsMap[categoryId] ?? []).map((t) => toolLastmod[t.id]));
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
 
@@ -268,6 +280,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (const locale of orderedLocales) {
     entries.push({
       url: `${SITE_URL}/${locale}`,
+      ...(HOME_LASTMOD ? { lastModified: HOME_LASTMOD } : {}),
       changeFrequency: "weekly",
       priority: 1,
     });
@@ -275,6 +288,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     for (const categoryId of CATEGORY_IDS) {
       entries.push({
         url: `${SITE_URL}/${locale}/category/${categoryId}`,
+        ...(categoryLastmod(categoryId) ? { lastModified: categoryLastmod(categoryId) } : {}),
         changeFrequency: "weekly",
         priority: 0.8,
       });
@@ -291,6 +305,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     for (const toolId of TOOL_IDS) {
       entries.push({
         url: `${SITE_URL}/${locale}/tool/${toolId}`,
+        ...(toolLastmod[toolId] ? { lastModified: toolLastmod[toolId] } : {}),
         changeFrequency: "monthly",
         priority: 0.6,
       });

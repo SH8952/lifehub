@@ -4,6 +4,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import { zodiacData, type Zodiac, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
+import RelatedTools from "@/components/RelatedTools";
 
 const pageMeta: Record<Locale, { title: string; description: string }> = {
   ko: { title: "오늘의 운세", description: "오늘의 별자리 운세를 확인하세요" },
@@ -318,6 +319,7 @@ export default async function DailyFortunePage({
       <p className="mt-4 text-sm text-muted-foreground">{d.footer}</p>
 
     </div>
+      <RelatedTools locale={locale} toolId="daily-fortune" />
     </>
   );
 }

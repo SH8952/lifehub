@@ -2,6 +2,7 @@ import { SITE_URL, pageAlternates } from "@/lib/seo";
 import AgeCalculator from "./AgeCalculatorClient";
 import { i18nData, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
+import RelatedTools from "@/components/RelatedTools";
 
 export async function generateMetadata({
   params,
@@ -34,6 +35,7 @@ export default async function AgeCalculatorPage({
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="age-calculator" />
       <AgeCalculator initialLocale={locale as Locale} />
+      <RelatedTools locale={locale} toolId="age-calculator" />
     </>
   );
 }

@@ -2,6 +2,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import ZodiacFinderClient from "./ZodiacFinderClient";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
+import RelatedTools from "@/components/RelatedTools";
 
 type Locale = "ko" | "en" | "ja" | "es";
 
@@ -269,6 +270,7 @@ export default async function ZodiacFinderPage({
         faq={d.faq}
       />
     </>
+      <RelatedTools locale={locale} toolId="zodiac-finder" />
     </>
   );
 }

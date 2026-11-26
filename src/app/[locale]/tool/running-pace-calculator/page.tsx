@@ -2,6 +2,7 @@ import { SITE_URL, pageAlternates } from "@/lib/seo";
 import RunningPaceCalculator from "./RunningPaceCalculatorClient";
 import { data, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
+import RelatedTools from "@/components/RelatedTools";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -22,6 +23,7 @@ export default async function RunningPaceCalculatorPage({ params }: { params: Pr
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="running-pace-calculator" />
       <RunningPaceCalculator initialLocale={locale as Locale} />
+      <RelatedTools locale={locale} toolId="running-pace-calculator" />
     </>
   );
 }

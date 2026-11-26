@@ -2,6 +2,7 @@ import { SITE_URL, pageAlternates } from "@/lib/seo";
 import MonthlyCost from "./MonthlyCostClient";
 import { i18nData, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
+import RelatedTools from "@/components/RelatedTools";
 
 export async function generateMetadata({
   params,
@@ -34,6 +35,7 @@ export default async function MonthlyCostPage({
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="monthly-cost" />
       <MonthlyCost initialLocale={locale as Locale} />
+      <RelatedTools locale={locale} toolId="monthly-cost" />
     </>
   );
 }

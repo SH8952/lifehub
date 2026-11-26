@@ -334,6 +334,18 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-11-26 (2) — 한국어 오가닉 트래픽 준비 ① 사이트맵 lastmod + 관련 도구 링크 (사용자 요청 1·4번, 1차 푸시)
+
+- 배경: 네이버 서치어드바이저 진단(색인 1건·노출 1건)에서 확인된 약점 — 도구 페이지 사이의 내부 링크가 평균 1개로 적고, 사이트맵에 수정일이 없음. 검색엔진이 "같은 틀로 대량 생산"으로 보지 않도록 형제 프로젝트(ExifLens·FlyDroneMap·firelic)의 무작위화 원칙을 적용: 도구 id 해시를 시드로 문구·형태·개수·구성을 도구마다 다르게(같은 도구는 항상 같은 모습).
+- 사이트맵 lastmod: `src/lib/tool-lastmod.ts`(자동 생성, `automation/build_lastmod.py`) — 도구 폴더의 마지막 변경일(커밋 전 변경이 있으면 오늘, 아니면 마지막 커밋일). 빌드 시각을 찍지 않으므로 실제로 바뀐 도구만 날짜가 갱신됨. `sitemap.ts`: 도구=해당 날짜, 카테고리=소속 도구 중 최신, 홈=전체 중 최신, 정적 페이지(소개·문의·개인정보·약관)는 생략. 이번 푸시 기준 226개 도구는 2026-11-26(관련 링크 추가), 미니게임 5종은 2026-11-13.
+- 관련 도구 링크: `src/lib/related-tools.ts`(선정 로직) + `src/components/RelatedTools.tsx`(서버 컴포넌트, 클라이언트 JS 없음). 이름·설명의 어휘 유사도(TF-IDF 코사인, 흔한 조각 제외) + 같은 카테고리 가산점으로 후보 9개 풀을 만들고, 도구 id 시드로 섞어 3~5개 선택. 표시 형태 4종(카드·칩·목록·문장 속 링크), 제목 문구 언어별 6~8종, 문장형 템플릿 언어별 4종을 id+언어 해시로 선택. 링크는 기존 카테고리 페이지와 같은 일반 `<a>`(프리패치 없음 → Vercel CPU 부담 없음).
+- 적용: 도구 상세 페이지 226개의 `page.tsx`에 import 1줄 + 컴포넌트 1줄 추가(Client 파일은 건드리지 않음). 미니게임 5종은 기존 "다른 미니 게임" 링크가 있어 제외. 도구 설명은 4개 언어 데이터(`tools-data.ts`)를 그대로 사용.
+- 한계(정직하게): 컴포넌트가 Client 아래(페이지 맨 끝)에만 놓임 — 위치 무작위화는 다음 단계인 한국어 해설 보강에서 적용.
+- 검증: `tsc --noEmit` 통과(오류 0), 변경 파일 eslint 통과. 격리 복사본 `next dev --webpack`에서 ko·en·ja·es 대표 페이지에 블록 정상 렌더, 링크 경로 올바름, 사이트맵 976개 중 960개에 lastmod(나머지 16개는 정적 페이지).
+- 변경 파일: `src/lib/related-tools.ts`·`src/components/RelatedTools.tsx`·`src/lib/tool-lastmod.ts`·`automation/build_lastmod.py`(신규), `src/app/sitemap.ts`, 도구 `page.tsx` 226개, `PROJECT_RECORD.md`.
+- 백업: `_backups/ko-organic-prep_20261126_081750`(기준 커밋 739bddc). 롤백: `git revert <이번 커밋>`.
+- 다음: ② 한국어 해설 보강 1차 40개(묶음별 푸시) → ③ 해설 완료 URL의 IndexNow(ko만) → ④ 네이버 수집 요청용 우선순위 목록.
+
 ## 2026-11-26 — 네이버 서치어드바이저 사이트 진단 "<H1> 요소가 2개 이상 발견" 수정 (사용자 요청)
 
 - 지적: `https://lifehub-weld.vercel.app/es/tool/markdown-to-pdf` 1건(2026-11-23 갱신). 그래프상 11월 23일에 처음 1건 발생.
@@ -343,7 +355,7 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
   - html-to-pdf: 기본 예시 상태일 때만 변환. 이 미리보기는 prose 스타일이 없고 Tailwind 기본 스타일이 h1·h2를 똑같이 초기화(font-size·font-weight inherit)하므로 모양 동일. 사용자가 직접 입력한 HTML은 그대로 렌더(사용자 `<style>`의 h1 규칙이 깨지지 않도록).
 - 검증: `tsc --noEmit`·eslint 통과. 격리 복사본 `next dev`에서 3개 도구 × 4개 언어 = 12개 페이지 모두 `<h1>` 1개(수정 전 2개). 컴파일된 CSS에 h1 동일 값 규칙 5개 포함 확인, 개발 서버 로그에 오류 없음.
 - 변경 파일: `src/lib/demoteH1.ts`(신규), `MarkdownToPdfClient.tsx`, `MarkdownPreviewClient.tsx`, `HtmlToPdfClient.tsx`, `PROJECT_RECORD.md`.
-- 상태: 로컬 검증 완료, 푸시 대기(`lifehub_push_h1_fix.command`). 푸시 후 네이버 서치어드바이저에서 해당 URL 재수집 요청(웹마스터 도구 > 요청 > 웹페이지 수집) 또는 다음 수집을 기다리면 진단 목록에서 사라질 예정.
+- 상태: 푸시 완료(커밋 739bddc), 실사이트 확인 완료 — 3개 도구 × 4개 언어 12개 페이지 `<h1>` 1개. 푸시 후 네이버 서치어드바이저에서 해당 URL 재수집 요청(웹마스터 도구 > 요청 > 웹페이지 수집) 또는 다음 수집을 기다리면 진단 목록에서 사라질 예정.
 - 백업: `_backups/h1-duplicate-fix_20261125_225619`. 롤백: `git revert <이번 커밋>`.
 - 참고(이번 범위 밖): html-to-pdf의 기본 예시 문구(`DEFAULT_HTML`)가 모든 언어에서 한국어로 고정되어 있음(`data.ts`의 언어별 `htmlPlaceholder`는 입력칸 안내 문구로만 사용). 필요하면 별도 요청 시 정리.
 

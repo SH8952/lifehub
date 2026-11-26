@@ -2,6 +2,7 @@ import { SITE_URL, pageAlternates } from "@/lib/seo";
 import RegexTester from "./RegexTesterClient";
 import { data, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
+import RelatedTools from "@/components/RelatedTools";
 
 export async function generateMetadata({
   params,
@@ -34,6 +35,7 @@ export default async function RegexTesterPage({
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="regex-tester" />
       <RegexTester initialLocale={locale as Locale} />
+      <RelatedTools locale={locale} toolId="regex-tester" />
     </>
   );
 }

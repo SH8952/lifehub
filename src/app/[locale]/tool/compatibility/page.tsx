@@ -4,6 +4,7 @@ import { SITE_URL, pageAlternates } from "@/lib/seo";
 import CompatibilityClient from "./CompatibilityClient";
 import { i18n, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
+import RelatedTools from "@/components/RelatedTools";
 
 export async function generateMetadata({
   params,
@@ -103,6 +104,7 @@ export default async function CompatibilityPage({
       <p className="mt-4 text-sm text-muted-foreground">{d.footer}</p>
 
     </div>
+      <RelatedTools locale={locale} toolId="compatibility" />
     </>
   );
 }

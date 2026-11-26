@@ -2,6 +2,7 @@ import { SITE_URL, pageAlternates } from "@/lib/seo";
 import RecipeServingConverter from "./RecipeServingConverterClient";
 import { data, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
+import RelatedTools from "@/components/RelatedTools";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -22,6 +23,7 @@ export default async function RecipeServingConverterPage({ params }: { params: P
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="recipe-serving-converter" />
       <RecipeServingConverter initialLocale={locale as Locale} />
+      <RelatedTools locale={locale} toolId="recipe-serving-converter" />
     </>
   );
 }

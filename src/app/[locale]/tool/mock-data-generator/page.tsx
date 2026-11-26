@@ -2,6 +2,7 @@ import { SITE_URL, pageAlternates } from "@/lib/seo";
 import MockDataGenerator from "./MockDataGeneratorClient";
 import { data, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
+import RelatedTools from "@/components/RelatedTools";
 
 export async function generateMetadata({
   params,
@@ -34,6 +35,7 @@ export default async function MockDataGeneratorPage({
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="mock-data-generator" />
       <MockDataGenerator initialLocale={locale as Locale} />
+      <RelatedTools locale={locale} toolId="mock-data-generator" />
     </>
   );
 }

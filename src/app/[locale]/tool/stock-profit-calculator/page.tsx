@@ -2,6 +2,7 @@ import { SITE_URL, pageAlternates } from "@/lib/seo";
 import StockProfitCalculator from "./StockProfitCalculatorClient";
 import { data, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
+import RelatedTools from "@/components/RelatedTools";
 
 export async function generateMetadata({
   params,
@@ -34,6 +35,7 @@ export default async function StockProfitCalculatorPage({
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="stock-profit-calculator" />
       <StockProfitCalculator initialLocale={locale as Locale} />
+      <RelatedTools locale={locale} toolId="stock-profit-calculator" />
     </>
   );
 }

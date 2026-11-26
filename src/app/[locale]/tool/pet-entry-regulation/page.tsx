@@ -2,6 +2,7 @@ import { SITE_URL, pageAlternates } from "@/lib/seo";
 import PetEntryRegulation from "./PetEntryRegulationClient";
 import { i18nData, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
+import RelatedTools from "@/components/RelatedTools";
 
 export async function generateMetadata({
   params,
@@ -34,6 +35,7 @@ export default async function PetEntryRegulationPage({
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="pet-entry-regulation" />
       <PetEntryRegulation initialLocale={locale as Locale} />
+      <RelatedTools locale={locale} toolId="pet-entry-regulation" />
     </>
   );
 }

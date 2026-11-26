@@ -2,6 +2,7 @@ import { SITE_URL, pageAlternates } from "@/lib/seo";
 import ExerciseCalorieCalculator from "./ExerciseCalorieCalculatorClient";
 import { data, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
+import RelatedTools from "@/components/RelatedTools";
 
 export async function generateMetadata({
   params,
@@ -34,6 +35,7 @@ export default async function ExerciseCalorieCalculatorPage({
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="exercise-calorie-calculator" />
       <ExerciseCalorieCalculator initialLocale={locale as Locale} />
+      <RelatedTools locale={locale} toolId="exercise-calorie-calculator" />
     </>
   );
 }

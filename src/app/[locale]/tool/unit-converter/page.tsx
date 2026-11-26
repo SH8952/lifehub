@@ -2,6 +2,7 @@ import { SITE_URL, pageAlternates } from "@/lib/seo";
 import UnitConverter from "./UnitConverterClient";
 import { data, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
+import RelatedTools from "@/components/RelatedTools";
 
 export async function generateMetadata({
   params,
@@ -34,6 +35,7 @@ export default async function UnitConverterPage({
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="unit-converter" />
       <UnitConverter initialLocale={locale as Locale} />
+      <RelatedTools locale={locale} toolId="unit-converter" />
     </>
   );
 }

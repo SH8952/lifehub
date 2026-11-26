@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
+import RelatedTools from "@/components/RelatedTools";
 
 type Locale = "ko" | "en" | "ja" | "es";
 
@@ -344,6 +345,7 @@ export default async function FortuneCookiePage({
       <p className="mt-4 text-sm text-muted-foreground">{d.footer}</p>
 
     </div>
+      <RelatedTools locale={locale} toolId="fortune-cookie" />
     </>
   );
 }

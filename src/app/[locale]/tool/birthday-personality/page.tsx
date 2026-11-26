@@ -2,6 +2,7 @@ import { SITE_URL, pageAlternates } from "@/lib/seo";
 import BirthdayPersonality from "./BirthdayPersonalityClient";
 import { data, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
+import RelatedTools from "@/components/RelatedTools";
 
 export async function generateMetadata({
   params,
@@ -34,6 +35,7 @@ export default async function BirthdayPersonalityPage({
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="birthday-personality" />
       <BirthdayPersonality initialLocale={locale as Locale} />
+      <RelatedTools locale={locale} toolId="birthday-personality" />
     </>
   );
 }

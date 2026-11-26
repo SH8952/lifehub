@@ -2,6 +2,7 @@ import { SITE_URL, pageAlternates } from "@/lib/seo";
 import Base64Converter from "./Base64ConverterClient";
 import { data, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
+import RelatedTools from "@/components/RelatedTools";
 
 export async function generateMetadata({
   params,
@@ -34,6 +35,7 @@ export default async function Base64ConverterPage({
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="base64-converter" />
       <Base64Converter initialLocale={locale as Locale} />
+      <RelatedTools locale={locale} toolId="base64-converter" />
     </>
   );
 }

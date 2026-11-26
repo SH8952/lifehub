@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
+import RelatedTools from "@/components/RelatedTools";
 import FaceReadingClient from "./FaceReadingClient";
 import { i18n, type Locale } from "./data";
 
@@ -92,6 +93,7 @@ export default async function FaceReadingPage({
 
         <footer className="mt-6 border-t pt-4 text-xs text-muted-foreground">{d.footer}</footer>
       </div>
+      <RelatedTools locale={locale} toolId="face-reading" />
     </>
   );
 }

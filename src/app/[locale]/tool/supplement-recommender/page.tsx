@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import SupplementRecommender from "@/components/supplement-recommender";
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
+import RelatedTools from "@/components/RelatedTools";
 
 type Locale = "ko" | "en" | "ja" | "es";
 
@@ -446,6 +447,7 @@ export default async function SupplementRecommenderPage({
 
       <p className="mt-8 text-sm text-muted-foreground">{d.footer}</p>
     </div>
+      <RelatedTools locale={locale} toolId="supplement-recommender" />
     </>
   );
 }

@@ -2,6 +2,7 @@ import { SITE_URL, pageAlternates } from "@/lib/seo";
 import FarCalculatorComponent from "./FarCalculatorComponentClient";
 import { i18nData, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
+import RelatedTools from "@/components/RelatedTools";
 
 export async function generateMetadata({
   params,
@@ -34,6 +35,7 @@ export default async function FarCalculatorPage({
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="far-calculator" />
       <FarCalculatorComponent initialLocale={locale as Locale} />
+      <RelatedTools locale={locale} toolId="far-calculator" />
     </>
   );
 }

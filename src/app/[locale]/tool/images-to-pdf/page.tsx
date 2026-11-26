@@ -2,6 +2,7 @@ import { SITE_URL, pageAlternates } from "@/lib/seo";
 import ImagesToPdf from "./ImagesToPdfClient";
 import { data, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
+import RelatedTools from "@/components/RelatedTools";
 
 export async function generateMetadata({
   params,
@@ -34,6 +35,7 @@ export default async function ImagesToPdfPage({
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="images-to-pdf" />
       <ImagesToPdf initialLocale={locale as Locale} />
+      <RelatedTools locale={locale} toolId="images-to-pdf" />
     </>
   );
 }

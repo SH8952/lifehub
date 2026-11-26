@@ -3,6 +3,7 @@ import { pageAlternates } from "@/lib/seo";
 import BalanceGameClient from "./BalanceGameClient";
 import { i18n, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
+import RelatedTools from "@/components/RelatedTools";
 
 export async function generateMetadata({
   params,
@@ -91,6 +92,7 @@ export default async function BalanceGamePage({
       <footer className="mt-6 border-t pt-4 text-xs text-gray-400">{d.footer}</footer>
 
     </div>
+      <RelatedTools locale={locale} toolId="balance-game" />
     </>
   );
 }

@@ -2,6 +2,7 @@ import { SITE_URL, pageAlternates } from "@/lib/seo";
 import TextStats from "./TextStatsClient";
 import { data, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
+import RelatedTools from "@/components/RelatedTools";
 
 export async function generateMetadata({
   params,
@@ -34,6 +35,7 @@ export default async function TextStatsPage({
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="text-stats" />
       <TextStats initialLocale={locale as Locale} />
+      <RelatedTools locale={locale} toolId="text-stats" />
     </>
   );
 }

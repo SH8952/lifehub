@@ -2,6 +2,7 @@ import { SITE_URL, pageAlternates } from "@/lib/seo";
 import PaintAmountCalculator from "./PaintAmountCalculatorClient";
 import { data, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
+import RelatedTools from "@/components/RelatedTools";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -22,6 +23,7 @@ export default async function PaintAmountCalculatorPage({ params }: { params: Pr
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="paint-amount-calculator" />
       <PaintAmountCalculator initialLocale={locale as Locale} />
+      <RelatedTools locale={locale} toolId="paint-amount-calculator" />
     </>
   );
 }

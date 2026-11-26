@@ -4,6 +4,7 @@ import { SITE_URL, pageAlternates } from "@/lib/seo";
 import JwtDecoderClient from "./JwtDecoderClient";
 import { i18n, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
+import RelatedTools from "@/components/RelatedTools";
 
 export async function generateMetadata({
   params,
@@ -102,6 +103,7 @@ export default async function JwtDecoderPage({
       <p className="mt-4 text-sm text-muted-foreground">{d.footer}</p>
 
     </div>
+      <RelatedTools locale={locale} toolId="jwt-decoder" />
     </>
   );
 }

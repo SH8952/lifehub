@@ -4,6 +4,7 @@ import { SITE_URL, pageAlternates } from "@/lib/seo";
 import SajuPoolClient from "./SajuPoolClient";
 import { type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
+import RelatedTools from "@/components/RelatedTools";
 
 interface FAQ {
   q: string;
@@ -287,6 +288,7 @@ export default async function SajuPoolPage({
       <p className="mt-4 text-sm text-muted-foreground">{d.footer}</p>
 
     </div>
+      <RelatedTools locale={locale} toolId="saju-pool" />
     </>
   );
 }
