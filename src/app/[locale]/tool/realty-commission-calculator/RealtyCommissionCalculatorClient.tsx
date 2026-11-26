@@ -34,7 +34,7 @@ export default function RealtyCommissionCalculator({ initialLocale }: { initialL
 
   const calculate = () => {
     const bands = dealType === "sale" ? SALE_BANDS : LEASE_BANDS;
-    const band = bands.find((b) => amount <= b.max) ?? bands[bands.length - 1];
+    const band = bands.find((b) => amount < b.max) ?? bands[bands.length - 1];
     const raw = amount * band.rate;
     const commission = Math.min(raw, band.cap);
     setResult({ rate: band.rate * 100, commission });

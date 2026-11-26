@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { data, type Locale } from "./data";
+import { longTermDeductionRate } from "./calc";
 
 const BASIC_DEDUCTION = 2_500_000;
 
@@ -34,11 +35,12 @@ export default function CapitalGainsTaxEstimator({ initialLocale }: { initialLoc
   const [expenses, setExpenses] = useState(10000000);
   const [holdingYears, setHoldingYears] = useState(5);
   const [oneHouse, setOneHouse] = useState(false);
+  const [residenceYears, setResidenceYears] = useState(5);
   const [result, setResult] = useState<{ gain: number; longTermDeduction: number; taxable: number; tax: number } | null>(null);
 
   const calculate = () => {
     const gain = Math.max(0, salePrice - acquisitionPrice - expenses);
-    const deductionRate = holdingYears < 3 ? 0 : oneHouse ? Math.min(0.8, holdingYears * 0.04) : Math.min(0.3, holdingYears * 0.02);
+    const deductionRate = longTermDeductionRate(holdingYears, oneHouse, residenceYears);
     const longTermDeduction = gain * deductionRate;
     const taxable = Math.max(0, gain - longTermDeduction - BASIC_DEDUCTION);
     const tax = calcTax(taxable);
@@ -98,6 +100,13 @@ export default function CapitalGainsTaxEstimator({ initialLocale }: { initialLoc
             <input type="checkbox" checked={oneHouse} onChange={(e) => setOneHouse(e.target.checked)} />
             {d.oneHouseLabel}
           </label>
+
+          {oneHouse && (
+            <div>
+              <label className="mb-1 block text-sm font-medium">{d.residenceYearsLabel}</label>
+              <input type="number" min={0} max={50} value={residenceYears} onChange={(e) => setResidenceYears(Number(e.target.value))} className="w-full rounded-md border px-2 py-1.5 text-sm" />
+            </div>
+          )}
 
           <button onClick={calculate} className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700">
             {d.calculateBtn}
