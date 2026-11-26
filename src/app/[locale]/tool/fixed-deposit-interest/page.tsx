@@ -4,6 +4,7 @@ import FixedDepositInterest from "@/components/fixed-deposit-interest";
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 import RelatedTools from "@/components/RelatedTools";
+import KoCommentary from "@/components/KoCommentary";
 
 type Locale = "ko" | "en" | "ja" | "es";
 
@@ -297,6 +298,7 @@ export default async function FixedDepositPage({
 
       <p className="mt-8 text-sm text-muted-foreground">{d.footer}</p>
     </div>
+      <KoCommentary locale={locale} toolId="fixed-deposit-interest" />
       <RelatedTools locale={locale} toolId="fixed-deposit-interest" />
     </>
   );

@@ -14,4 +14,9 @@ export const koCommentaryLoaders: Record<string, Loader> = {
   "deposit-rent-converter": () => import("./tools/deposit-rent-converter"),
   "car-loan-calculator": () => import("./tools/car-loan-calculator"),
   "dti-calculator": () => import("./tools/dti-calculator"),
+  "year-end-tax-refund-estimator": () => import("./tools/year-end-tax-refund-estimator"),
+  "realty-commission-calculator": () => import("./tools/realty-commission-calculator"),
+  "capital-gains-tax-estimator": () => import("./tools/capital-gains-tax-estimator"),
+  "gift-tax-estimator": () => import("./tools/gift-tax-estimator"),
+  "fixed-deposit-interest": () => import("./tools/fixed-deposit-interest"),
 };

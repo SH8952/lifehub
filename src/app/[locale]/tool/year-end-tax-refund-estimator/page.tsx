@@ -3,6 +3,7 @@ import YearEndTaxRefundEstimator from "./YearEndTaxRefundEstimatorClient";
 import { data, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 import RelatedTools from "@/components/RelatedTools";
+import KoCommentary from "@/components/KoCommentary";
 
 export async function generateMetadata({
   params,
@@ -36,6 +37,7 @@ export default async function YearEndTaxRefundEstimatorPage({
       <ToolBreadcrumbJsonLd locale={locale} toolId="year-end-tax-refund-estimator" />
       <YearEndTaxRefundEstimator initialLocale={locale as Locale} />
       <RelatedTools locale={locale} toolId="year-end-tax-refund-estimator" />
+      <KoCommentary locale={locale} toolId="year-end-tax-refund-estimator" />
     </>
   );
 }
