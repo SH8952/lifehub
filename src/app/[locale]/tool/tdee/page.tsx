@@ -3,6 +3,7 @@ import TdeeCalculator from "./TdeeCalculatorClient";
 import { i18nData, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 import RelatedTools from "@/components/RelatedTools";
+import KoCommentary from "@/components/KoCommentary";
 
 export async function generateMetadata({
   params,
@@ -35,6 +36,7 @@ export default async function TdeePage({
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="tdee" />
       <TdeeCalculator initialLocale={locale as Locale} />
+      <KoCommentary locale={locale} toolId="tdee" />
       <RelatedTools locale={locale} toolId="tdee" />
     </>
   );

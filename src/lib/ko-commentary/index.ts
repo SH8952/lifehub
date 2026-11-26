@@ -19,4 +19,8 @@ export const koCommentaryLoaders: Record<string, Loader> = {
   "capital-gains-tax-estimator": () => import("./tools/capital-gains-tax-estimator"),
   "gift-tax-estimator": () => import("./tools/gift-tax-estimator"),
   "fixed-deposit-interest": () => import("./tools/fixed-deposit-interest"),
+  "age-calculator": () => import("./tools/age-calculator"),
+  "bmi": () => import("./tools/bmi"),
+  "bmr-calculator": () => import("./tools/bmr-calculator"),
+  "tdee": () => import("./tools/tdee"),
 };

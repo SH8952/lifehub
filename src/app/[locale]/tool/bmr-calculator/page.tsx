@@ -3,6 +3,7 @@ import BmrCalculator from "./BmrCalculatorClient";
 import { i18nData, type Locale } from "./data";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 import RelatedTools from "@/components/RelatedTools";
+import KoCommentary from "@/components/KoCommentary";
 
 export async function generateMetadata({
   params,
@@ -35,6 +36,7 @@ export default async function BmrCalculatorPage({
     <>
       <ToolBreadcrumbJsonLd locale={locale} toolId="bmr-calculator" />
       <BmrCalculator initialLocale={locale as Locale} />
+      <KoCommentary locale={locale} toolId="bmr-calculator" />
       <RelatedTools locale={locale} toolId="bmr-calculator" />
     </>
   );

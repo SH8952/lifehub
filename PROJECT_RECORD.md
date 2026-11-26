@@ -334,6 +334,17 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 
 모든 변경 사항은 한국어로 기록합니다.
 
+## 2026-11-26 (7) — 한국어 오가닉 트래픽 준비 ② 한국어 해설 보강 1차 · 묶음 4(생활·건강 4개)
+
+- 범위: 나이(만 나이) 계산기, BMI 계산기, 기초대사량 계산기, 활동대사량(TDEE) 계산기 4개(ko 전용, en·ja·es 변경 없음). 인프라·연결 방식은 이전 묶음과 동일.
+- 내용 원칙: 예시 숫자는 각 도구의 계산 로직으로 산출(미플린-세인트 지어 식, BMI 구간 18.5/23/25, 활동 계수 5단계). 나이 예시는 날짜 의존 도구라 "2026년 11월 26일에 계산하면"으로 날짜를 명시. 건강 관련 항목은 식사량·체중 목표를 권하지 않고 "참고값, 전문가 상담" 안내만 포함.
+- 사실 확인: 만 나이 통일(민법·행정기본법 개정, 2023.6.28 시행)을 법무부 안내로 확인, 병역 등 일부 제도는 예외라는 점만 일반 표현으로 반영. BMI 구간·공식은 도구 로직 그대로 서술하고 외부 의학 수치는 추가하지 않음.
+- 발견(코드 변경 없음, 참고): ① 기초대사량·TDEE 계산기는 입력 범위(나이 10~120, 키 50~300, 몸무게 10~500)를 벗어나면 안내 없이 결과가 비어 나옴(해설에 범위 명시). ② BMI 계산기는 25 이상을 모두 "비만"으로만 표시(단계 구분 없음, 해설에 명시). ③ 나이 계산기는 접속 시점 날짜 기준이며 띠는 양력 출생 연도 기준.
+- 검증: `tsc --noEmit`·eslint 통과. 격리 복사본 `next dev --webpack`에서 4개 ko 페이지 h1 1개, 도구별 h2 구성 모두 다름, en 페이지에 해설 블록 없음 확인.
+- 변경 파일: 신규 `src/lib/ko-commentary/tools/{age-calculator,bmi,bmr-calculator,tdee}.ts`, 수정 `src/lib/ko-commentary/index.ts`, 도구 `page.tsx` 4개, `PROJECT_RECORD.md`.
+- 백업: `_backups/ko-commentary-batch4_144719`. 롤백: `git revert <이번 커밋>`.
+- 상태: 푸시 대기.
+
 ## 2026-11-26 (6) — 계산기 3종 정확도 수정 (묶음 2·3 작업 중 발견한 문제, 사용자 승인)
 
 - 배경: 해설 작성 중 발견해 보고한 문제 3건을 사용자 승인 후 수정. 수정 전 백업 `_backups/tool-fixes-1126b_143956`.
@@ -343,7 +354,7 @@ freeimgfix.com의 생활/건강 카테고리 화면을 참고해 정리한 목�
 - 해설 갱신: 양도세·중개보수·보증금월세 해설의 예시 숫자와 주의 항목을 새 로직에 맞춰 수정. 양도세 예: 보유 5년·거주 5년 1주택 세액 45,230,000원, 거주 2년이면 58,454,000원, 보유 10년·거주 10년 7,560,000원.
 - 검증: `calc.ts` 17개 경계 케이스 단독 검증 통과(보유 2/3/5/10/15/30년, 거주 0/1/2/3/5/7/10년, NaN 포함), `tsc --noEmit`·eslint 통과, 격리 dev 서버에서 3개 도구 4개 언어 페이지 200·h1 1개·기본값 5 렌더 확인. 브라우저 클릭 테스트는 이 환경에서 불가해 로컬 `start-dev` 화면 확인 권장(양도세에서 1세대 1주택 체크 → 거주 기간 칸 표시).
 - 변경 파일: 수정 `capital-gains-tax-estimator/{CapitalGainsTaxEstimatorClient.tsx,data.ts}`, 신규 `capital-gains-tax-estimator/calc.ts`, `realty-commission-calculator/RealtyCommissionCalculatorClient.tsx`, `deposit-rent-converter/{DepositRentConverterClient.tsx,data.ts}`, 해설 `ko-commentary/tools/{capital-gains-tax-estimator,realty-commission-calculator,deposit-rent-converter}.ts`, `PROJECT_RECORD.md`. 롤백: `git revert <이번 커밋>`.
-- 상태: 푸시 대기.
+- 상태: 푸시 완료(커밋 c9d38f5), Vercel 프로덕션 배포 READY. 실사이트(lifehub-weld.vercel.app)에서 전환율 기본값 5%·설명문 정정(ko·en), 양도세 해설·FAQ 갱신, 중개보수 해설 갱신 확인.
 
 ## 2026-11-26 (5) — 한국어 오가닉 트래픽 준비 ② 한국어 해설 보강 1차 · 묶음 3(세금·부동산·예금 5개)
 

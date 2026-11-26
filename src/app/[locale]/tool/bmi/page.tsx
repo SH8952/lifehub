@@ -4,6 +4,7 @@ import BMICalculator from "@/components/bmi-calculator";
 import { SITE_URL, pageAlternates } from "@/lib/seo";
 import ToolBreadcrumbJsonLd from "@/components/ToolBreadcrumbJsonLd";
 import RelatedTools from "@/components/RelatedTools";
+import KoCommentary from "@/components/KoCommentary";
 
 type Locale = "ko" | "en" | "ja" | "es";
 
@@ -255,6 +256,7 @@ export default async function BMIPage({
 
       <p className="mt-8 text-sm text-muted-foreground">{d.footer}</p>
     </div>
+      <KoCommentary locale={locale} toolId="bmi" />
       <RelatedTools locale={locale} toolId="bmi" />
     </>
   );
