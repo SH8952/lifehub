@@ -37,6 +37,8 @@ export interface I18nData {
   generate: string;
   result: string;
   download: string;
+  errTooLong: string;
+  errFailed: string;
   whyQr: string;
   qrExplanation: string;
   disclaimer: string;
@@ -78,6 +80,8 @@ const i18nData: Record<Locale, I18nData> = {
     generate: "QR코드 생성",
     result: "생성된 QR코드",
     download: "PNG 다운로드",
+    errTooLong: "입력한 내용이 너무 길어 QR코드에 담을 수 없습니다. 내용을 줄이거나 오류 정정 수준을 낮춰(H → L) 다시 시도해 주세요.",
+    errFailed: "QR코드를 만들지 못했습니다. 입력한 내용을 확인한 뒤 다시 시도해 주세요.",
     whyQr: "QR코드는 어떻게 만들어지나요?",
     qrExplanation: "QR코드는 입력한 정보를 특정 형식의 텍스트로 변환한 뒤, 이를 격자 모양의 패턴으로 인코딩합니다. 예를 들어 Wi-Fi 정보는 'WIFI:T:암호화방식;S:이름;P:비밀번호;;' 형식으로, 연락처는 표준 vCard 형식으로 인코딩됩니다.\n\n오류 정정 수준(L/M/Q/H)이 높을수록 QR코드 일부가 손상되거나 가려져도 인식할 수 있는 능력이 커지지만, 대신 QR코드의 패턴이 더 복잡해집니다.",
     disclaimer: "생성된 QR코드는 브라우저에서만 처리되며 서버로 전송되지 않습니다. Wi-Fi 비밀번호 등 민감한 정보가 담긴 QR코드는 신뢰할 수 있는 사람에게만 공유하세요.",
@@ -121,6 +125,8 @@ const i18nData: Record<Locale, I18nData> = {
     generate: "Generate QR Code",
     result: "Generated QR Code",
     download: "Download PNG",
+    errTooLong: "The content is too long to fit in a QR code. Shorten it or lower the error correction level (H → L) and try again.",
+    errFailed: "Could not generate the QR code. Please check your input and try again.",
     whyQr: "How are QR codes created?",
     qrExplanation: "A QR code converts your input into a specifically formatted text string, then encodes it as a grid pattern. For example, Wi-Fi info is encoded as 'WIFI:T:encryption;S:name;P:password;;', and contacts are encoded in the standard vCard format.\n\nA higher error correction level (L/M/Q/H) allows the QR code to remain readable even if part of it is damaged or obscured, but makes the pattern more complex.",
     disclaimer: "The generated QR code is processed entirely in your browser and never sent to a server. Share QR codes containing sensitive information (like a Wi-Fi password) only with people you trust.",
@@ -164,6 +170,8 @@ const i18nData: Record<Locale, I18nData> = {
     generate: "QRコード生成",
     result: "生成されたQRコード",
     download: "PNGダウンロード",
+    errTooLong: "入力内容が長すぎてQRコードに収まりません。内容を短くするか、誤り訂正レベルを下げて（H → L）もう一度お試しください。",
+    errFailed: "QRコードを生成できませんでした。入力内容を確認してもう一度お試しください。",
     whyQr: "QRコードはどのように作られますか？",
     qrExplanation: "QRコードは入力した情報を特定の形式のテキストに変換した後、格子状のパターンにエンコードします。例えばWi-Fi情報は「WIFI:T:暗号化方式;S:名前;P:パスワード;;」形式で、連絡先は標準vCard形式でエンコードされます。\n\n誤り訂正レベル（L/M/Q/H）が高いほど、QRコードの一部が損傷したり隠れたりしても読み取れる能力が高まりますが、パターンがより複雑になります。",
     disclaimer: "生成されたQRコードはブラウザ内でのみ処理され、サーバーに送信されません。Wi-Fiパスワードなどの機密情報を含むQRコードは、信頼できる人にのみ共有してください。",
@@ -207,6 +215,8 @@ const i18nData: Record<Locale, I18nData> = {
     generate: "Generar Código QR",
     result: "Código QR Generado",
     download: "Descargar PNG",
+    errTooLong: "El contenido es demasiado largo para un código QR. Acórtalo o reduce el nivel de corrección de errores (H → L) e inténtalo de nuevo.",
+    errFailed: "No se pudo generar el código QR. Revisa los datos e inténtalo de nuevo.",
     whyQr: "¿Cómo se crean los códigos QR?",
     qrExplanation: "Un código QR convierte tu entrada en una cadena de texto con un formato específico y luego la codifica como un patrón de cuadrícula. Por ejemplo, la información de Wi-Fi se codifica como 'WIFI:T:encriptación;S:nombre;P:contraseña;;', y los contactos se codifican en el formato estándar vCard.\n\nUn nivel de corrección de errores más alto (L/M/Q/H) permite que el código QR siga siendo legible incluso si parte de él está dañado u oculto, pero hace que el patrón sea más complejo.",
     disclaimer: "El código QR generado se procesa completamente en tu navegador y nunca se envía a un servidor. Comparte códigos QR con información sensible (como una contraseña de Wi-Fi) solo con personas de confianza.",

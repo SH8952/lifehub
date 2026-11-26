@@ -9,30 +9,44 @@ const NUMBERS = "0123456789";
 const SYMBOLS = "!@#$%^&*()_+-=[]{}|;:,.<>?";
 const SIMILAR_CHARS = new Set(["0", "O", "1", "l", "I", "o"]);
 
-function buildCharset(opts: { upper: boolean; lower: boolean; numbers: boolean; symbols: boolean; excludeSimilar: boolean }): string {
-  let charset = "";
-  if (opts.upper) charset += UPPERCASE;
-  if (opts.lower) charset += LOWERCASE;
-  if (opts.numbers) charset += NUMBERS;
-  if (opts.symbols) charset += SYMBOLS;
-  if (opts.excludeSimilar) {
-    charset = charset
-      .split("")
-      .filter((c) => !SIMILAR_CHARS.has(c))
-      .join("");
-  }
-  return charset;
+type CharOpts = { upper: boolean; lower: boolean; numbers: boolean; symbols: boolean; excludeSimilar: boolean };
+
+// 선택한 문자 종류별 풀(유사 문자 제외 옵션 반영)
+function buildPools(opts: CharOpts): string[] {
+  const pools: string[] = [];
+  if (opts.upper) pools.push(UPPERCASE);
+  if (opts.lower) pools.push(LOWERCASE);
+  if (opts.numbers) pools.push(NUMBERS);
+  if (opts.symbols) pools.push(SYMBOLS);
+  return pools
+    .map((p) => (opts.excludeSimilar ? p.split("").filter((c) => !SIMILAR_CHARS.has(c)).join("") : p))
+    .filter((p) => p.length > 0);
 }
 
-function generatePassword(length: number, charset: string): string {
-  if (charset.length === 0) return "";
-  const randomValues = new Uint32Array(length);
-  crypto.getRandomValues(randomValues);
-  let result = "";
-  for (let i = 0; i < length; i++) {
-    result += charset[randomValues[i] % charset.length];
+// 0 이상 max 미만의 균등한 난수(모듈로 편향 제거)
+function randomInt(max: number): number {
+  const limit = Math.floor(0x100000000 / max) * max;
+  const buf = new Uint32Array(1);
+  do {
+    crypto.getRandomValues(buf);
+  } while (buf[0] >= limit);
+  return buf[0] % max;
+}
+
+// 선택한 종류마다 최소 1자를 넣고, 나머지는 전체 풀에서 뽑은 뒤 섞습니다.
+function generatePassword(length: number, pools: string[]): string {
+  if (pools.length === 0) return "";
+  const all = pools.join("");
+  const chars: string[] = [];
+  for (const pool of pools) {
+    if (chars.length < length) chars.push(pool[randomInt(pool.length)]);
   }
-  return result;
+  while (chars.length < length) chars.push(all[randomInt(all.length)]);
+  for (let i = chars.length - 1; i > 0; i--) {
+    const j = randomInt(i + 1);
+    [chars[i], chars[j]] = [chars[j], chars[i]];
+  }
+  return chars.join("");
 }
 
 export default function PasswordGeneratorClient({ initialLocale }: { initialLocale: Locale }) {
@@ -52,14 +66,14 @@ export default function PasswordGeneratorClient({ initialLocale }: { initialLoca
 
   function handleGenerate() {
     const n = Math.max(1, Math.min(100, Math.round(parseFloat(count)) || 1));
-    const charset = buildCharset({ upper, lower, numbers, symbols, excludeSimilar });
-    if (!charset) {
+    const pools = buildPools({ upper, lower, numbers, symbols, excludeSimilar });
+    if (pools.length === 0) {
       setPasswords([]);
       return;
     }
     const results: string[] = [];
     for (let i = 0; i < n; i++) {
-      results.push(generatePassword(length, charset));
+      results.push(generatePassword(length, pools));
     }
     setPasswords(results);
     setCopiedIndex(null);

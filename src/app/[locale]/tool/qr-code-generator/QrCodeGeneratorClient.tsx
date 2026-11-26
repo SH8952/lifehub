@@ -8,6 +8,12 @@ type ContentType = "url" | "text" | "wifi" | "vcard" | "phone" | "sms";
 type Encryption = "WPA" | "WEP" | "nopass";
 type ErrorLevel = "L" | "M" | "Q" | "H";
 
+// Wi-Fi QR 규격: \ ; , : " 는 앞에 \ 를 붙이고, 16진수 문자만으로 된 값은 큰따옴표로 감쌉니다.
+function escapeWifi(v: string): string {
+  const esc = v.replace(/([\\;,:"])/g, "\\$1");
+  return /^[0-9a-fA-F]+$/.test(v) ? `"${esc}"` : esc;
+}
+
 export default function QrCodeGeneratorClient({ initialLocale }: { initialLocale: Locale }) {
   const locale: Locale = initialLocale;
   const d = i18n(locale);
@@ -31,6 +37,7 @@ export default function QrCodeGeneratorClient({ initialLocale }: { initialLocale
   const [errorLevel, setErrorLevel] = useState<ErrorLevel>("M");
 
   const [dataUrl, setDataUrl] = useState<string | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   function buildContent(): string {
@@ -40,7 +47,7 @@ export default function QrCodeGeneratorClient({ initialLocale }: { initialLocale
       case "text":
         return textValue;
       case "wifi":
-        return `WIFI:T:${wifiEncryption};S:${wifiSsid};P:${wifiEncryption === "nopass" ? "" : wifiPassword};;`;
+        return `WIFI:T:${wifiEncryption};S:${escapeWifi(wifiSsid)};P:${wifiEncryption === "nopass" ? "" : escapeWifi(wifiPassword)};;`;
       case "vcard":
         return `BEGIN:VCARD\nVERSION:3.0\nFN:${vcardName}\nTEL:${vcardPhone}\nEMAIL:${vcardEmail}\nEND:VCARD`;
       case "phone":
@@ -54,6 +61,7 @@ export default function QrCodeGeneratorClient({ initialLocale }: { initialLocale
 
   async function handleGenerate() {
     const content = buildContent();
+    setErrorMsg(null);
     if (!content.trim()) {
       setDataUrl(null);
       return;
@@ -67,8 +75,10 @@ export default function QrCodeGeneratorClient({ initialLocale }: { initialLocale
         errorCorrectionLevel: errorLevel,
       });
       setDataUrl(canvas.toDataURL("image/png"));
-    } catch {
+    } catch (e) {
       setDataUrl(null);
+      const m = e instanceof Error ? e.message : "";
+      setErrorMsg(/too big|too long|capacity|exceed/i.test(m) ? d.errTooLong : d.errFailed);
     }
   }
 
@@ -297,6 +307,11 @@ export default function QrCodeGeneratorClient({ initialLocale }: { initialLocale
         <div className="mt-6">
           <h3 className="mb-2 text-sm font-semibold text-gray-700">{d.result}</h3>
           <div className="flex flex-col items-center gap-3 rounded-lg bg-gray-50 p-4">
+            {errorMsg && (
+              <p role="alert" className="text-sm text-red-600">
+                {errorMsg}
+              </p>
+            )}
             <canvas ref={canvasRef} className={dataUrl ? "" : "hidden"} />
             {dataUrl && (
               <button
